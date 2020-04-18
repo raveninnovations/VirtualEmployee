@@ -9,16 +9,16 @@
 
             <!-- logo -->
             <div class="logo uk-visible@s">
-                <a href="dashboard.html" class="logo">
-                            <img src="../assets/images/VES.png" alt="">
+                <a href="{% url 'dashboard' %}" class="logo">
+                            <img src="{% static 'images/Admin/VES.png' %}" alt="">
 
                         </a>
 
             </div>
             <div class="page-menu-inner" data-simplebar>
                 <ul class="mt-0">
-                    <li><a href="dashboard.html"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
-                    <li><a href="courses.html"><i class="uil-youtube-alt"></i> <span> Courses</span></a> </li>
+                    <li><a href="{% url 'dashboard' %}"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
+                    <li><a href="{% url 'courses' %}"><i class="uil-youtube-alt"></i> <span> Courses</span></a> </li>
                     <li><a href="messages.html"><i class="uil-envelope-alt"></i> <span> Message</span></a> </li>
                     <li><a href="students.html"><i class="uil-users-alt"></i> <span> students</span></a> </li>
                     <li><a href="instructures.html"><i class="uil-graduation-hat"></i> <span> Instructers</span></a>
@@ -298,7 +298,7 @@
 
                                 <ul class="dropdown-user-menu">
                                     <li>
-                                        <a href="#">
+                                        <a href="{% url 'dashboard' %}">
                                             <i class="icon-material-outline-dashboard"></i> Dashboard</a>
                                     </li>
 
@@ -314,12 +314,14 @@
                                             </span>
                                         </a>
                                     </li>
+                                    {% if user.is_authenticated %}
                                     <ul class="menu-divider">
 
-                                        <li><a href="page-login.html">
-                                                <i class="icon-feather-log-out"></i> Sing Out</a>
+                                        <li><a href="{% url 'logout' %}">
+                                                <i class="icon-feather-log-out"></i> Log Out</a>
                                         </li>
                                     </ul>
+                                    {% endif %}
 
                                 </ul>
                             </div>

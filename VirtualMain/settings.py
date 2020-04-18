@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'Admin',
     'Employee',
 ]
@@ -116,7 +117,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGOUT_REDIRECT_URL = 'index'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
@@ -126,3 +127,9 @@ STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'VirtualMain/static')
 
 ]
+
+
+# LOGIN REDIRECT
+
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGIN_URL = 'login'
