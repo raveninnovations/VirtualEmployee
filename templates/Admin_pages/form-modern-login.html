@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block content %}{% load static %}
+    <!-- Content
+    ================================================== -->
+    <div uk-height-viewport class="uk-flex uk-flex-middle">
+        <div class="uk-width-2-3@m uk-width-1-2@s m-auto rounded">
+            <div class="uk-child-width-1-2@m uk-grid-collapse bg-gradient-grey" uk-grid>
+
+                <!-- column one -->
+                <div class="uk-margin-auto-vertical uk-text-center uk-animation-scale-up p-3 uk-light">
+                    <div class="logo uk-visible@s">
+
+                            <img src="{% static 'images/Admin/VES.png' %}" alt="">
+
+            </div>
+                    
+                    
+                </div>
+
+                <!-- column two -->
+                <div class="uk-card-default p-5 rounded">{% include 'partials/_alerts.html' %}
+                    <div class="mb-4 uk-text-center">
+                        <h3 class="mb-0"> Welcome back</h3>
+                        <p class="my-2">Login to manage Admin area.</p>
+                    </div>
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="uk-form-group">
+                            <label class="uk-form-label"> Email</label>
+
+                            <div class="uk-position-relative w-100">
+                                <span class="uk-form-icon">
+                                    <i class="icon-feather-mail"></i>
+                                </span>
+                                <input class="uk-input" name="name" type="email" placeholder="name@example.com">
+                            </div>
+
+                        </div>
+
+                        <div class="uk-form-group">
+                            <label class="uk-form-label"> Password</label>
+
+                            <div class="uk-position-relative w-100">
+                                <span class="uk-form-icon">
+                                    <i class="icon-feather-lock"></i>
+                                </span>
+                                <input class="uk-input" name="pass" type="password" placeholder="********">
+                            </div>
+
+                        </div>
+
+                       
+
+                        <div class="mt-4 uk-flex-middle uk-grid-small" uk-grid>
+                            
+                            <div class="uk-width-auto@s">
+                                <button type="submit" class="btn btn-default">Login</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div><!--  End column two -->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -End
+    ================================================== -->
+
+
+    <!-- For Night mode -->
+    <script>
+        (function (window, document, undefined) {
+            'use strict';
+            if (!('localStorage' in window)) return;
+            var nightMode = localStorage.getItem('gmtNightMode');
+            if (nightMode) {
+                document.documentElement.className += ' night-mode';
+            }
+        })(window, document);
+
+
+        (function (window, document, undefined) {
+
+            'use strict';
+
+            // Feature test
+            if (!('localStorage' in window)) return;
+
+            // Get our newly insert toggle
+            var nightMode = document.querySelector('#night-mode');
+            if (!nightMode) return;
+
+            // When clicked, toggle night mode on or off
+            nightMode.addEventListener('click', function (event) {
+                event.preventDefault();
+                document.documentElement.classList.toggle('night-mode');
+                if (document.documentElement.classList.contains('night-mode')) {
+                    localStorage.setItem('gmtNightMode', true);
+                    return;
+                }
+                localStorage.removeItem('gmtNightMode');
+            }, false);
+
+        })(window, document);
+    </script>
+
+{% endblock %}
