@@ -1,27 +1,34 @@
 import re
 from django.contrib import messages
 from email_validator import validate_email, EmailNotValidError
-
+from django.contrib.auth import login,logout,authenticate
 from django.shortcuts import render,redirect
-from .models import register
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from .forms import (AddUserForm)
+from .models import UserDetails
 # Create your views here.
 
-def Register(request):
 
-    if request.method == 'POST':
-        name = request.POST['name']
+def adduser(request):
+    form = AddUserForm
+    if request.method =='POST':
+        firstname = request.POST['name']
+        lastname = request.POST['name']
+        userphone = request.POST['user_phone']
         email = request.POST['email']
+        username = request.POST['email']
         password = request.POST['password1']
         conform = request.POST['password2']
         regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
-        if register.objects.filter(email=email).exists():
+        if User.objects.filter(email=email).exists():
             messages.error(request, 'That email is being used')
             return redirect('register')
-        if name.isdigit():
-            messages.error(request, 'name cannot have numbers')
+        if firstname.isdigit():
+            messages.error(request, 'Name cannot have numbers')
             return redirect('register')
-        if regex.search(name):
-            messages.error(request, 'name cannot have special characters')
+        if regex.search(firstname):
+            messages.error(request, 'Name cannot have special characters')
             return redirect('register')
         try:
             v = validate_email(email)
@@ -29,15 +36,43 @@ def Register(request):
         except EmailNotValidError as e:
             messages.error(request, 'Invalid Email ID')
             return redirect('register')
-        try:
-            if password == conform:
-                data = register(name=name,email=email,password=password)
-                data.save()
-        except:
-            usr = register.objects.get(email=email)
-            usr.delete()
-            messages.error(request,"some error occured")
+        if password != conform:
+            messages.error(request,'Password mismatch')
             return redirect('register')
-        messages.success(request,"User added successfully")
 
-    return render(request,'virtualmain_pages/form-register.html')
+        try:
+            User.objects.create_user(username=username,email=email,first_name=firstname,last_name=lastname,password=password)
+            u_id = User.objects.get(username=username)
+            addusr = UserDetails(user_id=u_id,user_pass=password,user_phone=userphone)
+            addusr.save()
+
+        except:
+            usr = User.objects.get(username=email)
+            usr.delete()
+            messages.error(request, 'Some error occured !')
+            return redirect('register')
+        messages.success(request, 'User Added!')
+        return redirect('register')
+    context ={
+        'form':form
+    }
+    return render(request,'virtualmain_pages/registermain.html',context)
+
+def userlogin(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+
+        user = authenticate(username=email, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request,'Successfully loggedin')
+            return redirect('login')
+        else:
+            messages.error(request,'Fail')
+            return redirect('login')
+
+    return render(request,'virtualmain_pages/login.html')
+
+def userdashboard(request):
+    return render(request,'virtualmain_pages/dashboard.html')

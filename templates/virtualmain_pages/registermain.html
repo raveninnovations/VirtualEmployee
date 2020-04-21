@@ -1,0 +1,165 @@
+{% extends 'base.html' %} {% load crispy_forms_tags %}
+
+{% block content %}
+    {% load static %}
+    <style>
+    .control-label{
+        display: none;
+    }
+    </style>
+
+    <!-- Content
+    ================================================== -->
+    <div uk-height-viewport class="uk-flex uk-flex-middle">
+        <div class="uk-width-2-3@m uk-width-1-2@s m-auto rounded">
+            <div class="uk-child-width-1-2@m uk-grid-collapse bg-gradient-grey" uk-grid>
+
+                <!-- column one -->
+                <!-- column one -->
+                <div class="uk-margin-auto-vertical uk-text-center uk-animation-scale-up p-3 uk-light">
+                    <div class="logo uk-visible@s">
+                <a href="#" class="logo">
+                           <img src="{% static 'images/Admin/VES.png' %}" alt="">
+                            </a>
+
+            </div>
+
+
+                </div>
+
+                <!-- column two -->
+                    <div class="uk-card-default p-5 rounded">
+                        <div class="mb-4 uk-text-center">{% include 'partials/_alerts.html' %}
+                            <h3 class="mb-0"> Create new Account</h3>
+                            <p class="my-2">Login to manage your account.</p>
+                        </div>
+
+                    <form class="uk-child-width-1-1 uk-grid-small" uk-grid method="post">{% csrf_token %}
+
+                        <div>
+                            <div class="uk-form-group">
+                                <label class="uk-form-label"> Name</label>
+                                <div class="uk-position-relative w-100">
+                                    <span class="uk-form-icon">
+                                        <i class="icon-feather-user"></i>
+                                    </span>
+                                    <input class="uk-input" type="text" name="name" placeholder="Full name">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="uk-form-group">
+                                <label class="uk-form-label"> Email</label>
+
+                                <div class="uk-position-relative w-100">
+                                    <span class="uk-form-icon">
+                                        <i class="icon-feather-mail"></i>
+                                    </span>
+                                    <input class="uk-input" type="email" name="email" placeholder="name@example.com">
+                                </div>
+
+                            </div>
+                        </div>
+
+                         <div>
+                            <div class="uk-form-group">
+                                <label class="uk-form-label"> Contact</label>
+
+                                <div class="uk-position-relative w-100">
+
+                                    {{ form|crispy }}
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="uk-width-1-2@s">
+                            <div class="uk-form-group">
+                                <label class="uk-form-label"> Password</label>
+
+                                <div class="uk-position-relative w-100">
+                                    <span class="uk-form-icon">
+                                        <i class="icon-feather-lock"></i>
+                                    </span>
+                                    <input class="uk-input" type="password" name="password1" placeholder="********">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="uk-width-1-2@s">
+                            <div class="uk-form-group">
+                                <label class="uk-form-label"> Confirm password</label>
+
+                                <div class="uk-position-relative w-100">
+                                    <span class="uk-form-icon">
+                                        <i class="icon-feather-lock"></i>
+                                    </span>
+                                    <input class="uk-input" type="password" name="password2" placeholder="********">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="mt-4 uk-flex-middle uk-grid-small" uk-grid>
+                                <div class="uk-width-expand@s">
+                                    <p> Have VE account <a href="#">Login</a></p>
+                                </div>
+                                <div class="uk-width-auto@s">
+                                    <button = "submit" class="btn btn-default">Get Started</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div><!--  End column two -->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -End
+    ================================================== -->
+
+
+    <!-- For Night mode -->
+    <script>
+    document.getElementsByClassName(control-label).style.display = "none";
+    </script>
+    <script>
+        (function (window, document, undefined) {
+            'use strict';
+            if (!('localStorage' in window)) return;
+            var nightMode = localStorage.getItem('gmtNightMode');
+            if (nightMode) {
+                document.documentElement.className += ' night-mode';
+            }
+        })(window, document);
+
+
+        (function (window, document, undefined) {
+
+            'use strict';
+
+            // Feature test
+            if (!('localStorage' in window)) return;
+
+            // Get our newly insert toggle
+            var nightMode = document.querySelector('#night-mode');
+            if (!nightMode) return;
+
+            // When clicked, toggle night mode on or off
+            nightMode.addEventListener('click', function (event) {
+                event.preventDefault();
+                document.documentElement.classList.toggle('night-mode');
+                if (document.documentElement.classList.contains('night-mode')) {
+                    localStorage.setItem('gmtNightMode', true);
+                    return;
+                }
+                localStorage.removeItem('gmtNightMode');
+            }, false);
+
+        })(window, document);
+    </script>
+
+{% endblock %}
