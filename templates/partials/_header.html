@@ -9,7 +9,7 @@
 
             <!-- logo -->
             <div class="logo uk-visible@s">
-                <a href="{% url 'dashboard' %}" class="logo">
+                <a href="{% url 'admindashboard' %}" class="logo">
                             <img src="{% static 'images/Admin/VES.png' %}" alt="">
 
                         </a>
@@ -17,8 +17,8 @@
             </div>
             <div class="page-menu-inner" data-simplebar>
                 <ul class="mt-0">
-                    <li><a href="{% url 'dashboard' %}"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
-                    <li><a href="{% url 'courses' %}"><i class="uil-youtube-alt"></i> <span> Courses</span></a> </li>
+                    <li><a href="{% url 'admindashboard' %}"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
+                    <li><a href="#"><i class="uil-youtube-alt"></i> <span> Courses</span></a> </li>
                     <li><a href="messages.html"><i class="uil-envelope-alt"></i> <span> Message</span></a> </li>
                     <li><a href="students.html"><i class="uil-users-alt"></i> <span> students</span></a> </li>
                     <li><a href="instructures.html"><i class="uil-graduation-hat"></i> <span> Instructers</span></a>
@@ -283,10 +283,11 @@
                                 </div>
                                 {% if user.is_authenticated %}
                                     {% if user.is_staff %}
-                                  {% else %}
-                                <div class="dropdown-user-name">
+                                        <div class="dropdown-user-name">
                                     {{ user.username }}<span>Adminstrator</span>
                                 </div>
+                                  {% else %}
+
                                         {% endif %}
                                 {% endif %}
                             </div>

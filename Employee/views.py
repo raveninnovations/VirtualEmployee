@@ -2,12 +2,19 @@ import re
 from django.contrib import messages
 from email_validator import validate_email, EmailNotValidError
 from django.contrib.auth import login,logout,authenticate
+from django.contrib import auth
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+
 from .forms import (AddUserForm)
 from .models import UserDetails
 # Create your views here.
+
+
+def adminDashboard(request):
+    return render(request,"Admin_pages/dashboard.html")
+
 
 
 def adduser(request):
@@ -64,8 +71,12 @@ def userlogin(request):
         password = request.POST['password']
 
         user = authenticate(username=email, password=password)
+
         if user is not None:
             login(request, user)
+            if request.user.is_staff:
+                print('Welcome admin')
+                return redirect(adminDashboard)
             messages.success(request,'Successfully loggedin')
             return redirect('login')
         else:
@@ -74,5 +85,10 @@ def userlogin(request):
 
     return render(request,'virtualmain_pages/login.html')
 
+def logout(request):
+    auth.logout(request)
+    return render(request,'Admin_pages/logout.html')
+
+@login_required
 def userdashboard(request):
     return render(request,'virtualmain_pages/dashboard.html')

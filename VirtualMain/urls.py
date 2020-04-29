@@ -20,9 +20,9 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
-    path('', include('Admin.urls')),
+    # path('', include('Admin.urls')),
     path('', include('Employee.urls')),
-    path('login/', admin.site.urls),
+    path('admin_log/', admin.site.urls),
 
 ]
 urlpatterns += staticfiles_urlpatterns()
