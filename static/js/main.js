@@ -123,6 +123,35 @@
 
 		// ------------------ End Document ------------------ //
 	});
+	
+	
+	/* add course start hari */
+	
+	
+	
+	
+		$('.add_lesson_btn').on('click', function () {
+			var clone_lesson_div_html	=	$('.clone_lesson_div').html();
+			$('.lesson_block .c-curriculum').first().after(clone_lesson_div_html);			
+			return false;
+		});
+		
+		$(document).on('click', '.add_topic_btn', function () {
+			add_topic_func($(this));
+			return false;
+		});	
+		
+		function add_topic_func(this_div){
+			var clone_topic_div_html	=	$('.clone_topic_div').html();
+			var current_inc	=	this_div.parents('.c-curriculum').find('.sec-list li');
+			current_inc.last().after(clone_topic_div_html);
+			return false;
+		}
+	
+	/* clone_lesson_div */
+	/* add course end hari */
+	
+	
 
 })(this.jQuery);
 
@@ -324,6 +353,8 @@
 
 		return $el;
 	};
+	
+	
 
 	/**
 	 * Removes the element. Opposite of render().

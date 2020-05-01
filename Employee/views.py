@@ -11,10 +11,21 @@ from .forms import (AddUserForm)
 from .models import UserDetails
 # Create your views here.
 
-
+@login_required
 def adminDashboard(request):
     return render(request,"Admin_pages/dashboard.html")
 
+@login_required
+def adminCourses(request):
+    return render(request,'Admin_pages/courses.html')
+
+@login_required
+def adminAddcourse(request):
+    return render(request,'Admin_pages/add-course.html')
+
+@login_required
+def adminProjects(request):
+    return render(request,'Admin_pages/projects.html')
 
 
 def adduser(request):
@@ -91,4 +102,5 @@ def logout(request):
 
 @login_required
 def userdashboard(request):
+    print("hai")
     return render(request,'virtualmain_pages/dashboard.html')
