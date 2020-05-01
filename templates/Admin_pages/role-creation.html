@@ -1,0 +1,205 @@
+{% extends 'base1.html' %}
+{% block content %}
+
+    <div id="wrapper" class="admin-panel">
+
+    {% include 'partials/_header.html' %}
+
+    <div class="page-content">
+            <div class="page-content-inner">
+
+                <div class="d-flex">
+                    <nav id="breadcrumbs" class="mb-3">
+                        <ul>
+                            <li><a href="#"> <i class="uil-home-alt"></i> </a></li>
+                            <li><a href="#"> Role Creation </a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+
+
+
+
+                    <div class="uk-width-3-5@m">
+                        <div class="card rounded">
+                          <div class=" container py-3 uk-width-expand">
+                            <form>
+                                <fieldset class="uk-fieldset">
+
+                                    <legend class="uk-legend">Create Role</legend>
+
+                                    <div class="uk-margin uk-width-1-5">
+                                        <select class="uk-select">
+                                            <option>Role</option>
+                                            <option>Option 01</option>
+                                            <option>Option 02</option>
+                                        </select>
+                                    </div>
+
+
+
+                                    <div class="uk-margin">
+                                        <input class="uk-input bg-secondary" type="text" placeholder="Username">
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <input class="uk-input bg-secondary" type="text" placeholder="Email">
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <div class="uk-inline d-flex">
+                                            <div class="mt-1">
+                                              <button class="btn btn-default" href="#">Generate Password</button>
+                                            </div>
+                                            <div class="mx-1 ">
+                                              <input class="uk-input bg-secondary " type="text" placeholder="Lorem Epsum">
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="text-center">
+                                      <button class="btn btn-default">Create</button>
+                                    </div>
+
+                                </fieldset>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="uk-width-3-4@m my-5">
+                        <div class="card rounded">
+                          <div class=" container py-4 uk-width-expand">
+                            <form>
+                              <fieldset class="uk-fieldset">
+
+                                <div class="d-flex">
+                                  <div class="col-md-4 uk-margin my-auto">
+                                      <select class="uk-select uk-width-auto">
+                                          <option>Sort Role</option>
+                                          <option>Option 01</option>
+                                          <option>Option 02</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-8 my-suto">
+                                      <legend class="uk-legend">List of Roles</legend>
+                                  </div>
+                                </div>
+
+                                <hr style="width:70% mx-auto mt-0">
+
+                                <table class="uk-table uk-table-divider">
+                                  <thead>
+                                      <tr>
+                                          <th>Id </th>
+                                          <th>Role</th>
+                                          <th>Email</th>
+                                          <th>Created Date</th>
+                                          <th></th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>CS101</td>
+                                          <td>CSM</td>
+                                          <td>John@gmail.com</td>
+                                          <td>20/12/19</td>
+                                          <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove">Remove</button></td>
+                                      </tr>
+                                      <tr>
+                                          <td>CS101</td>
+                                          <td>CSM</td>
+                                          <td>John@gmail.com</td>
+                                          <td>20/12/19</td>
+                                          <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove">Remove</button></td>
+                                      </tr>
+                                      <tr>
+                                          <td>CS101</td>
+                                          <td>CSM</td>
+                                          <td>John@gmail.com</td>
+                                          <td>20/12/19</td>
+                                          <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove">Remove</button></td>
+                                      </tr>
+                                  </tbody>
+                                </table>
+
+                              </fieldset>
+                          </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                <!-- footer
+                ================================================== -->
+                <div class="footer">
+                    <div class="uk-grid-collapse" uk-grid>
+                        <div class="uk-width-expand@s uk-first-column">
+                            <p>© 2019 <strong>Courseplus</strong>. All Rights Reserved. </p>
+                        </div>
+                        <div class="uk-width-auto@s">
+                            <nav class="footer-nav-icon">
+                                <ul>
+                                    <li><a href="#"><i class="icon-brand-facebook"></i></a></li>
+                                    <li><a href="#"><i class="icon-brand-dribbble"></i></a></li>
+                                    <li><a href="#"><i class="icon-brand-youtube"></i></a></li>
+                                    <li><a href="#"><i class="icon-brand-twitter"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- For Night mode -->
+        <script>
+            (function (window, document, undefined) {
+                'use strict';
+                if (!('localStorage' in window)) return;
+                var nightMode = localStorage.getItem('gmtNightMode');
+                if (nightMode) {
+                    document.documentElement.className += ' night-mode';
+                }
+            })(window, document);
+
+
+            (function (window, document, undefined) {
+
+                'use strict';
+
+                // Feature test
+                if (!('localStorage' in window)) return;
+
+                // Get our newly insert toggle
+                var nightMode = document.querySelector('#night-mode');
+                if (!nightMode) return;
+
+                // When clicked, toggle night mode on or off
+                nightMode.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    document.documentElement.classList.toggle('night-mode');
+                    if (document.documentElement.classList.contains('night-mode')) {
+                        localStorage.setItem('gmtNightMode', true);
+                        return;
+                    }
+                    localStorage.removeItem('gmtNightMode');
+                }, false);
+
+            })(window, document);
+        </script>
+
+
+    </div>
+{% endblock %}

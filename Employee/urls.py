@@ -11,6 +11,7 @@ urlpatterns = [
     path('courses/',views.adminCourses,name='admincourse'),
     path('add_course/',views.adminAddcourse,name='adminaddcourse'),
     path('projects/',views.adminProjects,name='adminprojects'),
+    path('role_creation/',views.adminRolecreation,name='adminrolecreation'),
     # User Section
     path('userdashboard/',views.userdashboard,name='dashboard'),
 

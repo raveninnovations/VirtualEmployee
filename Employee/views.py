@@ -27,6 +27,10 @@ def adminAddcourse(request):
 def adminProjects(request):
     return render(request,'Admin_pages/projects.html')
 
+@login_required
+def adminRolecreation(request):
+    return render(request,'Admin_pages/role-creation.html')
+
 
 def adduser(request):
     form = AddUserForm
