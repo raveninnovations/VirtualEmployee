@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from .forms import (AddUserForm)
 from .models import UserDetails
 # Create your views here.
+# ADMIN SECTION
 
 @login_required
 def adminDashboard(request):
@@ -103,6 +104,8 @@ def userlogin(request):
 def logout(request):
     auth.logout(request)
     return render(request,'Admin_pages/logout.html')
+
+# USER SECTION
 
 @login_required
 def userdashboard(request):
