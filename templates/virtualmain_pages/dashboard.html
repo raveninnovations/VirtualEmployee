@@ -7,7 +7,8 @@
 
        {% include 'user_partials/_header.html' %}
 
-      <div class="nav-overlay uk-navbar-left uk-position-relative uk-flex-1 bg-grey uk-light p-2" hidden
+             <!-- overlay seach on mobile-->
+        <div class="nav-overlay uk-navbar-left uk-position-relative uk-flex-1 bg-grey uk-light p-2" hidden
             style="z-index: 10000;">
             <div class="uk-navbar-item uk-width-expand" style="min-height: 60px;">
                 <form class="uk-search uk-search-navbar uk-width-1-1">
@@ -97,6 +98,7 @@
                                 <li>
                                     <a href="courses.html"> <i class="uil-lightbulb-alt"></i> Teaching academy </a>
                                 </li>
+                            </ul>
                         </div>
                     </div>
                 </li>
@@ -237,11 +239,12 @@
 
         <div class="page-content">
 
+
             <div class="home-hero" data-src="{% static 'images/home-hero.png' %}" uk-img>
                 <div class="uk-width-1-1">
                     <div class="page-content-inner uk-position-z-index">
-                        <h1>Just Imagine<br>employee</h1>
-                        <h4 class="my-lg-4"> Get trained as a trainee employee <br> Work on Realtime Projects from various companies<br> Gain Experience, Certifications & Payments</h4>
+                        <h1>Learn HTML , CSS , iphone <br> Apps & More</h1>
+                        <h4 class="my-lg-4"> Learn how to build websites & apps <br> write a code or start a business </h4>
                         <a href="#" class="btn btn-default">Free trailer </a>
                     </div>
                 </div>
@@ -262,7 +265,7 @@
                             </div>
                             <div class="grid-slider-header-link">
 
-                                <!-- <a href="courses.html" class="button transparent uk-visible@m"> View all </a> -->
+                                <a href="courses.html" class="button transparent uk-visible@m"> View all </a>
                                 <a href="#" class="slide-nav-prev" uk-slider-item="previous"></a>
                                 <a href="#" class="slide-nav-next" uk-slider-item="next"></a>
 
@@ -370,17 +373,205 @@
 
                 </div>
 
+
                 <div class="section-small pt-0">
 
                     <div class="course-grid-slider" uk-slider="finite: true">
 
                         <div class="grid-slider-header">
-                            <div class="mb-3">
-                                <h4 class="uk-text-truncate">Latest Courses</h4>
+                            <div>
+                                <h4 class="uk-text-truncate"> popular <a href="#" class="text-muted">Topics</a> </h4>
                             </div>
                             <div class="grid-slider-header-link">
 
-                                <!-- <a href="courses.html" class="button transparent uk-visible@m"> View all </a> -->
+                                <a href="course-path.html" class="button transparent uk-visible@m"> View all </a>
+                                <a href="#" class="slide-nav-prev" uk-slider-item="previous"></a>
+                                <a href="#" class="slide-nav-next" uk-slider-item="next"></a>
+
+                            </div>
+                        </div>
+
+                        <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-3@s uk-grid">
+                            <li>
+                                <a href="course-path-level.html" class="skill-card">
+                                    <i class="icon-brand-angular skill-card-icon" style="color:#dd0031"></i>
+                                    <div>
+                                        <h2 class="skill-card-title"> Angular Courses</h2>
+                                        <p class="skill-card-subtitle"> 5 courses <span
+                                                class="skill-card-bullet"></span> 3
+                                            bundles
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="course-path-level.html" class="skill-card">
+                                    <i class="icon-brand-js-square skill-card-icon" style="color:#f7df1e"></i>
+                                    <div>
+                                        <h2 class="skill-card-title"> Angular Courses</h2>
+                                        <p class="skill-card-subtitle"> 5 courses <span
+                                                class="skill-card-bullet"></span> 3
+                                            bundles
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="course-path-level.html" class="skill-card">
+                                    <i class="icon-brand-html5 skill-card-icon" style="color:#f0653f"></i>
+                                    <div>
+                                        <h2 class="skill-card-title"> Angular Courses</h2>
+                                        <p class="skill-card-subtitle"> 5 courses <span
+                                                class="skill-card-bullet"></span> 3
+                                            bundles
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="course-path-level.html" class="skill-card">
+                                    <i class="icon-brand-node-js skill-card-icon" style="color:#64d25d"></i>
+                                    <div>
+                                        <h2 class="skill-card-title"> NodeJS Courses</h2>
+                                        <p class="skill-card-subtitle"> 5 courses <span
+                                                class="skill-card-bullet"></span> 3
+                                            bundles
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="course-path-level.html" class="skill-card">
+                                    <i class="icon-brand-angular skill-card-icon" style="color:#dd0031"></i>
+                                    <div>
+                                        <h2 class="skill-card-title"> Angular Courses</h2>
+                                        <p class="skill-card-subtitle"> 5 courses <span
+                                                class="skill-card-bullet"></span> 3
+                                            bundles
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-small pt-0">
+
+                    <div class="course-grid-slider" uk-slider="finite: true">
+
+                        <div class="grid-slider-header">
+                            <div>
+                                <h4 class="uk-text-truncate"> Browse Web Development
+                                    <a href="episode.html" class="text-muted">Episodes</a> </h4>
+                            </div>
+                            <div class="grid-slider-header-link">
+
+                                <a href="courses.html" class="button transparent uk-visible@m"> View all </a>
+                                <a href="#" class="slide-nav-prev" uk-slider-item="previous"></a>
+                                <a href="#" class="slide-nav-next" uk-slider-item="next"></a>
+
+                            </div>
+                        </div>
+
+                        <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-3@s uk-grid">
+                            <li>
+                                <a href="episode-details.html">
+                                    <div class="course-card episode-card animate-this">
+                                        <div class="course-card-thumbnail ">
+                                            <span class="item-tag">HTML</span>
+                                            <span class="duration">2:39</span>
+                                            <img src="../assets/images/episodes/2.png">
+                                            <span class="play-button-trigger"></span>
+                                        </div>
+                                        <div class="course-card-body">
+                                            <h4 class="mb-0"> Creating sticky in HTML </h4>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="episode-details.html">
+                                    <div class="course-card episode-card animate-this">
+                                        <div class="course-card-thumbnail ">
+                                            <span class="item-tag">Tips</span>
+                                            <span class="duration">5:39</span>
+                                            <img src="../assets/images/episodes/3.png">
+                                            <span class="play-button-trigger"></span>
+                                        </div>
+                                        <div class="course-card-body">
+                                            <h4 class="mb-0"> er Creating a Laravel Package </h4>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="episode-details.html">
+                                    <div class="course-card episode-card animate-this">
+                                        <div class="course-card-thumbnail ">
+                                            <span class="item-tag">PHP</span>
+                                            <span class="duration">5:39</span>
+                                            <img src="../assets/images/episodes/1.png">
+                                            <span class="play-button-trigger"></span>
+                                        </div>
+                                        <div class="course-card-body">
+                                            <h4 class="mb-0"> The PHP Singleton class </h4>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="episode-details.html">
+                                    <div class="course-card episode-card animate-this">
+                                        <div class="course-card-thumbnail ">
+                                            <span class="item-tag">Design</span>
+                                            <span class="duration">2:39</span>
+                                            <img src="../assets/images/episodes/5.png">
+                                            <span class="play-button-trigger"></span>
+                                        </div>
+                                        <div class="course-card-body">
+                                            <h4 class="mb-0"> Dev Design Quickie </h4>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="episode-details.html">
+                                    <div class="course-card episode-card animate-this">
+                                        <div class="course-card-thumbnail ">
+                                            <span class="item-tag">HTML</span>
+                                            <span class="duration">2:39</span>
+                                            <img src="../assets/images/episodes/2.png">
+                                            <span class="play-button-trigger"></span>
+                                        </div>
+                                        <div class="course-card-body">
+                                            <h4 class="mb-0"> Creating sticky in HTML </h4>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-small pt-0">
+
+                    <div class="course-grid-slider" uk-slider="finite: true">
+
+                        <div class="grid-slider-header">
+                            <div>
+                                <h4 class="uk-text-truncate"> Browse Web Development
+                                    <a href="#" class="text-muted">Courses</a> </h4>
+                            </div>
+                            <div class="grid-slider-header-link">
+
+                                <a href="courses.html" class="button transparent uk-visible@m"> View all </a>
                                 <a href="#" class="slide-nav-prev" uk-slider-item="previous"></a>
                                 <a href="#" class="slide-nav-next" uk-slider-item="next"></a>
 
@@ -534,191 +725,6 @@
                                 </a>
                             </li>
                         </ul>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="section-small pt-0">
-
-                    <div class="course-grid-slider" uk-slider="finite: true">
-
-                        <div class="grid-slider-header">
-                            <div class="mb-5">
-                                <h4 class="uk-text-truncate "> Topic By CFP </h4>
-                            </div>
-                            <!-- <div class="grid-slider-header-link">
-
-                                <a href="course-path.html" class="button transparent uk-visible@m"> View all </a>
-                                <a href="#" class="slide-nav-prev" uk-slider-item="previous"></a>
-                                <a href="#" class="slide-nav-next" uk-slider-item="next"></a>
-
-                            </div> -->
-                        </div>
-
-                        <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-3@s uk-grid">
-                            <li>
-                                <a href="course-path-level.html" class="skill-card">
-                                    <i class="icon-brand-angular skill-card-icon" style="color:#dd0031"></i>
-                                    <div>
-                                        <h2 class="skill-card-title"> Angular Courses</h2>
-                                        <p class="skill-card-subtitle"> 5 courses <span
-                                                class="skill-card-bullet"></span> 3
-                                            bundles
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="course-path-level.html" class="skill-card">
-                                    <i class="icon-brand-js-square skill-card-icon" style="color:#f7df1e"></i>
-                                    <div>
-                                        <h2 class="skill-card-title"> Javascript Courses</h2>
-                                        <p class="skill-card-subtitle"> 5 courses <span
-                                                class="skill-card-bullet"></span> 3
-                                            bundles
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="course-path-level.html" class="skill-card">
-                                    <i class="icon-brand-html5 skill-card-icon" style="color:#f0653f"></i>
-                                    <div>
-                                        <h2 class="skill-card-title"> HTML Courses</h2>
-                                        <p class="skill-card-subtitle"> 5 courses <span
-                                                class="skill-card-bullet"></span> 3
-                                            bundles
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="course-path-level.html" class="skill-card">
-                                    <i class="icon-brand-node-js skill-card-icon" style="color:#64d25d"></i>
-                                    <div>
-                                        <h2 class="skill-card-title"> NodeJS Courses</h2>
-                                        <p class="skill-card-subtitle"> 5 courses <span
-                                                class="skill-card-bullet"></span> 3
-                                            bundles
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-
-
-                        </ul>
-
-                        <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-3@s uk-grid">
-                            <li>
-                                <a href="course-path-level.html" class="skill-card">
-                                    <i class="icon-brand-js-square skill-card-icon" style="color:#f7df1e"></i>
-                                    <div>
-                                        <h2 class="skill-card-title"> Javascript Courses</h2>
-                                        <p class="skill-card-subtitle"> 5 courses <span
-                                                class="skill-card-bullet"></span> 3
-                                            bundles
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="course-path-level.html" class="skill-card">
-                                    <i class="icon-brand-html5 skill-card-icon" style="color:#f0653f"></i>
-                                    <div>
-                                        <h2 class="skill-card-title"> HTML Courses</h2>
-                                        <p class="skill-card-subtitle"> 5 courses <span
-                                                class="skill-card-bullet"></span> 3
-                                            bundles
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="course-path-level.html" class="skill-card">
-                                    <i class="icon-brand-node-js skill-card-icon" style="color:#64d25d"></i>
-                                    <div>
-                                        <h2 class="skill-card-title"> NodeJS Courses</h2>
-                                        <p class="skill-card-subtitle"> 5 courses <span
-                                                class="skill-card-bullet"></span> 3
-                                            bundles
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="course-path-level.html" class="skill-card">
-                                    <i class="icon-brand-angular skill-card-icon" style="color:#dd0031"></i>
-                                    <div>
-                                        <h2 class="skill-card-title"> Angular Courses</h2>
-                                        <p class="skill-card-subtitle"> 5 courses <span
-                                                class="skill-card-bullet"></span> 3
-                                            bundles
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-
-                        </ul>
-
-
-                        <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-3@s uk-grid">
-                            <li>
-                                <a href="course-path-level.html" class="skill-card">
-                                    <i class="icon-brand-angular skill-card-icon" style="color:#dd0031"></i>
-                                    <div>
-                                        <h2 class="skill-card-title"> Angular Courses</h2>
-                                        <p class="skill-card-subtitle"> 5 courses <span
-                                                class="skill-card-bullet"></span> 3
-                                            bundles
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="course-path-level.html" class="skill-card">
-                                    <i class="icon-brand-js-square skill-card-icon" style="color:#f7df1e"></i>
-                                    <div>
-                                        <h2 class="skill-card-title"> Javascript Courses</h2>
-                                        <p class="skill-card-subtitle"> 5 courses <span
-                                                class="skill-card-bullet"></span> 3
-                                            bundles
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="course-path-level.html" class="skill-card">
-                                    <i class="icon-brand-html5 skill-card-icon" style="color:#f0653f"></i>
-                                    <div>
-                                        <h2 class="skill-card-title"> HTML Courses</h2>
-                                        <p class="skill-card-subtitle"> 5 courses <span
-                                                class="skill-card-bullet"></span> 3
-                                            bundles
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="course-path-level.html" class="skill-card">
-                                    <i class="icon-brand-node-js skill-card-icon" style="color:#64d25d"></i>
-                                    <div>
-                                        <h2 class="skill-card-title"> NodeJS Courses</h2>
-                                        <p class="skill-card-subtitle"> 5 courses <span
-                                                class="skill-card-bullet"></span> 3
-                                            bundles
-                                        </p>
-                                    </div>
-                                </a>
-                            </li>
-
-
-
-                        </ul>
-
 
                     </div>
 
