@@ -132,3 +132,6 @@ def csmDashboard(request):
 
 def tlDashboard(request):
     return render(request,'TL_Pages/tl_dashboard.html')
+
+def tlProjectDetails(request):
+    return render(request,'TL_Pages/tl_project_details.html')

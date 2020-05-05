@@ -21,4 +21,5 @@ urlpatterns = [
     path('csmdashboard/',views.csmDashboard,name='csmDashboard'),
     # TL Section
     path('tldashboard/',views.tlDashboard,name='tlDashboard'),
+    path('tl-projectdetails/',views.tlProjectDetails,name='tlProjectDetails'),
     ]
