@@ -7,7 +7,7 @@
 
        {% include 'user_partials/_header.html' %}
 
-             <!-- overlay seach on mobile-->
+              <!-- overlay seach on mobile-->
         <div class="nav-overlay uk-navbar-left uk-position-relative uk-flex-1 bg-grey uk-light p-2" hidden
             style="z-index: 10000;">
             <div class="uk-navbar-item uk-width-expand" style="min-height: 60px;">
@@ -48,19 +48,20 @@
             <!-- logo -->
             <div class="logo uk-visible@s">
                 <a href="dashboard.html">
-                     <img src="{% static 'images/VES.png' %}" alt="">
+                   <img src="{% static 'images/VES.png' %}">
                 </a>
             </div>
 
+            <ul>
 
 
                 <li>
-                    <!-- Episodes -->
-                    <a href="userprofile.html"> <i class="icon-brand-earlybirds"></i> <span class="tooltips"> My Profile</span></a>
+                    <!-- My Profile -->
+                    <a href="user-project.html"> <i class="icon-brand-earlybirds"></i> <span class="tooltips"> My Profile</span></a>
                 </li>
                 <li>
                     <!-- Paths-->
-                    <a href="user-project.html"> <i class="icon-line-awesome-archive"></i> <span class="tooltips">
+                    <a href="course-path.html"> <i class="uil-rss-interface"></i> <span class="tooltips">
                             Paths</span></a>
                 </li>
                 <li>
@@ -116,6 +117,7 @@
             </ul>
             <ul class="uk-position-bottom">
                 <li>
+
                     <!-- Lunch information box -->
                     <a href="#">
                         <i class="uil-paint-tool"></i>
