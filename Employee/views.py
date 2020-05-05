@@ -113,10 +113,10 @@ def userdashboard(request):
 
     return render(request,'virtualmain_pages/dashboard.html')
 
-
+@login_required
 def userprofile(request):
     return render(request,'virtualmain_pages/user-profile.html')
-
+@login_required
 def userEdit(request):
     return render(request,'virtualmain_pages/user-profile-edit.html')
 
