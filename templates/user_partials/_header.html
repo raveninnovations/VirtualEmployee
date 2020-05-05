@@ -16,16 +16,15 @@
 
                         <!-- logo -->
                         <a href="dashboard.html" class="logo">
-                            <img src="../assets/images/logo-dark.svg" alt="">
-                            <span> Courseplus</span>
+                            <img src="{% static 'images/VES.png' %}" alt="">
+                            <span> Virtual Empleado</span>
                         </a>
 
                         <!-- breadcrumbs -->
                         <nav id="breadcrumbs">
                             <ul>
-                                <li><a href="#"> Dashboard </a></li>
-                                <li><a href="#">Courses</a></li>
-                                <li>Browse Web Development</li>
+                                <li><a href="dashboard.html"> My Dashboard </a></li>
+
                             </ul>
                         </nav>
 
@@ -69,7 +68,7 @@
                                         <li class="notifications-not-read">
                                             <a href="course-intro.html">
                                                 <span class="notification-image">
-                                                    <img src="../assets/images/course/1.png" alt=""> </span>
+                                                    <img src="{% static 'images/course/1.png' %}" alt=""> </span>
                                                 <span class="notification-text">
                                                     <span class="course-title">Ultimate Web Designer & Web Developer
                                                     </span>
@@ -110,7 +109,7 @@
                                         <li>
                                             <a href="course-intro.html">
                                                 <span class="notification-image">
-                                                    <img src="../assets/images/course/3.png" alt=""> </span>
+                                                    <img src="{% static 'images/course/2.png' %}" alt=""> </span>
                                                 <span class="notification-text">
                                                     <span class="course-title">The Complete JavaScript Course Build Real
                                                         Projects !</span>
@@ -151,7 +150,7 @@
                                         <li>
                                             <a href="course-intro.html">
                                                 <span class="notification-image">
-                                                    <img src="../assets/images/course/2.png" alt=""> </span>
+                                                    <img src="{% static 'images/course/3.png' %}" alt=""> </span>
                                                 <span class="notification-text">
                                                     <span class="course-title">Learn Angular Fundamentals From The
                                                         Beginning</span>
@@ -260,7 +259,7 @@
                                 <!-- notification contents -->
                                 <div class="dropdown-notifications-content" data-simplebar>
 
-                                    <!-- notiviation list -->
+                                    <!-- notification list -->
                                     <ul>
                                         <li class="notifications-not-read">
                                             <a href="#">
@@ -321,10 +320,10 @@
                                 <span>1</span>
                             </a>
 
-                            <!-- Message  notificiation dropdown -->
+                            <!-- Message  notification dropdown -->
                             <div uk-dropdown=" pos: top-right;mode:click" class="dropdown-notifications">
 
-                                <!-- notivication header -->
+                                <!-- notification header -->
                                 <div class="dropdown-notifications-headline">
                                     <h4>Messages</h4>
                                     <a href="#">
@@ -336,7 +335,7 @@
                                 <!-- notification contents -->
                                 <div class="dropdown-notifications-content" data-simplebar>
 
-                                    <!-- notiviation list -->
+                                    <!-- notification list -->
                                     <ul>
                                         <li class="notifications-not-read">
                                             <a href="#">
@@ -430,19 +429,12 @@
                                         <a href="{% url 'dashboard' %}">
                                             <i class="icon-material-outline-dashboard"></i> Dashboard</a>
                                     </li>
-                                    <li><a href="#">
-                                            <i class="icon-feather-bookmark"></i> Bookmark </a>
-                                    </li>
+
                                     <li><a href="{% url 'userprofileEdit' %}">
-                                            <i class="icon-feather-settings"></i> Account Settings</a>
+                                            <i class="icon-feather-settings"></i> Edit Profile</a>
                                     </li>
-                                    <li><a href="#" style="color:#62d76b">
-                                            <i class="icon-feather-star"></i> Upgrade To Premium</a>
-                                    </li>
+
                                     <li class="menu-divider">
-                                    <li><a href="#">
-                                            <i class="icon-feather-help-circle"></i> Help</a>
-                                    </li>
                                     {% if user.is_authenticated %}
                                     <li><a href="{% url 'logout' %}">
                                             <i class="icon-feather-log-out"></i> Sign Out</a>
