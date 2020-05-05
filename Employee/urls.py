@@ -14,5 +14,7 @@ urlpatterns = [
     path('role_creation/',views.adminRolecreation,name='adminrolecreation'),
     # User Section
     path('userdashboard/',views.userdashboard,name='dashboard'),
-
+    path('userprofile/',views.userprofile,name='userprofile'),
+    path('user-profile-edit/',views.userEdit,name='userprofileEdit'),
+    path('user-project/',views.userProject,name='userproject'),
     ]
