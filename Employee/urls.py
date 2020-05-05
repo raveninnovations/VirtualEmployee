@@ -18,6 +18,8 @@ urlpatterns = [
     path('user-profile-edit/',views.userEdit,name='userprofileEdit'),
     path('user-project/',views.userProject,name='userproject'),
     # CSM Section
-    path('csmdashboard/',views.csmDashboard,name='csmDashboard')
-
+    path('csmdashboard/',views.csmDashboard,name='csmDashboard'),
+    # TL Section
+    path('tldashboard/',views.tlDashboard,name='tlDashboard'),
+    path('tl-projectdetails/',views.tlProjectDetails,name='tlProjectDetails'),
     ]
