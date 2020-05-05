@@ -127,3 +127,8 @@ def userProject(request):
 
 def csmDashboard(request):
     return render(request,'csm_pages/csm_dashboard.html')
+
+# TL MODULE SECTION
+
+def tlDashboard(request):
+    return render(request,'TL_Pages/tl_dashboard.html')

@@ -1,0 +1,181 @@
+{% extends 'base1.html' %}
+{% load static %}
+<style>
+    .description-box{
+  background-color: #edeff0;
+  height: 16rem;
+  width: 30rem;
+  border-radius: 10px;
+}
+.image-size{
+  border-radius: 50%;
+  background-color: #949393;
+   height: 3rem;
+   width: 3rem;
+}
+</style>
+{% block content %}
+
+    <div id="wrapper" class="admin-panel">
+
+        <!-- menu -->
+        <div class="page-menu">
+            <!-- btn close on small devices -->
+            <span class="btn-menu-close" uk-toggle="target: #wrapper ; cls: mobile-active"></span>
+            <!-- traiger btn -->
+            <span class="btn-menu-trigger" uk-toggle="target: .page-menu ; cls: menu-large"></span>
+
+            <!-- logo -->
+            <div class="logo uk-visible@s">
+                <a href="{% url 'tlDashboard' %}" class="logo">
+                            <img src="{% static 'images/VES.png' %}" alt="">
+
+                        </a>
+
+            </div>
+            <div class="page-menu-inner" data-simplebar>
+                <ul class="mt-0">
+                    <li><a href="{% url 'tlDashboard' %}"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
+
+                    <li><a href="messages.html"><i class="uil-envelope-alt"></i> <span> Message</span></a> </li>
+
+                </ul>
+
+
+
+            </div>
+        </div>
+
+        {#  Header is same for CSM and TL module      #}
+        <!-- Header Container
+        ================================================== -->
+        {% include 'user_partials/_csm_header.html' %}
+
+
+         <div class="page-content">
+            <div class="page-content-inner">
+               <!--  <div class="uk-flex uk-flex-middle"> -->
+                 <div class="card">
+               <!--  <div class="uk-card uk-card-default uk-card-body uk-padding uk-width-auto uk-grid-small"> -->
+                    <ul class="uk-width-auto uk-tab"
+                        uk-switcher="connect: #projects-tab ; animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium ">
+                        <li class="uk-active uk-margin-medium-left"><a href="#"> My projects list</a></li>
+                        <li><a href="#"> Completed projects</a></li>
+
+                    </ul>
+
+
+                        <div class="uk-card uk-card-body">
+                        <ul class="uk-switcher" id="projects-tab">
+
+                            <li>
+                                   <!--  <div class="row">
+                                    <div class="col-xl-10 m-auto"> -->
+                                <div class="uk-flex uk-flex-center uk-padding">
+                                        <!-- <div class="uk-child-width-1-3"> -->
+                                                <div class="uk-card uk-width-auto uk-card-default uk-box-shadow-medium uk-margin-large-right">
+                                                    <div class="uk-card-media-top">
+
+                                                        <img src="{% static 'images/course/2.png' %}">
+
+                                                    </div>
+                                                    <hr>
+                                                    <div class=" uk-text-left uk-text-small uk-card-body">
+
+                                                        <p>Project Name</p>
+                                                        <p>Project Assigned By</p>
+                                                        <p>Project Description</p>
+                                                        <p>Team Count</p>
+                                                    </div>
+                                                </div>
+                                            <!-- </div> -->
+                                        <!-- <div class="uk-child-width-1-3"> -->
+                                                <div class="uk-card uk-width-auto uk-card-default uk-box-shadow-medium uk-margin-large-right">
+                                                    <div class="uk-card-media-top">
+
+                                                        <img src="{% static 'images/course/2.png' %}">
+
+                                                    </div>
+                                                    <hr>
+                                                    <div class=" uk-text-left uk-text-small uk-card-body">
+
+                                                        <p>Project Name</p>
+                                                        <p>Project Assigned By</p>
+                                                        <p>Project Description</p>
+                                                        <p>Team Count</p>
+                                                    </div>
+                                                </div>
+                                            <!-- </div> -->
+                                            <!-- <div class="uk-height-small"> -->
+
+                                                <div class="uk-card uk-width-auto uk-card-default uk-box-shadow-medium">
+                                                     <div class="uk-card-media-top">
+
+                                                        <img src="{% static 'images/course/2.png' %}">
+
+                                                    </div>
+                                                     <hr>
+                                                    <div class="uk-text-left uk-text-small uk-card-body">
+
+                                                        <p>Project name</p>
+                                                        <p>Project Assigned By</p>
+                                                        <p>Project Description</p>
+                                                        <p>Project Count</p>
+                                                    </div>
+
+                                                </div>
+                                            <!-- </div> -->
+                                   <!--      </div>
+                                    </div> -->
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- </div> -->
+            </div>
+          <!-- footer
+                ================================================== -->
+                {% include 'partials/_footer.html' %}
+        </div>
+</div>
+        <!-- For Night mode -->
+        <script>
+            (function (window, document, undefined) {
+                'use strict';
+                if (!('localStorage' in window)) return;
+                var nightMode = localStorage.getItem('gmtNightMode');
+                if (nightMode) {
+                    document.documentElement.className += ' night-mode';
+                }
+            })(window, document);
+
+
+            (function (window, document, undefined) {
+
+                'use strict';
+
+                // Feature test
+                if (!('localStorage' in window)) return;
+
+                // Get our newly insert toggle
+                var nightMode = document.querySelector('#night-mode');
+                if (!nightMode) return;
+
+                // When clicked, toggle night mode on or off
+                nightMode.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    document.documentElement.classList.toggle('night-mode');
+                    if (document.documentElement.classList.contains('night-mode')) {
+                        localStorage.setItem('gmtNightMode', true);
+                        return;
+                    }
+                    localStorage.removeItem('gmtNightMode');
+                }, false);
+
+            })(window, document);
+        </script>
+
+    </div>
+
+{% endblock %}
