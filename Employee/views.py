@@ -122,3 +122,8 @@ def userEdit(request):
 
 def userProject(request):
     return render(request,'virtualmain_pages/user-project.html')
+
+# CSM MODULE SECTION
+
+def csmDashboard(request):
+    return render(request,'csm_pages/csm_dashboard.html')
