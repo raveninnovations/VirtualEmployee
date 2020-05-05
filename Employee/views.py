@@ -93,6 +93,7 @@ def userlogin(request):
             if request.user.is_staff:
                 print('Welcome admin')
                 return redirect(adminDashboard)
+            return redirect(userdashboard)
             messages.success(request,'Successfully loggedin')
             return redirect('login')
         else:
@@ -109,5 +110,15 @@ def logout(request):
 
 @login_required
 def userdashboard(request):
-    print("hai")
+
     return render(request,'virtualmain_pages/dashboard.html')
+
+
+def userprofile(request):
+    return render(request,'virtualmain_pages/user-profile.html')
+
+def userEdit(request):
+    return render(request,'virtualmain_pages/user-profile-edit.html')
+
+def userProject(request):
+    return render(request,'virtualmain_pages/user-project.html')
