@@ -135,3 +135,11 @@ def tlDashboard(request):
 
 def tlProjectDetails(request):
     return render(request,'TL_Pages/tl_project_details.html')
+
+# PROJECT MODULE SECTION
+
+def projectManager(request):
+    return render(request,'ProjectModule_Pages/Project_manager.html')
+
+def projectDashboard(request):
+    return render(request,'ProjectModule_Pages/Project_dashboard.html')

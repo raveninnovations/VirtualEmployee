@@ -1,0 +1,340 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% block content %}
+    <div id="wrapper" class="admin-panel">
+
+        <!-- menu -->
+        <div class="page-menu">
+            <!-- btn close on small devices -->
+            <span class="btn-menu-close" uk-toggle="target: #wrapper ; cls: mobile-active"></span>
+            <!-- traiger btn -->
+            <span class="btn-menu-trigger" uk-toggle="target: .page-menu ; cls: menu-large"></span>
+
+            <!-- logo -->
+            <div class="logo uk-visible@s">
+                <a href="dashboard.html"> <i class=" uil-graduation-hat"></i> <span> Courseplus</span> </a>
+            </div>
+            <div class="page-menu-inner" data-simplebar>
+                <ul class="mt-0">
+                    <li><a href="dashboard.html"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
+                    <li><a href="project_manager.html"><i class="uil-youtube-alt"></i> <span> Project Manager</span></a> </li>
+
+                </ul>
+
+
+
+            </div>
+        </div>
+
+        <!-- Header Container
+        ================================================== -->
+        {% include 'user_partials/_csm_header.html' %}
+
+        <!-- content -->
+        <div class="page-content">
+            <div class="page-content-inner">
+
+                <div class="d-flex">
+                    <nav id="breadcrumbs" class="mb-3">
+                        <ul>
+                            <li><a href="#"> <i class="uil-home-alt"></i> </a></li>
+                            <li><a href="#"> Project Manager </a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+
+
+
+                <div class="uk-card-default rounded">
+                    <div class="p-3">
+                        <h5 class="mb-0"> Create Project </h5>
+                    </div>
+                    <hr class="m-0">
+                    <form class="uk-width-expand uk-form-horizontal uk-grid-small p-4" uk-grid>
+
+                      <div class="uk-width-3-5@m px-2">
+
+                        <div class="m-3">
+                          <div class="uk-margin">
+                              <label class="uk-form-label" for="form-horizontal-text">Project Title</label>
+                              <div class="uk-form-controls">
+                                  <input class="uk-input" id="form-horizontal-text" type="text" placeholder="Some text...">
+                              </div>
+                          </div>
+
+                          <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">Project Description</label>
+                            <div class="uk-form-controls">
+                             <textarea class="uk-textarea" rows="5" placeholder="Enter Description"></textarea>
+                            </div>
+                          </div>
+
+                          <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">Project Thumbnail</label>
+                            <div uk-form-custom class="ml-3" >
+                                <input type="file">
+                                <button class="btn btn-default" type="button" tabindex="-1">Select File</button>
+                            </div>
+                          </div>
+
+                          <div class="uk-margin">
+                              <label class="uk-form-label" for="form-horizontal-text">Project Duration</label>
+                              <div class="uk-form-controls">
+                                  <input class="uk-input" id="form-horizontal-text" type="number" placeholder="Enter Total Months">
+                              </div>
+                          </div>
+
+                          <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">Course Eligibility</label>
+                            <div uk-form-custom class="ml-3" >
+                                <input type="file">
+                                <button class="btn btn-default btn-sm" type="button" tabindex="-1">Add Field</button>
+                            </div>
+                          </div>
+
+
+
+                          <div class="uk-inline">
+                            <div class="uk-inline">
+                              <button class="uk-button uk-width-expand " type="button">Select Course</button>
+                              <div uk-dropdown="pos: bottom-left">
+                                  <ul class="uk-nav uk-dropdown-nav">
+                                      <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Web Developer</span></li>
+                                      <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Machine Learning</span></li>
+
+                                      <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Data Science</span></li>
+
+                                      <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">App Development</span></li>
+
+                                  </ul>
+                              </div>
+                            </div>
+
+                            <div class="uk-inline">
+                              <button class="uk-button  uk-width-expand " type="button">Select Course</button>
+                              <div uk-dropdown="pos: bottom-left">
+                                  <ul class="uk-nav uk-dropdown-nav">
+                                      <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Web Developer</span></li>
+                                      <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Machine Learning</span></li>
+
+                                      <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Data Science</span></li>
+
+                                      <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">App Development</span></li>
+
+                                  </ul>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+
+                      </div>
+
+
+                      <div class="uk-width-2-5@m px-2">
+
+                        <div class="m-3">
+                          <div class="uk-inline uk-flex mb-3 ">
+                              <div class="uk-width-auto">
+                                <label class="uk-form-label" >Carrer Focus Path(CFP)</label>
+                              </div>
+
+                              <div class="ml-0">
+                                <button class="uk-button btn-default uk-width-expand mx-2" type="button">Select</button>
+                                <div uk-dropdown="pos: bottom-left">
+                                    <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Web Developer</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Machine Learning</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Data Science</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">App Development</span></li>
+
+                                    </ul>
+                                </div>
+                              </div>
+
+                          </div>
+
+
+                          <div class="mt-5">
+                              <h5 class="uk-text-bold mb-2"> CFP Eligibility </h5>
+                                <div class="uk-flex uk-flex-between mt-3">
+                                    <h6 class="pl-4 text-muted">Data Scientist</h6>
+                                  <button class="uk-button uk-width-auto mx-2" type="button">Select</button>
+
+                                  <div uk-dropdown="pos: bottom-left">
+                                      <ul class="uk-nav uk-dropdown-nav">
+                                          <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 1</span></li>
+
+                                          <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 2</span></li>
+
+                                          <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 3</span></li>
+
+                                          <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 4</span></li>
+
+                                          <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 5</span></li>
+
+                                          <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 6</span></li>
+
+                                          <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 7</span></li>
+
+                                          <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 8</span></li>
+
+                                          <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 9</span></li>
+
+                                          <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 10</span></li>
+
+                                      </ul>
+                                  </div>
+                                </div>
+
+                                <div class="uk-flex uk-flex-between mt-3">
+                                    <h6 class="pl-4 text-muted">Web Developer</h6>
+                                  <button class="uk-button uk-width-auto mx-2" type="button">Select</button>
+
+                                  <div uk-dropdown="pos: bottom-left">
+                                      <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 1</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 2</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 3</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 4</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 5</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 6</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 7</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 8</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 9</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 10</span></li>
+
+                                      </ul>
+                                  </div>
+                                </div>
+
+                                <div class="uk-flex uk-flex-between mt-3">
+                                    <h6 class="pl-4 text-muted">Machine Learning</h6>
+                                  <button class="uk-button uk-width-auto mx-2" type="button">Select</button>
+
+                                  <div uk-dropdown="pos: bottom-left">
+                                      <ul class="uk-nav uk-dropdown-nav">
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 1</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 2</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 3</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 4</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 5</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 6</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 7</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 8</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 9</span></li>
+
+                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 10</span></li>
+
+                                      </ul>
+                                  </div>
+                                </div>
+
+
+
+                          </div>
+                          <div class="uk-margin">
+                              <label class="uk-form-label" for="form-horizontal-text">Candidates Required</label>
+                              <div class="uk-form-controls">
+                                  <input class="uk-input" id="form-horizontal-text" type="Number" placeholder="Max">
+                              </div>
+                          </div>
+
+                          <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">Project Docs</label>
+                            <div uk-form-custom class="ml-3" >
+                                <input type="file">
+                                <button class="btn btn-default" type="button" tabindex="-1">Upload</button>
+                            </div>
+                          </div>
+
+
+
+                        </div>
+
+                      </div>
+
+                      <div class=" mx-auto ">
+                          <button class="btn btn-default  grey px-5">SUBMIT</button>
+                      </div>
+                    </form>
+
+                </div>
+
+
+
+
+                <!-- footer
+                ================================================== -->
+                {% include 'partials/_footer.html' %}
+
+            </div>
+
+        </div>
+
+
+
+
+        <!-- For Night mode -->
+        <script>
+            (function (window, document, undefined) {
+                'use strict';
+                if (!('localStorage' in window)) return;
+                var nightMode = localStorage.getItem('gmtNightMode');
+                if (nightMode) {
+                    document.documentElement.className += ' night-mode';
+                }
+            })(window, document);
+
+
+            (function (window, document, undefined) {
+
+                'use strict';
+
+                // Feature test
+                if (!('localStorage' in window)) return;
+
+                // Get our newly insert toggle
+                var nightMode = document.querySelector('#night-mode');
+                if (!nightMode) return;
+
+                // When clicked, toggle night mode on or off
+                nightMode.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    document.documentElement.classList.toggle('night-mode');
+                    if (document.documentElement.classList.contains('night-mode')) {
+                        localStorage.setItem('gmtNightMode', true);
+                        return;
+                    }
+                    localStorage.removeItem('gmtNightMode');
+                }, false);
+
+            })(window, document);
+        </script>
+
+
+</div>
+
+{% endblock %}

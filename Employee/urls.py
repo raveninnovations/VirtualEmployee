@@ -22,4 +22,7 @@ urlpatterns = [
     # TL Section
     path('tldashboard/',views.tlDashboard,name='tlDashboard'),
     path('tl-projectdetails/',views.tlProjectDetails,name='tlProjectDetails'),
+    # PROJECT Section
+    path('projectmanager/',views.projectManager,name='projectManager'),
+    path('projectdashboard/',views.projectDashboard,name='projectDashboard'),
     ]
