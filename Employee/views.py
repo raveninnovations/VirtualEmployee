@@ -7,8 +7,8 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-from .forms import (AddUserForm)
-from .models import UserDetails
+from .forms import (AddUserForm, EditUserProfileForm)
+from .models import UserDetails, UserProfile
 # Create your views here.
 # ADMIN SECTION
 
@@ -81,6 +81,7 @@ def adduser(request):
     }
     return render(request,'virtualmain_pages/registermain.html',context)
 
+
 def userlogin(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -102,6 +103,7 @@ def userlogin(request):
 
     return render(request,'virtualmain_pages/login.html')
 
+
 def logout(request):
     auth.logout(request)
     return render(request,'Admin_pages/logout.html')
@@ -113,12 +115,58 @@ def userdashboard(request):
 
     return render(request,'virtualmain_pages/dashboard.html')
 
+
 @login_required
 def userprofile(request):
     return render(request,'virtualmain_pages/user-profile.html')
+
+
+
 @login_required
 def userEdit(request):
-    return render(request,'virtualmain_pages/user-profile-edit.html')
+
+    EditProfile = EditUserProfileForm
+
+    if request.method == 'POST':
+        user_profile_image   = request.POST['user_profile_image']
+        first_name           = request.POST['firstname']
+        last_name            = request.POST['lastname']
+        username             = request.POST['email'] 
+        gender               = request.POST['gender']
+        email             = request.POST['email']
+        contact_no           = request.POST['phone']
+        address              = request.POST['address']
+
+        degree               = request.POST['degree']
+        specialisation       = request.POST['specialisation']
+        current_year         = request.POST['current_year']
+        institution_name     = request.POST['institution_name']
+        institution_address  = request.POST['institution_address']
+        career_category      = request.POST['career_category']
+        career_specification = request.POST['career_specification']
+
+        try:
+            u_id = User.objects.get(username=username)
+            edituser = UserProfile(user_id=u_id,user_profile=user_profile_image,gender=gender,contact_no=contact_no,address=address,degree=degree,specialisation=specialisation,institution_name=institution_name,institution_address=institution_address,career_category=career_category,career_specification=career_specification)
+            edituser.save()
+
+        except:
+            usr = User.objects.get(username=email)
+            usr.delete()
+            messages.error(request, 'Some error occured !')
+            return redirect('user-profile-edit')
+        messages.success(request, 'User profile edited Successfully!')
+        return redirect('user-profile-edit')
+
+    context ={
+
+        'form':EditProfile
+    }
+
+
+    return render(request,'virtualmain_pages/user-profile-edit.html',context)
+
+
 
 def userProject(request):
     return render(request,'virtualmain_pages/user-project.html')
