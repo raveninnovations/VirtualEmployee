@@ -14,15 +14,11 @@ class UserDetails(models.Model):
 
 
 class UserProfile(models.Model):
-	
-	user_profile 		 = models.ImageField(upload_to='user_profile')
-	first_name           = models.CharField(max_length=50)
-	last_name            = models.CharField(max_length=50)
-	gender               = models.CharField(max_length=50)
-	email_id             = models.EmailField(max_length=100)
-	contact_no           = PhoneNumberField(null=False, blank=False, unique=False, default='+91')
-	address              = models.CharField(max_length=200)
 
+	user_id = models.ForeignKey(User,on_delete=models.CASCADE)
+	user_profile 		 = models.ImageField(upload_to='user_profile/')
+	gender               = models.CharField(max_length=50)
+	address              = models.CharField(max_length=200)
 	degree               = models.CharField(max_length=50)
 	specialisation       = models.CharField(max_length=50)
 	current_year 	     = models.CharField(max_length=50)

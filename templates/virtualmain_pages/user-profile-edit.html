@@ -186,6 +186,7 @@
                             </div>
                             <hr class="m-0">
                             <form class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid action="" method="POST">
+                              {% csrf_token %}
                                 <div>
                                     <h5 class="uk-text-bold mb-2"> First Name </h5>
                                     <input type="text" class="uk-input" placeholder="Your name">
