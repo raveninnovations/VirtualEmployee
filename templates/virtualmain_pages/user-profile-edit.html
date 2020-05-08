@@ -60,7 +60,7 @@
                 <div uk-grid>
 
                     <div class="uk-width-2-5@m uk-flex-last@m">
-
+                        <form method="POST">
                         <div class="uk-card-default rounded text-center p-4">
                             <div class="uk-position-relative my-4">
 
@@ -72,16 +72,16 @@
 
                                 <div class="uk-position-center">
                                     <div uk-form-custom>
-                                        <input type="file">
+                                        <input type="file" name="user-profile-photo">
                                         <span class="uk-link icon-feather-camera icon-medium text-white"> </span>
                                     </div>
 
                                 </div>
                             </div>
 
-                            <button class="btn btn-default m-auto mb-3">Save photo</button>
+                            <button class="btn btn-default m-auto mb-3" type="submit">Save photo</button>
                         </div>
-
+                        </form>
 
                         <div class="uk-card-default rounded p-4 mt-5">
                          
@@ -185,43 +185,46 @@
                                 <h5 class="mb-0"> Contact info </h5>
                             </div>
                             <hr class="m-0">
-                            <form class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid action="" method="POST">
+                            <form  action="" method="POST">
                               {% csrf_token %}
+                              <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid>
                                 <div>
                                     <h5 class="uk-text-bold mb-2"> First Name </h5>
-                                    <input type="text" class="uk-input" placeholder="Your name">
+                                    <input type="text" name='first_name' class="uk-input" placeholder="First name">
                                 </div>
                                 <div>
                                     <h5 class="uk-text-bold mb-2"> Last Name </h5>
-                                    <input type="text" class="uk-input" placeholder="Your seccond">
+                                    <input type="text" name='last_name' class="uk-input" placeholder="Last name">
                                 </div>
                                 <div>
                                     <h5 class="uk-text-bold mb-2"> Gender </h5>
-                                    <select class="uk-select">
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                        <option>Others</option>
+                                    <select class="uk-select" name='gender'>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="others">Others</option>
                                     </select>
                                 </div>
                                 <div>
                                     <h5 class="uk-text-bold mb-2"> Email address </h5>
-                                    <input type="text" class="uk-input" placeholder="eliedaniels@gmail.com">
+                                    <input type="text" name='email' class="uk-input" placeholder="eliedaniels@gmail.com">
                                 </div>
                                 <div>
                                     <h5 class="uk-text-bold mb-2"> Contact no </h5>
-                                    <input type="text" class="uk-input" placeholder="+1 555 623 568 ">
+                                    <input type="text" name='contact' class="uk-input" placeholder="+1 555 623 568 ">
                                 </div>
 
                                 <div>
                                     <h5 class="uk-text-bold mb-2"> Address </h5>
-                                    <input type="text" class="uk-input" placeholder="Your address ">
+                                    <input type="text" name='address' class="uk-input" placeholder="Your address ">
                                 </div>
-                            </form>
+                              </div>
+                           
 
                             <div class="uk-flex uk-flex-right p-4">
                                 
                                 <button class="btn btn-default grey">Save Changes</button>
                             </div>
+                           </form>
                         </div>
 
                         <div class="uk-card-default rounded mt-4">
