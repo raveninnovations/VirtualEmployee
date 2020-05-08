@@ -36,22 +36,29 @@ def adminRolecreation(request):
 def adduser(request):
     form = AddUserForm
     if request.method =='POST':
-        firstname = request.POST['name']
-        lastname = request.POST['name']
+        firstname = request.POST['first']
+        lastname = request.POST['last']
         userphone = request.POST['user_phone']
         email = request.POST['email']
-        username = request.POST['email']
+        username = firstname + " " + lastname
         password = request.POST['password1']
         conform = request.POST['password2']
+
         regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
         if User.objects.filter(email=email).exists():
             messages.error(request, 'That email is being used')
             return redirect('register')
         if firstname.isdigit():
-            messages.error(request, 'Name cannot have numbers')
+            messages.error(request, 'Firstname cannot have numbers')
+            return redirect('register')
+        if lastname.isdigit():
+            messages.error(request, 'Lastname cannot have numbers')
             return redirect('register')
         if regex.search(firstname):
-            messages.error(request, 'Name cannot have special characters')
+            messages.error(request, 'firstname cannot have special characters')
+            return redirect('register')
+        if regex.search(lastname):
+            messages.error(request, 'lastname cannot have special characters')
             return redirect('register')
         try:
             v = validate_email(email)
