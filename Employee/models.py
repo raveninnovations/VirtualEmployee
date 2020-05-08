@@ -10,3 +10,29 @@ class UserDetails(models.Model):
 
     def __str__(self):
         return str(self.user_id) if self.user_id else ''
+
+
+
+class UserProfile(models.Model):
+	
+	user_profile 		 = models.ImageField(upload_to='user_profile')
+	first_name           = models.CharField(max_length=50)
+	last_name            = models.CharField(max_length=50)
+	gender               = models.CharField(max_length=50)
+	email_id             = models.EmailField(max_length=100)
+	contact_no           = PhoneNumberField(null=False, blank=False, unique=False, default='+91')
+	address              = models.CharField(max_length=200)
+
+	degree               = models.CharField(max_length=50)
+	specialisation       = models.CharField(max_length=50)
+	current_year 	     = models.CharField(max_length=50)
+	institution_name     = models.CharField(max_length=100)
+	institution_address  = models.CharField(max_length=200)
+	career_category      = models.CharField(max_length=50)
+	career_specification = models.CharField(max_length=50)
+
+	def __str__(self):
+		return str(self.first_name+" "+self.last_name)
+	 
+
+

@@ -9,3 +9,9 @@ class AddUserForm(ModelForm):
     class Meta:
         model = UserDetails
         fields=['user_phone']
+
+
+# class EditUserProfile(ModelForm):
+
+# 	class Meta:
+# 		model = 

@@ -81,6 +81,7 @@ def adduser(request):
     }
     return render(request,'virtualmain_pages/registermain.html',context)
 
+
 def userlogin(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -102,6 +103,7 @@ def userlogin(request):
 
     return render(request,'virtualmain_pages/login.html')
 
+
 def logout(request):
     auth.logout(request)
     return render(request,'Admin_pages/logout.html')
@@ -113,9 +115,43 @@ def userdashboard(request):
 
     return render(request,'virtualmain_pages/dashboard.html')
 
+
 @login_required
 def userprofile(request):
+
+    # if request.method == 'POST':
+    #     user_profile         = request.POST['']
+    #     first_name           = request.POST['firstname']
+    #     last_name            = request.POST['lastname']
+    #     gender               = request.POST['gender']
+    #     email_id             = request.POST['email']
+    #     contact_no           = request.POST['phone']
+    #     address              = request.POST['address']
+
+    #     degree               = request.POST['degree']
+    #     specialisation       = request.POST['specialisation']
+    #     current_year         = request.POST['current_year']
+    #     institution_name     = request.POST['institution_name']
+    #     institution_address  = request.POST['institution_address']
+    #     career_category      = request.POST['career_category']
+    #     career_specification = request.POST['career_specification']
+
+
+
+
     return render(request,'virtualmain_pages/user-profile.html')
+
+
+
+
+
+
+
+
+
+
+
+
 @login_required
 def userEdit(request):
     return render(request,'virtualmain_pages/user-profile-edit.html')
