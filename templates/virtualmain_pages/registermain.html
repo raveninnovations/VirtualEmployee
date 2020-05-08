@@ -19,7 +19,7 @@
                 <div class="uk-margin-auto-vertical uk-text-center uk-animation-scale-up p-3 uk-light">
                     <div class="logo uk-visible@s">
                 <a href="#" class="logo">
-                           <img src="{% static 'images/Admin/VES.png' %}" alt="">
+                           <img src="{% static 'images/VES.png' %}" alt="">
                             </a>
             </div>
 
@@ -33,17 +33,33 @@
                             <p class="my-2">Login to manage your account.</p>
                         </div>
 
-                    <form class="uk-child-width-1-1 uk-grid-small" uk-grid method="post">{% csrf_token %}
+                    <form class="uk-child-width-1-1 uk-grid-small" uk-grid method="post">
+                        {% csrf_token %}
 
-                        <div>
+                        <div class="uk-width-1-2@s">
                             <div class="uk-form-group">
-                                <label class="uk-form-label"> Name</label>
+                                <label class="uk-form-label"> First name</label>
+
                                 <div class="uk-position-relative w-100">
                                     <span class="uk-form-icon">
                                         <i class="icon-feather-user"></i>
                                     </span>
-                                    <input class="uk-input" type="text" name="name" placeholder="Full name">
+                                    <input class="uk-input" type="text" name="first" placeholder="Enter firstname"required>
                                 </div>
+
+                            </div>
+                        </div>
+                        <div class="uk-width-1-2@s">
+                            <div class="uk-form-group">
+                                <label class="uk-form-label"> Last name</label>
+
+                                <div class="uk-position-relative w-100">
+                                    <span class="uk-form-icon">
+                                        <i class="icon-feather-user"></i>
+                                    </span>
+                                    <input class="uk-input" type="text" name="last" placeholder="Enter lastname" required>
+                                </div>
+
                             </div>
                         </div>
                         <div>
@@ -54,7 +70,7 @@
                                     <span class="uk-form-icon">
                                         <i class="icon-feather-mail"></i>
                                     </span>
-                                    <input class="uk-input" type="email" name="email" placeholder="name@example.com">
+                                    <input class="uk-input" type="email" name="email" placeholder="name@example.com" required>
                                 </div>
 
                             </div>
@@ -80,7 +96,7 @@
                                     <span class="uk-form-icon">
                                         <i class="icon-feather-lock"></i>
                                     </span>
-                                    <input class="uk-input" type="password" name="password1" placeholder="********">
+                                    <input class="uk-input" type="password" name="password1" placeholder="********" required>
                                 </div>
 
                             </div>
@@ -93,7 +109,7 @@
                                     <span class="uk-form-icon">
                                         <i class="icon-feather-lock"></i>
                                     </span>
-                                    <input class="uk-input" type="password" name="password2" placeholder="********">
+                                    <input class="uk-input" type="password" name="password2" placeholder="********" required>
                                 </div>
 
                             </div>
@@ -102,10 +118,11 @@
                         <div>
                             <div class="mt-4 uk-flex-middle uk-grid-small" uk-grid>
                                 <div class="uk-width-expand@s">
-                                    <p> Have VE account <a href="#">Login</a></p>
+                                    <p> Have VE account <a href="{% url 'login' %}">Login</a></p>
                                 </div>
                                 <div class="uk-width-auto@s">
-                                    <button = "submit" class="btn btn-default">Get Started</button>
+                                    <button id="bb" type="submit"><span></span><span></span><span></span><span></span>Get Started</button>
+
                                 </div>
                             </div>
                         </div>
