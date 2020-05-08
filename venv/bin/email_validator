@@ -1,4 +1,6 @@
-#!/home/vidhya/PycharmProjects/VirtualMain/venv/bin/python
+#!/bin/sh
+'''exec' "/home/vidhya/PycharmProjects/Virtual Main Final/VirtualEmployee/venv/bin/python3" "$0" "$@"
+' '''
 # -*- coding: utf-8 -*-
 import re
 import sys
