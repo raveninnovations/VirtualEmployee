@@ -102,7 +102,7 @@
 		/*--------------------------------------------------*/
 		/*  NProgress
 		/*-------------------------------------------------- */
-		NProgress.start(); // start    
+		NProgress.start(); // start
 		NProgress.set(0.4); // To set a progress percentage, call .set(n), where n is a number between 0..1
 		NProgress.inc(); // To increment the progress bar, just use .inc(). This increments it with a random amount. This will never get to 100%: use it for every image load (or similar).If you want to increment by a specific value, you can pass that as a parameter
 		NProgress.configure({
@@ -118,40 +118,40 @@
 		NProgress.configure({
 			parent: '#wrapper'
 		}); //specify this to change the parent container. (default: body)
-		NProgress.done(); // end 
+		NProgress.done(); // end
 
 
 		// ------------------ End Document ------------------ //
 	});
-	
-	
+
+
 	/* add course start hari */
-	
-	
-	
-	
+
+
+
+
 		$('.add_lesson_btn').on('click', function () {
 			var clone_lesson_div_html	=	$('.clone_lesson_div').html();
-			$('.lesson_block .c-curriculum').first().after(clone_lesson_div_html);			
+			$('.lesson_block .c-curriculum').first().after(clone_lesson_div_html);
 			return false;
 		});
-		
+
 		$(document).on('click', '.add_topic_btn', function () {
 			add_topic_func($(this));
 			return false;
-		});	
-		
+		});
+
 		function add_topic_func(this_div){
 			var clone_topic_div_html	=	$('.clone_topic_div').html();
 			var current_inc	=	this_div.parents('.c-curriculum').find('.sec-list li');
 			current_inc.last().after(clone_topic_div_html);
 			return false;
 		}
-	
+
 	/* clone_lesson_div */
 	/* add course end hari */
-	
-	
+
+
 
 })(this.jQuery);
 
@@ -353,8 +353,8 @@
 
 		return $el;
 	};
-	
-	
+
+
 
 	/**
 	 * Removes the element. Opposite of render().

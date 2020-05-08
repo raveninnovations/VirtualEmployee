@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from .forms import (AddUserForm)
-from .models import UserDetails
+from .models import UserDetails,RoleDetail
 # Create your views here.
 # ADMIN SECTION
 
@@ -30,7 +30,39 @@ def adminProjects(request):
 
 @login_required
 def adminRolecreation(request):
-    return render(request,'Admin_pages/role-creation.html')
+    if request.method=='POST':
+
+        # Assigning Unique Id To each role
+        user_role=request.POST['role']
+        if user_role=="CSM":
+            role_user_id="CM"+str(100+(RoleDetail.objects.filter(user_role="CSM").count()+1))
+        elif user_role=="PCM":
+            role_user_id="PM"+str(200+(RoleDetail.objects.filter(user_role="PCM").count()+1))
+        elif user_role=="TL":
+            role_user_id="TL"+str(300+(RoleDetail.objects.filter(user_role="TL").count()+1))
+        elif user_role=="Instructor":
+            role_user_id="IN"+str(400+(RoleDetail.objects.filter(user_role="Instructor").count()+1))
+        else:
+            user_role=000
+
+
+        role_user_name=request.POST['username']
+        role_user_email=request.POST['email']
+        role_user_password=request.POST['password']
+
+        # Saving the role input in the model
+        role=RoleDetail(role_user_id=role_user_id,user_role=user_role,role_user_name=role_user_name,role_user_email=role_user_email,role_user_password=role_user_password)
+        role.save()
+        return redirect("adminrolecreation")
+
+
+
+    roles=RoleDetail.objects.order_by("-role_create_date")
+    context={
+        'roles':roles
+    }
+
+    return render(request,'Admin_pages/role-creation.html',context)
 
 
 def adduser(request):

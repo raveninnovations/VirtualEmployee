@@ -24,36 +24,39 @@
                     <div class="uk-width-3-5@m">
                         <div class="card rounded">
                           <div class=" container py-3 uk-width-expand">
-                            <form>
+                            <form name="pgenerate" method="POST">
+                              {% csrf_token %}
                                 <fieldset class="uk-fieldset">
 
                                     <legend class="uk-legend">Create Role</legend>
 
                                     <div class="uk-margin uk-width-1-5">
-                                        <select class="uk-select">
+                                        <select class="uk-select" name="role">
                                             <option>Role</option>
-                                            <option>Option 01</option>
-                                            <option>Option 02</option>
+                                            <option>CSM</option>
+                                            <option>PCM</option>
+                                            <option>TL</option>
+                                            <option>Instructor</option>
                                         </select>
                                     </div>
 
 
 
                                     <div class="uk-margin">
-                                        <input class="uk-input bg-secondary" type="text" placeholder="Username">
+                                        <input class="uk-input bg-secondary" name="username" type="text" placeholder="Username">
                                     </div>
 
                                     <div class="uk-margin">
-                                        <input class="uk-input bg-secondary" type="text" placeholder="Email">
+                                        <input class="uk-input bg-secondary" name="email" type="text" placeholder="Email">
                                     </div>
 
                                     <div class="uk-margin">
                                         <div class="uk-inline d-flex">
                                             <div class="mt-1">
-                                              <button class="btn btn-default" href="#">Generate Password</button>
+                                              <input type="button" class="btn btn-default"  value="Generate Password" onClick="populateform(8)"><br />
                                             </div>
                                             <div class="mx-1 ">
-                                              <input class="uk-input bg-secondary " type="text" placeholder="Lorem Epsum">
+                                              <input class="uk-input bg-secondary" name="password" type="text" placeholder="Password">
                                             </div>
 
                                         </div>
@@ -84,8 +87,10 @@
                                   <div class="col-md-4 uk-margin my-auto">
                                       <select class="uk-select uk-width-auto">
                                           <option>Sort Role</option>
-                                          <option>Option 01</option>
-                                          <option>Option 02</option>
+                                          <option>CSM</option>
+                                          <option>PCM</option>
+                                          <option>TL</option>
+                                          <option>Instructor</option>
                                       </select>
                                   </div>
                                   <div class="col-md-8 my-suto">
@@ -95,7 +100,7 @@
 
                                 <hr style="width:70% mx-auto mt-0">
 
-                                <table class="uk-table uk-table-divider">
+                                <table class="uk-table uk-table-divider" >
                                   <thead>
                                       <tr>
                                           <th>Id </th>
@@ -106,35 +111,63 @@
                                       </tr>
                                   </thead>
                                   <tbody>
+                                    {% if roles %}
+                                      {% for role in roles %}
                                       <tr>
-                                          <td>CS101</td>
-                                          <td>CSM</td>
-                                          <td>John@gmail.com</td>
-                                          <td>20/12/19</td>
-                                          <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove">Remove</button></td>
+                                          <td>{{role.role_user_id}}</td>
+                                          <td>{{role.user_role}}</td>
+                                          <td>{{role.role_user_email}}</td>
+                                          <td>{{role.role_create_date | date}}</td>
+                                          <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove" uk-toggle="target: #modal-example">Remove</button></td>
+
+                                          <!-- Remove Button Click Warning Message Modal -->
+                                          <div id="modal-example" uk-modal>
+                                            <div class="uk-modal-dialog uk-modal-body">
+                                              <form class=""  method="POST">
+                                                {% csrf_token %}
+
+                                                <h2 class="uk-modal-title">WARNING!!!</h2>
+                                                <p>Are You sure you want to delete this role?</p>
+                                                <p class="uk-text-right">
+                                                    <input type="hidden" name="conf" value="{{role.role_user_id}}">
+                                                    <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                                                    <button class="uk-button uk-button-primary" name="delete" type="button">Yes I am Sure</button>
+                                                </p>
+                                              </form>
+                                            </div>
+                                        </div>
+
+
                                       </tr>
-                                      <tr>
-                                          <td>CS101</td>
-                                          <td>CSM</td>
-                                          <td>John@gmail.com</td>
-                                          <td>20/12/19</td>
-                                          <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove">Remove</button></td>
-                                      </tr>
-                                      <tr>
-                                          <td>CS101</td>
-                                          <td>CSM</td>
-                                          <td>John@gmail.com</td>
-                                          <td>20/12/19</td>
-                                          <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove">Remove</button></td>
-                                      </tr>
+                                      {% endfor %}
+                                    {% endif %}
                                   </tbody>
                                 </table>
+
 
                               </fieldset>
                           </form>
                             </div>
                         </div>
                     </div>
+
+
+
+                    <!-- Remove Button Click Warning Message Modal -->
+                    <!-- <div id="modal-example" uk-modal>
+                      <div class="uk-modal-dialog uk-modal-body">
+                        <form class=""  method="POST">
+                          {% csrf_token %}
+                          <h2 class="uk-modal-title">WARNING!!!</h2>
+                          <p>Are You sure you want to delete this role?</p>
+                          <p class="uk-text-right">
+                              <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                              <button class="uk-button uk-button-primary" type="button">Yes I am Sure</button>
+                          </p>
+                        </form>
+
+                      </div>
+                  </div> -->
 
 
 
@@ -165,6 +198,8 @@
 
         <!-- For Night mode -->
         <script>
+
+
             (function (window, document, undefined) {
                 'use strict';
                 if (!('localStorage' in window)) return;
@@ -198,6 +233,36 @@
                 }, false);
 
             })(window, document);
+
+
+              // Random Password Generator
+
+            var keylist="abcdefghijklmnopqrstuvwxyz123456789"
+            var temp=''
+
+            function generatepass(plength){
+            temp=''
+            for (i=0;i<plength;i++)
+            temp+=keylist.charAt(Math.floor(Math.random()*keylist.length))
+            return temp
+            }
+
+            function populateform(enterlength){
+            document.pgenerate.password.value=generatepass(enterlength)
+            }
+
+
+
+
+// $(document).ready(function(){
+//   $("#myInput").on("onchange", function() {
+//     var value = $(this).val()
+//     $("#myTable tr").filter(function() {
+//       $(this).toggle($(this).text().indexOf(value) > -1)
+//     });
+//   });
+// });
+
         </script>
 
 
