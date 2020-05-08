@@ -40,7 +40,7 @@ def adduser(request):
         lastname = request.POST['last']
         userphone = request.POST['user_phone']
         email = request.POST['email']
-        username = firstname + " " + lastname
+        username = request.POST['email']
         password = request.POST['password1']
         conform = request.POST['password2']
 
