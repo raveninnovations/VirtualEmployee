@@ -33,7 +33,6 @@ def adminProjects(request):
 @login_required
 def adminRolecreation(request):
     if request.method=='POST':
-
         # When we Press Create Role Button
         if 'create' in request.POST:
             # Assigning Unique Id To each role
@@ -49,9 +48,30 @@ def adminRolecreation(request):
             else:
                 role_user_id=000
 
-
+            user_firstname = request.POST['fname']
+            user_lastname = request.POST['lname']
             role_user_name=request.POST['username']
             role_user_email=request.POST['email']
+            regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
+            if User.objects.filter(email=role_user_email).exists():
+                messages.error(request, 'The email already exists')
+                return redirect('adminrolecreation')
+            if User.objects.filter(username=role_user_name).exists():
+                messages.error(request, 'That username is being used')
+                return redirect('adminrolecreation')
+            if user_firstname.isdigit():
+                messages.error(request, 'Firstname cannot have numbers')
+                return redirect('adminrolecreation')
+            if regex.search(user_firstname):
+                messages.error(request, 'Firstname cannot have special characters')
+                return redirect('adminrolecreation')
+            if user_lastname.isdigit():
+                messages.error(request, 'Lastname cannot have numbers')
+                return redirect('adminrolecreation')
+            if regex.search(user_lastname):
+                messages.error(request, 'Lastname cannot have special characters')
+                return redirect('adminrolecreation')
+
             # Send Mail
             # send_mail(
             #     "New Account Setup",
@@ -63,22 +83,28 @@ def adminRolecreation(request):
 
             role_user_password=request.POST['password']
 
+            try:
+                User.objects.create_user(username = role_user_name,email= role_user_email,first_name= user_firstname,
+                                                last_name = user_lastname,password = role_user_password)
+                u_id = User.objects.get(username=role_user_name)
+                role = RoleDetail(user_id=u_id,role_user_id=role_user_id, user_role=user_role, role_user_name=role_user_name,
+                                  role_user_email=role_user_email, role_user_password=role_user_password)
+                role.save()
+
+            except:
+                print("hai")
+                print("error")
             # Saving the role input in the model
-            role=RoleDetail(role_user_id=role_user_id,user_role=user_role,role_user_name=role_user_name,role_user_email=role_user_email,role_user_password=role_user_password)
-            role.save()
-
-
 
             return redirect("adminrolecreation")
-
 
         # When we press Remove Button
         if 'delete' in request.POST:
             del_id=request.POST['del_id']
-            roled=RoleDetail.objects.get(role_user_id=del_id).delete()
+            roled=RoleDetail.objects.get(user_id_id=del_id).delete()
+            # Delete from the user table
+            user_del = User.objects.get(id=del_id).delete()
             return redirect('adminrolecreation')
-
-
 
     roles=RoleDetail.objects.order_by("-role_create_date")
     context={
@@ -151,6 +177,9 @@ def userlogin(request):
         password = request.POST['password']
 
         user = authenticate(username=email, password=password)
+        # Roles
+
+
 
         if user is not None:
             login(request, user)
@@ -161,7 +190,14 @@ def userlogin(request):
             messages.success(request,'Successfully loggedin')
             return redirect('login')
         else:
-            messages.error(request,'Fail')
+            try:
+                print("user role")
+                if RoleDetail.objects.filter(role_user_email=email, role_user_password=password).exists():
+                    print("user role")
+                    return redirect('csmDashboard')
+            except:
+                print("error")
+            messages.error(request, 'Fail')
             return redirect('login')
 
     return render(request,'virtualmain_pages/login.html')

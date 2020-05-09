@@ -17,10 +17,6 @@
                     </nav>
                 </div>
 
-
-
-
-
                     <div class="uk-width-3-5@m">
                         <div class="card rounded">
                           <div class=" container py-3 uk-width-expand">
@@ -41,7 +37,18 @@
                                     </div>
 
 
+                                    <div class="uk-margin">
+                                        <div class="uk-inline d-flex">
+                                        <div id="mt-1" style="width: 267px">
+                                            <input class="uk-input bg-secondary" name="fname" type="text" placeholder="Firstname" required>
+                                        </div>
+                                             &nbsp;&nbsp;&nbsp;
+                                        <div id="mt-1" style="width: 267px">
+                                            <input class="uk-input bg-secondary" name="lname" type="text" placeholder="Lastname" required>
+                                        </div>
+                                        </div>
 
+                                    </div>
                                     <div class="uk-margin">
                                         <input class="uk-input bg-secondary" name="username" type="text" placeholder="Username" required>
                                     </div>
@@ -132,7 +139,7 @@
                                                 <p>Are You sure you want to delete this role?</p>
                                                 <p class="uk-text-right">
                                                   <!-- The below hidden input tag is to pass the particular role_user_id that i want to delete -->
-                                                    <input type="hidden" name="del_id" value="{{role.role_user_id}}">
+                                                    <input type="hidden" name="del_id" value="{{role.user_id_id}}">
                                                     <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
                                                     <button class="uk-button uk-button-primary" name="delete" type="Submit">Yes I am Sure</button>
                                                 </p>

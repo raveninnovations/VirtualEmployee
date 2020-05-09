@@ -16,6 +16,7 @@ class UserDetails(models.Model):
 
 
 class RoleDetail(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     role_user_id=models.CharField(max_length=10)
     user_role=models.CharField(max_length=255)
     role_user_name=models.CharField(max_length=255)
