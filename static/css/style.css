@@ -8297,7 +8297,7 @@ body #backtotop a {
 }
 
 .bg-gradient-grey {
-  background: linear-gradient(80deg, rgb(7, 24, 41) 0, rgb(13, 49, 80) 100%) !important
+  background: transparent !important
 }
 
 .bg-gradient-dark {
