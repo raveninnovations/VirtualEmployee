@@ -138,3 +138,11 @@ LOGIN_URL = 'login'
 # MEDIA FOLDER
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#Email send_mail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST="smpt.gmail.com"
+EMAIL_PORT=587
+EMAIL_HOST_USER='akashsingh11112011@gmail.com'
+EMAIL_HOST_PASSWORD='akash@123'
+EMAIL_USE_TLS=True
