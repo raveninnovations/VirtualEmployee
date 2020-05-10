@@ -1,2 +1,4 @@
 *.pyc
 db.sqlite3
+Employee/migrations/*
+Employee/__pycache__/*
