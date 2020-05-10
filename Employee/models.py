@@ -59,8 +59,8 @@ class RoleDetail(models.Model):
 
 class Course(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
-    created=models.DateTimeField(null=True)
-    title=models.CharField(max_length=50)
+    created = models.DateTimeField(default=datetime.now,null=True)
+    title = models.CharField(max_length=50)
     tagline=models.CharField(max_length=50)
     short_description=models.CharField(max_length=100)  
     course_image=models.ImageField(null=True,blank=True)

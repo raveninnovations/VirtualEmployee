@@ -13,17 +13,17 @@
 
             <!-- logo -->
             <div class="logo uk-visible@s">
-                <a href="dashboard.html" class="logo">
-                            <img src="../assets/images/VES.png" alt="">
+                <a href="{% url 'csmDashboard' %}" class="logo">
+                            <img src="{% static 'images/VES.png' %}" alt="">
 
                         </a>
 
             </div>
             <div class="page-menu-inner" data-simplebar>
                 <ul class="mt-0">
-                    <li><a href="csm_dashboard.html"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
-                    <li><a href="add-course.html"><i class="uil-youtube-alt"></i> <span>Add Course</span></a> </li>
-                    <li><a href=""><i class="uil-envelope-alt"></i> <span> Message</span></a> </li>
+                    <li><a href="{% url 'csmDashboard' %}"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
+                    <li><a href="{% url 'csmAddCourse' %}"><i class="uil-youtube-alt"></i> <span>Add Course</span></a> </li>
+                    <li><a href="#"><i class="uil-envelope-alt"></i> <span> Message</span></a> </li>
 
                 </ul>
 

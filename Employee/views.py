@@ -193,20 +193,21 @@ def userlogin(request):
             if request.user.is_staff:
                 print('Welcome admin')
                 return redirect(adminDashboard)
-            return redirect(userdashboard)
-            messages.success(request,'Successfully loggedin')
-            return redirect('login')
-        else:
-            try:
-                print("user role")
-                if RoleDetail.objects.filter(role_user_email=email, role_user_password=password).exists():
+            else:
+                try:
                     print("user role")
-                    return redirect('csmDashboard')
-            except:
-                print("error")
-            messages.error(request, 'Fail')
-            return redirect('login')
+                    if RoleDetail.objects.filter(role_user_email=email, role_user_password=password).exists():
+                        print("user role")
+                        return redirect('csmDashboard')
+                except:
+                    messages.error(request, "login failed")
+                    print("error")
+                if request.user.is_active:
+                    return redirect(userdashboard)
+                    messages.success(request, 'Successfully loggedin')
 
+        messages.error(request, "Login failed")
+        return redirect('login')
     return render(request,'virtualmain_pages/login.html')
 
 
@@ -239,11 +240,12 @@ def userProject(request):
     return render(request,'virtualmain_pages/user-project.html')
 
 # CSM MODULE SECTION
-
+@login_required
 def csmDashboard(request):
     allCourses=Course.objects.filter(user=request.user)
     return render(request,'csm_pages/csm_dashboard.html',{'courses':allCourses})
 
+@login_required
 def csmAddCourse(request):
     if request.method == "POST":
         title=request.POST["title"]

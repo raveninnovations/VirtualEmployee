@@ -13,12 +13,12 @@
 
             <!-- logo -->
             <div class="logo uk-visible@s">
-                <a href="dashboard.html"> <i class=" uil-graduation-hat"></i> <span> Courseplus</span> </a>
+                <a href="{% url 'csmDashboard' %}"> <i class=" uil-graduation-hat"></i> <span> Courseplus</span> </a>
             </div>
             <div class="page-menu-inner" data-simplebar>
                 <ul class="mt-0">
-                  <li><a href="csm_dashboard.html"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
-                  <li><a href="add-course.html"><i class="uil-youtube-alt"></i> <span>Add Course</span></a> </li>
+                  <li><a href="{% url 'csmDashboard' %}"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
+                   </li>
                   <li><a href=""><i class="uil-envelope-alt"></i> <span> Message</span></a> </li>
                 </ul>
 
@@ -39,7 +39,7 @@
                     <nav id="breadcrumbs" class="mb-3">
                         <ul>
                             <li><a href="#"> <i class="uil-home-alt"></i> </a></li>
-                            <li><a href="#"> Course </a></li>
+                            <li><a href="{% url 'csmDashboard' %}"> Course </a></li>
                             <li>Create New Course</li>
                         </ul>
                     </nav>

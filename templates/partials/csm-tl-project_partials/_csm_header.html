@@ -242,11 +242,14 @@
 
                             <div class="dropdown-user-details">
                                 <div class="dropdown-user-avatar">
-                                    <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                                    <img src="{% static 'images/avatars/avatar-2.jpg' %}" alt="">
                                 </div>
+                                {% if user.is_authenticated %}
                                 <div class="dropdown-user-name">
-                                    Richard Ali <span>Adminstrator</span>
+                                    {{ user.first_name }} {{ user.last_name }} <span>CSM - ADMIN</span>
                                 </div>
+                                {% else %}
+                                {% endif %}
                             </div>
 
 
@@ -272,12 +275,14 @@
                                             </span>
                                         </a>
                                     </li>
+                                    {% if user.is_authenticated %}
                                     <ul class="menu-divider">
 
-                                        <li><a href="page-login.html">
-                                                <i class="icon-feather-log-out"></i> Sing Out</a>
+                                        <li><a href="{% url 'logout' %}">
+                                                <i class="icon-feather-log-out"></i> Sign Out</a>
                                         </li>
                                     </ul>
+                                    {% endif %}
 
                                 </ul>
                             </div>
