@@ -16,7 +16,14 @@ from django.core.mail import send_mail
 
 @login_required
 def adminDashboard(request):
-    return render(request,"Admin_pages/dashboard.html")
+    total_students=UserDetails.objects.all().count()
+    total_sales=total_students*5000
+    context={
+        'total_students':total_students,
+        'total_sales':total_sales,
+    }
+    return render(request,"Admin_pages/dashboard.html",context)
+
 
 @login_required
 def adminCourses(request):
