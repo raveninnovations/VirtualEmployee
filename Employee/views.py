@@ -6,9 +6,9 @@ from django.contrib import auth
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-
+from datetime import datetime
 from .forms import (AddUserForm)
-from .models import UserDetails,RoleDetail
+from .models import UserDetails,RoleDetail,Course
 
 from django.core.mail import send_mail
 # Create your views here.
@@ -234,9 +234,44 @@ def userProject(request):
 # CSM MODULE SECTION
 
 def csmDashboard(request):
-    return render(request,'csm_pages/csm_dashboard.html')
+    allCourses=Course.objects.filter(user=request.user)
+    return render(request,'csm_pages/csm_dashboard.html',{'courses':allCourses})
 
 def csmAddCourse(request):
+    if request.method == "POST":
+        title=request.POST["title"]
+        tagline=request.POST["tagline"]
+        short_description=request.POST["short_description"]
+        category=request.POST["category"]
+        difficulty_level=request.POST["difficulty_level"]
+        # lesson_title=request.POST["lesson_title"]
+        topic=request.POST["topic"]
+        meta_keywords=request.POST["meta_keywords"]
+        meta_description=request.POST["meta_description"]
+        requirements=request.POST["requirements"]
+        learn=request.POST["learn"]
+        course_points=request.POST["course_points"]
+        certificate=request.POST["certificate"]
+        # quiz and certificate details are not added yet   
+        courses=Course.objects.create(
+            user = request.user,
+            created = datetime.now(),
+            title=title,
+            tagline=tagline,
+            short_description=short_description,
+            # course_image=course_image,
+            category=category,
+            difficulty_level=difficulty_level,
+            # lesson_title=lesson_title,
+            topic=topic,
+            meta_keywords=meta_keywords,
+            meta_description=meta_description,
+            requirements=requirements,
+            learn=learn,
+            certificate=certificate,
+            course_points=course_points
+        )
+        return redirect("/csmdashboard/")
     return render(request,'csm_pages/csm_add_course.html')
 
 # TL MODULE SECTION

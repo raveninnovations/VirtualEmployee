@@ -64,22 +64,22 @@
 
                                 <div class="row">
                                     <div class="col-xl-9 m-auto">
+                                        <form action="/csmaddcourse/" method="POST"  enctype="multipart/form-data">
+                                        {% csrf_token %}
                                         <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label" for="course_title">Course title<span
                                                     class="required">*</span></label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" id="course_title" name="title"
-                                                    placeholder="Enter course title"
-                                                    value="Learn CSS Fundamentals ..." required="">
+                                                    placeholder="Enter course title" required="">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label" for="course_title">Course tagline<span
                                                     class="required">*</span></label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control" id="course_title" name="title"
-                                                    placeholder="Enter course title"
-                                                    value="Enter short tag sentance" required="">
+                                                <input type="text" class="form-control" id="course_title" name="tagline"
+                                                    placeholder="Enter short tagline" required="">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-3">
@@ -94,9 +94,10 @@
                                         <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label" for="short_description">Course Image</label>
                                             <div class="col-md-9">
-                                                <input type="file" id="real-file" hidden="hidden"/>
-                                             <button class="btn btn-default mb-3" onclick="" id="Upload-button"> <i
-                                                class='uil-plus'></i>Upload</button>
+                                                <input type="file" id="real-file" 
+                                                name="course_image" hidden="hidden"/>
+                                             <a class="btn btn-default mb-3" onclick="" id="Upload-button"> <i
+                                                class='uil-plus'></i>Upload</a>
                                                 <span id="custom-text">No file choosen</span>
 
                                                 <script type="text/javascript">
@@ -124,28 +125,28 @@
                                         </div>
 
                                         <div class="form-group row mb-3">
-                                            <label class="col-md-3 col-form-label" for="course_title"> Category <span
+                                            <label class="col-md-3 col-form-label"> Category <span
                                                     class="required">*</span></label>
                                             <div class="col-md-9">
-                                                <select class="selectpicker">
-                                                    <option data-icon="uil-android-alt" selected> IT & Software </option>
-                                                    <option data-icon="uil-bag-alt">Business & Startups</option>
-                                                    <option data-icon="uil-palette">Desings</option>
-                                                    <option data-icon="uil-camera">Electronics & Electrical</option>
+                                                <select class="selectpicker" name="category">
+                                                    <option value="IT" data-icon="uil-android-alt"> IT & Software </option>
+                                                    <option value="business" data-icon="uil-bag-alt">Business & Startups</option>
+                                                    <option value="design" data-icon="uil-palette">Desings</option>
+                                                    <option value="ele" data-icon="uil-camera">Electronics & Electrical</option>
 
                                                 </select>
 
                                             </div>
                                         </div>
                                         <div class="form-group row mb-3">
-                                            <label class="col-md-3 col-form-label" for="course_title"> Difficulty Level <span
+                                            <label class="col-md-3 col-form-label" > Difficulty Level <span
                                                     class="required">*</span></label>
                                             <div class="col-md-9">
 
-                                                <select class="selectpicker">
-                                                    <option value=""> Beginner </option>
-                                                    <option value="1"> Intermediate </option>
-                                                    <option value="2"> Advanced</option>
+                                                <select name="difficulty_level" class="selectpicker">
+                                                    <option value="begin"> Beginner </option>
+                                                    <option value="inter"> Intermediate </option>
+                                                    <option value="adv"> Advanced</option>
                                                 </select>
 
                                             </div>
@@ -170,7 +171,7 @@
                                         <ul class="c-curriculum" uk-accordion>
 
                                             <li class="uk-open" id="lesson-module">
-                                                  <a class="uk-accordion-title" href="#"> <i class="uil-folder">
+                                                    <a class="uk-accordion-title" href="#"> <i class="uil-folder">
                                                   </i><span id="editLesson" contenteditable="True">Lesson title</span></a>
 
 
@@ -302,10 +303,13 @@
                                                 keywords</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control bootstrap-tag-input"
-                                                    id="meta_keywords" name="meta_keywords" data-role="tagsinput"
+                                                    name="meta_keywords" data-role="tagsinput"
                                                     style="width: 100%; display: none;">
+                                                 <!--     <input type="text" class="form-control"
+                                                    name="meta_keywords" 
+                                                    style="width: 100%;"> -->
                                                 <div class="bootstrap-tagsinput"><input size="1" type="text"
-                                                        placeholder="">
+                                                        placeholder="" name="meta_keywords">
                                                 </div>
                                             </div>
                                         </div>
@@ -315,7 +319,7 @@
                                             <label class="col-md-3 col-form-label" for="meta_description">Meta
                                                 description</label>
                                             <div class="col-md-9">
-                                                <textarea name="meta_description" class="form-control"></textarea>
+                                                <input name="meta_description" class="form-control">
                                             </div>
                                         </div>
                                     </div> <!-- end col -->
@@ -334,11 +338,21 @@
                             var txtNewInputBox = document.createElement('div');
 
                             // Then add the content (a new input box) of the element.
-                            txtNewInputBox.innerHTML = "<input type='text' class='uk-input'>";
+                            txtNewInputBox.innerHTML = "<input type='text' class='uk-input' name='requirements'>";
 
                             // Finally put it where it is supposed to appear.
                             document.getElementById("newElementId").appendChild(txtNewInputBox);
 
+                            }
+
+                            function createNewElement1(){
+                            var txtNewInputBox = document.createElement('div');
+
+                            // Then add the content (a new input box) of the element.
+                            txtNewInputBox.innerHTML = "<input type='text' class='uk-input' name='learn'>";
+
+                            // Finally put it where it is supposed to appear.
+                            document.getElementById("newElementId1").appendChild(txtNewInputBox);  
                             }
                         </script>
 
@@ -346,17 +360,17 @@
                                 <div class="row justify-content-center">
                                     <div class="col-xl-9">
 
-                                        <button class="btn btn-default mb-3" onclick="createNewElement();"> <i
-                                                class='uil-plus'></i> Requirements </button>
+                                        <a class="btn btn-default mb-3" onclick="createNewElement();"> <i
+                                                class='uil-plus'></i> Requirements </a>
 
                                         <div id="newElementId"> </div>
 
                                         <input type='text' class='uk-input'
-                                            placeholder="Any computer will work: Windows, macOS or Linux">
+                                            placeholder="Any computer will work: Windows, macOS or Linux" name="requirements">
                                         <input type='text' class='uk-input'
-                                            placeholder="Basic programming HTML and CSS.">
+                                            placeholder="Basic programming HTML and CSS."name="requirements">
                                         <input type='text' class='uk-input'
-                                            placeholder="Basic/Minimal understanding of JavaScript">
+                                            placeholder="Basic/Minimal understanding of JavaScript"name="requirements">
                                     </div>
                                 </div>
 
@@ -364,17 +378,17 @@
                                 <div class="row justify-content-center">
                                     <div class="col-xl-9">
 
-                                        <button class="btn btn-default mb-3" onclick="createNewElement1();"> <i
-                                                class='uil-plus'></i> What you will learn </button>
+                                        <a class="btn btn-default mb-3" onclick="createNewElement1();"> <i
+                                                class='uil-plus'></i> What you will learn </a>
 
                                         <div id="newElementId1"> </div>
 
                                         <input type='text1' class='uk-input1'
-                                            placeholder="Any computer will work: Windows, macOS or Linux">
+                                            placeholder="Any computer will work: Windows, macOS or Linux" name="learn">
                                         <input type='text1' class='uk-input1'
-                                            placeholder="Basic programming HTML and CSS.">
+                                            placeholder="Basic programming HTML and CSS." name="learn">
                                         <input type='text1' class='uk-input1'
-                                            placeholder="Basic/Minimal understanding of JavaScript">
+                                            placeholder="Basic/Minimal understanding of JavaScript" name="learn">
                                     </div>
                                 </div>
 
@@ -390,7 +404,7 @@
                                         <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label">Course Points</label>
                                             <div class="col-md-9">
-                                                <input type="number" class="form-control" placeholder="Enter  Points">
+                                                <input type="number" class="form-control" name="course_points" placeholder="Enter Points">
                                             </div>
                                         </div>
                                     </div>
@@ -400,7 +414,7 @@
                                         <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label">Certificate</label>
                                             <div class="col-md-9">
-                                                <input class="form-control">
+                                                <input class="form-control" name="certificate">
                                                 <small class="text-muted"><span
                                                         class="text-danger"></span> </small>
                                             </div>
@@ -422,7 +436,7 @@
                                             <p class="w-75 mb-2 mx-auto"> Submit This Course For Reweiw  </p>
 
                                             <div class="mb-3 mt-3">
-                                                <button type="button" class="btn btn-default">Submit</button>
+                                                <input type="submit" class="btn btn-default">
                                             </div>
                                         </div>
                                     </div> <!-- end col -->
@@ -430,7 +444,7 @@
                             </li>
                         </ul>
 
-
+                    </form>
 
                     </div>     <!--End Of card body -->
                 </div>         <!--End Of card -->
@@ -466,7 +480,7 @@
 							<label class="mb-0 mx-2">
 								<input class="uk-checkbox" type="checkbox">
 							</label>
-							<input class=" uk-input my-auto uk-width-expand " type="text" style="border:none;" name="topic" placeholder="Topic">
+							<input type="text" class=" uk-input my-auto uk-width-expand " type="text" style="border:none;" name="topic" placeholder="Topic">
 						</div>
 						<div>
               <div class="btn-act">
