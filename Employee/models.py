@@ -4,6 +4,19 @@ from datetime import datetime
 from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
 
+CATEGORY_CHOICES = (
+    ('IT', 'IT & Software'),
+    ('business', 'Business & Startups'),
+    ('design', 'Designs'),
+    ('ele', 'Electronics & Electricals'),
+)
+DIFFICULTY_LEVEL=(
+    ('begin', 'Beginner'),
+    ('inter', 'Intermediate'),
+    ('adv', 'Advanced'),
+)
+
+
 class UserDetails(models.Model):
     user_id = models.ForeignKey(User,on_delete=models.CASCADE)
     user_phone = PhoneNumberField(null=False, blank=False, unique=False, default='+91')
@@ -43,3 +56,26 @@ class RoleDetail(models.Model):
 #
 # 	def __str__(self):
 # 		return str(self.first_name+" "+self.last_name)
+
+class Course(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
+    created=models.DateTimeField(null=True)
+    title=models.CharField(max_length=50)
+    tagline=models.CharField(max_length=50)
+    short_description=models.CharField(max_length=100)  
+    course_image=models.ImageField(null=True,blank=True)
+    category=models.CharField(max_length=10, choices=CATEGORY_CHOICES,null=True,blank=True)
+    difficulty_level=models.CharField(max_length=6, choices=DIFFICULTY_LEVEL,null=True, blank=True)
+    lesson_title=models.CharField(max_length=50, null=True, blank=True)
+    topic=models.CharField(max_length=50, null=True, blank=True)
+    # must add quiz Details
+
+    meta_keywords=models.TextField(blank=True)
+    meta_description=models.TextField(blank=True)
+    requirements=models.CharField(max_length=100, null=True, blank=True)
+    learn=models.CharField(max_length=100, null=True, blank=True)
+    course_points=models.IntegerField(default=0)
+    certificate=models.CharField(max_length=200, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.id}|{self.title} |{self.lesson_title}|{self.category}"

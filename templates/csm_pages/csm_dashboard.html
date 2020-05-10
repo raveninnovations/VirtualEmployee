@@ -54,7 +54,7 @@
 
 
                   <div class="mt-3 uk-width-expand">
-                    <button class="btn btn-default btn-lg" type="button" name="button">Create Course</button>
+                    <a class="btn btn-default btn-lg " href="/csmaddcourse/">Create Course</a>
                   </div>
 
 
@@ -84,27 +84,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for course in courses %}
                                     <tr>
-                                        <td>CS101</td>
-                                        <td>CSM</td>
-                                        <td>Development</td>
-                                        <td>20/12/19</td>
+                                        <td>{{course.id}}</td>
+                                        <td>{{course.title}}</td>
+                                        <td>{{course.category}}</td>
+                                        <td>{{course.created}}</td>
                                         <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove">Edit</button></td>
                                     </tr>
-                                    <tr>
-                                        <td>CS101</td>
-                                        <td>CSM</td>
-                                        <td>Development</td>
-                                        <td>20/12/19</td>
-                                        <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove">Edit</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>CS101</td>
-                                        <td>CSM</td>
-                                        <td>Development</td>
-                                        <td>20/12/19</td>
-                                        <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove">Edit</button></td>
-                                    </tr>
+                                    {% endfor %}
                                 </tbody>
                               </table>
 
