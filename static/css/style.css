@@ -1474,7 +1474,7 @@ fieldset {
 /* header admin */
 
 .admin-panel .header {
-  background: #0c0e2b !important;
+  background: linear-gradient(80deg, rgb(8, 28, 48) 0px, rgb(7, 24, 41) 100%) !important;
   position: fixed;
 }
 
@@ -1488,7 +1488,7 @@ fieldset {
 }
 
 .admin-panel .page-menu .logo {
-  background: #0c0e2b;
+  background: linear-gradient(80deg, rgb(8, 28, 48) 0px, rgb(8, 28, 48) 100%) !important;
   height: 70px;
   border-bottom: 0;
 }
@@ -1559,7 +1559,7 @@ fieldset {
 }
 
 .admin-panel .header .header-widget {
-  background: #0c0e2b;
+  background: linear-gradient(80deg, rgb(8, 25, 43) 0px, rgb(7, 24, 41) 100%) !important;
 }
 
 .admin-panel .header.uk-light .header-widget .header-widget-icon {
