@@ -92,7 +92,7 @@
                                         <td>{{course.title}}</td>
                                         <td>{{course.category}}</td>
                                         <td>{{course.created}}</td>
-                                        <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove">Edit</button></td>
+                                        <td><a class="uk-button-danger btn btn-alert" href="{% url 'csmEditCourse' course.id %}" type="button" name="Remove">Edit</a></td>
                                         <td><button class="uk-button-red btn btn-alert" type="button" name="Remove">Add Curriculam</button></td>
                                         <td><button class="uk-button-red btn btn-alert" type="button" name="Remove">Add Quizz</button></td>
                                     </tr>

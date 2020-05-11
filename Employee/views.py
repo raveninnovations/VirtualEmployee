@@ -264,7 +264,7 @@ def csmAddCourse(request):
         title = request.POST["title"]
         tagline  = request.POST["tagline"]
         short_description=request.POST["description"]
-
+        image = request.FILES.get('course_image')
         category = request.POST["category"]
         difficulty_level = request.POST["difficulty_level"]
         # lesson_title=request.POST["lesson_title"]
@@ -275,13 +275,23 @@ def csmAddCourse(request):
         certificate = request.POST["certificate"]
         # quiz and certificate details are not added yet   
         create = Course(user_id=user.id,title=title,tagline=tagline,short_description=short_description,
-                       category=category,difficulty_level=difficulty_level,meta_keywords=meta_keywords,
+                       course_image=image,category=category,difficulty_level=difficulty_level,meta_keywords=meta_keywords,
                         meta_description=meta_description,course_points=course_points,certificate=certificate)
         create.save()
 
 
         return redirect("/csmdashboard/")
     return render(request,'csm_pages/csm_add_course.html')
+
+@login_required
+def csmEditCourse(request,id):
+    c_id = id
+    print(c_id)
+    datas = Course.objects.get(id = c_id)
+    context ={
+        'datas' : datas
+    }
+    return render(request,'csm_pages/csm_edit_course.html',context)
 
 # TL MODULE SECTION
 

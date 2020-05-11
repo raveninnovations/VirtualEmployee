@@ -20,6 +20,7 @@ urlpatterns = [
     # CSM Section
     path('csmdashboard/',views.csmDashboard,name='csmDashboard'),
     path('csmaddcourse/',views.csmAddCourse,name='csmAddCourse'),
+    path('csmeditcourse/<int:id>',views.csmEditCourse,name='csmEditCourse'),
     # TL Section
     path('tldashboard/',views.tlDashboard,name='tlDashboard'),
     path('tl-projectdetails/',views.tlProjectDetails,name='tlProjectDetails'),

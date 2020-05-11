@@ -1,5 +1,5 @@
 {% extends 'base1.html' %}
-{% load static %}
+{% load static %}{% block title %}Edit course{% endblock %}
 {% block content %}
 
     <div id="wrapper" class="admin-panel">
@@ -13,11 +13,7 @@
 
             <!-- logo -->
             <div class="logo uk-visible@s">
-                <a href="{% url 'csmDashboard' %}" class="logo">
-                            <img src="{% static 'images/VES.png' %}" alt="">
-
-                        </a>
-
+                <a href="{% url 'csmDashboard' %}"> <i class=" uil-graduation-hat"></i> <span> Courseplus</span> </a>
             </div>
             <div class="page-menu-inner" data-simplebar>
                 <ul class="mt-0">
@@ -44,7 +40,7 @@
                         <ul>
                             <li><a href="#"> <i class="uil-home-alt"></i> </a></li>
                             <li><a href="{% url 'csmDashboard' %}"> Course </a></li>
-                            <li>Create New Course</li>
+                            <li>Edit Course</li>
                         </ul>
                     </nav>
                 </div>
@@ -59,7 +55,7 @@
                         <li><a href="#">Meta data</a></li>
                         <li><a href="#">Prerequisites</a></li>
                         <li><a href="#">Rewards</a></li>
-                        <li><a href="#">Finish</a></li>
+                        <li><a href="#">Finish Edit</a></li>
                     </ul>
                     <form method="POST"  enctype="multipart/form-data">
                     <div class="card-body">
@@ -77,7 +73,7 @@
                                                     class="required">*</span></label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" id="course_title" name="title"
-                                                    placeholder="Enter course title" required="">
+                                                    value="{{ datas.title }}" required="">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-3">
@@ -85,7 +81,7 @@
                                                     class="required">*</span></label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" id="course_title" name="tagline"
-                                                    placeholder="Enter short tagline" required="">
+                                                    value="{{ datas.tagline }}" required="">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-3">
@@ -93,7 +89,7 @@
                                                 description</label>
                                             <div class="col-md-9">
                                                 <textarea name="description" id="short_description"
-                                                    class="form-control" placeholder="Enter Description Here"></textarea>
+                                                    class="form-control" >{{ datas.short_description }}</textarea>
                                             </div>
                                         </div>
 
@@ -131,7 +127,13 @@
                                         </div>
 
                                         <div class="form-group row mb-3">
-                                            <label class="col-md-3 col-form-label"> Category <span
+                                            <label class="col-md-3 col-form-label" for="course_title">Category<span
+                                                    class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" id="course_title" name="cate"
+                                                    value="{{ datas.category }}" required="">
+                                            </div>
+                                            <label class="col-md-3 col-form-label">Change Category <span
                                                     class="required">*</span></label>
                                             <div class="col-md-9">
                                                 <select class="selectpicker" name="category">
@@ -162,144 +164,6 @@
                                 </div>
                             </li>
 
-{#  Curriculam   #}
-
-{#                            <li>#}
-{##}
-{#                                <div class="row my-3">#}
-{##}
-{#                                  <div class="col-xl-10 m-auto">#}
-{#								    <div class="row">#}
-{##}
-{#                                      <div class="col-xl-10 m-auto lesson_block">#}
-{#                                        <h3>Lessons</h3>#}
-{#                                         <button class="btn btn-default my-3 add_lesson_btn" > Add Lesson </button>#}
-{##}
-{#                                        <ul class="c-curriculum" uk-accordion>#}
-{##}
-{#                                            <li class="uk-open" id="lesson-module">#}
-{#                                                    <a class="uk-accordion-title" href="#"> <i class="uil-folder">#}
-{#                                                  </i><span id="editLesson" contenteditable="True">Lesson title</span></a>#}
-{##}
-{##}
-{#                                                <div class="action-btn">#}
-{#                                                    <a href="#"  class="add_topic_btn"> <i class="uil-plus">  </i> Add Topic </a>#}
-{##}
-{#                                                    <a href="#" class="close-lesson"><i class="icon-feather-x"></i></a>#}
-{#                                                </div>#}
-{#                                                <div class="uk-accordion-content" >#}
-{#                                                    <ul class="sec-list" uk-sortable="handle: .uk-sortable-handle">#}
-{#                                                        <li>#}
-{#                                                            <div class="sec-list-item" id="topic-module">#}
-{#                                                                <div class="uk-width-expand"> <i class="uil-list-ul uk-sortable-handle"></i>#}
-{#                                                                    <label class="mb-0 mx-2">#}
-{#                                                                        <input class="uk-checkbox" type="checkbox">#}
-{#                                                                    </label>#}
-{##}
-{#                                                                    <input class=" uk-input my-auto uk-width-expand " type="text" style="border:none;" name="topic" placeholder="Topic">#}
-{#                                                                </div>#}
-{#                                                                <div>#}
-{#                                                                    <div class="btn-act">#}
-{#                                                                      <div class="aaa">#}
-{#                                                                        <label for="file-input">#}
-{#                                                                       <i class="uil-cloud-download"></i></label>#}
-{##}
-{#                                                                        <input type="file" id="file-input" style="display:none;"/>#}
-{#                                                                      </div>#}
-{##}
-{#                                                                        <a href="#" class="close-topic"><i class="icon-feather-x"></i></a>#}
-{#                                                                    </div>#}
-{#                                                                </div>#}
-{#                                                            </div>#}
-{#                                                        </li>#}
-{#                                                    </ul>#}
-{#                                                </div>#}
-{#                                            </li>#}
-{#                                        </ul>#}
-{##}
-{##}
-{#                                  </div>#}
-{#                                  <!-- end of lesson block -->#}
-{##}
-{#                                  <div class="col-xl-10 m-auto quiz_block">#}
-{##}
-{#                                     <button class="btn btn-default my-3 add_quiz_btn" > Add Quiz </button>#}
-{##}
-{#                                    <ul class="c-curriculum" uk-accordion>#}
-{##}
-{#                                        <li class="uk-open" id="quiz-module">#}
-{##}
-{#                                            <div class="uk-accordion-content" >#}
-{#                                                <ul class="sec-list">#}
-{#                                                    <li>#}
-{#                                                        <div class="sec-list-item" id="quiz-question">#}
-{#                                                            <div class="uk-width-expand">#}
-{#                                                                <label for="number">#}
-{#                                                                    <p id="number">1</p>#}
-{#                                                                </label>#}
-{#                                                                <input class=" uk-input my-auto uk-width-expand " type="text" style="border:none;" name="question" placeholder="Enter your question here">#}
-{#                                                            </div>#}
-{##}
-{#                                                            <div>#}
-{#                                                                <div class="btn-act">#}
-{#                                                                  <div class="right-buttons">#}
-{##}
-{#                                                                    <a href="#" class="close-topic"><i class="icon-feather-x"></i></a>#}
-{##}
-{#                                                                  </div>#}
-{#                                                                </div>#}
-{#                                                                <div class="options">#}
-{#                                                                    <div class="first-section">#}
-{##}
-{#                                                                        <label class="mb-0 mx-2">#}
-{#                                                                            <input class="uk-checkbox" type="checkbox">#}
-{#                                                                        </label>#}
-{#                                                                        <input class=" uk-input my-auto uk-child-width-expand " type="text" style="border:none;" name="option1" id="option1" placeholder="Option A">#}
-{#                                                                        <label class="mb-0 mx-2">#}
-{#                                                                            <input class="uk-checkbox" type="checkbox">#}
-{#                                                                        </label>#}
-{#                                                                        <input class=" uk-input my-auto uk-child-width-expand " type="text" style="border:none;" name="option2" id="option2" placeholder="Option B">#}
-{#                                                                    </div>#}
-{#                                                                    <br>#}
-{#                                                                    <div class="last-section">#}
-{##}
-{#                                                                        <label class="mb-0 mx-2">#}
-{#                                                                            <input class="uk-checkbox" type="checkbox">#}
-{#                                                                        </label>#}
-{#                                                                        <input class=" uk-input my-auto uk-child-width-expand " type="text" style="border:none;" name="option3" id="option3" placeholder="Option C">#}
-{#                                                                        <label class="mb-0 mx-2">#}
-{#                                                                            <input class="uk-checkbox" type="checkbox">#}
-{#                                                                        </label>#}
-{#                                                                        <input class=" uk-input my-auto uk-child-width-expand " type="text" style="border:none;" name="option4" id="option4" placeholder="Option D">#}
-{##}
-{#                                                                    </div>#}
-{#                                                                </div>#}
-{#                                                            </div>#}
-{#                                                        </div>#}
-{#                                                    </li>#}
-{#                                                </ul>#}
-{#                                            </div>#}
-{#                                        </li>#}
-{#                                    </ul>#}
-{##}
-{##}
-{#                              </div>#}
-{##}
-{##}
-{#                              <!-- end of quiz block -->#}
-{#                                </div>#}
-{#                              </div>#}
-{#                            </div>#}
-{##}
-{##}
-{##}
-{#                            </li>#}
-
-
-
-
-
-
 
                             <li>
 
@@ -313,10 +177,10 @@
                                                     name="meta_keywordss" data-role="tagsinput"
                                                     style="width: 100%; display: none;">
                                                  <!--     <input type="text" class="form-control"
-                                                    name="meta_keywords" 
+                                                    name="meta_keywords"
                                                     style="width: 100%;"> -->
                                                 <div class="bootstrap-tagsinput"><input size="1" type="text"
-                                                        placeholder="" name="meta_keywords">
+                                                        value="{{ datas.meta_keywords }}" name="meta_keywords">
                                                 </div>
                                             </div>
                                         </div>
@@ -326,7 +190,7 @@
                                             <label class="col-md-3 col-form-label" for="meta_description">Meta
                                                 description</label>
                                             <div class="col-md-9">
-                                                <input type="text"  name="meta_description" class="form-control" >
+                                                <input type="text" value="{{ datas.meta_description }}"  name="meta_description" class="form-control" >
                                             </div>
                                         </div>
                                     </div> <!-- end col -->
@@ -359,7 +223,7 @@
                             txtNewInputBox.innerHTML = "<input type='text' class='uk-input' name='learn'>";
 
                             // Finally put it where it is supposed to appear.
-                            document.getElementById("newElementId1").appendChild(txtNewInputBox);  
+                            document.getElementById("newElementId1").appendChild(txtNewInputBox);
                             }
                         </script>
 
@@ -411,7 +275,7 @@
                                         <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label">Course Points</label>
                                             <div class="col-md-9">
-                                                <input type="number" class="form-control" name="course_points" placeholder="Enter Points">
+                                                <input type="number" class="form-control" name="course_points" value="{{ datas.course_points }}">
                                             </div>
                                         </div>
                                     </div>
@@ -421,7 +285,7 @@
                                         <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label">Certificate</label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control" name="certificate">
+                                                <input type="text" class="form-control" value="{{ datas.certificate }}" name="certificate">
                                                 <small class="text-muted"><span
                                                         class="text-danger"></span> </small>
                                             </div>
