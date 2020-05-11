@@ -57,7 +57,7 @@ def adminRolecreation(request):
 
             user_firstname = request.POST['fname']
             user_lastname = request.POST['lname']
-            role_user_name=request.POST['username']
+            role_user_name=request.POST['email']
             role_user_email=request.POST['email']
             regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
             if User.objects.filter(email=role_user_email).exists():
@@ -187,8 +187,6 @@ def userlogin(request):
 
         user = authenticate(username=email, password=password)
         # Roles
-
-
 
         if user is not None:
             login(request, user)
