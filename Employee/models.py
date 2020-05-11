@@ -63,19 +63,20 @@ class Course(models.Model):
     title = models.CharField(max_length=50)
     tagline=models.CharField(max_length=50)
     short_description=models.CharField(max_length=100)  
-    course_image=models.ImageField(null=True,blank=True)
+    course_image=models.ImageField(upload_to='images/',null=True,blank=True)
     category=models.CharField(max_length=10, choices=CATEGORY_CHOICES,null=True,blank=True)
     difficulty_level=models.CharField(max_length=6, choices=DIFFICULTY_LEVEL,null=True, blank=True)
-    lesson_title=models.CharField(max_length=50, null=True, blank=True)
-    topic=models.CharField(max_length=50, null=True, blank=True)
+
+
     # must add quiz Details
 
+    # meta section
     meta_keywords=models.TextField(blank=True)
     meta_description=models.TextField(blank=True)
-    requirements=models.CharField(max_length=100, null=True, blank=True)
-    learn=models.CharField(max_length=100, null=True, blank=True)
+
+    # rewards
     course_points=models.IntegerField(default=0)
-    certificate=models.CharField(max_length=200, null=True, blank=True)
+    certificate= models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.id}|{self.title} |{self.lesson_title}|{self.category}"
+        return f"{self.id}|{self.title} |{self.category}"

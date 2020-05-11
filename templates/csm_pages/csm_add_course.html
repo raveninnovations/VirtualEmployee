@@ -57,6 +57,7 @@
                         <li><a href="#">Rewards</a></li>
                         <li><a href="#">Finish</a></li>
                     </ul>
+                    <form method="POST"  enctype="multipart/form-data">
                     <div class="card-body">
                         <ul class="uk-switcher uk-margin" id="course-edit-tab">
 
@@ -64,7 +65,8 @@
 
                                 <div class="row">
                                     <div class="col-xl-9 m-auto">
-                                        <form action="/csmaddcourse/" method="POST"  enctype="multipart/form-data">
+{#             Form                           #}
+
                                         {% csrf_token %}
                                         <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label" for="course_title">Course title<span
@@ -86,7 +88,7 @@
                                             <label class="col-md-3 col-form-label" for="short_description">Short
                                                 description</label>
                                             <div class="col-md-9">
-                                                <textarea name="short_description" id="short_description"
+                                                <textarea name="description" id="short_description"
                                                     class="form-control" placeholder="Enter Description Here"></textarea>
                                             </div>
                                         </div>
@@ -110,14 +112,14 @@
                                                 });
 
                                                 realFileBtn.addEventListener("change", function() {
-  if (realFileBtn.value) {
-    customTxt.innerHTML = realFileBtn.value.match(
-      /[\/\\]([\w\d\s\.\-\(\)]+)$/
-    )[1];
-  } else {
-    customTxt.innerHTML = "No file chosen, yet.";
-  }
-});
+                                              if (realFileBtn.value) {
+                                                customTxt.innerHTML = realFileBtn.value.match(
+                                                  /[\/\\]([\w\d\s\.\-\(\)]+)$/
+                                                )[1];
+                                              } else {
+                                                customTxt.innerHTML = "No file chosen, yet.";
+                                              }
+                                            });
 
                                                 </script>
 
@@ -151,6 +153,7 @@
 
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </li>
@@ -319,7 +322,7 @@
                                             <label class="col-md-3 col-form-label" for="meta_description">Meta
                                                 description</label>
                                             <div class="col-md-9">
-                                                <input name="meta_description" class="form-control">
+                                                <input type="text"  name="meta_description" class="form-control" >
                                             </div>
                                         </div>
                                     </div> <!-- end col -->
@@ -414,7 +417,7 @@
                                         <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label">Certificate</label>
                                             <div class="col-md-9">
-                                                <input class="form-control" name="certificate">
+                                                <input type="text" class="form-control" name="certificate">
                                                 <small class="text-muted"><span
                                                         class="text-danger"></span> </small>
                                             </div>
@@ -443,7 +446,7 @@
                                 </div>
                             </li>
                         </ul>
-
+                    </div>
                     </form>
 
                     </div>     <!--End Of card body -->

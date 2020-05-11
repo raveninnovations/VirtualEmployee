@@ -101,8 +101,10 @@ def adminRolecreation(request):
             except:
                 print("hai")
                 print("error")
+                messages.error(request,"Some error occured")
+                return redirect("adminaddcourse")
             # Saving the role input in the model
-
+            messages.success(request,"Submitted successfully")
             return redirect("adminrolecreation")
 
         # When we press Remove Button
@@ -111,13 +113,13 @@ def adminRolecreation(request):
             roled=RoleDetail.objects.get(user_id_id=del_id).delete()
             # Delete from the user table
             user_del = User.objects.get(id=del_id).delete()
+            messages.success(request,"Deleted success")
             return redirect('adminrolecreation')
 
     roles=RoleDetail.objects.order_by("-role_create_date")
     context={
         'roles':roles
     }
-
     return render(request,'Admin_pages/role-creation.html',context)
 
 
@@ -248,19 +250,19 @@ def csmDashboard(request):
 @login_required
 def csmAddCourse(request):
     if request.method == "POST":
-        title=request.POST["title"]
-        tagline=request.POST["tagline"]
+        title = request.POST["title"]
+        tagline  = request.POST["tagline"]
         short_description=request.POST["short_description"]
-        category=request.POST["category"]
-        difficulty_level=request.POST["difficulty_level"]
+        category = request.POST["category"]
+        difficulty_level = request.POST["difficulty_level"]
         # lesson_title=request.POST["lesson_title"]
-        topic=request.POST["topic"]
-        meta_keywords=request.POST["meta_keywords"]
-        meta_description=request.POST["meta_description"]
-        requirements=request.POST["requirements"]
-        learn=request.POST["learn"]
-        course_points=request.POST["course_points"]
-        certificate=request.POST["certificate"]
+        # topic=request.POST["topic"]
+        meta_keywords = request.POST["meta_keywords"]
+        meta_description = request.POST["meta_description"]
+        requirements = request.POST["requirements"]
+        learn = request.POST["learn"]
+        course_points = request.POST["course_points"]
+        certificate = request.POST["certificate"]
         # quiz and certificate details are not added yet   
         courses=Course.objects.create(
             user = request.user,
@@ -298,3 +300,5 @@ def projectManager(request):
 
 def projectDashboard(request):
     return render(request,'ProjectModule_Pages/Project_dashboard.html')
+
+
