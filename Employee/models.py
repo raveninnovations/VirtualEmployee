@@ -58,8 +58,8 @@ class RoleDetail(models.Model):
 # 		return str(self.first_name+" "+self.last_name)
 
 class Course(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
-    created = models.DateTimeField(default=datetime.now,null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    created = models.DateTimeField(default=datetime.now, null=True)
     title = models.CharField(max_length=50)
     tagline=models.CharField(max_length=50)
     short_description=models.CharField(max_length=100)  

@@ -94,7 +94,7 @@ def adminRolecreation(request):
                 User.objects.create_user(username = role_user_name,email= role_user_email,first_name= user_firstname,
                                                 last_name = user_lastname,password = role_user_password)
                 u_id = User.objects.get(username=role_user_name)
-                role = RoleDetail(user_id=u_id,role_user_id=role_user_id, user_role=user_role, role_user_name=role_user_name,
+                role = RoleDetail(user_id=u_id, role_user_id=role_user_id, user_role=user_role, role_user_name=role_user_name,
                                   role_user_email=role_user_email, role_user_password=role_user_password)
                 role.save()
 
@@ -248,44 +248,38 @@ def userProject(request):
 # CSM MODULE SECTION
 @login_required
 def csmDashboard(request):
-    allCourses=Course.objects.filter(user=request.user)
-    return render(request,'csm_pages/csm_dashboard.html',{'courses':allCourses})
+    if request.user.is_authenticated:
+        allCourses = Course.objects.filter(user=request.user)
+        for i in allCourses:
+            print(i.id)
+        context ={
+            'courses':allCourses,
+        }
+        return render(request,'csm_pages/csm_dashboard.html',context)
 
 @login_required
 def csmAddCourse(request):
+    user = request.user
     if request.method == "POST":
         title = request.POST["title"]
         tagline  = request.POST["tagline"]
-        short_description=request.POST["short_description"]
+        short_description=request.POST["description"]
+
         category = request.POST["category"]
         difficulty_level = request.POST["difficulty_level"]
         # lesson_title=request.POST["lesson_title"]
         # topic=request.POST["topic"]
         meta_keywords = request.POST["meta_keywords"]
         meta_description = request.POST["meta_description"]
-        requirements = request.POST["requirements"]
-        learn = request.POST["learn"]
         course_points = request.POST["course_points"]
         certificate = request.POST["certificate"]
         # quiz and certificate details are not added yet   
-        courses=Course.objects.create(
-            user = request.user,
-            created = datetime.now(),
-            title=title,
-            tagline=tagline,
-            short_description=short_description,
-            # course_image=course_image,
-            category=category,
-            difficulty_level=difficulty_level,
-            # lesson_title=lesson_title,
-            topic=topic,
-            meta_keywords=meta_keywords,
-            meta_description=meta_description,
-            requirements=requirements,
-            learn=learn,
-            certificate=certificate,
-            course_points=course_points
-        )
+        create = Course(user_id=user.id,title=title,tagline=tagline,short_description=short_description,
+                       category=category,difficulty_level=difficulty_level,meta_keywords=meta_keywords,
+                        meta_description=meta_description,course_points=course_points,certificate=certificate)
+        create.save()
+
+
         return redirect("/csmdashboard/")
     return render(request,'csm_pages/csm_add_course.html')
 

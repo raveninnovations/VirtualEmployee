@@ -51,7 +51,7 @@
                     <ul class="uk-child-width-expand uk-tab"
                         uk-switcher="connect: #course-edit-tab ; animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium">
                         <li class="uk-active"><a href="#"> Basic</a></li>
-                        <li><a href="#"> Curriculum</a></li>
+{#                        <li><a href="#"> Curriculum</a></li>#}
                         <li><a href="#">Meta data</a></li>
                         <li><a href="#">Prerequisites</a></li>
                         <li><a href="#">Rewards</a></li>
@@ -97,8 +97,8 @@
                                             <label class="col-md-3 col-form-label" for="short_description">Course Image</label>
                                             <div class="col-md-9">
                                                 <input type="file" id="real-file" 
-                                                name="course_image" hidden="hidden"/>
-                                             <a class="btn btn-default mb-3" onclick="" id="Upload-button"> <i
+                                                 hidden="hidden"/>
+                                             <a class="btn btn-default mb-3" name="course_image" onclick="" id="Upload-button"> <i
                                                 class='uil-plus'></i>Upload</a>
                                                 <span id="custom-text">No file choosen</span>
 
@@ -158,138 +158,138 @@
                                 </div>
                             </li>
 
+{#  Curriculam   #}
 
-
-                            <li>
-
-                                <div class="row my-3">
-
-                                  <div class="col-xl-10 m-auto">
-								    <div class="row">
-
-                                      <div class="col-xl-10 m-auto lesson_block">
-                                        <h3>Lessons</h3>
-                                         <button class="btn btn-default my-3 add_lesson_btn" > Add Lesson </button>
-
-                                        <ul class="c-curriculum" uk-accordion>
-
-                                            <li class="uk-open" id="lesson-module">
-                                                    <a class="uk-accordion-title" href="#"> <i class="uil-folder">
-                                                  </i><span id="editLesson" contenteditable="True">Lesson title</span></a>
-
-
-                                                <div class="action-btn">
-                                                    <a href="#"  class="add_topic_btn"> <i class="uil-plus">  </i> Add Topic </a>
-
-                                                    <a href="#" class="close-lesson"><i class="icon-feather-x"></i></a>
-                                                </div>
-                                                <div class="uk-accordion-content" >
-                                                    <ul class="sec-list" uk-sortable="handle: .uk-sortable-handle">
-                                                        <li>
-                                                            <div class="sec-list-item" id="topic-module">
-                                                                <div class="uk-width-expand"> <i class="uil-list-ul uk-sortable-handle"></i>
-                                                                    <label class="mb-0 mx-2">
-                                                                        <input class="uk-checkbox" type="checkbox">
-                                                                    </label>
-
-                                                                    <input class=" uk-input my-auto uk-width-expand " type="text" style="border:none;" name="topic" placeholder="Topic">
-                                                                </div>
-                                                                <div>
-                                                                    <div class="btn-act">
-                                                                      <div class="aaa">
-                                                                        <label for="file-input">
-                                                                       <i class="uil-cloud-download"></i></label>
-
-                                                                        <input type="file" id="file-input" style="display:none;"/>
-                                                                      </div>
-
-                                                                        <a href="#" class="close-topic"><i class="icon-feather-x"></i></a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                        </ul>
-
-
-                                  </div>
-                                  <!-- end of lesson block -->
-
-                                  <div class="col-xl-10 m-auto quiz_block">
-
-                                     <button class="btn btn-default my-3 add_quiz_btn" > Add Quiz </button>
-
-                                    <ul class="c-curriculum" uk-accordion>
-
-                                        <li class="uk-open" id="quiz-module">
-
-                                            <div class="uk-accordion-content" >
-                                                <ul class="sec-list">
-                                                    <li>
-                                                        <div class="sec-list-item" id="quiz-question">
-                                                            <div class="uk-width-expand">
-                                                                <label for="number">
-                                                                    <p id="number">1</p>
-                                                                </label>
-                                                                <input class=" uk-input my-auto uk-width-expand " type="text" style="border:none;" name="question" placeholder="Enter your question here">
-                                                            </div>
-
-                                                            <div>
-                                                                <div class="btn-act">
-                                                                  <div class="right-buttons">
-
-                                                                    <a href="#" class="close-topic"><i class="icon-feather-x"></i></a>
-
-                                                                  </div>
-                                                                </div>
-                                                                <div class="options">
-                                                                    <div class="first-section">
-
-                                                                        <label class="mb-0 mx-2">
-                                                                            <input class="uk-checkbox" type="checkbox">
-                                                                        </label>
-                                                                        <input class=" uk-input my-auto uk-child-width-expand " type="text" style="border:none;" name="option1" id="option1" placeholder="Option A">
-                                                                        <label class="mb-0 mx-2">
-                                                                            <input class="uk-checkbox" type="checkbox">
-                                                                        </label>
-                                                                        <input class=" uk-input my-auto uk-child-width-expand " type="text" style="border:none;" name="option2" id="option2" placeholder="Option B">
-                                                                    </div>
-                                                                    <br>
-                                                                    <div class="last-section">
-
-                                                                        <label class="mb-0 mx-2">
-                                                                            <input class="uk-checkbox" type="checkbox">
-                                                                        </label>
-                                                                        <input class=" uk-input my-auto uk-child-width-expand " type="text" style="border:none;" name="option3" id="option3" placeholder="Option C">
-                                                                        <label class="mb-0 mx-2">
-                                                                            <input class="uk-checkbox" type="checkbox">
-                                                                        </label>
-                                                                        <input class=" uk-input my-auto uk-child-width-expand " type="text" style="border:none;" name="option4" id="option4" placeholder="Option D">
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                    </ul>
-
-
-                              </div>
-
-
-                              <!-- end of quiz block -->
-                                </div>
-                              </div>
-                            </div>
-
-
-
-                            </li>
+{#                            <li>#}
+{##}
+{#                                <div class="row my-3">#}
+{##}
+{#                                  <div class="col-xl-10 m-auto">#}
+{#								    <div class="row">#}
+{##}
+{#                                      <div class="col-xl-10 m-auto lesson_block">#}
+{#                                        <h3>Lessons</h3>#}
+{#                                         <button class="btn btn-default my-3 add_lesson_btn" > Add Lesson </button>#}
+{##}
+{#                                        <ul class="c-curriculum" uk-accordion>#}
+{##}
+{#                                            <li class="uk-open" id="lesson-module">#}
+{#                                                    <a class="uk-accordion-title" href="#"> <i class="uil-folder">#}
+{#                                                  </i><span id="editLesson" contenteditable="True">Lesson title</span></a>#}
+{##}
+{##}
+{#                                                <div class="action-btn">#}
+{#                                                    <a href="#"  class="add_topic_btn"> <i class="uil-plus">  </i> Add Topic </a>#}
+{##}
+{#                                                    <a href="#" class="close-lesson"><i class="icon-feather-x"></i></a>#}
+{#                                                </div>#}
+{#                                                <div class="uk-accordion-content" >#}
+{#                                                    <ul class="sec-list" uk-sortable="handle: .uk-sortable-handle">#}
+{#                                                        <li>#}
+{#                                                            <div class="sec-list-item" id="topic-module">#}
+{#                                                                <div class="uk-width-expand"> <i class="uil-list-ul uk-sortable-handle"></i>#}
+{#                                                                    <label class="mb-0 mx-2">#}
+{#                                                                        <input class="uk-checkbox" type="checkbox">#}
+{#                                                                    </label>#}
+{##}
+{#                                                                    <input class=" uk-input my-auto uk-width-expand " type="text" style="border:none;" name="topic" placeholder="Topic">#}
+{#                                                                </div>#}
+{#                                                                <div>#}
+{#                                                                    <div class="btn-act">#}
+{#                                                                      <div class="aaa">#}
+{#                                                                        <label for="file-input">#}
+{#                                                                       <i class="uil-cloud-download"></i></label>#}
+{##}
+{#                                                                        <input type="file" id="file-input" style="display:none;"/>#}
+{#                                                                      </div>#}
+{##}
+{#                                                                        <a href="#" class="close-topic"><i class="icon-feather-x"></i></a>#}
+{#                                                                    </div>#}
+{#                                                                </div>#}
+{#                                                            </div>#}
+{#                                                        </li>#}
+{#                                                    </ul>#}
+{#                                                </div>#}
+{#                                            </li>#}
+{#                                        </ul>#}
+{##}
+{##}
+{#                                  </div>#}
+{#                                  <!-- end of lesson block -->#}
+{##}
+{#                                  <div class="col-xl-10 m-auto quiz_block">#}
+{##}
+{#                                     <button class="btn btn-default my-3 add_quiz_btn" > Add Quiz </button>#}
+{##}
+{#                                    <ul class="c-curriculum" uk-accordion>#}
+{##}
+{#                                        <li class="uk-open" id="quiz-module">#}
+{##}
+{#                                            <div class="uk-accordion-content" >#}
+{#                                                <ul class="sec-list">#}
+{#                                                    <li>#}
+{#                                                        <div class="sec-list-item" id="quiz-question">#}
+{#                                                            <div class="uk-width-expand">#}
+{#                                                                <label for="number">#}
+{#                                                                    <p id="number">1</p>#}
+{#                                                                </label>#}
+{#                                                                <input class=" uk-input my-auto uk-width-expand " type="text" style="border:none;" name="question" placeholder="Enter your question here">#}
+{#                                                            </div>#}
+{##}
+{#                                                            <div>#}
+{#                                                                <div class="btn-act">#}
+{#                                                                  <div class="right-buttons">#}
+{##}
+{#                                                                    <a href="#" class="close-topic"><i class="icon-feather-x"></i></a>#}
+{##}
+{#                                                                  </div>#}
+{#                                                                </div>#}
+{#                                                                <div class="options">#}
+{#                                                                    <div class="first-section">#}
+{##}
+{#                                                                        <label class="mb-0 mx-2">#}
+{#                                                                            <input class="uk-checkbox" type="checkbox">#}
+{#                                                                        </label>#}
+{#                                                                        <input class=" uk-input my-auto uk-child-width-expand " type="text" style="border:none;" name="option1" id="option1" placeholder="Option A">#}
+{#                                                                        <label class="mb-0 mx-2">#}
+{#                                                                            <input class="uk-checkbox" type="checkbox">#}
+{#                                                                        </label>#}
+{#                                                                        <input class=" uk-input my-auto uk-child-width-expand " type="text" style="border:none;" name="option2" id="option2" placeholder="Option B">#}
+{#                                                                    </div>#}
+{#                                                                    <br>#}
+{#                                                                    <div class="last-section">#}
+{##}
+{#                                                                        <label class="mb-0 mx-2">#}
+{#                                                                            <input class="uk-checkbox" type="checkbox">#}
+{#                                                                        </label>#}
+{#                                                                        <input class=" uk-input my-auto uk-child-width-expand " type="text" style="border:none;" name="option3" id="option3" placeholder="Option C">#}
+{#                                                                        <label class="mb-0 mx-2">#}
+{#                                                                            <input class="uk-checkbox" type="checkbox">#}
+{#                                                                        </label>#}
+{#                                                                        <input class=" uk-input my-auto uk-child-width-expand " type="text" style="border:none;" name="option4" id="option4" placeholder="Option D">#}
+{##}
+{#                                                                    </div>#}
+{#                                                                </div>#}
+{#                                                            </div>#}
+{#                                                        </div>#}
+{#                                                    </li>#}
+{#                                                </ul>#}
+{#                                            </div>#}
+{#                                        </li>#}
+{#                                    </ul>#}
+{##}
+{##}
+{#                              </div>#}
+{##}
+{##}
+{#                              <!-- end of quiz block -->#}
+{#                                </div>#}
+{#                              </div>#}
+{#                            </div>#}
+{##}
+{##}
+{##}
+{#                            </li>#}
 
 
 
@@ -306,7 +306,7 @@
                                                 keywords</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control bootstrap-tag-input"
-                                                    name="meta_keywords" data-role="tagsinput"
+                                                    name="meta_keywordss" data-role="tagsinput"
                                                     style="width: 100%; display: none;">
                                                  <!--     <input type="text" class="form-control"
                                                     name="meta_keywords" 
@@ -439,7 +439,7 @@
                                             <p class="w-75 mb-2 mx-auto"> Submit This Course For Reweiw  </p>
 
                                             <div class="mb-3 mt-3">
-                                                <input type="submit" class="btn btn-default">
+                                                <input type="submit" class="btn btn-default" name="course_submit">
                                             </div>
                                         </div>
                                     </div> <!-- end col -->

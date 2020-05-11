@@ -58,7 +58,7 @@
                   </div>
 
 
-                  <div class="uk-width-3-4@m my-5">
+                  <div class="uk-width-3-4@m my-5" style="width: 95%">
                       <div class="card rounded">
                         <div class=" container py-4 uk-width-expand">
                           <form>
@@ -81,6 +81,8 @@
                                         <th>Categoty</th>
                                         <th>Course Created</th>
                                         <th></th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,6 +93,8 @@
                                         <td>{{course.category}}</td>
                                         <td>{{course.created}}</td>
                                         <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove">Edit</button></td>
+                                        <td><button class="uk-button-red btn btn-alert" type="button" name="Remove">Add Curriculam</button></td>
+                                        <td><button class="uk-button-red btn btn-alert" type="button" name="Remove">Add Quizz</button></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
