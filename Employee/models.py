@@ -63,7 +63,7 @@ class Course(models.Model):
     title = models.CharField(max_length=50)
     tagline=models.CharField(max_length=50)
     short_description=models.CharField(max_length=100)  
-    course_image=models.ImageField(upload_to='images/',null=True,blank=True)
+    course_image=models.ImageField(upload_to='csm_images/',null=True,blank=True)
     category=models.CharField(max_length=10, choices=CATEGORY_CHOICES,null=True,blank=True)
     difficulty_level=models.CharField(max_length=6, choices=DIFFICULTY_LEVEL,null=True, blank=True)
 
