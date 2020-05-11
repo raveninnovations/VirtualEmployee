@@ -198,7 +198,13 @@ def userlogin(request):
                     print("user role")
                     if RoleDetail.objects.filter(role_user_email=email, role_user_password=password).exists():
                         print("user role")
-                        return redirect('csmDashboard')
+                        role = RoleDetail.objects.get(role_user_email=email)
+                        if role.user_role == "CSM":
+                            return redirect('csmDashboard')
+                        elif role.user_role == "TL":
+                            print("TL PAGE")
+                        else:
+                            messages.error(request,"Error occured in Role")
                 except:
                     messages.error(request, "login failed")
                     print("error")
