@@ -293,6 +293,8 @@ def csmEditCourse(request,id):
     }
     return render(request,'csm_pages/csm_edit_course.html',context)
 
+def csmAddCurriculam(request):
+    return render(request,'csm_pages/csm_add_curriculam.html')
 # TL MODULE SECTION
 
 def tlDashboard(request):
