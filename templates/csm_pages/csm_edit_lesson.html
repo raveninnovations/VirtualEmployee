@@ -114,12 +114,15 @@
                                       {% for topic in topics %}
 
                                       <tr>
-                                          <td>{{ topic.topic_caption }}</td>
-                                          <td>{{topic.topic_video}}</td>
+                                      <form name="ediForm" method="POST" enctype="multipart/form-data">{% csrf_token %}
+                                          <td><br><input class="uk-input bg-secondary" name="topic_descrip" type="text" value="{{ topic.topic_caption }}" required></td>
+                                          <td>{{ topic.topic_video }}<input type="file" name="topic_video" class="alert-dark" ></td>
+                                          <input type="hidden" name="unique_topic" value="{{ topic.pk }}">
 
                                           <!-- <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove" >Remove</button></td> -->
 
-                                          <td><button class="uk-button-danger btn btn-alert" type="button" value="{{ topic.pk }}" name="Remove">Edit</button></td>
+                                          <td><button class="uk-button-danger btn btn-alert" type="submit" name="topicEdit">Edit</button></td>
+                                      </form>
                                           <!-- Remove Button Click Warning Message Modal -->
                                           <div id="modal-example" uk-modal>
                                             <div class="uk-modal-dialog uk-modal-body" style="width:822px;">

@@ -374,6 +374,16 @@ def csmEditLesson(request,id):
             lesson.lesson_name = l_name
             lesson.save()
             messages.success(request,"Lesson changed successfully")
+        if 'topicEdit' in request.POST:
+            topic_id = request.POST['unique_topic']
+            caption = request.POST['topic_descrip']
+            video = request.FILES.get('topic_video')
+            print(topic_id)
+            topic = Lesson_Topic.objects.get(id = topic_id)
+            topic.topic_caption =caption
+            topic.topic_video =video
+            topic.save()
+            messages.success(request,"Topic changed sucessfully")
 
     context ={
         'lesson' : lesson,
