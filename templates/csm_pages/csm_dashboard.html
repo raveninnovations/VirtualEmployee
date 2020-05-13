@@ -93,8 +93,13 @@
                                         <td>{{course.category}}</td>
                                         <td>{{course.created}}</td>
                                         <td><a class="uk-button-danger btn btn-alert" href="{% url 'csmEditCourse' course.id %}" type="button" name="Remove">Edit</a></td>
-                                        <td><a class="uk-button-danger btn btn-alert" href="{% url 'csmAddCurriculam' %}">Add Curriculam</a></td>
-                                        <td><button class="uk-button-red btn btn-alert" type="button" name="Remove">Add Quizz</button></td>
+
+                                        <td><a class="uk-button-danger btn btn-alert" href="{% url 'csmAddCurriculam' course.pk %}">Add Curriculam</a></td>
+{#                                        <td><button class="uk-button-red btn btn-alert" type="button" name="Remove">Add Quizz</button></td>#}
+
+                                        <td><a class="uk-button-danger btn btn-alert" type="button" name="Remove">
+                                        <!--     <i class="icon-feather-delete"></i> -->
+                                            <i class="icon-line-awesome-close" style="color: white"></i></a></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>

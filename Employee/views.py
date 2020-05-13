@@ -1,4 +1,5 @@
 import re
+import random
 from django.contrib import messages
 from email_validator import validate_email, EmailNotValidError
 from django.contrib.auth import login,logout,authenticate
@@ -8,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from datetime import datetime
 from .forms import (AddUserForm)
-from .models import UserDetails,RoleDetail,Course
+from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic
 
 from django.core.mail import send_mail
 # Create your views here.
@@ -286,15 +287,83 @@ def csmAddCourse(request):
 @login_required
 def csmEditCourse(request,id):
     c_id = id
-    print(c_id)
+    # print(c_id)
     datas = Course.objects.get(id = c_id)
+    if request.method == "POST":
+        title = request.POST["title"]
+        tagline  = request.POST["tagline"]
+        short_description=request.POST["description"]
+        image = request.FILES.get('course_image')
+        category = request.POST["category"]
+        difficulty_level = request.POST["difficulty_level"]
+        # lesson_title=request.POST["lesson_title"]
+        # topic=request.POST["topic"]
+        meta_keywords = request.POST["meta_keywords"]
+        meta_description = request.POST["meta_description"]
+        course_points = request.POST["course_points"]
+        certificate = request.POST["certificate"]
+
+        datas = Course.objects.get(id = c_id)
+        
+        datas.title=title
+        datas.tagline=tagline
+        datas.short_description=short_description
+        datas.image=image
+        datas.category=category
+        datas.difficulty_level=difficulty_level
+        datas.meta_keywords=meta_keywords
+        datas.meta_description=meta_description
+        datas.course_points=course_points
+        datas.certificate=certificate
+        datas.save()
+        return redirect("/csmdashboard/")
     context ={
         'datas' : datas
     }
     return render(request,'csm_pages/csm_edit_course.html',context)
 
-def csmAddCurriculam(request):
-    return render(request,'csm_pages/csm_add_curriculam.html')
+def csmAddCurriculam(request,id):
+    c_id = id
+    Course_name = Course.objects.get(id = c_id)
+    course_title = Course_name.title
+    if request.method =='POST':
+        if 'create' in request.POST:
+            lesson_name = request.POST['lesson']
+            print(lesson_name)
+            less_private = random.randint(112,1000)*100
+
+            Less = Lesson(lesson_name=lesson_name,lesson_private=less_private,lesson_id_id=c_id)
+            Less.save()
+            messages.success(request,"Lesson Added")
+            print("success")
+
+        if 'addTopic' in request.POST:
+            topic_caption = request.POST['topic_descrip']
+            topic_video = request.FILES.get('topic_video')
+            lesson = request.POST['les_id']
+            try:
+                lesson_private = Lesson.objects.get(lesson_private=lesson)
+                if lesson_private:
+                    print("enter")
+                    topic = Lesson_Topic(topic_id_id=lesson_private.pk, topic_caption=topic_caption, topic_video=topic_video)
+                    topic.save()
+                    messages.success(request,"Topic added to lesson")
+                else:
+                    messages.error(request,"Wrong Lesson Id")
+            except:
+                print("error")
+                messages.error(request,"Some error occured")
+                return render(request,'csm_pages/csm_add_curriculam.html')
+
+    lessons = Lesson.objects.order_by("lesson_name")
+    context = {
+        'lessons': lessons,
+        'course_title': course_title,
+    }
+    print(course_title)
+    return render(request,'csm_pages/csm_add_curriculam.html',context)
+
+
 # TL MODULE SECTION
 
 def tlDashboard(request):

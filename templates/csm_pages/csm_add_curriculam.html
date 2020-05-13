@@ -55,10 +55,10 @@
                     <ul class="uk-child-width-expand uk-tab"
                         uk-switcher="connect: #course-edit-tab ; animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium">
 
-                        <li><a href="#"> Curriculum</a></li>
+                        <li><a href="#"></a>{% include 'partials/_alerts.html' %}</li>
 
                     </ul>
-                    <form method="POST"  enctype="multipart/form-data">
+                    <form method="POST"  enctype="multipart/form-data">{% csrf_token %}
                     <div class="card-body">
                         <h2 >Create Lesson</h2>
                         <ul class="uk-switcher uk-margin" id="course-edit-tab">
@@ -67,7 +67,7 @@
                                   <div class="uk-margin">
                                         <div class="uk-inline d-flex">
                                         <div id="mt-1" style="width: 600px">
-                                            <input class="uk-input bg-secondary" name="fname" type="text" placeholder="Enter lesson" required>
+                                            <input class="uk-input bg-secondary" name="lesson" type="text" placeholder="Enter lesson" required>
                                         </div>
                                              &nbsp;&nbsp;&nbsp;
                                         <div id="mt-1">
@@ -102,36 +102,45 @@
                                 <table class="uk-table uk-table-divider" >
                                   <thead>
                                       <tr>
-                                          <th>Id </th>
-                                          <th>Course Name</th>
+                                          <th>Lesson Id </th>
+                                          <th>Lesson Name</th>
                                           <th>Course Name</th>
                                           <th></th>
                                       </tr>
                                   </thead>
                                   <tbody>
-                                    {% if roles %}
-                                      {% for role in roles %}
+                                    {% if lessons %}
+
+                                      {% for lesson in lessons %}
+                                          {% if course_title == lesson.lesson_id.title %}
                                       <tr>
-                                          <td>{{role.role_user_id}}</td>
-                                          <td>{{role.user_role}}</td>
-                                          <td>{{role.role_user_email}}</td>
+                                          <td>{{lesson.lesson_private}}</td>
+                                          <td>{{lesson.lesson_name}}</td>
+                                          <td>{{lesson.lesson_id.title}}</td>
 
                                           <!-- <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove" >Remove</button></td> -->
-                                          <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove" uk-toggle="target: #modal-example">Remove</button></td>
+                                          <td><button class="uk-button-danger btn btn-alert" type="submit" uk-toggle="target: #modal-example" name="remove">Add Topic</button></td>
 
                                           <!-- Remove Button Click Warning Message Modal -->
                                           <div id="modal-example" uk-modal>
-                                            <div class="uk-modal-dialog uk-modal-body">
+                                            <div class="uk-modal-dialog uk-modal-body" style="width:822px;">
                                               <form name="removeentry" method="POST">
                                                 {% csrf_token %}
 
-                                                <h2 class="uk-modal-title">WARNING!!!</h2>
-                                                <p>Are You sure you want to delete this role?</p>
+                                                <h2 class="uk-modal-title">Add Topic to Lesson</h2>
+
                                                 <p class="uk-text-right">
                                                   <!-- The below hidden input tag is to pass the particular role_user_id that i want to delete -->
-                                                    <input type="hidden" name="del_id" value="{{role.user_id_id}}">
-                                                    <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                                                    <button class="uk-button uk-button-primary" name="delete" type="Submit">Yes I am Sure</button>
+                                                  <p>Upload video</p>
+                                                    <input type="file" name="topic_video" class="alert-dark">
+                                                  <p>Add description</p>
+                                                    <div id="mt-1" style="width: 762px">
+                                                     <input class="uk-input bg-secondary" name="topic_descrip" type="text" placeholder="Enter Description" required>
+                                                    </div>
+                                                  <p>Enter your unique lesson id</p>
+                                                    <input type="text" name="les_id" required>
+                                                    <button class="uk-button uk-button-default uk-modal-close" type="button" >Cancel</button>
+                                                    <button class="uk-button uk-button-primary" name="addTopic" type="Submit">Submit</button>
                                                 </p>
                                               </form>
                                             </div>
@@ -139,6 +148,7 @@
 
 
                                       </tr>
+                                          {% endif %}
                                       {% endfor %}
                                     {% endif %}
                                   </tbody>
