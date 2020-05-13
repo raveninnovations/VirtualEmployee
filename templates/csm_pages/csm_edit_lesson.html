@@ -50,7 +50,7 @@
                 </div>
                 <div class="card">
                     <div class="card-header border-bottom-0 py-4">
-                        <h5> Course Manager </h5>
+                        <h5> Lesson :  {{ lesson.lesson_name }}</h5>
                     </div>
                     <ul class="uk-child-width-expand uk-tab"
                         uk-switcher="connect: #course-edit-tab ; animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium">
@@ -60,7 +60,7 @@
                     </ul>
                     <form method="POST"  enctype="multipart/form-data">{% csrf_token %}
                     <div class="card-body">
-                        <h2 >Create Lesson</h2>
+                        <h2 >Change Lesson</h2>
                         <ul class="uk-switcher uk-margin" id="course-edit-tab">
 
 
@@ -71,7 +71,7 @@
                                         </div>
                                              &nbsp;&nbsp;&nbsp;
                                         <div id="mt-1">
-                                            <button class="btn btn-default"  style="width: 267px;height: 44px;" name="create">Add Lesson</button>
+                                            <button class="btn btn-default"  style="width: 267px;height: 44px;" name="c_lesson">Change Lesson</button>
                                         </div>
                                         </div>
 
@@ -94,7 +94,7 @@
 
 
                                   <div class="col-md-8 my-suto">
-                                      <legend class="uk-legend">List of Lessons</legend>
+                                      <legend class="uk-legend">List of Topics under : {{ lesson.lesson_name }}</legend>
                                   </div>
 
                                 <hr style="width:70% mx-auto mt-0">
@@ -102,26 +102,24 @@
                                 <table class="uk-table uk-table-divider" >
                                   <thead>
                                       <tr>
-                                          <th>Lesson Id </th>
-                                          <th>Lesson Name</th>
-                                          <th>Course Name</th>
+                                          <th>Topic Caption </th>
+                                          <th>Video Link</th>
+                                          <th>Edit</th>
                                           <th></th>
                                       </tr>
                                   </thead>
                                   <tbody>
-                                    {% if lessons %}
+                                    {% if topics %}
 
-                                      {% for lesson in lessons %}
-                                          {% if course_title == lesson.lesson_id.title %}
+                                      {% for topic in topics %}
+
                                       <tr>
-                                          <td>{{lesson.lesson_private}}</td>
-                                          <td>{{lesson.lesson_name}}</td>
-                                          <td>{{lesson.lesson_id.title}}</td>
+                                          <td>{{ topic.topic_caption }}</td>
+                                          <td>{{topic.topic_video}}</td>
 
                                           <!-- <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove" >Remove</button></td> -->
 
-                                          <td><button class="uk-button-danger btn btn-alert" type="submit" uk-toggle="target: #modal-example" name="remove">Add Topic</button></td>
-                                          <td><a class="uk-button-danger btn btn-alert" href="{% url 'csmEditLesson' lesson.pk %}" >View/Edit</a></td>
+                                          <td><button class="uk-button-danger btn btn-alert" type="button" value="{{ topic.pk }}" name="Remove">Edit</button></td>
                                           <!-- Remove Button Click Warning Message Modal -->
                                           <div id="modal-example" uk-modal>
                                             <div class="uk-modal-dialog uk-modal-body" style="width:822px;">
@@ -149,7 +147,7 @@
 
 
                                       </tr>
-                                          {% endif %}
+
                                       {% endfor %}
                                     {% endif %}
                                   </tbody>

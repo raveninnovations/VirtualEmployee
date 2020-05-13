@@ -22,6 +22,7 @@ urlpatterns = [
     path('csmaddcourse/',views.csmAddCourse,name='csmAddCourse'),
     path('csmeditcourse/<int:id>',views.csmEditCourse,name='csmEditCourse'),
     path('csm-addcurriculam/<int:id>',views.csmAddCurriculam,name='csmAddCurriculam'),
+    path('csm-editlesson/<int:id>', views.csmEditLesson,name='csmEditLesson'),
     # TL Section
     path('tldashboard/',views.tlDashboard,name='tlDashboard'),
     path('tl-projectdetails/',views.tlProjectDetails,name='tlProjectDetails'),

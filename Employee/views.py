@@ -363,7 +363,23 @@ def csmAddCurriculam(request,id):
     print(course_title)
     return render(request,'csm_pages/csm_add_curriculam.html',context)
 
+def csmEditLesson(request,id):
 
+    lesson = Lesson.objects.get(id = id)
+    print(lesson.lesson_name)
+    topics = Lesson_Topic.objects.filter(topic_id_id=lesson.pk)
+    if request.method == 'POST':
+        if 'c_lesson' in request.POST:
+            l_name = request.POST['lesson']
+            lesson.lesson_name = l_name
+            lesson.save()
+            messages.success(request,"Lesson changed successfully")
+
+    context ={
+        'lesson' : lesson,
+        'topics' : topics,
+    }
+    return render(request,'csm_pages/csm_edit_lesson.html',context)
 # TL MODULE SECTION
 
 def tlDashboard(request):
