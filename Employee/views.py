@@ -1,4 +1,5 @@
 import re
+import random
 from django.contrib import messages
 from email_validator import validate_email, EmailNotValidError
 from django.contrib.auth import login,logout,authenticate
@@ -8,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from datetime import datetime
 from .forms import (AddUserForm)
-from .models import UserDetails,RoleDetail,Course
+from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic
 
 from django.core.mail import send_mail
 # Create your views here.
@@ -320,6 +321,47 @@ def csmEditCourse(request,id):
         'datas' : datas
     }
     return render(request,'csm_pages/csm_edit_course.html',context)
+
+def csmAddCurriculam(request,id):
+    c_id = id
+    Course_name = Course.objects.get(id = c_id)
+    course_title = Course_name.title
+    if request.method =='POST':
+        if 'create' in request.POST:
+            lesson_name = request.POST['lesson']
+            print(lesson_name)
+            less_private = random.randint(112,1000)*100
+
+            Less = Lesson(lesson_name=lesson_name,lesson_private=less_private,lesson_id_id=c_id)
+            Less.save()
+            messages.success(request,"Lesson Added")
+            print("success")
+
+        if 'addTopic' in request.POST:
+            topic_caption = request.POST['topic_descrip']
+            topic_video = request.FILES.get('topic_video')
+            lesson = request.POST['les_id']
+            try:
+                lesson_private = Lesson.objects.get(lesson_private=lesson)
+                if lesson_private:
+                    print("enter")
+                    topic = Lesson_Topic(topic_id_id=lesson_private.pk, topic_caption=topic_caption, topic_video= topic_video)
+                    topic.save()
+                    messages.success(request,"Topic added to lesson")
+                else:
+                    messages.error(request,"Wrong Lesson Id")
+            except:
+                print("error")
+                messages.error(request,"Some error occured")
+
+
+    lessons = Lesson.objects.order_by("lesson_name")
+    context = {
+        'lessons': lessons,
+        'course_title': course_title,
+    }
+    print(course_title)
+    return render(request,'csm_pages/csm_add_curriculam.html',context)
 
 
 # TL MODULE SECTION
