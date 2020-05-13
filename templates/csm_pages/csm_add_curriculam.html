@@ -124,7 +124,7 @@
                                           <!-- Remove Button Click Warning Message Modal -->
                                           <div id="modal-example" uk-modal>
                                             <div class="uk-modal-dialog uk-modal-body" style="width:822px;">
-                                              <form name="removeentry" method="POST">
+                                              <form name="removeentry" method="POST" enctype="multipart/form-data">
                                                 {% csrf_token %}
 
                                                 <h2 class="uk-modal-title">Add Topic to Lesson</h2>

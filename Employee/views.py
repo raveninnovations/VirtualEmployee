@@ -345,7 +345,7 @@ def csmAddCurriculam(request,id):
                 lesson_private = Lesson.objects.get(lesson_private=lesson)
                 if lesson_private:
                     print("enter")
-                    topic = Lesson_Topic(topic_id_id=lesson_private.pk, topic_caption=topic_caption, topic_video=topic_video)
+                    topic = Lesson_Topic(topic_id_id=lesson_private.pk, topic_caption=topic_caption, topic_video= topic_video)
                     topic.save()
                     messages.success(request,"Topic added to lesson")
                 else:
@@ -353,7 +353,7 @@ def csmAddCurriculam(request,id):
             except:
                 print("error")
                 messages.error(request,"Some error occured")
-                return render(request,'csm_pages/csm_add_curriculam.html')
+
 
     lessons = Lesson.objects.order_by("lesson_name")
     context = {

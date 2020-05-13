@@ -79,7 +79,7 @@ class Course(models.Model):
     certificate= models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.id}|{self.title} |{self.category}"
+        return self.title
 
 class Lesson(models.Model):
     lesson_id = models.ForeignKey(Course,on_delete=models.CASCADE)
@@ -88,12 +88,12 @@ class Lesson(models.Model):
     lesson_date = models.DateTimeField(default=datetime.now,blank=True)
 
     def __str__(self):
-        return self.lesson_id.title , self.lesson_name
+        return  self.lesson_name
 
 class Lesson_Topic(models.Model):
     topic_id = models.ForeignKey(Lesson,on_delete=models.CASCADE)
     topic_caption = models.CharField(max_length=500)
-    topic_video = models.FileField(upload_to='csm_videos/',null=True,verbose_name="")
+    topic_video = models.FileField(upload_to='csm_videos/', null=True,blank=True)
 
     def __str__(self):
-        return self.topic_id.lesson_name , self.topic_caption
+        return self.topic_caption
