@@ -306,6 +306,11 @@ def csmEditCourse(request,id):
         # topic=request.POST["topic"]
         meta_keywords = request.POST["meta_keywords"]
         meta_description = request.POST["meta_description"]
+
+        # Prerequisites
+        requirements=request.POST['req']
+        learnings=request.POST['learn']
+
         course_points = request.POST["course_points"]
         certificate = request.POST["certificate"]
 
@@ -321,10 +326,23 @@ def csmEditCourse(request,id):
         datas.meta_description=meta_description
         datas.course_points=course_points
         datas.certificate=certificate
+        datas.requirements=requirements
+        datas.learnings=learnings
         datas.save()
         return redirect("/csmdashboard/")
+
+    # Breakdown the requirements and learnings into list with help of python split()
+    req_para=datas.requirements
+    learn_para=datas.learnings
+
+    req_list=req_para.split('_')
+    learn_list=learn_para.split('_')
+
+
     context ={
-        'datas' : datas
+        'datas' : datas,
+        'req_list':req_list,
+        'learn_list':learn_list,
     }
     return render(request,'csm_pages/csm_edit_course.html',context)
 
