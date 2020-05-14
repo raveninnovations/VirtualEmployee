@@ -274,10 +274,16 @@ def csmAddCourse(request):
         meta_description = request.POST["meta_description"]
         course_points = request.POST["course_points"]
         certificate = request.POST["certificate"]
-        # quiz and certificate details are not added yet   
+        # quiz and certificate details are not added yet
+
+        #  Prerequisites
+        requirements=request.POST["req"]
+        learnings=request.POST["learn"]
+
+
         create = Course(user_id=user.id,title=title,tagline=tagline,short_description=short_description,
                        course_image=image,category=category,difficulty_level=difficulty_level,meta_keywords=meta_keywords,
-                        meta_description=meta_description,course_points=course_points,certificate=certificate)
+                        meta_description=meta_description,course_points=course_points,certificate=certificate,requirements=requirements,learnings=learnings)
         create.save()
 
 
@@ -304,7 +310,7 @@ def csmEditCourse(request,id):
         certificate = request.POST["certificate"]
 
         datas = Course.objects.get(id = c_id)
-        
+
         datas.title=title
         datas.tagline=tagline
         datas.short_description=short_description
@@ -405,5 +411,3 @@ def projectManager(request):
 
 def projectDashboard(request):
     return render(request,'ProjectModule_Pages/Project_dashboard.html')
-
-

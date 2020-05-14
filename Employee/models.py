@@ -62,7 +62,7 @@ class Course(models.Model):
     created = models.DateTimeField(default=datetime.now, null=True)
     title = models.CharField(max_length=50)
     tagline=models.CharField(max_length=50)
-    short_description=models.CharField(max_length=100)  
+    short_description=models.CharField(max_length=100)
     course_image=models.ImageField(upload_to='csm_images/',null=True,blank=True)
     category=models.CharField(max_length=10, choices=CATEGORY_CHOICES,null=True,blank=True)
     difficulty_level=models.CharField(max_length=6, choices=DIFFICULTY_LEVEL,null=True, blank=True)
@@ -78,6 +78,11 @@ class Course(models.Model):
     course_points=models.IntegerField(default=0)
     certificate= models.CharField(max_length=200, null=True, blank=True)
 
+    # Prerequisite
+    requirements=models.TextField(blank=True)
+    learnings=models.TextField(blank=True)
+
+    
     def __str__(self):
         return self.title
 
