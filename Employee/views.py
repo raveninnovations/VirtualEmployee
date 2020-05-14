@@ -319,7 +319,7 @@ def csmEditCourse(request,id):
         datas.title=title
         datas.tagline=tagline
         datas.short_description=short_description
-        datas.image=image
+        datas.course_image=image
         datas.category=category
         datas.difficulty_level=difficulty_level
         datas.meta_keywords=meta_keywords
