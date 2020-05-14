@@ -378,6 +378,15 @@ def csmAddCurriculam(request,id):
                 print("error")
                 messages.error(request,"Some error occured")
 
+        if 'del' in request.POST:
+            print("delete")
+            del_id = request.POST['l_id']
+            try:
+                lesson_del =Lesson.objects.get(id = del_id).delete()
+                topic_del = Lesson_Topic.objects.filter(topic_id_id=del_id)
+                messages.success(request,"Deleted successfully")
+            except:
+                messages.error(request,"Some error occured")
 
     lessons = Lesson.objects.order_by("lesson_name")
     context = {
