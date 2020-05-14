@@ -123,7 +123,7 @@
                                           <td><button class="uk-button-success btn btn-success" type="submit" uk-toggle="target: #modal-example" name="remove">Add Topic</button></td>
                                           <td><a class="uk-button-dark btn btn-dark" href="{% url 'csmEditLesson' lesson.pk %}" >View/Edit</a></td>
 
-                                          <form method="post" >{% csrf_token %}
+                                          <form method="post" onSubmit="return confirm('Delete lesson will delete all topics ! Continue ?') ">{% csrf_token %}
                                               <input type="hidden" value="{{ lesson.pk }}" name="l_id">
                                           <td><button class="uk-button-danger btn btn-alert" type="submit" name="del">
                                               <!--     <i class="icon-feather-delete"></i> -->
