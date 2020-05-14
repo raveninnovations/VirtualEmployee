@@ -103,7 +103,7 @@
                                   <thead>
                                       <tr>
                                           <th>Topic Caption </th>
-                                          <th>Video Link</th>
+                                          <th><center>Video Link</center></th>
                                           <th>Edit</th>
                                           <th></th>
                                       </tr>
@@ -115,17 +115,23 @@
 
                                       <tr>
                                       <form name="ediForm" method="POST" enctype="multipart/form-data">{% csrf_token %}
-                                          <td><br><textarea class="uk-input bg-secondary" name="topic_descrip" style="height: 100%" required>{{ topic.topic_caption }}</textarea></td>
-                                          <td><video width='40%' height="40%" style="display:block; margin:0 auto;" controls>
+                                          <td><textarea rows="5" class="uk-input bg-secondary" name="topic_descrip" style="height: 100%" required>{{ topic.topic_caption }}</textarea></td>
+
+                                          <td>{% if topic.topic_video.url != "NULL" %}
+                                              <video width='40%' height="40%" style="display:block; margin:0 auto;" controls>
                         <source src="{{ topic.topic_video.url }}" type='video/mp4'>
                         Your browser does not support the video tag.
-                                           </video><input type="file" name="topic_video" class="alert-dark" width="50%">
+                                           </video>
+                                              {% endif %}
+                                          <input type="file" name="topic_video" class="alert-dark"  width="50%">
                                            </td>
+
+
                                           <input type="hidden" name="unique_topic" value="{{ topic.pk }}">
 
                                           <!-- <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove" >Remove</button></td> -->
 
-                                          <td><br><button class="uk-button-danger btn btn-alert" type="submit" name="topicEdit">Edit</button></td>
+                                          <td><br><button class="uk-button-danger btn btn-alert" type="submit" name="topicEdit">Submit</button></td>
                                       </form>
                                           <!-- Remove Button Click Warning Message Modal -->
                                           <div id="modal-example" uk-modal>
