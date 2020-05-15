@@ -338,7 +338,6 @@ def csmEditCourse(request,id):
     req_list=req_para.split('_')
     learn_list=learn_para.split('_')
 
-
     context ={
         'datas' : datas,
         'req_list':req_list,
@@ -346,6 +345,7 @@ def csmEditCourse(request,id):
     }
     return render(request,'csm_pages/csm_edit_course.html',context)
 
+@login_required
 def csmAddCurriculam(request,id):
     c_id = id
     Course_name = Course.objects.get(id = c_id)
@@ -378,6 +378,15 @@ def csmAddCurriculam(request,id):
                 print("error")
                 messages.error(request,"Some error occured")
 
+        if 'del' in request.POST:
+            print("delete")
+            del_id = request.POST['l_id']
+            try:
+                lesson_del =Lesson.objects.get(id = del_id).delete()
+                topic_del = Lesson_Topic.objects.filter(topic_id_id=del_id)
+                messages.success(request,"Deleted successfully")
+            except:
+                messages.error(request,"Some error occured")
 
     lessons = Lesson.objects.order_by("lesson_name")
     context = {
@@ -387,8 +396,8 @@ def csmAddCurriculam(request,id):
     print(course_title)
     return render(request,'csm_pages/csm_add_curriculam.html',context)
 
+@login_required
 def csmEditLesson(request,id):
-
     lesson = Lesson.objects.get(id = id)
     print(lesson.lesson_name)
     topics = Lesson_Topic.objects.filter(topic_id_id=lesson.pk)
@@ -405,8 +414,11 @@ def csmEditLesson(request,id):
             print(topic_id)
             topic = Lesson_Topic.objects.get(id = topic_id)
             topic.topic_caption =caption
-            topic.topic_video =video
             topic.save()
+            topic.topic_video =video
+            if video:
+                topic.save()
+
             messages.success(request,"Topic changed sucessfully")
 
     context ={

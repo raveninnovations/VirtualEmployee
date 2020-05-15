@@ -120,8 +120,15 @@
 
                                           <!-- <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove" >Remove</button></td> -->
 
-                                          <td><button class="uk-button-danger btn btn-alert" type="submit" uk-toggle="target: #modal-example" name="remove">Add Topic</button></td>
-                                          <td><a class="uk-button-danger btn btn-alert" href="{% url 'csmEditLesson' lesson.pk %}" >View/Edit</a></td>
+                                          <td><button class="uk-button-success btn btn-success" type="submit" uk-toggle="target: #modal-example" name="remove">Add Topic</button></td>
+                                          <td><a class="uk-button-dark btn btn-dark" href="{% url 'csmEditLesson' lesson.pk %}" >View/Edit</a></td>
+
+                                          <form method="post" onSubmit="return confirm('Delete lesson will delete all topics ! Continue ?') ">{% csrf_token %}
+                                              <input type="hidden" value="{{ lesson.pk }}" name="l_id">
+                                          <td><button class="uk-button-danger btn btn-alert" type="submit" name="del">
+                                              <!--     <i class="icon-feather-delete"></i> -->
+                                            <i class="icon-line-awesome-close" style="color: white"></i></button></td>
+                                          </form>
                                           <!-- Remove Button Click Warning Message Modal -->
                                           <div id="modal-example" uk-modal>
                                             <div class="uk-modal-dialog uk-modal-body" style="width:822px;">
@@ -133,7 +140,7 @@
                                                 <p class="uk-text-right">
                                                   <!-- The below hidden input tag is to pass the particular role_user_id that i want to delete -->
                                                   <p>Upload video</p>
-                                                    <input type="file" name="topic_video" class="alert-dark">
+                                                    <input type="file" name="topic_video" class="alert-dark" required>
                                                   <p>Add description</p>
                                                     <div id="mt-1" style="width: 762px">
                                                      <input class="uk-input bg-secondary" name="topic_descrip" type="text" placeholder="Enter Description" required>
