@@ -118,12 +118,12 @@
                                           <td><textarea rows="5" class="uk-input bg-secondary" name="topic_descrip" style="height: 100%" required>{{ topic.topic_caption }}</textarea></td>
 
                                           <td>{% if topic.topic_video.url != "NULL" %}
-                                              <video width='40%' height="40%" style="display:block; margin:0 auto;" controls>
+                                              <video width='60%' height="40%" style="display:block; margin:0 auto;" controls>
                         <source src="{{ topic.topic_video.url }}" type='video/mp4'>
                         Your browser does not support the video tag.
                                            </video>
                                               {% endif %}
-                                          <input type="file" name="topic_video" class="alert-dark"  width="50%">
+                                          <input type="file" name="topic_video" class="alert-dark"  style="width: 60%;margin-left: 133px">
                                            </td>
 
 
