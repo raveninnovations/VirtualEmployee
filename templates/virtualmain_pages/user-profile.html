@@ -56,14 +56,15 @@
                     <div class="uk-width-2-5@m">
 
                         <div class="uk-card-default rounded text-center p-4">
-
+                            {% if user.is_authenticated %}
                             <div class="user-profile-photo  m-auto">
                                 <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
                             </div>
 
-                            <h4 class="mb-2 mt-3"> Elie Daniels </h4>
-                            <h5 class="my-2"> Employee ID : ADSF847593 </h5>
-                            <p class="m-0"> Member since Sep 23 2017 </p>
+                            <h4 class="mb-2 mt-3"> {{ user.first_name }} {{ user.last_name }} </h4>
+                            <h5 class="my-2"> Employee ID : {{ user_data.user_unique }} </h5>
+                            <p class="m-0"> Member since {{ user_data.user_date }} </p>
+                            {% endif %}
 
                         </div>
                         <div class="uk-card-default rounded text-center mt-5 pb-3">
@@ -114,21 +115,21 @@
                             <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid>
                                 <div>
                                     <h5 class="uk-text-bold"> First Name </h5>
-                                        <p> Elie </p>
+                                        <p> {{ user.first_name }} </p>
                                 </div>
                                 <div>
                                     <h5 class="uk-text-bold"> Second Name </h5>
-                                        <p> Daniel </p>
+                                        <p> {{ user.last_name }} </p>
                                 </div>
 
 
                                 <div>
                                     <h5 class="uk-text-bold"> Your email address </h5>
-                                        <p> eliedaniels@gmail.com </p>
+                                        <p> {{ user.email }} </p>
                                 </div>
                                 <div>
                                     <h5 class="uk-text-bold"> Phone </h5>
-                                        <p> +1 555 623 568 </p>
+                                        <p> {{ user_data.user_phone }} </p>
                                 </div>
 
                                  <div>

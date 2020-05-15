@@ -161,11 +161,14 @@ def adduser(request):
         if password != conform:
             messages.error(request,'Password mismatch')
             return redirect('register')
-
+        # Generating unique id
+        num = random.randint(10000000, 99999999)
+        str1 = 'VE'
+        unique_id = str1+str(num)
         try:
             User.objects.create_user(username=username,email=email,first_name=firstname,last_name=lastname,password=password)
             u_id = User.objects.get(username=username)
-            addusr = UserDetails(user_id=u_id,user_pass=password,user_phone=userphone)
+            addusr = UserDetails(user_id=u_id,user_pass=password,user_phone=userphone,user_unique=unique_id)
             addusr.save()
 
         except:
@@ -232,7 +235,13 @@ def userdashboard(request):
 
 @login_required
 def userprofile(request):
-    return render(request,'virtualmain_pages/user-profile.html')
+    user = request.user
+    print(user.id)
+    user_data = UserDetails.objects.get(user_id_id=user.pk)
+    context = {
+        'user_data' : user_data
+    }
+    return render(request,'virtualmain_pages/user-profile.html',context)
 
 
 
