@@ -82,7 +82,7 @@ class Course(models.Model):
     requirements=models.TextField(blank=True)
     learnings=models.TextField(blank=True)
 
-    
+
     def __str__(self):
         return self.title
 
@@ -102,3 +102,19 @@ class Lesson_Topic(models.Model):
 
     def __str__(self):
         return self.topic_caption
+
+
+class CareerCategory(models.Model):
+    category=models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.category
+
+
+class CFP_role(models.Model):
+    cfp_category=models.CharField(max_length=255)
+    cfp_role=models.CharField(max_length=255)
+    cfp_course=models.TextField(blank=True)
+
+    def __str__(self):
+        return self.cfp_role

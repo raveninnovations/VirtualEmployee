@@ -29,4 +29,6 @@ urlpatterns = [
     # PROJECT Section
     path('projectmanager/',views.projectManager,name='projectManager'),
     path('projectdashboard/',views.projectDashboard,name='projectDashboard'),
+    #Create category and CFP
+    path('createcategory/',views.createcategory,name='createcategory')
     ]

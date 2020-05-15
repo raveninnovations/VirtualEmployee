@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from datetime import datetime
 from .forms import (AddUserForm)
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic
+from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role
 
 from django.core.mail import send_mail
 # Create your views here.
@@ -429,3 +429,31 @@ def projectManager(request):
 
 def projectDashboard(request):
     return render(request,'ProjectModule_Pages/Project_dashboard.html')
+
+
+def createcategory(request):
+    if request.method=='POST':
+        if 'category_submit' in request.POST:
+            cag_name=request.POST['cagname']
+
+            cag_obj=CareerCategory(category=cag_name)
+            cag_obj.save()
+
+
+
+        if 'cfp_submit' in request.POST:
+            cfp_category=request.POST['cfp_cag']
+            cfp_role=request.POST['cfp_role']
+            cfp_course=request.POST['cfp_course']
+
+            cfp_obj=CFP_role(cfp_category=cfp_category,cfp_role=cfp_role,cfp_course=cfp_course)
+            cfp_obj.save()
+
+    category_list=CareerCategory.objects.all()
+
+    context={
+        'category_list':category_list
+    }
+
+
+    return render(request,'Admin_pages/createcategory.html',context)

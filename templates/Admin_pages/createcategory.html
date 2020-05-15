@@ -1,0 +1,252 @@
+{% extends 'base1.html' %}
+{% block content %}
+
+    <div id="wrapper" class="admin-panel">
+
+    {% include 'partials/admin_partials/_header.html' %}
+
+    <div class="page-content">
+            <div class="page-content-inner">
+
+                <div class="d-flex">
+                    <nav id="breadcrumbs" class="mb-3">
+                        <ul>
+                            <li><a href="#"> <i class="uil-home-alt"></i> </a></li>
+                            <li><a href="#"> Category/CFP Creation </a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                    <div class="uk-width-2-5@m my-3">
+                        <div class="card rounded">
+                          <div class=" container py-3 uk-width-expand">
+                            <form name="categorycreate" method="POST">
+                              {% csrf_token %}
+                                <fieldset class="uk-fieldset">
+
+                                    <legend class="uk-legend text-center">Create Career Category</legend>
+
+
+
+
+                                    <div class="uk-margin">
+                                        <input class="uk-input bg-secondary" name="cagname" type="text" placeholder="Type Category Here" required>
+                                    </div>
+
+
+
+
+                                    <div class="text-center">
+                                      <button class="btn btn-default" name="category_submit">Create</button>
+                                    </div>
+
+                                </fieldset>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="uk-width-3-5@m my-5">
+                        <div class="card rounded">
+                          <div class=" container py-3 px-5 uk-width-expand">
+                            <form name="cfpcreate" method="POST">
+                              {% csrf_token %}
+                                <fieldset class="uk-fieldset">
+
+                                    <legend class="uk-legend mt-4 text-center">Create CFP</legend>
+
+
+                                    <div class="uk-margin uk-width-1-2">
+                                        <select name="cfp_cag" class="uk-select" required>
+                                            <option disabled selected value>Choose Career Category</option>
+                                            {% for cag in category_list %}
+                                            <option value="{{cag.category}}">{{cag.category}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <input class="uk-input bg-secondary" name="cfp_role" type="text" placeholder="CFP Role Here" required>
+                                    </div>
+
+
+                                        <div class="uk-width-expand my-3">
+
+                                                <a class="btn btn-default text-white  mb-3" type="button" id="addSkillRow" onclick="addSkillRow()"><i
+                                                        class='uil-plus'></i>CFP Course</a>
+
+
+
+                                                <table id="SkillsTable" class="uk-width-expand">
+                                                  <thead>
+                                                    <tr>
+                                                      <td><input type='text' class='uk-input1'
+                                                          placeholder="Add Skills"></td>
+                                                    </tr>
+                                                  </thead>
+                                                </table>
+
+                                                <input type="hidden" name="cfp_course" id="sout"  value='Output:'>
+
+                                        </div>
+
+
+
+
+                                    <div class="text-center">
+                                      <button class="btn btn-default" name="cfp_submit" onclick="Skillsubmit()">Create</button>
+                                    </div>
+
+                                </fieldset>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+                <!-- footer
+                ================================================== -->
+                <div class="footer">
+                    <div class="uk-grid-collapse" uk-grid>
+                        <div class="uk-width-expand@s uk-first-column">
+                            <p>© 2019 <strong>Courseplus</strong>. All Rights Reserved. </p>
+                        </div>
+                        <div class="uk-width-auto@s">
+                            <nav class="footer-nav-icon">
+                                <ul>
+                                    <li><a href="#"><i class="icon-brand-facebook"></i></a></li>
+                                    <li><a href="#"><i class="icon-brand-dribbble"></i></a></li>
+                                    <li><a href="#"><i class="icon-brand-youtube"></i></a></li>
+                                    <li><a href="#"><i class="icon-brand-twitter"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- For Night mode -->
+        <script>
+
+
+            (function (window, document, undefined) {
+                'use strict';
+                if (!('localStorage' in window)) return;
+                var nightMode = localStorage.getItem('gmtNightMode');
+                if (nightMode) {
+                    document.documentElement.className += ' night-mode';
+                }
+            })(window, document);
+
+
+            (function (window, document, undefined) {
+
+                'use strict';
+
+                // Feature test
+                if (!('localStorage' in window)) return;
+
+                // Get our newly insert toggle
+                var nightMode = document.querySelector('#night-mode');
+                if (!nightMode) return;
+
+                // When clicked, toggle night mode on or off
+                nightMode.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    document.documentElement.classList.toggle('night-mode');
+                    if (document.documentElement.classList.contains('night-mode')) {
+                        localStorage.setItem('gmtNightMode', true);
+                        return;
+                    }
+                    localStorage.removeItem('gmtNightMode');
+                }, false);
+
+            })(window, document);
+
+
+              // Random Password Generator
+
+            var keylist="abcdefghijklmnopqrstuvwxyz123456789"
+            var temp=''
+
+            function generatepass(plength){
+            temp=''
+            for (i=0;i<plength;i++)
+            temp+=keylist.charAt(Math.floor(Math.random()*keylist.length))
+            return temp
+            }
+
+            function populateform(enterlength){
+            document.pgenerate.password.value=generatepass(enterlength)
+            }
+
+
+
+            // Skill Addition
+
+          // now, add a new to the TABLE.
+          function addSkillRow() {
+              var empTab = document.getElementById('SkillsTable');
+
+              var rowCnt = empTab.rows.length;   // table row count.
+              var tr = empTab.insertRow(rowCnt); // the table row.
+              tr = empTab.insertRow(rowCnt);
+
+              for (var c = 0; c < 1; c++) {
+                  var td = document.createElement('td'); // table definition.
+                  td = tr.insertCell(c);
+                      var ele = document.createElement('input');
+                      ele.setAttribute('type', 'text');
+                      ele.setAttribute('placeholder', 'Add Skills');
+                      td.appendChild(ele);
+
+              }
+          }
+
+
+          // function to extract and submit table data.
+          function Skillsubmit() {
+              var myTab = document.getElementById('SkillsTable');
+              var arrValues =new Array()
+
+              // loop through each row of the table.
+              for (row = 0; row < myTab.rows.length ; row++) {
+                // loop through each cell in a row.
+                  for (c = 0; c < myTab.rows[row].cells.length; c++) {
+                      var element = myTab.rows.item(row).cells[c];
+                      if (element.childNodes[0].getAttribute('type') == 'text') {
+                          arrValues.push(element.childNodes[0].value);
+                      }
+                  }
+              }
+
+              var str="";
+              for(i=0;i<arrValues.length;i++)
+              {
+                str=str.concat(arrValues[i])
+                str=str+'_';
+              }
+
+              req_str=str.substring(0,str.length-1)
+
+              // The final output.
+              // document.getElementById('Reqoutput').innerHTML = req_str;
+
+              var ele1=document.getElementById('sout');
+              ele1.setAttribute('value',req_str);
+          }
+        </script>
+
+
+    </div>
+{% endblock %}
