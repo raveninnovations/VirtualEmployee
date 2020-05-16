@@ -505,7 +505,7 @@ def projectDashboard(request):
     return render(request,'ProjectModule_Pages/Project_dashboard.html')
 
 
-
+@login_required
 def cfp_create(request):
 
     if request.method=='POST':
@@ -514,7 +514,7 @@ def cfp_create(request):
 
             cag_obj=CareerCategory(category=cag_name)
             cag_obj.save()
-
+            messages.success(request,"CFP Category Created")
             return redirect('cfp_create')
 
 
@@ -526,7 +526,7 @@ def cfp_create(request):
             cfp_id=CFP_role.objects.all().count()+1
             cfp_obj=CFP_role(cfp_id=cfp_id,cfp_category=cfp_category,cfp_role=cfp_role,cfp_course=cfp_course)
             cfp_obj.save()
-
+            messages.success(request, "Added to CFP")
             return redirect('cfp_create')
 
     category_list=CareerCategory.objects.all()
@@ -542,7 +542,7 @@ def cfp_create(request):
     return render(request,'Admin_pages/cfp_create.html',context)
 
 
-
+@login_required
 def cfp_edit(request,id):
     cfp_id=id
 
