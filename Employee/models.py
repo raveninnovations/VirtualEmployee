@@ -114,9 +114,11 @@ class CareerCategory(models.Model):
 
 
 class CFP_role(models.Model):
+    cfp_id=models.IntegerField(default=0)
     cfp_category=models.CharField(max_length=255)
     cfp_role=models.CharField(max_length=255)
     cfp_course=models.TextField(blank=True)
+    cfp_create_date=models.DateTimeField(default=datetime.now,blank=True)
 
     def __str__(self):
         return self.cfp_role

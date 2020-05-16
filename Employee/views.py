@@ -452,6 +452,7 @@ def projectDashboard(request):
     return render(request,'ProjectModule_Pages/Project_dashboard.html')
 
 
+
 def createcategory(request):
     if request.method=='POST':
         if 'category_submit' in request.POST:
@@ -460,6 +461,7 @@ def createcategory(request):
             cag_obj=CareerCategory(category=cag_name)
             cag_obj.save()
 
+            return redirect('createcategory')
 
 
         if 'cfp_submit' in request.POST:
@@ -467,13 +469,19 @@ def createcategory(request):
             cfp_role=request.POST['cfp_role']
             cfp_course=request.POST['cfp_course']
 
-            cfp_obj=CFP_role(cfp_category=cfp_category,cfp_role=cfp_role,cfp_course=cfp_course)
+            cfp_id=CFP_role.objects.all().count()+1
+            cfp_obj=CFP_role(cfp_id=cfp_id,cfp_category=cfp_category,cfp_role=cfp_role,cfp_course=cfp_course)
             cfp_obj.save()
+
+            return redirect('createcategory')
 
     category_list=CareerCategory.objects.all()
 
+    cfp_list=CFP_role.objects.order_by("-cfp_create_date")
+
     context={
-        'category_list':category_list
+        'category_list':category_list,
+        'cfp_list':cfp_list,
     }
 
 

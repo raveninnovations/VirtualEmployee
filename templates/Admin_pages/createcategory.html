@@ -17,7 +17,11 @@
                     </nav>
                 </div>
 
-                    <div class="uk-width-2-5@m my-3">
+                <div class="uk-grid">
+
+
+                  <div class="uk-width-3-5@m">
+                    <div class="uk-width-4-4@m my-3">
                         <div class="card rounded">
                           <div class=" container py-3 uk-width-expand">
                             <form name="categorycreate" method="POST">
@@ -47,7 +51,7 @@
                     </div>
 
 
-                    <div class="uk-width-3-5@m my-5">
+                    <div class="uk-width-expand my-5">
                         <div class="card rounded">
                           <div class=" container py-3 px-5 uk-width-expand">
                             <form name="cfpcreate" method="POST">
@@ -92,8 +96,6 @@
                                         </div>
 
 
-
-
                                     <div class="text-center">
                                       <button class="btn btn-default" name="cfp_submit" onclick="Skillsubmit()">Create</button>
                                     </div>
@@ -103,6 +105,63 @@
                             </div>
                         </div>
                     </div>
+                  </div>
+
+
+
+                  <div class="uk-width-expand my-3">
+                      <div class="card rounded">
+                        <div class=" container py-4 uk-width-expand">
+
+                              <div class="d-flex uk-flex-center">
+                                <div class="col-md-8 my-auto">
+                                    <legend class="uk-legend">List Of CFP</legend>
+                                </div>
+                                <div class="col-md-4 uk-margin my-auto">
+                                    <select class="uk-select uk-width-auto">
+                                        <option >Sort</option>
+                                        <option>CSM</option>
+                                        <option>PCM</option>
+                                        <option>TL</option>
+                                        <option>Instructor</option>
+                                    </select>
+                                </div>
+
+                              </div>
+
+                              <hr style="width:70% mx-auto mt-0">
+
+                              <table class="uk-table uk-table-small uk-table-hover uk-table-striped" uk-table-divider" >
+                                <thead>
+                                    <tr>
+                                        <th>R-Id</th>
+                                        <th>Role</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  {% for item in cfp_list %}
+                                    <tr>
+                                      <td>{{item.cfp_id}}</td>
+                                      <td>{{item.cfp_role}}</td>
+                                      <td><button type="button" class="btn btn-default" name="button">View/Edit</button></td>
+                                    </tr>
+
+                                    {% endfor %}
+                                </tbody>
+                              </table>
+
+                          </div>
+                      </div>
+                  </div>
+
+
+
+
+                </div>
+
+
+
 
 
 
