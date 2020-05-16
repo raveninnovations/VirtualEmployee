@@ -216,7 +216,7 @@ def userlogin(request):
 
         if user is not None:
             login(request, user)
-            if request.user.is_staff:
+            if request.user.is_staff and request.user.is_superuser:
                 print('Welcome admin')
                 return redirect(adminDashboard)
             else:
