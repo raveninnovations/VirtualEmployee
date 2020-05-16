@@ -20,7 +20,7 @@
                 <div class="uk-grid">
 
 
-                  <div class="uk-width-3-5@m">
+                  <div class="uk-width-3-5@m" style="width: 55%">
                     <div class="uk-width-4-4@m my-3">
                         <div class="card rounded">
                           <div class=" container py-3 uk-width-expand">
@@ -144,7 +144,7 @@
                                     <tr>
                                       <td>{{item.cfp_id}}</td>
                                       <td>{{item.cfp_role}}</td>
-                                      <td><button type="button" class="btn btn-default" name="button">View/Edit</button></td>
+                                      <td><a href="{% url 'cfpEdit' item.pk %}" class="btn btn-default">View/Edit</a></td>
                                     </tr>
 
                                     {% endfor %}

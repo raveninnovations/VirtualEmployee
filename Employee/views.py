@@ -486,3 +486,10 @@ def createcategory(request):
 
 
     return render(request,'Admin_pages/createcategory.html',context)
+
+
+
+def cfp_edit(request,id):
+    print(id)
+
+    return render(request,'Admin_pages/cfp_edit.html');
