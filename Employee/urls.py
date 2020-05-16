@@ -30,6 +30,6 @@ urlpatterns = [
     path('projectmanager/',views.projectManager,name='projectManager'),
     path('projectdashboard/',views.projectDashboard,name='projectDashboard'),
     #Create category and CFP
-    path('createcategory/',views.createcategory,name='createcategory'),
+    path('cfp_create/',views.cfp_create,name='cfp_create'),
     path('cfp_edit/<int:id>',views.cfp_edit,name='cfpEdit')
     ]

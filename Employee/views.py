@@ -453,7 +453,7 @@ def projectDashboard(request):
 
 
 
-def createcategory(request):
+def cfp_create(request):
     if request.method=='POST':
         if 'category_submit' in request.POST:
             cag_name=request.POST['cagname']
@@ -461,7 +461,7 @@ def createcategory(request):
             cag_obj=CareerCategory(category=cag_name)
             cag_obj.save()
 
-            return redirect('createcategory')
+            return redirect('cfp_create')
 
 
         if 'cfp_submit' in request.POST:
@@ -473,7 +473,7 @@ def createcategory(request):
             cfp_obj=CFP_role(cfp_id=cfp_id,cfp_category=cfp_category,cfp_role=cfp_role,cfp_course=cfp_course)
             cfp_obj.save()
 
-            return redirect('createcategory')
+            return redirect('cfp_create')
 
     category_list=CareerCategory.objects.all()
 
@@ -485,11 +485,38 @@ def createcategory(request):
     }
 
 
-    return render(request,'Admin_pages/createcategory.html',context)
+    return render(request,'Admin_pages/cfp_create.html',context)
 
 
 
 def cfp_edit(request,id):
-    print(id)
+    cfp_id=id
 
-    return render(request,'Admin_pages/cfp_edit.html');
+    datas=CFP_role.objects.get(cfp_id=cfp_id)
+
+
+    if request.method=="POST":
+        cfp_category=request.POST['cfp_cag']
+        cfp_role=request.POST['cfp_role']
+        cfp_course=request.POST['cfp_course']
+
+        datas=CFP_role.objects.get(cfp_id=cfp_id)
+        datas.cfp_category=cfp_category
+        datas.cfp_role=cfp_role
+        datas.cfp_course=cfp_course
+        datas.save()
+
+        return redirect('/cfp_create/')
+
+
+    category_list=CareerCategory.objects.all()
+
+    role_str=datas.cfp_course
+    role_list=role_str.split('_')
+    context={
+        'datas':datas,
+        'role_list':role_list,
+        'category_list':category_list,
+    }
+
+    return render(request,'Admin_pages/cfp_edit.html',context);
