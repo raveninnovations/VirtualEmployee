@@ -560,10 +560,9 @@ def cfp_create(request):
 
             cag_obj=CareerCategory(category=cag_name)
             cag_obj.save()
-<<<<<<< HEAD
-=======
+
             messages.success(request,"CFP Category Created")
->>>>>>> d51880e2601c55676f0f358eb6d1017ef1f49a9e
+
             return redirect('cfp_create')
 
 
