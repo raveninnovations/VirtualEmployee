@@ -1,0 +1,140 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% block content %}
+<style>
+.helptext{
+    font-weight: bold;
+}
+</style>
+    <div id="wrapper" class="admin-panel">
+
+        <!-- menu -->
+        <div class="page-menu">
+            <!-- btn close on small devices -->
+            <span class="btn-menu-close" uk-toggle="target: #wrapper ; cls: mobile-active"></span>
+            <!-- traiger btn -->
+            <span class="btn-menu-trigger" uk-toggle="target: .page-menu ; cls: menu-large"></span>
+
+            <!-- logo -->
+            <div class="logo uk-visible@s">
+                <a href="{% url 'csmDashboard' %}" class="logo">
+                            <img src="{% static 'images/VES.png' %}" alt="">
+
+                        </a>
+
+            </div>
+            <div class="page-menu-inner" data-simplebar>
+                <ul class="mt-0">
+                    <li><a href="{% url 'csmDashboard' %}"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
+                    <li><a href="{% url 'csmAddCourse' %}"><i class="uil-youtube-alt"></i> <span>Add Course</span></a> </li>
+                    <li><a href="#"><i class="uil-envelope-alt"></i> <span> Message</span></a> </li>
+
+                </ul>
+
+
+
+            </div>
+        </div>
+
+        <!-- Header Container
+        ================================================== -->
+        {% include 'partials/csm-tl-project_partials/_csm_header.html' %}
+
+        <!-- content -->
+        <div class="page-content">
+            <div class="page-content-inner">
+
+                <div class="d-flex">
+                    <nav id="breadcrumbs" class="mb-3">
+                        <ul>
+                            <li><a href="#"> <i class="uil-home-alt"></i> </a></li>
+                            <li><a href="#"> Dashboard </a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+
+
+
+
+                <div class="uk-width-3-5@m">
+                        {% include 'partials/_alerts.html' %}
+                        <div class="card rounded">
+                          <div class=" container py-3 uk-width-expand">
+                            <form name="pgenerate" method="POST">
+                              {% csrf_token %}
+                                <fieldset class="uk-fieldset">
+
+                                    <legend class="uk-legend">Change password</legend>
+
+
+                                    <div class="uk-margin">
+                                         {{ form.as_table }}
+                                    </div>
+
+
+
+                                    <div class="text-center" style="float: right">
+                                      <button class="btn btn-default" name="create">Change Password</button>
+                                    </div>
+
+                                </fieldset>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                <!-- footer
+                ================================================== -->
+                {% include 'partials/_footer.html' %}
+
+            </div>
+
+        </div>
+
+        <!-- For Night mode -->
+        <script>
+            (function (window, document, undefined) {
+                'use strict';
+                if (!('localStorage' in window)) return;
+                var nightMode = localStorage.getItem('gmtNightMode');
+                if (nightMode) {
+                    document.documentElement.className += ' night-mode';
+                }
+            })(window, document);
+
+
+            (function (window, document, undefined) {
+
+                'use strict';
+
+                // Feature test
+                if (!('localStorage' in window)) return;
+
+                // Get our newly insert toggle
+                var nightMode = document.querySelector('#night-mode');
+                if (!nightMode) return;
+
+                // When clicked, toggle night mode on or off
+                nightMode.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    document.documentElement.classList.toggle('night-mode');
+                    if (document.documentElement.classList.contains('night-mode')) {
+                        localStorage.setItem('gmtNightMode', true);
+                        return;
+                    }
+                    localStorage.removeItem('gmtNightMode');
+                }, false);
+
+            })(window, document);
+
+            </script>
+    </div>
+
+{% endblock %}
