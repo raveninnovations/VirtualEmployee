@@ -11,8 +11,8 @@
                 <div class="d-flex">
                     <nav id="breadcrumbs" class="mb-3">
                         <ul>
-                            <li><a href="#"> <i class="uil-home-alt"></i> </a></li>
-                            <li><a href="#"> Category/CFP Creation </a></li>
+                            <li><a href="{% url 'admindashboard' %}"> <i class="uil-home-alt"></i> Dashboard</a></li>
+                            <li> Category/CFP Creation </li>
                         </ul>
                     </nav>
                 </div>
@@ -21,6 +21,8 @@
 
 
                   <div class="uk-width-3-5@m" style="width: 55%">
+                  {% include 'partials/_alerts.html' %}
+
                     <div class="uk-width-4-4@m my-3">
                       {% include 'partials/_alerts.html' %}
                         <div class="card rounded">
@@ -173,23 +175,7 @@
 
                 <!-- footer
                 ================================================== -->
-                <div class="footer">
-                    <div class="uk-grid-collapse" uk-grid>
-                        <div class="uk-width-expand@s uk-first-column">
-                            <p>© 2019 <strong>Courseplus</strong>. All Rights Reserved. </p>
-                        </div>
-                        <div class="uk-width-auto@s">
-                            <nav class="footer-nav-icon">
-                                <ul>
-                                    <li><a href="#"><i class="icon-brand-facebook"></i></a></li>
-                                    <li><a href="#"><i class="icon-brand-dribbble"></i></a></li>
-                                    <li><a href="#"><i class="icon-brand-youtube"></i></a></li>
-                                    <li><a href="#"><i class="icon-brand-twitter"></i></a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
+                {% include 'partials/_footer.html' %}
 
             </div>
 
