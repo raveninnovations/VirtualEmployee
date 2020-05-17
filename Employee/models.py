@@ -28,6 +28,18 @@ class UserDetails(models.Model):
     def __str__(self):
         return str(self.user_id) if self.user_id else ''
 
+class UserContact(models.Model):
+    user_id = models.ForeignKey(UserDetails,on_delete=models.CASCADE)
+    gender = models.CharField(max_length=50)
+    address1 = models.CharField(max_length=100)
+    address2 = models.CharField(max_length=100)
+    user_pic = models.ImageField(upload_to='user_profile/', null=True, blank=True)
+
+
+    def __str__(self):
+        return self.address1
+
+
 
 
 class RoleDetail(models.Model):

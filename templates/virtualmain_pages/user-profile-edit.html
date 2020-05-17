@@ -60,13 +60,25 @@
                 <div uk-grid>
 
                     <div class="uk-width-2-5@m uk-flex-last@m">
-                        <form method="POST">
+                        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
                         <div class="uk-card-default rounded text-center p-4">
                             <div class="uk-position-relative my-4">
-
+                                    {% if users %}
+                                        {% for user in users %}
+                                            {% if user.user_id_id == user_detail.pk %}
+                                                {% if user.user_pic %}
                                     <div class="user-profile-photo  m-auto">
-                                        <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
+                                        <img src="{{ user.user_pic.url }}" alt="">
                                     </div>
+
+                                                {% else %}
+                                                <div class="user-profile-photo  m-auto">
+                                                    <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
+                                                </div>
+                                                    {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                {% endif %}
 
 
 
@@ -78,8 +90,7 @@
 
                                 </div>
                             </div>
-
-                            <button class="btn btn-default m-auto mb-3" type="submit">Save photo</button>
+                            <button class="btn btn-default m-auto mb-3" type="submit" name="photo">Save photo</button>
                         </div>
                         </form>
 
@@ -182,7 +193,7 @@
 
                         <div class="uk-card-default rounded">
                             <div class="p-3">
-                                <h5 class="mb-0"> Contact info </h5>
+                                <h5 class="mb-0"> Basic info </h5>
                             </div>
                             <hr class="m-0">
                             <form  action="" method="POST">
@@ -190,40 +201,97 @@
                               <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid>
                                 <div>
                                     <h5 class="uk-text-bold mb-2"> First Name </h5>
-                                    <input type="text" name='first_name' class="uk-input" placeholder="First name">
+                                    <input type="text" name='first_name' class="uk-input" value="{{ user.first_name }}" readonly>
                                 </div>
                                 <div>
                                     <h5 class="uk-text-bold mb-2"> Last Name </h5>
-                                    <input type="text" name='last_name' class="uk-input" placeholder="Last name">
+                                    <input type="text" name='last_name' class="uk-input" value="{{ user.last_name }}" readonly>
                                 </div>
+
+                                <div>
+                                    <h5 class="uk-text-bold mb-2"> Email address </h5>
+                                    <input type="text" name='email' class="uk-input" value="{{ user.email }}" readonly>
+                                </div>
+                                <div>
+                                    <h5 class="uk-text-bold mb-2"> contact no </h5>
+                                    <input type="text" name='contact' class="uk-input" value="{{ user_detail.user_phone }}" readonly>
+                                </div>
+                              </div>
+
+
+
+                           </form>
+                        </div>
+
+                        <div class="uk-card-default rounded mt-4">
+                            <div class="p-3">
+                                <h5 class="mb-0">Update contact info </h5>
+                            </div>
+                            <hr class="m-0">
+                            <form method="POST">
+                              {% csrf_token %}
+
+                              <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid>
+                                  {% if users %}
+                                {% for user in users %}
+                                {% if user.user_id_id == user_detail.pk %}
+
+                                {% if user.address1 %}
+                                <div>
+                                    <h5 class="uk-text-bold mb-2"> Address 1 </h5>
+                                    <input type="text" name='address1' class="uk-input" value="{{ user.address1 }}">
+                                </div>
+                                    {% else %}
+                                    <div>
+                                    <h5 class="uk-text-bold mb-2"> Address 1 </h5>
+                                    <input type="text" name='address1' class="uk-input" placeholder="Address Line 1">
+                                    </div>
+                                    {% endif %}
+                                {% if user.address2 %}
+                                    <div>
+                                        <h5 class="uk-text-bold mb-2"> Address 2 </h5>
+                                        <input type="text" name='address2' class="uk-input" value="{{ user.address2 }}">
+                                    </div>
+                                {% else %}
+                                    <div>
+                                        <h5 class="uk-text-bold mb-2"> Address 2 </h5>
+                                        <input type="text" name='address2' class="uk-input" placeholder="Address Line 2">
+                                    </div>
+                                {% endif %}
+                                {% if user.gender %}
                                 <div>
                                     <h5 class="uk-text-bold mb-2"> Gender </h5>
                                     <select class="uk-select" name='gender'>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="others">Others</option>
+                                        <option value="Male">{{ user.gender }}</option>
+                                        {% if user.gender == "Male" %}
+                                        <option value="Female">Female</option>
+                                          {% else %}
+                                            <option value="Female">Male</option>
+                                            {% endif %}
+                                        <option value="Others">Others</option>
                                     </select>
                                 </div>
+                                 {% else %}
+                                       <div>
+                                        <h5 class="uk-text-bold mb-2"> Gender </h5>
+                                        <select class="uk-select" name='gender'>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Others">Others</option>
+                                        </select>
+                                        </div>
+                                 {% endif %}
                                 <div>
-                                    <h5 class="uk-text-bold mb-2"> Email address </h5>
-                                    <input type="text" name='email' class="uk-input" placeholder="eliedaniels@gmail.com">
+                                    <h5 class="uk-text-bold mb-2"><br></h5>
+                                    <button type="submit" name="contact" class="btn btn-default grey" style="width: 100%">Save Changes</button>
                                 </div>
-                                <div>
-                                    <h5 class="uk-text-bold mb-2"> Contact no </h5>
-                                    <input type="text" name='contact' class="uk-input" placeholder="+1 555 623 568 ">
-                                </div>
-
-                                <div>
-                                    <h5 class="uk-text-bold mb-2"> Address </h5>
-                                    <input type="text" name='address' class="uk-input" placeholder="Your address ">
-                                </div>
+                                {% else %}
+                                {% endif %}
+                            {% endfor %}
+                            {% endif %}
                               </div>
-                           
 
-                            <div class="uk-flex uk-flex-right p-4">
-                                
-                                <button class="btn btn-default grey">Save Changes</button>
-                            </div>
+
                            </form>
                         </div>
 

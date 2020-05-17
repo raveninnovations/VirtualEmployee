@@ -11,7 +11,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from datetime import datetime
 from .forms import (AddUserForm)
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role
+from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,UserContact
 
 from django.core.mail import send_mail
 # Create your views here.
@@ -280,7 +280,52 @@ def userprofile(request):
 def userEdit(request):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
 
-        return render(request,'virtualmain_pages/user-profile-edit.html')
+        user = request.user
+        user_detail = UserDetails.objects.get(user_id_id=user.id)
+        print(user_detail.pk)
+        if request.method == 'POST':
+
+            if 'contact' in request.POST:
+                if UserContact.objects.filter(user_id_id=user_detail.pk).exists():
+                    address1 = request.POST['address1']
+                    address2 = request.POST['address2']
+                    gender = request.POST['gender']
+                    data = UserContact.objects.get(user_id_id=user_detail.pk)
+                    data.address1 = address1
+                    data.address2 = address2
+                    data.gender = gender
+                    data.save()
+                    messages.success(request,"Updated Contact Info")
+                    return redirect('userprofileEdit')
+
+                else:
+                    address1 = request.POST['address1']
+                    address2 = request.POST['address2']
+                    gender = request.POST['gender']
+
+                    data = UserContact(address1=address1,address2=address2,gender=gender,user_id_id=user_detail.pk)
+                    data.save()
+                    messages.success(request,"Contact Info added")
+                    return redirect(userEdit)
+            if 'photo' in request.POST:
+
+                data = UserContact.objects.get(user_id_id=user_detail.pk)
+                if data.user_pic:
+                    pic = request.FILES.get('user-profile-photo')
+                    data.user_pic = pic
+                    data.save()
+                else:
+                    pic = request.FILES.get('user-profile-photo')
+                    data.user_pic = pic
+                    data.save()
+
+        users = UserContact.objects.order_by("gender")
+        context ={
+            'user_detail' : user_detail,
+            'users' : users,
+        }
+
+        return render(request,'virtualmain_pages/user-profile-edit.html',context)
     else:
         messages.error(request,"Wrong URL")
         return redirect('logout')
@@ -560,10 +605,9 @@ def cfp_create(request):
 
             cag_obj=CareerCategory(category=cag_name)
             cag_obj.save()
-<<<<<<< HEAD
-=======
+
             messages.success(request,"CFP Category Created")
->>>>>>> d51880e2601c55676f0f358eb6d1017ef1f49a9e
+
             return redirect('cfp_create')
 
 
