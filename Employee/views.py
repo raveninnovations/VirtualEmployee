@@ -458,9 +458,24 @@ def cfp_create(request):
         if 'category_submit' in request.POST:
             cag_name=request.POST['cagname']
 
+            if CareerCategory.objects.filter(category=cag_name).exists():
+                messages.error(request, 'The Category already exists')
+                return redirect('cfp_create')
+
+            if CareerCategory.objects.filter(category=cag_name.upper()).exists():
+                messages.error(request, 'The Category already exists')
+                return redirect('cfp_create')
+
+            if CareerCategory.objects.filter(category=cag_name.lower()).exists():
+                messages.error(request, 'The Category already exists')
+                return redirect('cfp_create')
+
+            if CareerCategory.objects.filter(category=cag_name.capitalize()).exists():
+                messages.error(request, 'The Category already exists')
+                return redirect('cfp_create')
+
             cag_obj=CareerCategory(category=cag_name)
             cag_obj.save()
-
             return redirect('cfp_create')
 
 
