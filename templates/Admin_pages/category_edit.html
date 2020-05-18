@@ -11,9 +11,8 @@
                 <div class="d-flex">
                     <nav id="breadcrumbs" class="mb-3">
                         <ul>
-                            <li><a href="{% url 'admindashboard' %}"> <i class="uil-home-alt"></i> Dashboard</a></li>
-                            <li><a href="{% url 'cfp_create' %}"> Category/CFP Creation </a></li>
-                            <li>Category/CFP Edit </li>
+                            <li><a href="#"> <i class="uil-home-alt"></i> </a></li>
+                            <li><a href="#"> Category/CFP Creation </a></li>
                         </ul>
                     </nav>
                 </div>
@@ -28,61 +27,22 @@
                     <div class="uk-width-expand my-5">
                         <div class="card rounded">
                           <div class=" container py-3 px-5 uk-width-expand">
-                            <form name="cfpedit" method="POST">
+                            <form name="careeredit" method="POST">
                               {% csrf_token %}
                                 <fieldset class="uk-fieldset">
 
-                                    <legend class="uk-legend mt-4 text-center">View/Edit CFP</legend>
+                                    <legend class="uk-legend mt-4 text-center">Edit Career Category</legend>
 
-
-                                    <div class="uk-margin uk-width-1-2">
-                                        <select name="cfp_cag" class="uk-select" required>
-                                            {% for item in category_list%}
-                                              {% if item.category == datas.cfp_category %}
-                                              <option value="{{item.category}}" selected>{{item.category}}</option>
-                                              {% else %}
-                                              <option value="{{item.category}}">{{item.category}}</option>
-                                              {% endif %}
-                                            {% endfor %}
-                                        </select>
-                                    </div>
 
                                     <div class="uk-margin">
-                                        <input class="uk-input bg-secondary" name="cfp_role" type="text" value="{{datas.cfp_role}}" required>
+                                        <input class="uk-input bg-secondary" name="category_name" type="text" value="{{datas.category}}" required>
                                     </div>
-
-
-                                        <div class="uk-width-expand my-3">
-
-                                                <a class="btn btn-default text-white  mb-3" type="button" id="addSkillRow" onclick="addSkillRow()"><i
-                                                        class='uil-plus'></i>CFP Course</a>
-
-
-
-                                                <table id="SkillsTable" class="uk-width-expand">
-                                                  <thead>
-                                                    {% for i in role_list %}
-                                                    <tr>
-                                                      <td><input type='text' class='uk-input1'
-                                                          value="{{i}}"></td>
-                                                    </tr>
-                                                    {% endfor %}
-                                                  </thead>
-                                                </table>
-
-                                                <input type="hidden" name="cfp_course" id="sout"  value='Output:'>
-
-                                        </div>
-
 
 
 
                                     <div class="text-center mt-3">
                                       <a href="{% url 'cfp_create' %}" class="btn btn-default px-4">Back</a>
-                                      <button class="btn btn-default px-4 " name="cfp_submit" onclick="Skillsubmit()">Edit & Save</button>
-
-                                      <input type="hidden" name="delete_id" value="{{datas.cfp_id}}">
-                                      <button class="btn btn-default px-4 " name="cfp_delete">Delete</button>
+                                      <button class="btn btn-default px-4 " name="category_submit">Edit & Save</button>
 
                                     </div>
                                 </fieldset>
@@ -108,9 +68,10 @@
 
 
 
+
                 <!-- footer
                 ================================================== -->
-                {% include 'partials/_footer.html' %}
+                {% include 'partials/_footer.html' %} 
 
             </div>
 
