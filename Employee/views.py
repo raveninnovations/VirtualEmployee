@@ -308,16 +308,21 @@ def userEdit(request):
                     messages.success(request,"Contact Info added")
                     return redirect(userEdit)
             if 'photo' in request.POST:
-
-                data = UserContact.objects.get(user_id_id=user_detail.pk)
-                if data.user_pic:
-                    pic = request.FILES.get('user-profile-photo')
-                    data.user_pic = pic
-                    data.save()
-                else:
-                    pic = request.FILES.get('user-profile-photo')
-                    data.user_pic = pic
-                    data.save()
+                try:
+                    data = UserContact.objects.get(user_id_id=user_detail.pk)
+                    if data.user_pic:
+                        pic = request.FILES.get('user-profile-photo')
+                        data.user_pic = pic
+                        data.save()
+                        messages.success(request,"Profile pic updated")
+                    else:
+                        pic = request.FILES.get('user-profile-photo')
+                        data.user_pic = pic
+                        data.save()
+                        messages.success(request, "Profile pic added")
+                except:
+                    messages.error(request,"Complete your contact info to change Pic")
+                    return redirect("userprofileEdit")
             if 'education' in request.POST:
                 if UserEducation.objects.filter(user_id_id=user_detail.pk).exists():
                     print("exists")
@@ -380,6 +385,7 @@ def userEdit(request):
         else:
             context={
                 "idd":1,
+                "edd":1,
 
             }
             idd =1

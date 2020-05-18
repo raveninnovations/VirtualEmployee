@@ -196,6 +196,7 @@
 
                     </div>
                     <div class="uk-width-expand@m">
+                    {% include 'partials/_alerts.html' %}
 
                         <div class="uk-card-default rounded">
                             <div class="p-3">
@@ -351,7 +352,7 @@
 
                                 <div >
                                     <h5 class="uk-text-bold mb-2">{{ edu.specialization }}</h5>
-                                    <select id ="state" class="uk-input" name="special" value="{{ edu.degree }}"></select>
+                                    <select id ="state" class="uk-input" name="special"  required></select>
 
                                 </div>
 
