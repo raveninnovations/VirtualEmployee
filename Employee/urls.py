@@ -12,6 +12,7 @@ urlpatterns = [
     path('add_course/',views.adminAddcourse,name='adminaddcourse'),
     path('projects/',views.adminProjects,name='adminprojects'),
     path('role_creation/',views.adminRolecreation,name='adminrolecreation'),
+    path('admin_license/',views.adminLicense,name='adminLicense'),
     # User Section
     path('userdashboard/',views.userdashboard,name='dashboard'),
     path('userprofile/',views.userprofile,name='userprofile'),
@@ -32,5 +33,6 @@ urlpatterns = [
     path('projectdashboard/',views.projectDashboard,name='projectDashboard'),
     #Create category and CFP
     path('cfp_create/',views.cfp_create,name='cfp_create'),
-    path('cfp_edit/<int:id>',views.cfp_edit,name='cfpEdit')
+    path('cfp_edit/<int:id>',views.cfp_edit,name='cfpEdit'),
+    path('category_edit/<int:id>',views.category_edit,name='categoryEdit')
     ]

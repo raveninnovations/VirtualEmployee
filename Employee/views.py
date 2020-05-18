@@ -1,5 +1,6 @@
 import re
 import random
+import uuid
 from django.contrib import messages
 from email_validator import validate_email, EmailNotValidError
 from django.contrib.auth import login,logout,authenticate
@@ -10,8 +11,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from datetime import datetime
-from .forms import (AddUserForm)
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,UserContact,UserEducation
+
 
 from django.core.mail import send_mail
 # Create your views here.
@@ -147,7 +147,25 @@ def adminRolecreation(request):
         return redirect('logout')
 
 
+def adminLicense(request):
+    if request.user.is_staff and request.user.is_superuser:
 
+        if request.method == 'POST':
+
+            if 'category_submit' in request.POST:
+                l_id = uuid.uuid4()
+                key = l_id
+                year = request.POST['year']
+                data = AdminLicense(key=key,years=year)
+                data.save()
+                messages.success(request,"Key is generated")
+                return redirect("adminLicense")
+        keys = AdminLicense.objects.order_by('-date')
+        context ={
+            'keys' : keys
+        }
+
+        return render(request,"Admin_pages/admin_license.html",context)
 
 def adduser(request):
     form = AddUserForm
@@ -687,10 +705,10 @@ def cfp_create(request):
                 messages.error(request, 'The Category already exists')
                 return redirect('cfp_create')
 
-            cag_obj=CareerCategory(category=cag_name)
-            cag_obj.save()
 
-            messages.success(request,"CFP Category Created")
+            category_id=CareerCategory.objects.all().count()+1
+            cag_obj=CareerCategory(category_id=category_id,category=cag_name)
+            cag_obj.save()
 
             return redirect('cfp_create')
 
@@ -706,6 +724,8 @@ def cfp_create(request):
             messages.success(request, "Added to CFP")
             return redirect('cfp_create')
 
+
+
     category_list=CareerCategory.objects.all()
 
     cfp_list=CFP_role.objects.order_by("-cfp_create_date")
@@ -719,6 +739,8 @@ def cfp_create(request):
     return render(request,'Admin_pages/cfp_create.html',context)
 
 
+
+
 @login_required
 def cfp_edit(request,id):
     cfp_id=id
@@ -727,17 +749,25 @@ def cfp_edit(request,id):
 
 
     if request.method=="POST":
-        cfp_category=request.POST['cfp_cag']
-        cfp_role=request.POST['cfp_role']
-        cfp_course=request.POST['cfp_course']
+        if 'cfp_submit' in request.POST:
+            cfp_category=request.POST['cfp_cag']
+            cfp_role=request.POST['cfp_role']
+            cfp_course=request.POST['cfp_course']
 
-        datas=CFP_role.objects.get(cfp_id=cfp_id)
-        datas.cfp_category=cfp_category
-        datas.cfp_role=cfp_role
-        datas.cfp_course=cfp_course
-        datas.save()
+            datas=CFP_role.objects.get(cfp_id=cfp_id)
+            datas.cfp_category=cfp_category
+            datas.cfp_role=cfp_role
+            datas.cfp_course=cfp_course
+            datas.save()
 
-        return redirect('/cfp_create/')
+            return redirect('/cfp_create/')
+
+        if 'cfp_delete' in request.POST:
+            delete_id=request.POST['delete_id']
+            obj=CFP_role.objects.filter(cfp_id=delete_id)
+            obj.delete()
+
+            return redirect('cfp_create')
 
 
     category_list=CareerCategory.objects.all()
@@ -751,3 +781,27 @@ def cfp_edit(request,id):
     }
 
     return render(request,'Admin_pages/cfp_edit.html',context);
+
+
+@login_required
+def category_edit(request,id):
+    category_id=id
+    datas=CareerCategory.objects.get(category_id=category_id)
+    name=datas.category
+
+    if request.method=="POST":
+        if 'category_submit' in request.POST:
+            category=request.POST['category_name']
+
+            datas=CareerCategory.objects.get(category_id=category_id)
+
+            datas.category=category
+            datas.save()
+
+            CFP_role.objects.filter(cfp_category=name).update(cfp_category=category)
+            return redirect('/cfp_create/')
+
+    context={
+        'datas':datas,
+    }
+    return render(request,'Admin_pages/category_edit.html',context)

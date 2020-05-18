@@ -17,12 +17,10 @@
                     </nav>
                 </div>
 
-                <div class="uk-grid">
+                <div class="row">
 
 
-                  <div class="uk-width-3-5@m" style="width: 55%">
-                  {% include 'partials/_alerts.html' %}
-
+                  <div class="col-md-7" >
                     <div class="uk-width-4-4@m my-3">
                       {% include 'partials/_alerts.html' %}
                         <div class="card rounded">
@@ -112,58 +110,116 @@
 
 
 
-                  <div class="uk-width-expand my-3">
-                      <div class="card rounded">
-                        <div class=" container py-4 uk-width-expand">
 
-                              <div class="d-flex uk-flex-center">
-                                <div class="col-md-8 my-auto">
-                                    <legend class="uk-legend">List Of CFP</legend>
+
+
+                  <div  class="col-md-5 my-3"">
+
+                    <div class="uk-width-expand">
+                        <div class="card rounded">
+                          <div class=" container py-4 uk-width-expand">
+
+
+                                  <div class=" my-auto text-center uk-width-expand">
+                                      <legend class="uk-legend ">List Of CFP Category</legend>
+                                  </div>
+
+
+                                <hr style="width:70% mx-auto mt-0">
+
+                                <table class="uk-table uk-table-small uk-table-hover uk-table-striped" uk-table-divider" >
+                                  <thead>
+                                      <tr>
+                                          <th>C-Id</th>
+                                          <th>Category</th>
+                                          <th>Action</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for item in category_list %}
+
+                                      <tr>
+                                        <td>{{item.category_id}}</td>
+                                        <td>{{item.category}}</td>
+                                        <td><a href="{% url 'categoryEdit' item.category_id %}" class="btn btn-default">Edit</a></td>
+                                      </tr>
+
+
+
+                                      {% endfor %}
+
+                                  </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="uk-width-expand my-3">
+                        <div class="card rounded">
+                          <div class=" container py-4 uk-width-expand">
+
+                                <div class="d-flex uk-flex-center">
+                                  <div class="col-md-8 my-auto">
+                                      <legend class="uk-legend">List Of CFP</legend>
+                                  </div>
+                                  <div class="col-md-4 uk-margin my-auto">
+                                    <form name="sort"  method="POST">
+                                      {% csrf_token %}
+                                      <select class="uk-select uk-width-auto" name="sortlist" id="list">
+                                          <option disabled selected>Sort</option>
+                                          {% for i in category_list %}
+                                          <option value="{{i.category}}">{{i.category}}</option>
+                                          {% endfor %}
+                                      </select>
+                                      <!-- <button  class="btn btn-default" name="sortsubmit" id="sortsubmit" >Submit</button> -->
+                                      <!-- <script>
+                                          $("#list").on("change",function() {
+                                              $("#sortsubmit").click();
+                                          });
+                                      </script> -->
+                                    </form>
+
+                                  </div>
+
                                 </div>
-                                <div class="col-md-4 uk-margin my-auto">
-                                    <select class="uk-select uk-width-auto">
-                                        <option >Sort</option>
-                                        <option>CSM</option>
-                                        <option>PCM</option>
-                                        <option>TL</option>
-                                        <option>Instructor</option>
-                                    </select>
-                                </div>
 
-                              </div>
+                                <hr style="width:70% mx-auto mt-0">
 
-                              <hr style="width:70% mx-auto mt-0">
+                                <table class="uk-table uk-table-small uk-table-hover uk-table-striped" uk-table-divider" >
+                                  <thead>
+                                      <tr>
+                                          <th>R-Id</th>
+                                          <th>Role</th>
+                                          <th>Action</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for item in cfp_list %}
 
-                              <table class="uk-table uk-table-small uk-table-hover uk-table-striped" uk-table-divider" >
-                                <thead>
-                                    <tr>
-                                        <th>R-Id</th>
-                                        <th>Role</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                  {% for item in cfp_list %}
-                                    <tr>
-                                      <td>{{item.cfp_id}}</td>
-                                      <td>{{item.cfp_role}}</td>
-                                      <td><a href="{% url 'cfpEdit' item.cfp_id %}" class="btn btn-default">View/Edit</a></td>
-                                    </tr>
+                                      <tr>
+                                        <td>{{item.cfp_id}}</td>
+                                        <td>{{item.cfp_role}}</td>
+                                        <td><a href="{% url 'cfpEdit' item.cfp_id %}" class="btn btn-default">View/Edit</a></td>
+                                      </tr>
 
-                                    {% endfor %}
-                                </tbody>
-                              </table>
+                                      {% endfor %}
+                                  </tbody>
+                                </table>
 
-                          </div>
-                      </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                   </div>
 
 
 
-
                 </div>
-
-
 
 
 

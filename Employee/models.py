@@ -18,6 +18,7 @@ DIFFICULTY_LEVEL=(
 
 
 
+
 class UserDetails(models.Model):
     user_id = models.ForeignKey(User,on_delete=models.CASCADE)
     user_phone = PhoneNumberField(null=False, blank=False, unique=False, default='+91')
@@ -134,6 +135,7 @@ class Lesson_Topic(models.Model):
 
 
 class CareerCategory(models.Model):
+    category_id=models.IntegerField(default=0)
     category=models.CharField(max_length=255)
 
     def __str__(self):
