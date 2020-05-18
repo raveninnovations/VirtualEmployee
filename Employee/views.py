@@ -11,7 +11,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from datetime import datetime
 from .forms import (AddUserForm)
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role
+from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,ProjectManager
 
 from django.core.mail import send_mail
 # Create your views here.
@@ -287,7 +287,11 @@ def userEdit(request):
 
 
 def userProject(request):
-    return render(request,'virtualmain_pages/user-project.html')
+    proj=ProjectManager.objects.all()
+    context={
+        "proj":proj
+    }
+    return render(request,'virtualmain_pages/user-project.html', context)
 
 # CSM MODULE SECTION
 @login_required
@@ -529,10 +533,28 @@ def tlProjectDetails(request):
 # PROJECT MODULE SECTION
 
 def projectManager(request):
+    if request.method == "POST":
+        project_title=request.POST["project_title"]
+        project_description=request.POST["project_description"]
+        project_thumbnail=request.FILES.get("project_thumbnail")
+        project_duration=request.POST["project_duration"]
+        candidates_required=request.POST["candidates_required"]
+        project_docs=request.FILES.get("project_docs")
+        proj=ProjectManager.objects.create(
+            project_title=project_title,
+            project_description=project_description,
+            project_thumbnail=project_thumbnail,
+            project_duration=project_duration,
+            candidates_required=candidates_required,
+            project_docs=project_docs
+        )
+        proj.save()
+        return redirect("/projectmanager/")
     return render(request,'ProjectModule_Pages/Project_manager.html')
 
 def projectDashboard(request):
-    return render(request,'ProjectModule_Pages/Project_dashboard.html')
+    project=ProjectManager.objects.all()
+    return render(request,'ProjectModule_Pages/Project_dashboard.html',{"project":project})
 
 
 @login_required

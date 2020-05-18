@@ -123,3 +123,13 @@ class CFP_role(models.Model):
 
     def __str__(self):
         return self.cfp_role
+
+class ProjectManager(models.Model):
+    project_title=models.CharField(max_length=100)
+    project_description=models.TextField(blank=True)
+    project_thumbnail=models.ImageField(upload_to='proj_images/',null=True,blank=True)
+    project_duration=models.IntegerField()
+    candidates_required=models.IntegerField(null=True)
+    project_docs=models.FileField(upload_to='proj_docs/', null=True,blank=True)
+    def __str__(self):
+        return self.project_title

@@ -49,37 +49,58 @@
                         <h5 class="mb-0"> Create Project </h5>
                     </div>
                     <hr class="m-0">
-                    <form class="uk-width-expand uk-form-horizontal uk-grid-small p-4" uk-grid>
-
+                    <form class="uk-width-expand uk-form-horizontal uk-grid-small p-4" method="POST" action="/projectmanager/" uk-grid  enctype="multipart/form-data">
+                        {% csrf_token %}
                       <div class="uk-width-3-5@m px-2">
 
                         <div class="m-3">
                           <div class="uk-margin">
                               <label class="uk-form-label" for="form-horizontal-text">Project Title</label>
                               <div class="uk-form-controls">
-                                  <input class="uk-input" id="form-horizontal-text" type="text" placeholder="Some text...">
+                                  <input class="uk-input" id="form-horizontal-text" type="text" name="project_title" placeholder="Some text...">
                               </div>
                           </div>
 
                           <div class="uk-margin">
                             <label class="uk-form-label" for="form-horizontal-text">Project Description</label>
                             <div class="uk-form-controls">
-                             <textarea class="uk-textarea" rows="5" placeholder="Enter Description"></textarea>
+                             <textarea class="uk-textarea" rows="5" name="project_description" placeholder="Enter Description"></textarea>
                             </div>
                           </div>
 
                           <div class="uk-margin">
                             <label class="uk-form-label" for="form-horizontal-text">Project Thumbnail</label>
                             <div uk-form-custom class="ml-3" >
-                                <input type="file">
-                                <button class="btn btn-default" type="button" tabindex="-1">Select File</button>
+                                <input type="file" name="project_thumbnail" id="real-file">
+                                <a class="btn btn-default" type="button" onclick="" id="Upload-button" tabindex="-1">Select File</a>
+                                <span id="custom-text">No file choosen</span>
                             </div>
+                            <script type="text/javascript">
+                                const realFileBtn = document.getElementById("real-file");
+                                const CustomBtn = document.getElementById("Upload-button");
+                                const customTxt = document.getElementById("custom-text");
+                                                CustomBtn.addEventListener ("click", function() {
+                                                realFileBtn.click()
+
+                                                });
+
+                                                realFileBtn.addEventListener("change", function() {
+                                              if (realFileBtn.value) {
+                                                customTxt.innerHTML = realFileBtn.value.match(
+                                                  /[\/\\]([\w\d\s\.\-\(\)]+)$/
+                                                )[1];
+                                              } else {
+                                                customTxt.innerHTML = "No file chosen, yet.";
+                                              }
+                                            });
+
+                                                </script>
                           </div>
 
                           <div class="uk-margin">
                               <label class="uk-form-label" for="form-horizontal-text">Project Duration</label>
                               <div class="uk-form-controls">
-                                  <input class="uk-input" id="form-horizontal-text" type="number" placeholder="Enter Total Months">
+                                  <input class="uk-input" name="project_duration" id="form-horizontal-text" type="number" placeholder="Enter Total Months">
                               </div>
                           </div>
 
@@ -256,16 +277,39 @@
                           <div class="uk-margin">
                               <label class="uk-form-label" for="form-horizontal-text">Candidates Required</label>
                               <div class="uk-form-controls">
-                                  <input class="uk-input" id="form-horizontal-text" type="Number" placeholder="Max">
+                                  <input class="uk-input" id="form-horizontal-text" type="Number" name="candidates_required" placeholder="Max">
                               </div>
                           </div>
 
                           <div class="uk-margin">
                             <label class="uk-form-label" for="form-horizontal-text">Project Docs</label>
                             <div uk-form-custom class="ml-3" >
-                                <input type="file">
-                                <button class="btn btn-default" type="button" tabindex="-1">Upload</button>
+                                <input type="file"id="real-file" name="project_docs">
+                                <a class="btn btn-default" type="button" onclick="" id="Upload-button" tabindex="-1">Upload</a>
+                            <br>
+                            <span id="custom-text" style="float: right;">No file choosen</span>
+    
                             </div>
+                                            <script type="text/javascript">
+                                                const realFileBtn = document.getElementById("real-file");
+                                                const CustomBtn = document.getElementById("Upload-button");
+                                                const customTxt = document.getElementById("custom-text");
+                                                CustomBtn.addEventListener ("click", function() {
+                                                realFileBtn.click()
+
+                                                });
+
+                                                realFileBtn.addEventListener("change", function() {
+                                              if (realFileBtn.value) {
+                                                customTxt.innerHTML = realFileBtn.value.match(
+                                                  /[\/\\]([\w\d\s\.\-\(\)]+)$/
+                                                )[1];
+                                              } else {
+                                                customTxt.innerHTML = "No file chosen, yet.";
+                                              }
+                                            });
+
+                                        </script>
                           </div>
 
 
@@ -275,7 +319,7 @@
                       </div>
 
                       <div class=" mx-auto ">
-                          <button class="btn btn-default  grey px-5">SUBMIT</button>
+                        <input type="submit" class="btn btn-default"  grey px-5>
                       </div>
                     </form>
 
