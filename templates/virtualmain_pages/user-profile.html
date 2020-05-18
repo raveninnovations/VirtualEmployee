@@ -57,9 +57,15 @@
 
                         <div class="uk-card-default rounded text-center p-4">
                             {% if user.is_authenticated %}
+                            {% if user_contact.user_pic %}
                             <div class="user-profile-photo  m-auto">
+                                <img src="{{ user_contact.user_pic.url }}" alt="">
+                            </div>
+                             {% else %}
+                                <div class="user-profile-photo  m-auto">
                                 <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
                             </div>
+                              {% endif %}
 
                             <h4 class="mb-2 mt-3"> {{ user.first_name }} {{ user.last_name }} </h4>
                             <h5 class="my-2"> Employee ID : {{ user_data.user_unique }} </h5>
@@ -134,7 +140,7 @@
 
                                  <div>
                                     <h5 class="uk-text-bold">Residential Address</h5>
-                                        <p> Address is not updated </p>
+                                        <p> {{ user_contact.address1 }} -- {{ user_contact.address2 }}</p>
                                 </div>
 
                             </div>
@@ -149,25 +155,25 @@
                             <div class="uk-child-width-1-3@s uk-grid-small p-4" uk-grid>
                                 <div>
                                     <h6 class="uk-text-bold"> Degree</h6>
-                                        <p> </p>
+                                        <p> {{ user_education.degree }}</p>
                                 </div>
                                 <div>
                                     <h5 class="uk-text-bold"> Specialisation</h5>
-                                        <p></p>
+                                        <p>{{ user_education.specialization }}</p>
                                 </div>
                                 <div>
                                     <h5 class="uk-text-bold"> Current year</h5>
-                                        <p> </p>
+                                        <p>{{ user_education.year }} </p>
                                 </div>
                             </div>
                             <div class="uk-child-width-1@s uk-grid-small p-3" uk-grid>
                                 <div>
                                     <h5 class="uk-text-bold"> Institution Name </h5>
-                                        <p> </p>
+                                        <p> {{ user_education.institution }}</p>
                                 </div>
                                 <div>
                                     <h5 class="uk-text-bold"> Institution Address </h5>
-                                        <p> </p>
+                                        <p> {{ user_education.address }}</p>
                                 </div>
                             </div>
                         </div>

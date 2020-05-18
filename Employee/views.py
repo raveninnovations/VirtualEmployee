@@ -11,8 +11,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from datetime import datetime
-from .forms import (AddUserForm)
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,AdminLicense
+
 
 from django.core.mail import send_mail
 # Create your views here.
@@ -285,9 +284,28 @@ def userprofile(request):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
         user = request.user
         print(user.id)
-        user_data = UserDetails.objects.get(user_id_id=user.pk)
+        user_details = UserDetails.objects.get(user_id_id=user.pk)
+        if UserEducation.objects.filter(user_id_id=user_details.pk).exists():
+            user_education = UserEducation.objects.get(user_id_id=user_details.pk)
+            context = {
+                'user_education':user_education,
+                'user_data': user_details
+            }
+            if UserContact.objects.filter(user_id_id=user_details.pk).exists():
+                user_contact = UserContact.objects.get(user_id_id=user_details.pk)
+
+                context={
+                    'user_contact':user_contact,
+                    'user_education': user_education,
+                    'user_data': user_details
+                }
+                return render(request, "virtualmain_pages/user-profile.html", context)
+
+            return render(request,"virtualmain_pages/user-profile.html",context)
+
+
         context = {
-            'user_data' : user_data
+            'user_data' : user_details
         }
         return render(request,'virtualmain_pages/user-profile.html',context)
 
@@ -299,7 +317,117 @@ def userprofile(request):
 def userEdit(request):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
 
-        return render(request,'virtualmain_pages/user-profile-edit.html')
+        user = request.user
+        user_detail = UserDetails.objects.get(user_id_id=user.id)
+        print(user_detail.pk)
+        if request.method == 'POST':
+
+            if 'contact' in request.POST:
+                if UserContact.objects.filter(user_id_id=user_detail.pk).exists():
+                    address1 = request.POST['address1']
+                    address2 = request.POST['address2']
+                    gender = request.POST['gender']
+                    data = UserContact.objects.get(user_id_id=user_detail.pk)
+                    data.address1 = address1
+                    data.address2 = address2
+                    data.gender = gender
+                    data.save()
+                    messages.success(request,"Updated Contact Info")
+                    return redirect('userprofileEdit')
+
+                else:
+                    address1 = request.POST['address1']
+                    address2 = request.POST['address2']
+                    gender = request.POST['gender']
+
+                    data = UserContact(address1=address1,address2=address2,gender=gender,user_id_id=user_detail.pk)
+                    data.save()
+                    messages.success(request,"Contact Info added")
+                    return redirect(userEdit)
+            if 'photo' in request.POST:
+                try:
+                    data = UserContact.objects.get(user_id_id=user_detail.pk)
+                    if data.user_pic:
+                        pic = request.FILES.get('user-profile-photo')
+                        data.user_pic = pic
+                        data.save()
+                        messages.success(request,"Profile pic updated")
+                    else:
+                        pic = request.FILES.get('user-profile-photo')
+                        data.user_pic = pic
+                        data.save()
+                        messages.success(request, "Profile pic added")
+                except:
+                    messages.error(request,"Complete your contact info to change Pic")
+                    return redirect("userprofileEdit")
+            if 'education' in request.POST:
+                if UserEducation.objects.filter(user_id_id=user_detail.pk).exists():
+                    print("exists")
+                    course = request.POST['course']
+                    special = request.POST['special']
+                    year = request.POST['in_year']
+                    inst_name = request.POST['in_name']
+                    inst_address = request.POST['in_address']
+                    edu = UserEducation.objects.get(user_id_id=user_detail.pk)
+                    edu.degree = course
+                    edu.specialization = special
+                    edu.year = year
+                    edu.institution = inst_name
+                    edu.address =inst_address
+                    edu.save()
+
+                    messages.success(request, "Updated Education Info")
+                    return redirect('userprofileEdit')
+
+
+                else:
+                    course = request.POST['course']
+                    special = request.POST['special']
+                    year = request.POST['in_year']
+                    inst_name = request.POST['in_name']
+                    inst_address = request.POST['in_address']
+                    edu = UserEducation(degree=course,specialization=special,year=year,institution=inst_name,address=inst_address,user_id_id=user_detail.pk)
+                    edu.save()
+                    messages.success(request,"Education details added")
+
+
+
+        if UserContact.objects.filter(user_id_id=user_detail.pk).exists():
+            users = UserContact.objects.order_by("gender")
+
+            context ={
+                'user_detail' : user_detail,
+                'users' : users,
+
+
+            }
+            if UserEducation.objects.filter(user_id_id=user_detail.pk).exists():
+                users = UserContact.objects.order_by("gender")
+                education = UserEducation.objects.order_by("degree")
+                context = {
+                    'user_detail': user_detail,
+                    'users': users,
+                    'education': education,
+
+                }
+                return render(request, 'virtualmain_pages/user-profile-edit.html', context)
+            else:
+                context ={
+                    'user_detail': user_detail,
+                    'users': users,
+                    "edd":1
+                }
+                return render(request, 'virtualmain_pages/user-profile-edit.html', context)
+            return render(request,'virtualmain_pages/user-profile-edit.html',context)
+        else:
+            context={
+                "idd":1,
+                "edd":1,
+
+
+            }
+            idd =1
+            return render(request,'virtualmain_pages/user-profile-edit.html',context)
     else:
         messages.error(request,"Wrong URL")
         return redirect('logout')
@@ -581,7 +709,7 @@ def cfp_create(request):
             category_id=CareerCategory.objects.all().count()+1
             cag_obj=CareerCategory(category_id=category_id,category=cag_name)
             cag_obj.save()
-            messages.success(request,"CFP Category Created")
+
             return redirect('cfp_create')
 
 
