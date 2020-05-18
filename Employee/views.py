@@ -266,9 +266,28 @@ def userprofile(request):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
         user = request.user
         print(user.id)
-        user_data = UserDetails.objects.get(user_id_id=user.pk)
+        user_details = UserDetails.objects.get(user_id_id=user.pk)
+        if UserEducation.objects.filter(user_id_id=user_details.pk).exists():
+            user_education = UserEducation.objects.get(user_id_id=user_details.pk)
+            context = {
+                'user_education':user_education,
+                'user_data': user_details
+            }
+            if UserContact.objects.filter(user_id_id=user_details.pk).exists():
+                user_contact = UserContact.objects.get(user_id_id=user_details.pk)
+
+                context={
+                    'user_contact':user_contact,
+                    'user_education': user_education,
+                    'user_data': user_details
+                }
+                return render(request, "virtualmain_pages/user-profile.html", context)
+
+            return render(request,"virtualmain_pages/user-profile.html",context)
+
+
         context = {
-            'user_data' : user_data
+            'user_data' : user_details
         }
         return render(request,'virtualmain_pages/user-profile.html',context)
 
