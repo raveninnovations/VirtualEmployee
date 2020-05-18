@@ -352,7 +352,7 @@ def userEdit(request):
                     edu = UserEducation(degree=course,specialization=special,year=year,institution=inst_name,address=inst_address,user_id_id=user_detail.pk)
                     edu.save()
                     messages.success(request,"Education details added")
-                    return redirect('userprofileEdit')
+
 
 
         if UserContact.objects.filter(user_id_id=user_detail.pk).exists():
@@ -386,6 +386,7 @@ def userEdit(request):
             context={
                 "idd":1,
                 "edd":1,
+
 
             }
             idd =1
