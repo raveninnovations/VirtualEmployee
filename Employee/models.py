@@ -16,6 +16,12 @@ DIFFICULTY_LEVEL=(
     ('adv', 'Advanced'),
 )
 
+DEGREE =(
+    ('MCA','MCA'),
+    ('MCOM','MCOM'),
+    ('MBA','MBA'),
+)
+
 
 class UserDetails(models.Model):
     user_id = models.ForeignKey(User,on_delete=models.CASCADE)
