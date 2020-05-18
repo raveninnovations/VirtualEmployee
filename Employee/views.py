@@ -11,14 +11,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from datetime import datetime
-
 from .forms import (AddUserForm)
-<<<<<<< HEAD
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,ProjectManager
-=======
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,AdminLicense,UserContact,UserEducation
->>>>>>> ca4bafa66c52953a1ae3ba523dc1c7a200b531dc
-
+from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation
 from django.core.mail import send_mail
 # Create your views here.
 # ADMIN SECTION
