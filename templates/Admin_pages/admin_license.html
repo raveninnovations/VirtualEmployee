@@ -1,0 +1,232 @@
+{% extends 'base1.html' %}
+{% block content %}
+
+    <div id="wrapper" class="admin-panel">
+
+    {% include 'partials/admin_partials/_header.html' %}
+
+    <div class="page-content">
+            <div class="page-content-inner">
+
+                <div class="d-flex">
+                    <nav id="breadcrumbs" class="mb-3">
+                        <ul>
+                            <li><a href="#"> <i class="uil-home-alt"></i> </a></li>
+                            <li><a href="#"> Category/CFP Creation </a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="uk-grid">
+
+
+                  <div class="uk-width-3-5@m" style="width: 55%">
+
+
+
+                    <div class="uk-width-expand my-5">
+                        <div class="card rounded">
+                          <div class=" container py-3 px-5 uk-width-expand">
+                            <form name="careeredit" method="POST">
+                              {% csrf_token %}
+                                <fieldset class="uk-fieldset">
+
+                                    <legend class="uk-legend mt-4 text-center">Create License Key</legend>
+
+
+                                    <div class="uk-margin">
+                                      <label class="uk-form-label" for="form-horizontal-text">License Key Validity</label>
+                                      <div class="uk-form-controls">
+                                          <input class="uk-input" id="form-horizontal-text" type="Number" name="year" placeholder="Years">
+                                      </div>
+                                     </div>
+                                    <div class="text-center mt-3">
+                                      <button class="btn btn-default px-4 " name="category_submit">Generate & Save</button>
+
+                                    </div>
+                                </fieldset>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+
+                  </div>
+
+                <div class="uk-width-expand" style="margin-top: 45px">
+                        <div class="card rounded">
+                          <div class=" container py-4 uk-width-expand">
+
+
+                                  <div class=" my-auto text-center uk-width-expand">
+                                      <legend class="uk-legend ">List Of License Key</legend>
+                                  </div>
+
+
+                                <hr style="width:70% mx-auto mt-0">
+
+                                <table class="uk-table uk-table-small uk-table-hover uk-table-striped" uk-table-divider" >
+                                  <thead>
+                                      <tr>
+                                          <th>Date</th>
+                                          <th>Key</th>
+                                          <th>Validity</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for key in keys %}
+
+                                      <tr>
+                                        <td>{{key.date}}</td>
+                                        <td>{{key.key}}</td>
+                                        <td>{{ key.years }}</td>
+                                      </tr>
+
+
+
+                                      {% endfor %}
+
+                                  </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+                <!-- footer
+                ================================================== -->
+                {% include 'partials/_footer.html' %}
+
+            </div>
+
+        </div>
+
+        <!-- For Night mode -->
+        <script>
+
+
+            (function (window, document, undefined) {
+                'use strict';
+                if (!('localStorage' in window)) return;
+                var nightMode = localStorage.getItem('gmtNightMode');
+                if (nightMode) {
+                    document.documentElement.className += ' night-mode';
+                }
+            })(window, document);
+
+
+            (function (window, document, undefined) {
+
+                'use strict';
+
+                // Feature test
+                if (!('localStorage' in window)) return;
+
+                // Get our newly insert toggle
+                var nightMode = document.querySelector('#night-mode');
+                if (!nightMode) return;
+
+                // When clicked, toggle night mode on or off
+                nightMode.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    document.documentElement.classList.toggle('night-mode');
+                    if (document.documentElement.classList.contains('night-mode')) {
+                        localStorage.setItem('gmtNightMode', true);
+                        return;
+                    }
+                    localStorage.removeItem('gmtNightMode');
+                }, false);
+
+            })(window, document);
+
+
+              // Random Password Generator
+
+            var keylist="abcdefghijklmnopqrstuvwxyz123456789"
+            var temp=''
+
+            function generatepass(plength){
+            temp=''
+            for (i=0;i<plength;i++)
+            temp+=keylist.charAt(Math.floor(Math.random()*keylist.length))
+            return temp
+            }
+
+            function populateform(enterlength){
+            document.pgenerate.password.value=generatepass(enterlength)
+            }
+
+
+
+            // Skill Addition
+
+          // now, add a new to the TABLE.
+          function addSkillRow() {
+              var empTab = document.getElementById('SkillsTable');
+
+              var rowCnt = empTab.rows.length;   // table row count.
+              var tr = empTab.insertRow(rowCnt); // the table row.
+              tr = empTab.insertRow(rowCnt);
+
+              for (var c = 0; c < 1; c++) {
+                  var td = document.createElement('td'); // table definition.
+                  td = tr.insertCell(c);
+                      var ele = document.createElement('input');
+                      ele.setAttribute('type', 'text');
+                      ele.setAttribute('placeholder', 'Add Skills');
+                      td.appendChild(ele);
+
+              }
+          }
+
+
+          // function to extract and submit table data.
+          function Skillsubmit() {
+              var myTab = document.getElementById('SkillsTable');
+              var arrValues =new Array()
+
+              // loop through each row of the table.
+              for (row = 0; row < myTab.rows.length ; row++) {
+                // loop through each cell in a row.
+                  for (c = 0; c < myTab.rows[row].cells.length; c++) {
+                      var element = myTab.rows.item(row).cells[c];
+                      if (element.childNodes[0].getAttribute('type') == 'text') {
+                          arrValues.push(element.childNodes[0].value);
+                      }
+                  }
+              }
+
+              var str="";
+              for(i=0;i<arrValues.length;i++)
+              {
+                str=str.concat(arrValues[i])
+                str=str+'_';
+              }
+
+              req_str=str.substring(0,str.length-1)
+
+              // The final output.
+              // document.getElementById('Reqoutput').innerHTML = req_str;
+
+              var ele1=document.getElementById('sout');
+              ele1.setAttribute('value',req_str);
+          }
+        </script>
+
+
+    </div>
+{% endblock %}

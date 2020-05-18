@@ -1,5 +1,6 @@
 import re
 import random
+import uuid
 from django.contrib import messages
 from email_validator import validate_email, EmailNotValidError
 from django.contrib.auth import login,logout,authenticate
@@ -11,7 +12,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from datetime import datetime
 from .forms import (AddUserForm)
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role
+from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,AdminLicense
 
 from django.core.mail import send_mail
 # Create your views here.
@@ -147,7 +148,25 @@ def adminRolecreation(request):
         return redirect('logout')
 
 
+def adminLicense(request):
+    if request.user.is_staff and request.user.is_superuser:
 
+        if request.method == 'POST':
+
+            if 'category_submit' in request.POST:
+                l_id = uuid.uuid4()
+                key = l_id
+                year = request.POST['year']
+                data = AdminLicense(key=key,years=year)
+                data.save()
+                messages.success(request,"Key is generated")
+                return redirect("adminLicense")
+        keys = AdminLicense.objects.order_by('-date')
+        context ={
+            'keys' : keys
+        }
+
+        return render(request,"Admin_pages/admin_license.html",context)
 
 def adduser(request):
     form = AddUserForm

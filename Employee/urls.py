@@ -12,6 +12,7 @@ urlpatterns = [
     path('add_course/',views.adminAddcourse,name='adminaddcourse'),
     path('projects/',views.adminProjects,name='adminprojects'),
     path('role_creation/',views.adminRolecreation,name='adminrolecreation'),
+    path('admin_license/',views.adminLicense,name='adminLicense'),
     # User Section
     path('userdashboard/',views.userdashboard,name='dashboard'),
     path('userprofile/',views.userprofile,name='userprofile'),
