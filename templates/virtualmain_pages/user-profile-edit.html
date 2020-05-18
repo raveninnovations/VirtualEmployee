@@ -67,20 +67,26 @@
                                         {% for user in users %}
                                             {% if user.user_id_id == user_detail.pk %}
                                                 {% if user.user_pic %}
-                                    <div class="user-profile-photo  m-auto">
-                                        <img src="{{ user.user_pic.url }}" alt="">
-                                    </div>
-
+                                                    <div class="user-profile-photo  m-auto">
+                                                        <img src="{{ user.user_pic.url }}" alt="">
+                                                    </div>
                                                 {% else %}
-                                                <div class="user-profile-photo  m-auto">
-                                                    <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
-                                                </div>
-                                                    {% endif %}
+                                                    <div class="user-profile-photo  m-auto">
+                                                        <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
+                                                    </div>
+                                                {% endif %}
+
                                             {% endif %}
+
                                         {% endfor %}
+
+                                    {% endif %}
+
+                                {% if idd %}
+                                    <div class="user-profile-photo  m-auto">
+                                        <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
+                                     </div>
                                 {% endif %}
-
-
 
                                 <div class="uk-position-center">
                                     <div uk-form-custom>
@@ -272,6 +278,7 @@
                                     </select>
                                 </div>
                                  {% else %}
+
                                        <div>
                                         <h5 class="uk-text-bold mb-2"> Gender </h5>
                                         <select class="uk-select" name='gender'>
@@ -288,7 +295,33 @@
                                 {% else %}
                                 {% endif %}
                             {% endfor %}
+
+
                             {% endif %}
+
+                              {% if idd %}
+                                  <div>
+                                    <h5 class="uk-text-bold mb-2"> Address 1 </h5>
+                                    <input type="text" name='address1' class="uk-input" placeholder="Address Line 1">
+                                    </div>
+                                  <div>
+                                        <h5 class="uk-text-bold mb-2"> Address 2 </h5>
+                                        <input type="text" name='address2' class="uk-input" placeholder="Address Line 2">
+                                    </div>
+
+                                    <div>
+                                        <h5 class="uk-text-bold mb-2"> Gender </h5>
+                                        <select class="uk-select" name='gender'>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Others">Others</option>
+                                        </select>
+                                     </div>
+                                  <div>
+                                    <h5 class="uk-text-bold mb-2"><br></h5>
+                                    <button type="submit" name="contact" class="btn btn-default grey" style="width: 100%">Save Changes</button>
+                                </div>
+                              {% endif %}
                               </div>
 
 
@@ -300,52 +333,86 @@
                                 <h4 class="mb-0"> Educational Details </h4>
                             </div>
                             <hr class="m-0">
-                            <form action="" method="POST">
-
+                            <form method="POST">{% csrf_token %}
+                                {% if education %}
+                                  {% for edu in education %}
+                                  {% if edu.user_id_id == user_detail.pk %}
                               <div class="uk-child-width-1-3@s uk-grid-small p-4" uk-grid>
-                                <div>
-                                    <h5 class="uk-text-bold mb-2"> Degree </h5>
-                                    <select class="uk-select">
-                                        <option>B.E / B.Tech</option>
-                                        <option>MCA</option>
-                                        <option>M.Com</option>
-                                        <option>MBA</option>
-                                        <option>M.S</option>
-                                        <Option>Other Type</Option>
-                                    </select>
+
+
+                                    <div>
+                                        <h5 class="uk-text-bold mb-2">Degree : {{ edu.degree }}</h5>
+                                      <select onchange="print_city('state', this.selectedIndex);" id="sts" name ="course" class="uk-input">
+
+                                      </select>
+                                        <script language="javascript">print_state("sts");</script>
+
+                                    </div>
+
+                                <div >
+                                    <h5 class="uk-text-bold mb-2">{{ edu.specialization }}</h5>
+                                    <select id ="state" class="uk-input" name="special" value="{{ edu.degree }}"></select>
+
                                 </div>
-                                <div>
-                                    <h5 class="uk-text-bold mb-2"> Specialisation </h5>
-                                    <select class="uk-select">
-                                        <option>CSE / IT</option>
-                                        <option>ECE</option>
-                                        <option>EEE</option>
-                                        <option>M.Tech</option>
-                                        <option>Civil</option>
-                                        <option>Other Type</option>
-                                    </select>
-                                </div>
+
                                 <div>
                                     <h5 class="uk-text-bold mb-2"> Current year </h5>
-                                    <input type="text" class="uk-input" placeholder="Current year">
+                                    <input type="text" name="in_year" class="uk-input" value="{{ edu.year }}">
                                 </div>
                               </div>
                                 
                                 <div class="mx-3 mb-2">
                                     <h5 class="uk-text-bold mb-2"> Institution Name </h5>
-                                    <input type="text" class="uk-input" placeholder="Institution name">
+                                    <input type="text" name="in_name" class="uk-input" value="{{ edu.institution }}">
                                 </div>
                                 <div class="mx-3 mb-2">
                                     <h5 class="uk-text-bold mb-2"> Institution Address </h5>
-                                    <input type="text" class="uk-input" placeholder="Institution address">
+                                    <input type="text" class="uk-input" name="in_address" value="{{ edu.address }}">
                                 </div>
-                                
+                                      {% endif %}
+                            {% endfor %}
+                            {% endif %}
 
-                            </form>
+                            {% if edd %}
+                                <div class="uk-child-width-1-3@s uk-grid-small p-4" uk-grid>
+                                <div>
+                                        <h5 class="uk-text-bold mb-2">Degree </h5>
+                                      <select onchange="print_city('state', this.selectedIndex);" id="sts" name ="course" class="uk-input" required></select>
+                                        <script language="javascript">print_state("sts");</script>
+
+                                    </div>
+                                <div >
+                                    <h5 class="uk-text-bold mb-2"> Specilization </h5>
+                                    <select id ="state" class="uk-input" name="special" required></select>
+
+                                </div>
+                                <div>
+                                    <h5 class="uk-text-bold mb-2"> Current year </h5>
+                                    <input type="text" name="in_year" class="uk-input" placeholder="year">
+                                </div>
+
+
+                                </div>
+                                <div class="mx-3 mb-2">
+                                    <h5 class="uk-text-bold mb-2"> Institution Name </h5>
+                                    <input type="text" name="in_name" class="uk-input" placeholder="Institution name">
+                                </div>
+                                <div class="mx-3 mb-2">
+                                    <h5 class="uk-text-bold mb-2"> Institution Address </h5>
+                                    <input type="text" class="uk-input" name="in_address" placeholder="Institution Address">
+                                </div>
+
+
+
+                            {% endif %}
+
+
+
                             <div class="uk-flex uk-flex-right p-4">
                                 
-                                <button class="btn btn-default grey">Save Changes</button>
+                                <button type="submit" name="education" class="btn btn-default grey">Save Changes</button>
                             </div>
+                                </form>
                         </div>
 
                     </div>

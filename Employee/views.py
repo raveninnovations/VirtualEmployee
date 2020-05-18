@@ -11,7 +11,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from datetime import datetime
 from .forms import (AddUserForm)
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,UserContact
+from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,UserContact,UserEducation
 
 from django.core.mail import send_mail
 # Create your views here.
@@ -318,14 +318,72 @@ def userEdit(request):
                     pic = request.FILES.get('user-profile-photo')
                     data.user_pic = pic
                     data.save()
+            if 'education' in request.POST:
+                if UserEducation.objects.filter(user_id_id=user_detail.pk).exists():
+                    print("exists")
+                    course = request.POST['course']
+                    special = request.POST['special']
+                    year = request.POST['in_year']
+                    inst_name = request.POST['in_name']
+                    inst_address = request.POST['in_address']
+                    edu = UserEducation.objects.get(user_id_id=user_detail.pk)
+                    edu.degree = course
+                    edu.specialization = special
+                    edu.year = year
+                    edu.institution = inst_name
+                    edu.address =inst_address
+                    edu.save()
 
-        users = UserContact.objects.order_by("gender")
-        context ={
-            'user_detail' : user_detail,
-            'users' : users,
-        }
+                    messages.success(request, "Updated Education Info")
+                    return redirect('userprofileEdit')
 
-        return render(request,'virtualmain_pages/user-profile-edit.html',context)
+
+                else:
+                    course = request.POST['course']
+                    special = request.POST['special']
+                    year = request.POST['in_year']
+                    inst_name = request.POST['in_name']
+                    inst_address = request.POST['in_address']
+                    edu = UserEducation(degree=course,specialization=special,year=year,institution=inst_name,address=inst_address,user_id_id=user_detail.pk)
+                    edu.save()
+                    messages.success(request,"Education details added")
+                    return redirect('userprofileEdit')
+
+
+        if UserContact.objects.filter(user_id_id=user_detail.pk).exists():
+            users = UserContact.objects.order_by("gender")
+
+            context ={
+                'user_detail' : user_detail,
+                'users' : users,
+
+
+            }
+            if UserEducation.objects.filter(user_id_id=user_detail.pk).exists():
+                users = UserContact.objects.order_by("gender")
+                education = UserEducation.objects.order_by("degree")
+                context = {
+                    'user_detail': user_detail,
+                    'users': users,
+                    'education': education,
+
+                }
+                return render(request, 'virtualmain_pages/user-profile-edit.html', context)
+            else:
+                context ={
+                    'user_detail': user_detail,
+                    'users': users,
+                    "edd":1
+                }
+                return render(request, 'virtualmain_pages/user-profile-edit.html', context)
+            return render(request,'virtualmain_pages/user-profile-edit.html',context)
+        else:
+            context={
+                "idd":1,
+
+            }
+            idd =1
+            return render(request,'virtualmain_pages/user-profile-edit.html',context)
     else:
         messages.error(request,"Wrong URL")
         return redirect('logout')

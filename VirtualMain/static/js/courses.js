@@ -1,62 +1,88 @@
-var state_arr = new Array("MCA", "MBA", "Arunachal Pradesh", "M.COM", "MSC", "BE/BTECH", "Chhattisgarh", "Dadra & Nagar Haveli", "Daman & Diu", "Delhi", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu & Kashmir", "Jharkhand", "Karnataka", "Kerala", "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Orissa", "Pondicherry", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Tripura", "Uttar Pradesh", "Uttaranchal", "West Bengal");
+var state_arr = new Array("MCA", "MBA", "BE/BTECH", "M.COM", "MSC","MSW",  "MA", "LLM", "M.Arch", "MBE" , "MDS", "MHM" , "MHRM", "M.Phil", "MS","MPA", "MEd", "MJ", "MMS", "M.Tech");
+
 
 var s_a = new Array();
+
 s_a[0]="";
-s_a[1]=" Computer Science ";
-s_a[2]=" Human Resource Management | Information Technology | Marketing Management | Finance ";
-s_a[3]=" ";
-s_a[4]=" ";
-s_a[5]=" ";
-s_a[6]=" Chandigarh | Mani Marja";
-s_a[7]=" ";
-s_a[8]=" ";
-s_a[9]=" ";
-s_a[10]=" ";
-s_a[11]=" ";
-s_a[12]=" ";
-s_a[13]=" ";
-s_a[14]=" ";
-s_a[15]=" ";
-s_a[16]=" ";
-s_a[17]=" ";
-s_a[18]=" ";
-s_a[19]=" ";
-s_a[20]=" ";
-s_a[21]="";
-s_a[22]=" ";
-s_a[23]="";
-s_a[24]=" ";
-s_a[25]=" ";
-s_a[26]=" ";
-s_a[27]=" ";
-s_a[28]=" ";
-s_a[29]=" ";
-s_a[30]=" ";
-s_a[31]=" ";
-s_a[32]=" ";
-s_a[33]="";
-s_a[34]="  ";
-s_a[35]=" ";
+
+s_a[1]=" Computer Science | Computer Application | Systems Management | Systems Development | Hardware Technology";
+
+s_a[2]=" Human Resource Management | Information Technology | Marketing Management | Finance | Logistics Management | Marketing Management| Business Management | Rural Management | Health Care Management | Operations Management | Event Management";
+
+s_a[3]=" Automobile Engineering | Robotics and Automation | Environmental Science | Geospatial Science | Materials Science";
+
+s_a[4]="Finance | Marketing | Human Resource Management | International Business Operations | Accounting | Economics | Statistics";
+
+s_a[5]=" Computer Science | Finance | Marketing | Information Technology | Management | Economics | Mental Healthcare | Psychology | Business | Mechanical Engineering | Biology | Accounting | Engineering | Information System | Data Science";
+
+s_a[6]=" Human Resource Management | Criminology and Correctional Administration | Medical and Psychiatric Social Work | Family and Child Welfare | Rural and Urban Community Development and Schools Social Work | Medical and Psychiatric Social Work | Urban and Rural Community Development | Personnel Management | Industrial Relations & Labour Welfare";
+
+s_a[7]=" English | Political Science | Philosophy | Education | Area Studies | Teaching | International Relations | Media | Culture Studies | Theology | Communications | History | Film Studies | Mental Healthcare | Economics | Psychology";
+
+s_a[8]=" Business Law | Criminal Law | Intellectual Property Rights | Corporate Law | Constitutional Law | Human Rights | International Law | Labour Laws";
+
+s_a[9]=" Architectural Conservation | Architecture and Construction Project Management | Computer Aided Architectural Design | Digital Architecture | Environmental Architecture | Interior Architecture | International Architecture | Landscape Architecture | Rural Architecture | Sustainable Architecture | Town and Country Planning | Transportation Planning and Design | Urban and Regional Planning | Urban Design | Valuation and Arbitration";
+
+s_a[10]=" Corporate Finance | Portfolio Management | Agriculture Economics |Advanced Econometrics | Financial Risk Management | Energy Economics | Game Theory and Application | Time Series and Business Forecasting | Labour Economics | Managing Change in Organisations";
+
+s_a[11]=" Public Health Dentistry | Oral Pathology and Microbiology | Oral Medicine and Radiology | Periodontology | Conservative Dentistry and Endodontics | Oral and Maxillofacial Surgery | Orthodontics and Dentofacial Orthopaedics | Prosthodontics | Pedodontics | Preventive dentistry";
+
+s_a[12]=" Hospital management | healthcare administration | health services administration";
+
+s_a[13]=" Finance | Marketing | Systems";
+
+s_a[14]="History | English | Political Science | Economics | Sociology | Public Administration | Social Work | Biology | Computer Science | Commerce | Law | Education | Geography | Human Developmental Studies";
+
+s_a[15]=" Biomedical Engineering | Chemical Engineering | Statistics | Operations Research Analyst | Computer and Information Technology | Management Information Systems | Environmental Engineering | Systems Engineering | Computer Engineering | Mathematics";
+
+s_a[16]=" Music | Dance | Theatre";
+
+s_a[17]=" General Surgery | Pediatrics | Obstetrics & Gynecology |  Dermatology | Ophthalmology | Orthopedics | ENT (Ear, Nose and Throat) | Psychiatry | Anesthesiology";
+
+s_a[18]=" Radio and TV Journalism | Print Journalism And New Media | Photojournalism | Digital Journalism | Event Management | Social Media |Advertisement and Public Relations";
+
+s_a[19]=" Finance | Operations | Business | Marketing | Human Resource | Systems";
+
+s_a[20]=" Civil Engineering | Computer Science and Engineering | Chemical Engineering | Electrical Engineering | VLSI | Mechanical Engineering | Electronics and Communication Engineering";
+
 
 function print_state(state_id){
-	// given the id of the <select> tag as function argument, it inserts <option> tags
-	var option_str = document.getElementById(state_id);
-	option_str.length=0;
-	option_str.options[0] = new Option('Select Course','');
-	option_str.selectedIndex = 0;
-	for (var i=0; i<state_arr.length; i++) {
-		option_str.options[option_str.length] = new Option(state_arr[i],state_arr[i]);
-	}
+
+// given the id of the <select> tag as function argument, it inserts <option> tags
+
+var option_str = document.getElementById(state_id);
+
+option_str.length=0;
+
+option_str.options[0] = new Option('Select Course','');
+
+option_str.selectedIndex = 0;
+
+for (var i=0; i<state_arr.length; i++) {
+
+option_str.options[option_str.length] = new Option(state_arr[i],state_arr[i]);
+
 }
+
+}
+
 
 function print_city(city_id, city_index){
-	var option_str = document.getElementById(city_id);
-	option_str.length=0;	// Fixed by Julian Woods
-	option_str.options[0] = new Option('Select Specialization','');
-	option_str.selectedIndex = 0;
-	var city_arr = s_a[city_index].split("|");
-	for (var i=0; i<city_arr.length; i++) {
-		option_str.options[option_str.length] = new Option(city_arr[i],city_arr[i]);
-	}
+
+var option_str = document.getElementById(city_id);
+
+option_str.length=0; // Fixed by Julian Woods
+
+option_str.options[0] = new Option('Select Specialization','');
+
+option_str.selectedIndex = 0;
+
+var city_arr = s_a[city_index].split("|");
+
+for (var i=0; i<city_arr.length; i++) {
+
+option_str.options[option_str.length] = new Option(city_arr[i],city_arr[i]);
+
 }
 
+}

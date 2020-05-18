@@ -16,11 +16,6 @@ DIFFICULTY_LEVEL=(
     ('adv', 'Advanced'),
 )
 
-DEGREE =(
-    ('MCA','MCA'),
-    ('MCOM','MCOM'),
-    ('MBA','MBA'),
-)
 
 
 class UserDetails(models.Model):
@@ -44,6 +39,20 @@ class UserContact(models.Model):
 
     def __str__(self):
         return self.address1
+
+class UserEducation(models.Model):
+    user_id = models.ForeignKey(UserDetails,on_delete=models.CASCADE)
+    degree = models.CharField(max_length=100)
+    specialization = models.CharField(max_length=100)
+    year = models.IntegerField()
+    institution = models.CharField(max_length=100)
+    address = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.degree
+
+
+
 
 
 
