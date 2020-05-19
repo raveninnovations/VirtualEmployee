@@ -137,22 +137,30 @@
                                             <label class="col-md-3 col-form-label" for="course_title">Category<span
                                                     class="required">*</span></label>
                                             <div class="col-md-9">
-                                                <input type="text" class="form-control" id="course_title" name="cate"
-                                                    value="{{ datas.category }}" required="">
-                                            </div>
-                                            <label class="col-md-3 col-form-label">Change Category <span
-                                                    class="required">*</span></label>
-                                            <div class="col-md-9">
-                                                <select class="selectpicker" name="category">
-                                                    <option value="IT" data-icon="uil-android-alt"> IT & Software </option>
-                                                    <option value="business" data-icon="uil-bag-alt">Business & Startups</option>
-                                                    <option value="design" data-icon="uil-palette">Desings</option>
-                                                    <option value="ele" data-icon="uil-camera">Electronics & Electrical</option>
-
-                                                </select>
-
+                                                <input type="text" class="form-control" id="course_title" name="category"
+                                                    value="{{datas.category}}" required="" style="border:none;" readonly>
                                             </div>
                                         </div>
+
+                                        <div class="form-group row mb-3">
+                                            <label class="col-md-3 col-form-label" for="course_title">CFP Role<span
+                                                    class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" id="course_title" name="role"
+                                                    value="{{datas.role}}" required="" style="border:none;" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row mb-3">
+                                            <label class="col-md-3 col-form-label" for="course_title">CFP  Course<span
+                                                    class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" id="course_title" name="course"
+                                                    value="{{datas.course}}" required="" style="border:none;" readonly>
+                                            </div>
+                                        </div>
+
+                                        
                                         <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label" > Difficulty Level <span
                                                     class="required">*</span></label>
