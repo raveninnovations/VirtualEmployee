@@ -294,8 +294,11 @@ def logout(request):
 @login_required
 def userdashboard(request):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
-
-        return render(request,'virtualmain_pages/dashboard.html')
+        course_data=Course.objects.all()
+        context={
+            'course_data':course_data,
+        }
+        return render(request,'virtualmain_pages/dashboard.html',context)
     else:
         messages.error(request,"Wrong URL")
         return redirect('logout')
