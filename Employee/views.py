@@ -12,7 +12,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from datetime import datetime
 from .forms import (AddUserForm)
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation
+from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse
 from django.core.mail import send_mail
 # Create your views here.
 # ADMIN SECTION
@@ -848,3 +848,70 @@ def category_edit(request,id):
         'datas':datas,
     }
     return render(request,'Admin_pages/category_edit.html',context)
+
+
+
+def test(request):
+    if request.method=='POST':
+        if 'cag-submit' in request.POST:
+            count=CreateCourse.objects.all().count()
+            if count==0:
+                cag=request.POST['category']
+                data=CreateCourse(create_category=cag)
+                data.save()
+                return redirect('/test/')
+
+            else:
+                cag=request.POST['category']
+                data=CreateCourse.objects.get(create_id=0)
+                data.create_category=cag
+                data.save()
+                return redirect('/test/')
+
+
+        if 'role-submit' in request.POST:
+            c_course=request.POST['c_course']
+            role=request.POST['role']
+            data=CreateCourse.objects.get(create_category=c_course)
+            data.create_role=role
+            data.save()
+            return redirect('/test/')
+
+        if 'course-submit' in request.POST:
+            confirm_cag=request.POST['confirm_cag']
+            confirm_role=request.POST['confirm_role']
+            confirm_course=request.POST['confirm_course']
+
+            check=CFP_role.objects.get(cfp_role=confirm_role)
+            if check.cfp_category != confirm_cag:
+                messages.error(request, 'The Category do not match with CFP Role')
+                return redirect('/test/')
+            else:
+                data=CreateCourse.objects.get(create_role=confirm_role)
+                data.create_course=confirm_course
+                data.save()
+                messages.success(request,"Course Successfully Created. Check Database")
+                return redirect('/test/')
+            return redirect('/test/')
+
+    cag_data=CareerCategory.objects.all()
+    if CreateCourse.objects.count()!=0:
+        obj=CreateCourse.objects.get(create_id=0)
+        role_list=CFP_role.objects.filter(cfp_category=obj.create_category)
+        try:
+            course_text=CFP_role.objects.get(cfp_role=obj.create_role)
+            course_list=course_text.cfp_course.split('_')
+        except:
+            course_list=[]
+    else:
+        obj="Choose"
+        role_list=[]
+        course_list=[]
+
+    context={
+        'cag_data':cag_data,
+        'obj':obj,
+        'role_list':role_list,
+        'course_list':course_list
+    }
+    return render(request,'csm_pages/test.html',context)
