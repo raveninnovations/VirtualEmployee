@@ -487,12 +487,15 @@ def csmDashboard(request):
 def csmAddCourse(request):
     if request.user.is_active and request.user.is_staff and not request.user.is_superuser:
         user = request.user
+        data=CreateCourse.objects.get(create_id=0)
         if request.method == "POST":
             title = request.POST["title"]
             tagline  = request.POST["tagline"]
             short_description=request.POST["description"]
             image = request.FILES.get('course_image')
             category = request.POST["category"]
+            role = request.POST["role"]
+            course = request.POST["course"]
             difficulty_level = request.POST["difficulty_level"]
             # lesson_title=request.POST["lesson_title"]
             # topic=request.POST["topic"]
@@ -508,13 +511,20 @@ def csmAddCourse(request):
 
 
             create = Course(user_id=user.id,title=title,tagline=tagline,short_description=short_description,
-                           course_image=image,category=category,difficulty_level=difficulty_level,meta_keywords=meta_keywords,
+                           course_image=image,category=category,role=role,course=course,difficulty_level=difficulty_level,meta_keywords=meta_keywords,
                             meta_description=meta_description,course_points=course_points,certificate=certificate,requirements=requirements,learnings=learnings)
             create.save()
 
+            obj=CreateCourse.objects.all()
+            obj.delete()
+
 
             return redirect("/csmdashboard/")
-        return render(request,'csm_pages/csm_add_course.html')
+
+        context={
+            'data':data,
+        }
+        return render(request,'csm_pages/csm_add_course.html',context)
     else:
         messages.error(request,"Wrong URL")
         return redirect('logout')
@@ -531,6 +541,8 @@ def csmEditCourse(request,id):
             short_description=request.POST["description"]
             image = request.FILES.get('course_image')
             category = request.POST["category"]
+            role = request.POST["role"]
+            course = request.POST["course"]
             difficulty_level = request.POST["difficulty_level"]
             # lesson_title=request.POST["lesson_title"]
             # topic=request.POST["topic"]
@@ -551,6 +563,8 @@ def csmEditCourse(request,id):
             datas.short_description=short_description
             datas.course_image=image
             datas.category=category
+            datas.role=role
+            datas.course=course
             datas.difficulty_level=difficulty_level
             datas.meta_keywords=meta_keywords
             datas.meta_description=meta_description
@@ -897,7 +911,7 @@ def test(request):
                 data.create_course=confirm_course
                 data.save()
                 messages.success(request,"Course Successfully Created. Check Database")
-                return redirect('/test/')
+                return redirect('/csmaddcourse/')
             return redirect('/test/')
 
     cag_data=CareerCategory.objects.all()
