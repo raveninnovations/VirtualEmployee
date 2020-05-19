@@ -274,10 +274,13 @@
                             <li>
                                 <a href="course-intro.html">
                                     <div class="course-card">
+                                        {% if course.course_image %}
                                         <div class="course-card-thumbnail ">
                                             <img src="{{course.course_image.url}}" >
                                             <span class="play-button-trigger"></span>
                                         </div>
+                                        {% else %}
+                                        {% endif %}
                                         <div class="course-card-body">
                                             <div class="course-card-info">
                                                 <div>

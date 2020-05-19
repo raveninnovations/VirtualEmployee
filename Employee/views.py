@@ -464,6 +464,9 @@ def userProject(request):
     }
     return render(request,'virtualmain_pages/user-project.html', context)
 
+
+def Edit(request):
+    return render(request,"virtualmain_pages/user-edit.html")
 # CSM MODULE SECTION
 @login_required
 def csmDashboard(request):

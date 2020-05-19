@@ -1,0 +1,373 @@
+{% extends 'base1.html' %}
+{% load static %}{% block title %}Profile-Edit{% endblock %}
+{% block content %}
+
+    <div id="wrapper">
+
+
+        <!-- overlay seach on mobile-->
+        <div class="nav-overlay uk-navbar-left uk-position-relative uk-flex-1 bg-grey uk-light p-2" hidden
+            style="z-index: 10000;">
+            <div class="uk-navbar-item uk-width-expand" style="min-height: 60px;">
+                <form class="uk-search uk-search-navbar uk-width-1-1">
+                    <input class="uk-search-input" type="search" placeholder="Search..." autofocus>
+                </form>
+            </div>
+            <a class="uk-navbar-toggle" uk-close uk-toggle="target: .nav-overlay; animation: uk-animation-fade"
+                href="#"></a>
+        </div>
+
+        <!-- search overlay-->
+        <div id="searchbox">
+
+            <div class="search-overlay"></div>
+
+            <div class="search-input-wrapper">
+                <div class="search-input-container">
+                    <div class="search-input-control">
+                        <span class="icon-feather-x btn-close uk-animation-scale-up"
+                            uk-toggle="target: #searchbox; cls: is-active"></span>
+                        <div class=" uk-animation-slide-bottom">
+                            <input type="text" name="search" autofocus required>
+                            <p class="search-help">Type the name of the Course and book you are looking for</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- menu -->
+        {% include 'partials/user_partials/_menu.html' %}
+
+        <!-- content -->
+        <div class="page-content">
+
+             <!-- Header Container
+        ================================================== -->
+        {% include 'partials/user_partials/_header.html' %}
+        <br>
+            <div class="page-content-inner">
+
+                <h4>Profile Edit</h4>
+
+                <nav class="responsive-tab mb-4">
+                    <li class="#"><a href="user-profile.html"></a></li>
+                    <li><a  href="user-project.html"></a></li>
+                    <li><a class="uk-active" href="user-profile-edit.html"></a></li>
+                </nav>
+
+                <div uk-grid>
+
+                    <div class="uk-width-2-5@m uk-flex-last@m">
+                        <form method="POST">
+                        <div class="uk-card-default rounded text-center p-4">
+                            <div class="uk-position-relative my-4">
+
+                                    <div class="user-profile-photo  m-auto">
+                                        <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
+                                    </div>
+
+
+
+                                <div class="uk-position-center">
+                                    <div uk-form-custom>
+                                        <input type="file" name="user-profile-photo">
+                                        <span class="uk-link icon-feather-camera icon-medium text-white"> </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <button class="btn btn-default m-auto mb-3" type="submit">Save photo</button>
+                        </div>
+                        </form>
+
+                        <div class="uk-card-default rounded p-4 mt-5">
+
+
+
+                          <h3 class="text-center">Choose Your Career Path</h3>
+
+                            <div class="uk-position-relative my-4">
+
+
+
+
+
+                              <h6>First Choice</h6>
+                              <div class="uk-child-width-1-2@s uk-grid-small mb-4" uk-grid>
+                                      <div>
+                                        <select class="px-auto py-1" name="choice1" id="choice1" onChange="changecat1(this.value);">
+                                            <option value="" disabled selected>Career Category</option>
+                                            <option value="A">IT & Software</option>
+                                            <option value="B">Business & StartUp</option>
+                                            <option value="C">Electronics and Electricals</option>
+                                            <option value="D">Design</option>
+                                        </select>
+                                      </div>
+
+                                      <div>
+                                        <select name="category1" id="category1">
+                                            <option value="" disabled selected>Career Details</option>
+                                        </select>
+                                      </div>
+                                </div>
+
+
+                                <hr class="uk-divider-icon">
+
+                                <h6>Second Choice</h6>
+                                <div class="uk-child-width-1-2@s uk-grid-small mb-4" uk-grid>
+                                    <div>
+                                      <select class="px-auto py-1" name="choice2" id="choice2" onChange="changecat2(this.value);">
+                                          <option value="" disabled selected>Career Category</option>
+                                          <option value="A">IT & Software</option>
+                                          <option value="B">Business & StartUp</option>
+                                          <option value="C">Electronics and Electricals</option>
+                                          <option value="D">Design</option>
+                                      </select>
+                                    </div>
+
+                                    <div>
+                                      <select name="category2" id="category2">
+                                          <option value="" disabled selected>Career Details</option>
+                                      </select>
+                                    </div>
+                                </div>
+
+
+                                <hr class="uk-divider-icon">
+
+                                  <h6>Third Choice</h6>
+                                  <div class="uk-child-width-1-2@s uk-grid-small mb-4" uk-grid>
+                                      <div>
+                                        <select class="px-auto py-1" name="choice3" id="choice3" onChange="changecat3(this.value);">
+                                            <option value="" disabled selected>Career Category</option>
+                                            <option value="A">IT & Software</option>
+                                            <option value="B">Business & StartUp</option>
+                                            <option value="C">Electronics and Electricals</option>
+                                            <option value="D">Design</option>
+                                        </select>
+                                      </div>
+
+                                      <div>
+                                        <select name="category3" id="category3">
+                                            <option value="" disabled selected>Career Details</option>
+                                        </select>
+                                      </div>
+                                  </div>
+
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="uk-width-expand@m">
+
+                        <div class="uk-card-default rounded">
+                            <div class="p-3">
+                                <h5 class="mb-0"> Contact info </h5>
+                            </div>
+                            <hr class="m-0">
+                            <form  action="" method="POST">
+                              {% csrf_token %}
+                              <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid>
+                                <div>
+                                    <h5 class="uk-text-bold mb-2"> First Name </h5>
+                                    <input type="text" name='first_name' class="uk-input" placeholder="First name">
+                                </div>
+                                <div>
+                                    <h5 class="uk-text-bold mb-2"> Last Name </h5>
+                                    <input type="text" name='last_name' class="uk-input" placeholder="Last name">
+                                </div>
+                                <div>
+                                    <h5 class="uk-text-bold mb-2"> Gender </h5>
+                                    <select class="uk-select" name='gender'>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="others">Others</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <h5 class="uk-text-bold mb-2"> Email address </h5>
+                                    <input type="text" name='email' class="uk-input" placeholder="eliedaniels@gmail.com">
+                                </div>
+                                <div>
+                                    <h5 class="uk-text-bold mb-2"> Contact no </h5>
+                                    <input type="text" name='contact' class="uk-input" placeholder="+1 555 623 568 ">
+                                </div>
+
+                                <div>
+                                    <h5 class="uk-text-bold mb-2"> Address </h5>
+                                    <input type="text" name='address' class="uk-input" placeholder="Your address ">
+                                </div>
+                              </div>
+
+
+                            <div class="uk-flex uk-flex-right p-4">
+
+                                <button class="btn btn-default grey">Save Changes</button>
+                            </div>
+                           </form>
+                        </div>
+
+                        <div class="uk-card-default rounded mt-4">
+                            <div class="p-3">
+                                <h4 class="mb-0"> Educational Details </h4>
+                            </div>
+                            <hr class="m-0">
+                            <form action="" method="POST">
+
+                              <div class="uk-child-width-1-3@s uk-grid-small p-4" uk-grid>
+                                <div>
+                                    <h5 class="uk-text-bold mb-2"> Degree </h5>
+                                    <select class="uk-select">
+                                        <option>B.E / B.Tech</option>
+                                        <option>MCA</option>
+                                        <option>M.Com</option>
+                                        <option>MBA</option>
+                                        <option>M.S</option>
+                                        <Option>Other Type</Option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <h5 class="uk-text-bold mb-2"> Specialisation </h5>
+                                    <select class="uk-select">
+                                        <option>CSE / IT</option>
+                                        <option>ECE</option>
+                                        <option>EEE</option>
+                                        <option>M.Tech</option>
+                                        <option>Civil</option>
+                                        <option>Other Type</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <h5 class="uk-text-bold mb-2"> Current year </h5>
+                                    <input type="text" class="uk-input" placeholder="Current year">
+                                </div>
+                              </div>
+
+                                <div class="mx-3 mb-2">
+                                    <h5 class="uk-text-bold mb-2"> Institution Name </h5>
+                                    <input type="text" class="uk-input" placeholder="Institution name">
+                                </div>
+                                <div class="mx-3 mb-2">
+                                    <h5 class="uk-text-bold mb-2"> Institution Address </h5>
+                                    <input type="text" class="uk-input" placeholder="Institution address">
+                                </div>
+
+
+                            </form>
+                            <div class="uk-flex uk-flex-right p-4">
+
+                                <button class="btn btn-default grey">Save Changes</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- footer
+               ================================================== -->
+                {% include 'partials/_footer.html' %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- For Night mode -->
+    <script>
+        (function (window, document, undefined) {
+            'use strict';
+            if (!('localStorage' in window)) return;
+            var nightMode = localStorage.getItem('gmtNightMode');
+            if (nightMode) {
+                document.documentElement.className += ' night-mode';
+            }
+        })(window, document);
+
+
+        (function (window, document, undefined) {
+
+            'use strict';
+
+            // Feature test
+            if (!('localStorage' in window)) return;
+
+            // Get our newly insert toggle
+            var nightMode = document.querySelector('#night-mode');
+            if (!nightMode) return;
+
+            // When clicked, toggle night mode on or off
+            nightMode.addEventListener('click', function (event) {
+                event.preventDefault();
+                document.documentElement.classList.toggle('night-mode');
+                if (document.documentElement.classList.contains('night-mode')) {
+                    localStorage.setItem('gmtNightMode', true);
+                    return;
+                }
+                localStorage.removeItem('gmtNightMode');
+            }, false);
+
+        })(window, document);
+
+
+
+
+
+        // Change dropdown select according to choice
+
+        var courseByCategory = {
+    A: ["Linux", "Cyber Security", "Ethical Hacking", "Deep Learning"],
+    B: ["Economics", "CA", "Enterpreneur", "Data Analyst"],
+    C: ["Arduino", "Raspberry", "ECE"],
+    D: ["Web Design","Poster Design","UI/UX","App Desigm"]
+}
+
+    function changecat1(value) {
+        if (value.length == 0) document.getElementById("category").innerHTML = "<option></option>";
+        else {
+            var catOptions = "<option disabled selected>Career Details</option>";
+            for (categoryId in courseByCategory[value]) {
+                catOptions += "<option>" + courseByCategory[value][categoryId] + "</option>";
+            }
+            document.getElementById("category1").innerHTML = catOptions;
+        }
+    }
+
+    function changecat2(value) {
+        if (value.length == 0) document.getElementById("category").innerHTML = "<option></option>";
+        else {
+            var catOptions = "<option disabled selected>Career Details</option>";
+            for (categoryId in courseByCategory[value]) {
+                catOptions += "<option>" + courseByCategory[value][categoryId] + "</option>";
+            }
+            document.getElementById("category2").innerHTML = catOptions;
+        }
+    }
+
+    function changecat3(value) {
+        if (value.length == 0) document.getElementById("category").innerHTML = "<option></option>";
+        else {
+            var catOptions = "<option disabled selected>Career Details</option>";
+            for (categoryId in courseByCategory[value]) {
+                catOptions += "<option>" + courseByCategory[value][categoryId] + "</option>";
+            }
+            document.getElementById("category3").innerHTML = catOptions;
+        }
+    }
+
+  // Ends Here
+
+    </script>
+
+{% endblock %}

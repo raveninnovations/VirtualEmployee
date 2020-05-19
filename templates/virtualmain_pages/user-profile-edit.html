@@ -100,94 +100,87 @@
                         </div>
                         </form>
 
-                        <div class="uk-card-default rounded p-4 mt-5">
-                         
+                       <div class="uk-card-default rounded p-4 mt-5">
 
 
-                          <h3>Choose Your Career Path</h3>
+
+                          <h3 class="text-center">Choose Your Career Path</h3>
 
                             <div class="uk-position-relative my-4">
 
-                              <div class="uk-child-width-1-2@s uk-grid-small m-1" uk-grid>
 
-                              <div class="uk-inline">
-                                  <button class="uk-button btn-default uk-width-expand pl-2 pr-2" type="button">Career Categories</button>
-                                  <div uk-dropdown="pos: bottom-left">
-                                      <ul class="uk-nav uk-dropdown-nav">
-                                          <li class="uk-width-expand" ><input class="uk-radio" style="height:15px; width:15px;" type="radio" name="category">&nbsp;<span class="ml-3"> IT & Software</span></li>
-                                          
-                                                                                                                                                                    
-                                          <li class="uk-nav-divider"></li>
-                                          <li class="uk-width-expand" ><input class="uk-radio" style="height:15px; width:15px;" type="radio" name="category">&nbsp;<span class="ml-3">  Business & Startup</span></li>
-                                                                                                                                                                                            
-                                          <li class="uk-nav-divider"></li>
-                                          <li class="uk-width-expand" ><input class="uk-radio" style="height:15px; width:15px;" type="radio" name="category">&nbsp;<span class="ml-3"> Electronics & Electicals</span></li>
-                                                                                                                                                                                            
-                                          <li class="uk-nav-divider"></li>
-                                          <li class="uk-width-expand" ><input class="uk-radio" style="height:15px; width:15px;" type="radio" name="category">&nbsp;<span class="ml-3"> Design</span></li>
-                                                                                                                                                                                            
 
-                                      </ul>
+
+
+                              <h6>First Choice</h6>
+                              <div class="uk-child-width-1-2@s uk-grid-small mb-4" uk-grid>
+                                      <div>
+                                        <select class="px-auto py-1" name="choice1" id="choice1" onChange="changecat1(this.value);">
+                                            <option value="" disabled selected>Career Category</option>
+                                            <option value="A">IT & Software</option>
+                                            <option value="B">Business & StartUp</option>
+                                            <option value="C">Electronics and Electricals</option>
+                                            <option value="D">Design</option>
+                                        </select>
+                                      </div>
+
+                                      <div>
+                                        <select name="category1" id="category1">
+                                            <option value="" disabled selected>Career Details</option>
+                                        </select>
+                                      </div>
+                                </div>
+
+
+                                <hr class="uk-divider-icon">
+
+                                <h6>Second Choice</h6>
+                                <div class="uk-child-width-1-2@s uk-grid-small mb-4" uk-grid>
+                                    <div>
+                                      <select class="px-auto py-1" name="choice2" id="choice2" onChange="changecat2(this.value);">
+                                          <option value="" disabled selected>Career Category</option>
+                                          <option value="A">IT & Software</option>
+                                          <option value="B">Business & StartUp</option>
+                                          <option value="C">Electronics and Electricals</option>
+                                          <option value="D">Design</option>
+                                      </select>
+                                    </div>
+
+                                    <div>
+                                      <select name="category2" id="category2">
+                                          <option value="" disabled selected>Career Details</option>
+                                      </select>
+                                    </div>
+                                </div>
+
+
+                                <hr class="uk-divider-icon">
+
+                                  <h6>Third Choice</h6>
+                                  <div class="uk-child-width-1-2@s uk-grid-small mb-4" uk-grid>
+                                      <div>
+                                        <select class="px-auto py-1" name="choice3" id="choice3" onChange="changecat3(this.value);">
+                                            <option value="" disabled selected>Career Category</option>
+                                            <option value="A">IT & Software</option>
+                                            <option value="B">Business & StartUp</option>
+                                            <option value="C">Electronics and Electricals</option>
+                                            <option value="D">Design</option>
+                                        </select>
+                                      </div>
+
+                                      <div>
+                                        <select name="category3" id="category3">
+                                            <option value="" disabled selected>Career Details</option>
+                                        </select>
+                                      </div>
                                   </div>
-                              </div>
-                                
 
-                              <div class="uk-inline">
-                                  <button class="uk-button btn-default uk-width-expand pl-2 pr-2" type="button">Career details</button>
-                                  <div uk-dropdown="pos: bottom-left">
-                                      <ul class="uk-nav uk-dropdown-nav">
-                                          <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Web Developer</span></li>
-                                          <div class="uk-width-auto" uk-drop="pos:right-top">
-                                            <div class="uk-card uk-card-body uk-card-default">
-                                              <ul>
-                                                <li>HTML</li>
-                                                <li>CSS</li>
-                                                <li>Javascript</li>
-                                                <li>Django</li>
-                                              </ul>
-                                            </div>
-                                          </div>
-                                                                                                                                                                    
-                                          <li class="uk-nav-divider"></li>
-                                          <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Machine Learning</span></li><div class="uk-width-auto" uk-drop="pos:right-top">
-                                                                                                                                                                                            <div class="uk-card uk-card-body uk-card-default">
-                                                                                                                                                                                               <ul>
-                                                                                                                                                                                                  <li>Tensorflow</li>
-                                                                                                                                                                                                  <li>Keras</li>
-                                                                                                                                                                                                  <li>Python</li>
-                                                                                                                                                                                                  <li>Pandas</li>
-                                                                                                                                                                                                </ul>
-                                                                                                                                                                                               </div>
-                                                                                                                                                                                            </div>
-                                          <li class="uk-nav-divider"></li>
-                                          <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Data Science</span></li><div class="uk-width-auto" uk-drop="pos:right-top">
-                                                                                                                                                                                            <div class="uk-card uk-card-body uk-card-default">
-                                                                                                                                                                                               <ul>
-                                                                                                                                                                                                  <li>Python</li>
-                                                                                                                                                                                                  <li>Numpy</li>
-                                                                                                                                                                                                  <li>Pandas</li>
-                                                                                                                                                                                                  <li>Matplotlib</li>
-                                                                                                                                                                                                </ul>
-                                                                                                                                                                                               </div>
-                                                                                                                                                                                            </div>
-                                          <li class="uk-nav-divider"></li>
-                                          <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">App Development</span></li><div class="uk-width-auto" uk-drop="pos:right-top">
-                                                                                                                                                                                            <div class="uk-card uk-card-body uk-card-default">
-                                                                                                                                                                                               <ul>
-                                                                                                                                                                                                  <li>Jave</li>
-                                                                                                                                                                                                  <li>Kotlin</li>
-                                                                                                                                                                                                  <li>Flutter</li>
-                                                                                                                                                                                                  <li>UI/UX</li>
-                                                                                                                                                                                                </ul>
-                                                                                                                                                                                               </div>
-                                                                                                                                                                                            </div>
 
-                                      </ul>
-                                  </div>
-                              </div>
 
-                              </div>
+
+
                             </div>
+
                         </div>
 
 
