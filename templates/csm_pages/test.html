@@ -23,7 +23,7 @@
 
 
 
-                  <div class="uk-width-3-5@m">
+                  <div class="uk-width-3-5@m" style="width: 100%">
                     <div class="uk-width-expand my-5">
                         <div class="card rounded">
                           <div class=" container py-3 px-5 uk-width-expand">
@@ -36,7 +36,7 @@
                                           <label class="col-md-3 col-form-label"> Category <span
                                                   class="required">*</span></label>
                                           <div class="col-md-9">
-                                              <select  name="category" required >
+                                              <select  name="category" required onchange="submit()">
                                                 {% for i in cag_data %}
                                                   {% if i.category == obj.create_category %}
                                                   <option value="{{i.category}}" selected> {{i.category}} </option>
@@ -45,27 +45,13 @@
                                                   {% endif %}
                                                 {% endfor %}
                                               </select>
-                                              <div class="">
-                                                <button class="btn btn-default" name="cag-submit">Submit Category</button>
-                                              </div>
+
                                           </div>
 
                                       </div>
                                     </form>
                             </div>
-                        </div>
-                    </div>
-                  </div>
-
-
-
-
-                  <div class="uk-width-3-5@m" >
-                    <div class="uk-width-expand mb-5">
-                        <div class="card rounded">
-                          <div class=" container py-3 px-5 uk-width-expand">
-
-                                    <legend class="uk-legend mt-4 text-center">Choose CFP Role</legend>
+                        <div class=" container py-3 px-5 uk-width-expand">
 
                                     <form name="cfp-role" method="POST">
                                       {% csrf_token %}
@@ -81,14 +67,13 @@
                                           <label class="col-md-3 col-form-label"> CFP Role <span
                                                   class="required">*</span></label>
                                           <div class="col-md-9">
-                                              <select  name="role" required>
+                                              <select  name="role" required onchange="submit()">
+                                              <option value="">Select role</option>
                                                 {% for i in role_list %}
                                                 <option value="{{i.cfp_role}}">{{i.cfp_role}}</option>
                                                 {% endfor %}
                                               </select>
-                                              <div class="">
-                                                <button class="btn btn-default" name="role-submit">Submit Role</button>
-                                              </div>
+
                                           </div>
 
                                       </div>
@@ -96,19 +81,20 @@
 
                             </div>
                         </div>
+
+                        </div>
                     </div>
+
                   </div>
 
 
-
-
-                  <div class="uk-width-3-5@m" >
+                  <div class="uk-width-3-5@m" style="width: 100%" >
                     <div class="uk-width-expand ">
                       {% include 'partials/_alerts.html' %}
                         <div class="card rounded">
                           <div class=" container py-3 px-5 uk-width-expand">
 
-                                    <legend class="uk-legend mt-4 text-center">Choose CFP Course</legend>
+                                    <legend class="uk-legend mt-4 text-center">Submit CFP Course</legend>
 
                                     <form name="cfp-course" method="POST">
                                         {% csrf_token %}

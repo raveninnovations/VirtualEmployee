@@ -100,14 +100,17 @@
                                         <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label" for="short_description">Course Image</label>
                                             <div class="col-md-9">
+                                                {% if datas.course_image %}
                                               <div class=" ">
                                                 <img src="{{datas.course_image.url}}" alt="No image">
                                               </div>
+                                                {% else %}
                                                 <input type="file" id="real-file" name="course_image"
                                                  hidden="hidden"/>
-                                             <a class="btn btn-default mb-3"  onclick="" id="Upload-button"> <i
+                                             <a class="btn btn-default mb-3"  onclick="" id="Upload-button"> <i>
                                                 class='uil-plus'></i>Upload</a>
                                                 <span id="custom-text">No file choosen</span>
+                                                {% endif %}
 
                                                 <script type="text/javascript">
                                                 const realFileBtn = document.getElementById("real-file");

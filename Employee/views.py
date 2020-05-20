@@ -465,8 +465,7 @@ def userProject(request):
     return render(request,'virtualmain_pages/user-project.html', context)
 
 
-def Edit(request):
-    return render(request,"virtualmain_pages/user-edit.html")
+
 # CSM MODULE SECTION
 @login_required
 def csmDashboard(request):
@@ -873,7 +872,7 @@ def category_edit(request,id):
 
 def test(request):
     if request.method=='POST':
-        if 'cag-submit' in request.POST:
+        if 'category' in request.POST:
             count=CreateCourse.objects.all().count()
             if count==0:
                 cag=request.POST['category']
@@ -889,7 +888,7 @@ def test(request):
                 return redirect('/test/')
 
 
-        if 'role-submit' in request.POST:
+        if 'role' in request.POST:
             c_course=request.POST['c_course']
             role=request.POST['role']
             data=CreateCourse.objects.get(create_category=c_course)
@@ -910,7 +909,7 @@ def test(request):
                 data=CreateCourse.objects.get(create_role=confirm_role)
                 data.create_course=confirm_course
                 data.save()
-                messages.success(request,"Course Successfully Created. Check Database")
+                messages.success(request,"Course Successfully Created Check Database")
                 return redirect('/csmaddcourse/')
             return redirect('/test/')
 
