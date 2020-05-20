@@ -115,13 +115,15 @@
                               <h6>First Choice</h6>
                               <div class="uk-child-width-1-2@s uk-grid-small mb-4" uk-grid>
                                       <div>
-                                        <select class="px-auto py-1" name="choice1" id="choice1" onChange="changecat1(this.value);">
+                                          {% if courses %}
+                                        <select class="px-auto py-1" name="choice1" onchange="submit()">
                                             <option value="" disabled selected>Career Category</option>
-                                            <option value="A">IT & Software</option>
-                                            <option value="B">Business & StartUp</option>
-                                            <option value="C">Electronics and Electricals</option>
-                                            <option value="D">Design</option>
+                                            {% for i in courses %}
+                                            <option value="{{ i.category }}">{{ i.category }}</option>
+
+                                        {% endfor %}
                                         </select>
+                                          {% endif %}
                                       </div>
 
                                       <div>
@@ -137,7 +139,7 @@
                                 <h6>Second Choice</h6>
                                 <div class="uk-child-width-1-2@s uk-grid-small mb-4" uk-grid>
                                     <div>
-                                      <select class="px-auto py-1" name="choice2" id="choice2" onChange="changecat2(this.value);">
+                                      <select class="px-auto py-1" name="choice2" id="choice2">
                                           <option value="" disabled selected>Career Category</option>
                                           <option value="A">IT & Software</option>
                                           <option value="B">Business & StartUp</option>
@@ -152,16 +154,7 @@
                                       </select>
                                     </div>
                                 </div>
-
-
                                 <hr class="uk-divider-icon">
-
-
-
-
-
-
-
                             </div>
 
                         </div>
