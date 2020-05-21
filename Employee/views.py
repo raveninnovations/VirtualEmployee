@@ -403,6 +403,7 @@ def userEdit(request):
 
 
         if UserContact.objects.filter(user_id_id=user_detail.pk).exists():
+
             users = UserContact.objects.order_by("gender")
 
             context ={
@@ -412,6 +413,7 @@ def userEdit(request):
 
             }
             if UserEducation.objects.filter(user_id_id=user_detail.pk).exists():
+
                 users = UserContact.objects.order_by("gender")
                 education = UserEducation.objects.order_by("degree")
                 context = {
@@ -420,13 +422,7 @@ def userEdit(request):
                     'education': education,
 
                 }
-                # Drop down CFP
-                if Course.objects.exists():
-                    course = Course.objects.all()
-                    context={
-                        'courses':course,
-                        'user_detail': user_detail
-                    }
+
                 return render(request, 'virtualmain_pages/user-profile-edit.html', context)
             else:
                 context ={

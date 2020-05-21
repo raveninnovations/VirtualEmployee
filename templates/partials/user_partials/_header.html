@@ -399,27 +399,10 @@
 
 
                             <!-- profile-icon-->
+                        <!-- profile-icon-->
 
                             <a href="#" class="header-widget-icon profile-icon">
-                                    {% if users %}
-                                        {% for user in users %}
-                                            {% if user.user_id_id == user_detail.pk %}
-                                                {% if user.user_pic %}
-                                                    <div class="user-profile-photo  m-auto">
-                                                        <img src="{{ user.user_pic.url }}" alt="">
-                                                    </div>
-                                                {% else %}
-                                                    <div class="user-profile-photo  m-auto">
-                                                        <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
-                                                    </div>
-                                                {% endif %}
-
-                                            {% endif %}
-
-                                        {% endfor %}
-
-                                    {% endif %}
-                                
+                                <img src="{% static 'images/avatars/avatar-2.jpg' %}" alt="" class="header-profile-icon">
                             </a>
 
                             <div uk-dropdown="pos: top-right ;mode:click" class="dropdown-notifications small">
