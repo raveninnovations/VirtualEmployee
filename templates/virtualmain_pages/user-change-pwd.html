@@ -1,0 +1,151 @@
+{% extends 'base1.html' %}
+{% load static %}{% block title %}Profile-Edit{% endblock %}
+{% block content %}
+<style>
+    .helptext{
+        font-weight: bold;
+    }
+</style>
+    <div id="wrapper">
+
+
+        <!-- overlay seach on mobile-->
+        <div class="nav-overlay uk-navbar-left uk-position-relative uk-flex-1 bg-grey uk-light p-2" hidden
+            style="z-index: 10000;">
+            <div class="uk-navbar-item uk-width-expand" style="min-height: 60px;">
+                <form class="uk-search uk-search-navbar uk-width-1-1">
+                    <input class="uk-search-input" type="search" placeholder="Search..." autofocus>
+                </form>
+            </div>
+            <a class="uk-navbar-toggle" uk-close uk-toggle="target: .nav-overlay; animation: uk-animation-fade"
+                href="#"></a>
+        </div>
+
+        <!-- search overlay-->
+        <div id="searchbox">
+
+            <div class="search-overlay"></div>
+
+            <div class="search-input-wrapper">
+                <div class="search-input-container">
+                    <div class="search-input-control">
+                        <span class="icon-feather-x btn-close uk-animation-scale-up"
+                            uk-toggle="target: #searchbox; cls: is-active"></span>
+                        <div class=" uk-animation-slide-bottom">
+                            <input type="text" name="search" autofocus required>
+                            <p class="search-help">Type the name of the Course and book you are looking for</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- menu -->
+        {% include 'partials/user_partials/_menu.html' %}
+
+        <!-- content -->
+        <div class="page-content">
+
+             <!-- Header Container
+        ================================================== -->
+        {% include 'partials/user_partials/_header.html' %}
+        <!-- content -->
+        <br>
+        <div class="page-content">
+            <div class="page-content-inner">
+
+                <div class="d-flex">
+                    <nav id="breadcrumbs" class="mb-3">
+                        <ul>
+                            <li><a href="{% url 'csmDashboard' %}"> <i class="uil-home-alt"></i>Dashboard </a></li>
+                            <li>Change Password</li>
+                        </ul>
+                    </nav>
+                </div>
+
+
+
+
+
+                <div class="uk-width-3-5@m">
+                        {% include 'partials/_alerts.html' %}
+                        <div class="card rounded">
+                          <div class=" container py-3 uk-width-expand">
+                            <form name="pgenerate" method="POST">
+                              {% csrf_token %}
+                                <fieldset class="uk-fieldset">
+
+                                    <legend class="uk-legend">Change password</legend>
+
+
+                                    <div class="uk-margin">
+                                         {{ form.as_table }}
+                                    </div>
+
+
+
+                                    <div class="text-center" style="float: right">
+                                      <button class="btn btn-default" name="create">Change Password</button>
+                                    </div>
+
+                                </fieldset>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                <!-- footer
+                ================================================== -->
+                {% include 'partials/_footer.html' %}
+
+            </div>
+
+        </div>
+
+        <!-- For Night mode -->
+        <script>
+            (function (window, document, undefined) {
+                'use strict';
+                if (!('localStorage' in window)) return;
+                var nightMode = localStorage.getItem('gmtNightMode');
+                if (nightMode) {
+                    document.documentElement.className += ' night-mode';
+                }
+            })(window, document);
+
+
+            (function (window, document, undefined) {
+
+                'use strict';
+
+                // Feature test
+                if (!('localStorage' in window)) return;
+
+                // Get our newly insert toggle
+                var nightMode = document.querySelector('#night-mode');
+                if (!nightMode) return;
+
+                // When clicked, toggle night mode on or off
+                nightMode.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    document.documentElement.classList.toggle('night-mode');
+                    if (document.documentElement.classList.contains('night-mode')) {
+                        localStorage.setItem('gmtNightMode', true);
+                        return;
+                    }
+                    localStorage.removeItem('gmtNightMode');
+                }, false);
+
+            })(window, document);
+
+            </script>
+    </div>
+
+{% endblock %}

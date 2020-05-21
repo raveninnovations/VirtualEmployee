@@ -31,10 +31,10 @@ class UserDetails(models.Model):
     user_pass = models.CharField(max_length=10, blank=True)
     user_unique = models.CharField(max_length=100,null=True)
     user_date = models.DateTimeField(default=datetime.now,null=True)
-
-
+    
     def __str__(self):
         return str(self.user_id) if self.user_id else ''
+
 
 class UserContact(models.Model):
     user_id = models.ForeignKey(UserDetails,on_delete=models.CASCADE)
@@ -57,10 +57,6 @@ class UserEducation(models.Model):
 
     def __str__(self):
         return self.degree
-
-
-
-
 
 
 

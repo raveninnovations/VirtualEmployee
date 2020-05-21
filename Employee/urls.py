@@ -18,6 +18,7 @@ urlpatterns = [
     path('userprofile/',views.userprofile,name='userprofile'),
     path('user-profile-edit/',views.userEdit,name='userprofileEdit'),
     path('user-project/',views.userProject,name='userproject'),
+    path('user-change-password/',views.userchangepassword, name='userchangepassword'),
     # CSM Section
     path('csmdashboard/',views.csmDashboard,name='csmDashboard'),
     path('csmaddcourse/',views.csmAddCourse,name='csmAddCourse'),
