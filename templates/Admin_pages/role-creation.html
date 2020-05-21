@@ -86,24 +86,25 @@
                     <div class="uk-width-3-4@m my-5">
                         <div class="card rounded">
                           <div class=" container py-4 uk-width-expand">
-                            <!-- <form method="POST">
+                             <form method="POST">
                               {% csrf_token %}
-                              <fieldset class="uk-fieldset"> -->
+                              <fieldset class="uk-fieldset">
 
                                 <div class="d-flex">
                                   <div class="col-md-4 uk-margin my-auto">
-                                      <select class="uk-select uk-width-auto">
+                                      <select class="uk-select uk-width-auto" name="roleSort" onchange="submit()">
                                           <option >Sort Role</option>
-                                          <option>CSM</option>
-                                          <option>PCM</option>
-                                          <option>TL</option>
-                                          <option>Instructor</option>
+                                          <option value="CSM">CSM</option>
+                                          <option value="PCM">PCM</option>
+                                          <option value="TL">TL</option>
+                                          <option value="Intructor">Instructor</option>
                                       </select>
                                   </div>
                                   <div class="col-md-8 my-suto">
                                       <legend class="uk-legend">List of Roles</legend>
                                   </div>
                                 </div>
+                              </fieldset>
 
                                 <hr style="width:70% mx-auto mt-0">
 

@@ -141,8 +141,6 @@ def adminRolecreation(request):
                     role.save()
 
                 except:
-                    print("hai")
-                    print("error")
                     messages.error(request,"Some error occured")
                     return redirect("adminaddcourse")
                 # Saving the role input in the model
@@ -157,6 +155,15 @@ def adminRolecreation(request):
                 user_del = User.objects.get(id=del_id).delete()
                 messages.success(request,"Deleted success")
                 return redirect('adminrolecreation')
+
+            if 'roleSort' in request.POST:
+                role = request.POST['roleSort']
+                roled = RoleDetail.objects.filter(user_role=role)
+                context ={
+                    'roles':roled
+                }
+                return render(request, 'Admin_pages/role-creation.html', context)
+
 
         roles=RoleDetail.objects.order_by("-role_create_date")
         context={
@@ -439,7 +446,7 @@ def userEdit(request):
                     course = Course.objects.all()
                     context={
                         'courses':course,
-                        'user_detail': user_detc
+                        'user_detail': user_detail
                     }
                 return render(request, 'virtualmain_pages/user-profile-edit.html', context)
             else:
@@ -797,8 +804,15 @@ def cfp_create(request):
             cfp_obj.save()
             messages.success(request, "Added to CFP")
             return redirect('cfp_create')
-
-
+        if 'sortlist' in request.POST:
+            cfp_category = request.POST['sortlist']
+            roles = CFP_role.objects.filter(cfp_category=cfp_category)
+            category_list = CareerCategory.objects.all()
+            context ={
+                'category_list': category_list,
+                'cfp_list':roles,
+            }
+            return render(request, 'Admin_pages/cfp_create.html', context)
 
     category_list=CareerCategory.objects.all()
 

@@ -168,7 +168,7 @@
                                   <div class="col-md-4 uk-margin my-auto">
                                     <form name="sort"  method="POST">
                                       {% csrf_token %}
-                                      <select class="uk-select uk-width-auto" name="sortlist" id="list">
+                                      <select class="uk-select uk-width-auto" name="sortlist" id="list" onchange="submit()">
                                           <option disabled selected>Sort</option>
                                           {% for i in category_list %}
                                           <option value="{{i.category}}">{{i.category}}</option>
