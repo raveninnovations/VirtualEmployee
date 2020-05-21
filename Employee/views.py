@@ -17,27 +17,6 @@ from django.core.mail import send_mail
 # Create your views here.
 # ADMIN SECTION
 
-def adminLicense(request):
-    if request.user.is_staff and request.user.is_superuser:
-
-        if request.method == 'POST':
-
-            if 'category_submit' in request.POST:
-                l_id = uuid.uuid4()
-                key = l_id
-                year = request.POST['year']
-                data = AdminLicense(key=key,years=year)
-                data.save()
-                messages.success(request,"Key is generated")
-                return redirect("adminLicense")
-        keys = AdminLicense.objects.order_by('-date')
-        context ={
-            'keys' : keys
-        }
-
-        return render(request,"Admin_pages/admin_license.html",context)
-
-
 @login_required
 def adminDashboard(request):
     if request.user.is_staff and request.user.is_superuser:
@@ -350,7 +329,7 @@ def userEdit(request):
 
         user = request.user
         user_detail = UserDetails.objects.get(user_id_id=user.id)
-        print(user_detail.pk)
+        # print(user_detail.pk)
         if request.method == 'POST':
 
             if 'contact' in request.POST:
@@ -478,7 +457,31 @@ def userProject(request):
     }
     return render(request,'virtualmain_pages/user-project.html', context)
 
+def userchangepassword(request):
+    user = request.user
+    details = UserDetails.objects.get(user_id_id=user.pk)
+    form = PasswordChangeForm(user=request.user)
+    if request.method == 'POST':
+        new_pass = request.POST['new_password1']
+        try:
+            form = PasswordChangeForm(user=request.user, data=request.POST)
+            if form.is_valid():
+                form.save()
+                update_session_auth_hash(request, form.user)
+                messages.success(request, 'Password Changed Successfully!')
+                details.role_user_password = new_pass
+                details.save()
+                return redirect("/user-change-password/")
+        except:
+            messages.error(request, 'User is not able to change password !')
 
+        else:
+            messages.error(request,'Password not matching !')
+            return redirect("/user-change-password/")
+    context = {
+        'form': form,
+    }
+    return render(request, "virtualmain_pages/user-change-pwd.html", context)
 
 # CSM MODULE SECTION
 @login_required
