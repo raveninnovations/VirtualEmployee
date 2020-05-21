@@ -56,9 +56,8 @@
                                     <form name="cfp-role" method="POST">
                                       {% csrf_token %}
                                       <div class="form-group row mb-3">
-                                          <label class="col-md-3 col-form-label">Chosen Category</label>
                                           <div class="col-md-9">
-                                              <input type="text" name="c_course" value="{{obj.create_category}}" readonly required>
+                                              <input type="hidden" name="c_course" value="{{obj.create_category}}" readonly required>
                                           </div>
 
                                       </div>
@@ -136,27 +135,11 @@
                                     </form>
                             </div>
                         </div>
-                        {% include 'partials/_alerts.html' %}
                     </div>
                   </div>
 
-
-
-
-
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-                <!-- footer
+              <!-- footer
                 ================================================== -->
                 <div class="footer">
                     <div class="uk-grid-collapse" uk-grid>

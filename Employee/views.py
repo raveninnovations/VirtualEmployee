@@ -434,6 +434,13 @@ def userEdit(request):
                     'education': education,
 
                 }
+                # Drop down CFP
+                if Course.objects.exists():
+                    course = Course.objects.all()
+                    context={
+                        'courses':course,
+                        'user_detail': user_detc
+                    }
                 return render(request, 'virtualmain_pages/user-profile-edit.html', context)
             else:
                 context ={
@@ -696,6 +703,11 @@ def csmEditLesson(request,id):
                     topic.save()
 
                 messages.success(request,"Topic changed sucessfully")
+            if 'topicDelete' in request.POST:
+                del_id = request.POST['del_id']
+                print(del_id)
+                delete = Lesson_Topic.objects.get(id = del_id).delete()
+                messages.success(request,"Topic deleted")
 
         context ={
             'lesson' : lesson,
