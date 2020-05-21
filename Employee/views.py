@@ -10,10 +10,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+# EMAIL FROM SETTINGS
+from VirtualMain.settings import EMAIL_HOST_USER
+from django.core.mail import send_mail
+
 from datetime import datetime
 from .forms import (AddUserForm)
 from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse
-from django.core.mail import send_mail
+
 # Create your views here.
 # ADMIN SECTION
 
@@ -98,17 +102,17 @@ def adminRolecreation(request):
                     messages.error(request, 'Lastname cannot have special characters')
                     return redirect('adminrolecreation')
 
-                # Send Mail
-                # send_mail(
-                #     "New Account Setup",
-                #     "There has been an acount setup",
-                #     "akashsingh11112011@gmail.com",
-                #     [role_user_email,'rahul.agarwal31101999@gmail.com'],
-                #     fail_silently=False
-                # )
-
                 role_user_password=request.POST['password']
+                mail_subject = "[Activate Account] VE - Virtual Employee" \
+                               "Temporary password : "
 
+                send_mail(
+                    mail_subject,
+                    role_user_password,
+                    EMAIL_HOST_USER,
+                    [role_user_email],
+                    fail_silently=False
+                )
                 try:
 
                     User.objects.create_user(username = role_user_name,email= role_user_email,first_name= user_firstname,
