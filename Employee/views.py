@@ -17,27 +17,6 @@ from django.core.mail import send_mail
 # Create your views here.
 # ADMIN SECTION
 
-def adminLicense(request):
-    if request.user.is_staff and request.user.is_superuser:
-
-        if request.method == 'POST':
-
-            if 'category_submit' in request.POST:
-                l_id = uuid.uuid4()
-                key = l_id
-                year = request.POST['year']
-                data = AdminLicense(key=key,years=year)
-                data.save()
-                messages.success(request,"Key is generated")
-                return redirect("adminLicense")
-        keys = AdminLicense.objects.order_by('-date')
-        context ={
-            'keys' : keys
-        }
-
-        return render(request,"Admin_pages/admin_license.html",context)
-
-
 @login_required
 def adminDashboard(request):
     if request.user.is_staff and request.user.is_superuser:
