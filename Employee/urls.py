@@ -36,5 +36,6 @@ urlpatterns = [
     path('cfp_create/',views.cfp_create,name='cfp_create'),
     path('cfp_edit/<int:id>',views.cfp_edit,name='cfpEdit'),
     path('category_edit/<int:id>',views.category_edit,name='categoryEdit'),
-    path('test/',views.test,name='test')
+    path('test/',views.test,name='test'),
+    path('careerchoice/',views.careerchoice,name='careerchoice')
     ]

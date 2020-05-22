@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role, ProjectManager,UserContact,UserEducation,CreateCourse
+from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role, ProjectManager,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP
 
 # Register your models here.
 
@@ -15,3 +15,5 @@ admin.site.register(ProjectManager)
 admin.site.register(UserContact)
 admin.site.register(UserEducation)
 admin.site.register(CreateCourse)
+admin.site.register(CareerChoice)
+admin.site.register(StudentCFP)

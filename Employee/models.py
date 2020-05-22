@@ -31,7 +31,7 @@ class UserDetails(models.Model):
     user_pass = models.CharField(max_length=10, blank=True)
     user_unique = models.CharField(max_length=100,null=True)
     user_date = models.DateTimeField(default=datetime.now,null=True)
-    
+
     def __str__(self):
         return str(self.user_id) if self.user_id else ''
 
@@ -176,3 +176,30 @@ class CreateCourse(models.Model):
 
     def __str__(self):
         return self.create_category
+
+
+
+class CareerChoice(models.Model):
+    career_id=models.IntegerField(default=0)
+    choice_name=models.CharField(max_length=50,default="Student Choices")
+    first_choice_category=models.CharField(max_length=50,blank=True)
+    first_choice_role=models.CharField(max_length=50,blank=True,null=True)
+
+    second_choice_category=models.CharField(max_length=50,blank=True)
+    second_choice_role=models.CharField(max_length=50,blank=True,null=True)
+
+
+    def __str__(self):
+        return self.choice_name
+
+
+class StudentCFP(models.Model):
+    user_id = models.ForeignKey(User,on_delete=models.CASCADE)
+    category_one=models.CharField(max_length=50,blank=True)
+    role_one=models.CharField(max_length=50,blank=True)
+
+    category_two=models.CharField(max_length=50,blank=True)
+    role_two=models.CharField(max_length=50,blank=True)
+
+    def _str__(self):
+        return self.user_id

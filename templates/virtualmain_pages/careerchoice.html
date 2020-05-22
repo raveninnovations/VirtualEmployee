@@ -1,0 +1,385 @@
+{% extends 'base1.html' %}
+{% block content %}
+
+    <div id="wrapper" class="admin-panel">
+
+    {% include 'partials/admin_partials/_header.html' %}
+
+    <div class="page-content">
+            <div class="page-content-inner">
+
+                <div class="d-flex">
+                    <nav id="breadcrumbs" class="mb-3">
+                        <ul>
+                            <li><a href="#"> <i class="uil-home-alt"></i> </a></li>
+                            <li><a href="#"> Category/CFP Creation </a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="uk-grid">
+
+                  <!-- FIRST CHOICE  -->
+
+                  <div class="" style="width: 100%">
+                    <div class="uk-width-expand my-5">
+                      {% include 'partials/_alerts.html' %}
+                        <div class="card rounded px-5">
+                          <legend class="uk-legend my-4 text-center">First CFP Choice </legend>
+
+                          <div class=" container pt-3 px-5  uk-width-expand">
+
+                                    <form name="first-course-cag" method="POST">
+                                      {% csrf_token %}
+                                      <div class="form-group row mb-3">
+                                          <label class="col-md-3 col-form-label"> Category <span
+                                                  class="required">*</span></label>
+                                          <div class="col-md-9">
+                                              <select  name="first-category" required onchange="submit()">
+                                                <option selected disabled> Choose Category</option>
+                                                {% for i in cag_list %}
+                                                  {% if i.category == obj.first_choice_category %}
+                                                  <option value="{{i.category}}" selected> {{i.category}} </option>
+                                                  {% else %}
+                                                  <option value="{{i.category}}"> {{i.category}} </option>
+                                                  {% endif %}
+                                                {% endfor %}
+                                              </select>
+                                          </div>
+                                      </div>
+                                    </form>
+                            </div>
+
+                              <div class=" container pb-3 px-5 uk-width-expand">
+                                    <form name="first-cfp-role" method="POST">
+                                      {% csrf_token %}
+                                      <div class="form-group row my-0">
+                                          <div class="col-md-9">
+                                              <input type="text" name="con_cag" value="{{obj.first_choice_category}}" readonly required hidden>
+                                          </div>
+
+                                      </div>
+
+                                      <div class="form-group row mb-3">
+                                          <label class="col-md-3 col-form-label "> CFP Role <span
+                                                  class="required">*</span></label>
+                                          <div class="col-md-9">
+                                              <select  name="first-role" onchange="submit()" required>
+                                              <option value="" selected disabled>Select role</option>
+                                                {% for i in role_list_one %}
+                                                  {% if i.cfp_role == obj.first_choice_role %}
+                                                  <option value="{{i.cfp_role}}" selected>{{i.cfp_role}}</option>
+                                                  {% else %}
+                                                  <option value="{{i.cfp_role}}">{{i.cfp_role}}</option>
+                                                  {% endif %}
+                                                {% endfor %}
+                                              </select>
+                                          </div>
+                                      </div>
+
+                                      <!-- <div class="text-center">
+                                        <button type="submit" class=" form-group px-5 btn btn-default" name="first-submit">Submit</button>
+                                      </div> -->
+
+                                    </form>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FIRST CHOICE  ENDS-->
+
+
+
+                    <!-- SECOND CHOICE  -->
+
+                    <div class="" style="width: 100%">
+                      <div class="uk-width-expand my-5">
+                        {% include 'partials/_alerts.html' %}
+                          <div class="card rounded px-5">
+
+                            <legend class="uk-legend my-4 text-center">Second CFP Choice </legend>
+
+                            <div class=" container pt-3 px-5  uk-width-expand">
+
+                                      <form name="second-course-cag" method="POST">
+                                        {% csrf_token %}
+                                        <div class="form-group row mb-3">
+                                            <label class="col-md-3 col-form-label"> Category Categoty<span
+                                                    class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <select  name="second-category" required onchange="submit()">
+                                                  <option selected disabled> Choose </option>
+                                                  {% for i in cag_list %}
+                                                    {% if i.category == obj.second_choice_category %}
+                                                    <option value="{{i.category}}" selected> {{i.category}} </option>
+                                                    {% else %}
+                                                    <option value="{{i.category}}"> {{i.category}} </option>
+                                                    {% endif %}
+                                                  {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                      </form>
+                              </div>
+
+                                <div class=" container pb-3 px-5 uk-width-expand">
+                                      <form name="second-cfp-role" method="POST">
+                                        {% csrf_token %}
+                                        <div class="form-group row my-0">
+                                            <div class="col-md-9">
+                                                <input type="text" name="con_cag" value="{{obj.second_choice_category}}" readonly required hidden >
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group row mb-3">
+                                            <label class="col-md-3 col-form-label "> CFP Role <span
+                                                    class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <select  name="second-role" onchange="submit()" required>
+                                                <option value="" selected disabled>Select role</option>
+                                                  {% for i in role_list_two %}
+                                                    {% if i.cfp_role == obj.second_choice_role %}
+                                                    <option value="{{i.cfp_role}}" selected>{{i.cfp_role}}</option>
+                                                    {% else %}
+                                                    <option value="{{i.cfp_role}}">{{i.cfp_role}}</option>
+                                                    {% endif %}
+                                                  {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- <div class="text-center">
+                                          <button type="submit" class=" form-group px-5 btn btn-default" name="second-submit">Submit</button>
+                                        </div> -->
+
+                                      </form>
+                                  </div>
+
+                              </div>
+                          </div>
+                      </div>
+
+                      <!-- SECOND CHOICE  ENDS-->
+
+
+                      <div class="" style="width: 100%">
+                        <div class="uk-width-expand my-5">
+                          {% include 'partials/_alerts.html' %}
+                            <div class="card rounded px-5">
+
+                              <form name="confirm-course" method="POST">
+                                {% csrf_token %}
+                                <legend class="uk-legend my-4 text-center">Confirm Your Choice </legend>
+                                <div class=" container pt-3 px-5  uk-width-expand">
+                                          <h5>First Choice</h5>
+                                          <div class="form-group row mb-3">
+                                              <label class="col-md-3 col-form-label"> Choosen Category<span
+                                                      class="required">*</span></label>
+
+                                              <div class="col-md-9">
+                                                  <input type="text" name="confirm_first_category" value="{{obj.first_choice_category}}" required readonly>
+                                              </div>
+                                          </div>
+
+                                          <div class="form-group row mb-3">
+                                              <label class="col-md-3 col-form-label"> Choosen Role<span
+                                                      class="required">*</span></label>
+
+                                              <div class="col-md-9">
+                                                  <input type="text" name="confirm_first_role" value="{{obj.first_choice_role}}" required readonly>
+                                              </div>
+                                          </div>
+
+                                </div>
+
+                                <div class=" container pt-3 px-5  uk-width-expand">
+                                          <h5>Second Choice</h5>
+                                          <div class="form-group row mb-3">
+                                              <label class="col-md-3 col-form-label"> Choosen Category<span
+                                                      class="required">*</span></label>
+
+                                              <div class="col-md-9">
+                                                  <input type="text" name="confirm_second_category" value="{{obj.second_choice_category}}" required readonly>
+                                              </div>
+                                          </div>
+
+                                          <div class="form-group row mb-3">
+                                              <label class="col-md-3 col-form-label"> Choosen Role<span
+                                                      class="required">*</span></label>
+
+                                              <div class="col-md-9">
+                                                  <input type="text" name="confirm_second_role" value="{{obj.second_choice_role}}" required readonly>
+                                              </div>
+                                          </div>
+
+                                </div>
+
+
+                                <div class="text-center">
+                                  <button type="submit" class=" form-group px-5 btn btn-default" name="confirm_submit">Confirm</button>
+                                </div>
+
+                                </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+                  </div>
+
+                  <!-- GRID ENDS -->
+              </div>
+
+
+
+
+
+                <!-- footer
+                ================================================== -->
+                <div class="footer">
+                    <div class="uk-grid-collapse" uk-grid>
+                        <div class="uk-width-expand@s uk-first-column">
+                            <p>© 2019 <strong>Courseplus</strong>. All Rights Reserved. </p>
+                        </div>
+                        <div class="uk-width-auto@s">
+                            <nav class="footer-nav-icon">
+                                <ul>
+                                    <li><a href="#"><i class="icon-brand-facebook"></i></a></li>
+                                    <li><a href="#"><i class="icon-brand-dribbble"></i></a></li>
+                                    <li><a href="#"><i class="icon-brand-youtube"></i></a></li>
+                                    <li><a href="#"><i class="icon-brand-twitter"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- For Night mode -->
+        <script>
+
+
+
+            (function (window, document, undefined) {
+                'use strict';
+                if (!('localStorage' in window)) return;
+                var nightMode = localStorage.getItem('gmtNightMode');
+                if (nightMode) {
+                    document.documentElement.className += ' night-mode';
+                }
+            })(window, document);
+
+
+            (function (window, document, undefined) {
+
+                'use strict';
+
+                // Feature test
+                if (!('localStorage' in window)) return;
+
+                // Get our newly insert toggle
+                var nightMode = document.querySelector('#night-mode');
+                if (!nightMode) return;
+
+                // When clicked, toggle night mode on or off
+                nightMode.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    document.documentElement.classList.toggle('night-mode');
+                    if (document.documentElement.classList.contains('night-mode')) {
+                        localStorage.setItem('gmtNightMode', true);
+                        return;
+                    }
+                    localStorage.removeItem('gmtNightMode');
+                }, false);
+
+            })(window, document);
+
+
+              // Random Password Generator
+
+            var keylist="abcdefghijklmnopqrstuvwxyz123456789"
+            var temp=''
+
+            function generatepass(plength){
+            temp=''
+            for (i=0;i<plength;i++)
+            temp+=keylist.charAt(Math.floor(Math.random()*keylist.length))
+            return temp
+            }
+
+            function populateform(enterlength){
+            document.pgenerate.password.value=generatepass(enterlength)
+            }
+
+
+
+            // Skill Addition
+
+          // now, add a new to the TABLE.
+          function addSkillRow() {
+              var empTab = document.getElementById('SkillsTable');
+
+              var rowCnt = empTab.rows.length;   // table row count.
+              var tr = empTab.insertRow(rowCnt); // the table row.
+              tr = empTab.insertRow(rowCnt);
+
+              for (var c = 0; c < 1; c++) {
+                  var td = document.createElement('td'); // table definition.
+                  td = tr.insertCell(c);
+                      var ele = document.createElement('input');
+                      ele.setAttribute('type', 'text');
+                      ele.setAttribute('placeholder', 'Add Skills');
+                      td.appendChild(ele);
+
+              }
+          }
+
+
+          // function to extract and submit table data.
+          function Skillsubmit() {
+              var myTab = document.getElementById('SkillsTable');
+              var arrValues =new Array()
+
+              // loop through each row of the table.
+              for (row = 0; row < myTab.rows.length ; row++) {
+                // loop through each cell in a row.
+                  for (c = 0; c < myTab.rows[row].cells.length; c++) {
+                      var element = myTab.rows.item(row).cells[c];
+                      if (element.childNodes[0].getAttribute('type') == 'text') {
+                          arrValues.push(element.childNodes[0].value);
+                      }
+                  }
+              }
+
+              var str="";
+              for(i=0;i<arrValues.length;i++)
+              {
+                str=str.concat(arrValues[i])
+                str=str+'_';
+              }
+
+              req_str=str.substring(0,str.length-1)
+
+              // The final output.
+              // document.getElementById('Reqoutput').innerHTML = req_str;
+
+              var ele1=document.getElementById('sout');
+              ele1.setAttribute('value',req_str);
+          }
+        </script>
+
+
+    </div>
+{% endblock %}
