@@ -401,9 +401,13 @@
                             <!-- profile-icon-->
                         <!-- profile-icon-->
 
+                            {% if user.is_authenticated %}
+
                             <a href="#" class="header-widget-icon profile-icon">
-                                <img src="{% static 'images/avatars/avatar-2.jpg' %}" alt="" class="header-profile-icon">
+{#                                <img src="{% static 'images/avatars/avatar-2.jpg' %}" alt="" class="header-profile-icon">#}
+                            <p style="color: black;font-size: 16px;text-transform: uppercase;">{{ user.first_name }} {{ user.last_name }}</p>
                             </a>
+                        {% endif %}
 
                             <div uk-dropdown="pos: top-right ;mode:click" class="dropdown-notifications small">
 
@@ -411,12 +415,12 @@
                                 <a href="profile-1.html">
 
                                     <div class="dropdown-user-details">
-                                        <div class="dropdown-user-avatar">
-                                            <img src="{% static 'images/avatars/avatar-2.jpg' %}" alt="">
-                                        </div>
+{#                                        <div class="dropdown-user-avatar">#}
+{#                                            <img src="{% static 'images/avatars/avatar-2.jpg' %}" alt="">#}
+{#                                        </div>#}
                                         {% if user.is_authenticated %}
                                         <div class="dropdown-user-name">
-                                            {{ user.first_name }} <span>Students</span>
+                                            {{ user.first_name }} {{ user.last_name }}<span>Students</span>
                                         </div>
                                         {% endif %}
                                     </div>

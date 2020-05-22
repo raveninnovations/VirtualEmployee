@@ -302,6 +302,8 @@ def userprofile(request):
         user = request.user
         print(user.id)
         user_details = UserDetails.objects.get(user_id_id=user.pk)
+        courses = Course.objects.all()
+
         if UserEducation.objects.filter(user_id_id=user_details.pk).exists():
             user_education = UserEducation.objects.get(user_id_id=user_details.pk)
             context = {
@@ -316,6 +318,31 @@ def userprofile(request):
                     'user_education': user_education,
                     'user_data': user_details
                 }
+                # CFP
+                if StudentCFP.objects.filter(user_id_id=user_details.pk).exists():
+                    print("hai")
+                    cfp_details = StudentCFP.objects.get(user_id_id=user_details.pk)
+                    # CFP  COURSES
+                    if Course.objects.filter(category=cfp_details.category_one,role=cfp_details.role_one).exists():
+                        lists = Course.objects.filter(category=cfp_details.category_one,role=cfp_details.role_one)
+                        context = {
+                            'cfp_details': cfp_details,
+                            'user_data': user_details,
+                            'user_contact': user_contact,
+                            'user_education': user_education,
+                            'lists':lists,
+                        }
+                        return render(request, 'virtualmain_pages/user-profile.html', context)
+
+                    print(cfp_details)
+                    context = {
+                        'cfp_details': cfp_details,
+                        'user_data': user_details,
+                        'user_contact': user_contact,
+                        'user_education': user_education,
+                    }
+                    return render(request, 'virtualmain_pages/user-profile.html', context)
+
                 return render(request, "virtualmain_pages/user-profile.html", context)
 
             return render(request,"virtualmain_pages/user-profile.html",context)
@@ -1127,6 +1154,7 @@ def UserCfp(request):
 
 
         if 'second-role' in request.POST:
+
             con_cag=request.POST['con_cag']
             role=request.POST['second-role']
             compare=CFP_role.objects.get(cfp_role=role)
@@ -1134,6 +1162,7 @@ def UserCfp(request):
                 data=CareerChoice.objects.get(second_choice_category=con_cag)
                 data.second_choice_role=role
                 data.save()
+
                 return redirect('usercfp')
             else:
                 # messages.error(request,"Role and Category Do not Match")
@@ -1142,10 +1171,23 @@ def UserCfp(request):
 
 
         if 'confirm_submit' in request.POST:
+            try:
+                if StudentCFP.objects.filter(user_id_id=details.pk).exists():
+                    messages.error(request,"CFP Choosed already")
+                    return redirect('usercfp')
+                compare_role = CareerChoice.objects.get()
+                print(compare_role.first_choice_role)
+                if compare_role.first_choice_role == compare_role.second_choice_role:
+                    print("same")
+                    messages.error(request, "First choice and Second choice are same")
+                    return redirect('usercfp')
+            except:
+                messages.error(request,"Some Error Occured")
+                return redirect('usercfp')
             confirm_first_category=request.POST['confirm_first_category']
             confirm_first_role=request.POST['confirm_first_role']
             confirm_second_category=request.POST['confirm_second_category']
-            confirm_second_role=request.POST['confirm_second_category']
+            confirm_second_role=request.POST['confirm_second_role']
             data=StudentCFP(category_one=confirm_first_category,role_one=confirm_first_role,category_two=confirm_second_category,role_two=confirm_second_role,user_id_id=details.pk)
             data.save()
             messages.success(request,"CFP Created")
