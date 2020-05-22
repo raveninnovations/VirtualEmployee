@@ -434,7 +434,9 @@
                                     <li><a href="{% url 'userprofileEdit' %}">
                                             <i class="icon-feather-settings"></i> Edit Profile</a>
                                     </li>
-
+                                    <li><a href="{% url 'usercfp' %}">
+                                            <i class="icon-feather-slack"></i> Choose CFP</a>
+                                    </li>
                                     <li class="menu-divider">
                                     {% if user.is_authenticated %}
                                     <li><a href="{% url 'logout' %}">

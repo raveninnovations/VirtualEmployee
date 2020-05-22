@@ -194,8 +194,8 @@ class CareerChoice(models.Model):
 
 
 class StudentCFP(models.Model):
-    user_id = models.ForeignKey(User,on_delete=models.CASCADE)
-    category_one=models.CharField(max_length=50,blank=True)
+    user_id = models.ForeignKey(UserDetails,on_delete=models.CASCADE,null=True)
+    category_one = models.CharField(max_length=50,blank=True)
     role_one=models.CharField(max_length=50,blank=True)
 
     category_two=models.CharField(max_length=50,blank=True)

@@ -100,64 +100,6 @@
                         </div>
                         </form>
 
-                       <div class="uk-card-default rounded p-4 mt-5">
-
-
-
-                          <h3 class="text-center">Choose Your Career Path</h3>
-
-                            <div class="uk-position-relative my-4">
-
-
-
-
-
-                              <h6>First Choice</h6>
-                              <div class="uk-child-width-1-2@s uk-grid-small mb-4" uk-grid>
-                                      <div>
-                                          {% if courses %}
-                                        <select class="px-auto py-1" name="choice1" onchange="submit()">
-                                            <option value="" disabled selected>Career Category</option>
-                                            {% for i in courses %}
-                                            <option value="{{ i.category }}">{{ i.category }}</option>
-
-                                        {% endfor %}
-                                        </select>
-                                          {% endif %}
-                                      </div>
-
-                                      <div>
-                                        <select name="category1" id="category1">
-                                            <option value="" disabled selected>Career Details</option>
-                                        </select>
-                                      </div>
-                                </div>
-
-
-                                <hr class="uk-divider-icon">
-
-                                <h6>Second Choice</h6>
-                                <div class="uk-child-width-1-2@s uk-grid-small mb-4" uk-grid>
-                                    <div>
-                                      <select class="px-auto py-1" name="choice2" id="choice2">
-                                          <option value="" disabled selected>Career Category</option>
-                                          <option value="A">IT & Software</option>
-                                          <option value="B">Business & StartUp</option>
-                                          <option value="C">Electronics and Electricals</option>
-                                          <option value="D">Design</option>
-                                      </select>
-                                    </div>
-
-                                    <div>
-                                      <select name="category2" id="category2">
-                                          <option value="" disabled selected>Career Details</option>
-                                      </select>
-                                    </div>
-                                </div>
-                                <hr class="uk-divider-icon">
-                            </div>
-
-                        </div>
 
 
 

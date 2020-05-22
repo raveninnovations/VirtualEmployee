@@ -967,9 +967,113 @@ def test(request):
     }
     return render(request,'csm_pages/test.html',context)
 
+#  Career choice
 
+# def careerchoice(request):
+#     user = request.user
+#     details = UserDetails.objects.get(user_id_id=user.pk)
+#
+#     if request.method=='POST':
+#         if 'first-category' in request.POST:
+#             count=CareerChoice.objects.all().count()
+#             if count==0:
+#
+#                 category=request.POST['first-category']
+#                 data=CareerChoice(career_id=1,first_choice_category=category)
+#                 data.save()
+#                 return redirect('careerchoice')
+#
+#             else:
+#                 print("hai")
+#                 cag=request.POST['first-category']
+#                 data=CareerChoice.objects.get(career_id=1)
+#                 data.first_choice_category=cag;
+#                 data.first_choice_role=None
+#                 data.save()
+#                 return redirect('careerchoice')
+#
+#
+#         if 'first-role' in request.POST:
+#             con_cag=request.POST['con_cag']
+#             role=request.POST['first-role']
+#             compare=CFP_role.objects.get(cfp_role=role)
+#             if compare.cfp_category == con_cag:
+#                 data=CareerChoice.objects.get(career_id=1)
+#                 data.first_choice_role=role
+#                 data.save()
+#                 return redirect('careerchoice')
+#             else:
+#                 messages.error(request,"Role and Category Do not Match")
+#                 return redirect('careerchoice')
+#
+#
+#
+#
+#         if 'second-category' in request.POST:
+#             count=CareerChoice.objects.all().count()
+#             if count==0:
+#                 category=request.POST['second-category']
+#                 data=CareerChoice(career_id=1,second_choice_category=category)
+#                 data.save()
+#                 return redirect('/careerchoice/')
+#
+#             else:
+#                 cag=request.POST['second-category']
+#                 data=CareerChoice.objects.get(career_id=1)
+#                 data.second_choice_category=cag
+#                 data.second_choice_role=None
+#                 data.save()
+#                 return redirect('/careerchoice/')
+#
+#
+#         if 'second-role' in request.POST:
+#             con_cag=request.POST['con_cag']
+#             role=request.POST['second-role']
+#             compare=CFP_role.objects.get(cfp_role=role)
+#             if compare.cfp_category == con_cag:
+#                 data=CareerChoice.objects.get(second_choice_category=con_cag)
+#                 data.second_choice_role=role
+#                 data.save()
+#                 return redirect('careerchoice')
+#             else:
+#                 # messages.error(request,"Role and Category Do not Match")
+#                 return redirect('careerchoice')
+#
+#
+#
+#         if 'confirm_submit' in request.POST:
+#             confirm_first_category=request.POST['confirm_first_category']
+#             confirm_first_role=request.POST['confirm_first_role']
+#             confirm_second_category=request.POST['confirm_second_category']
+#             confirm_second_role=request.POST['confirm_second_category']
+#             data=StudentCFP(category_one=confirm_first_category,role_one=confirm_first_role,category_two=confirm_second_category,role_two=confirm_second_role,user_id_id=details.pk)
+#             data.save()
+#             messages.success(request,"CFP Created")
+#             return redirect('userprofileEdit')
+#
+#     cag_list=CareerCategory.objects.all()
+#     if CareerChoice.objects.count()!=0:
+#         obj=CareerChoice.objects.get(career_id=1)
+#         role_list_one=CFP_role.objects.filter(cfp_category=obj.first_choice_category)
+#         role_list_two=CFP_role.objects.filter(cfp_category=obj.second_choice_category)
+#
+#     else:
+#         obj="Choose"
+#         role_list_one=[]
+#         role_list_two=[]
+#
+#     context={
+#         'cag_list':cag_list,
+#         'obj':obj,
+#         'role_list_one':role_list_one,
+#         'role_list_two':role_list_two
+#     }
+#     return render(request,'virtualmain_pages/careerchoice.html',context)
 
-def careerchoice(request):
+def UserCfp(request):
+    user = request.user
+    details = UserDetails.objects.get(user_id_id=user.pk)
+
     if request.method=='POST':
         if 'first-category' in request.POST:
             count=CareerChoice.objects.all().count()
@@ -977,7 +1081,7 @@ def careerchoice(request):
                 category=request.POST['first-category']
                 data=CareerChoice(career_id=1,first_choice_category=category)
                 data.save()
-                return redirect('/careerchoice/')
+                return redirect('usercfp')
 
             else:
                 cag=request.POST['first-category']
@@ -985,7 +1089,7 @@ def careerchoice(request):
                 data.first_choice_category=cag;
                 data.first_choice_role=None
                 data.save()
-                return redirect('/careerchoice/')
+                return redirect('usercfp')
 
 
         if 'first-role' in request.POST:
@@ -996,10 +1100,11 @@ def careerchoice(request):
                 data=CareerChoice.objects.get(career_id=1)
                 data.first_choice_role=role
                 data.save()
-                return redirect('/careerchoice/')
+                messages.success(request,"First Choice submitted")
+                return redirect('usercfp')
             else:
                 messages.error(request,"Role and Category Do not Match")
-                return redirect('/careerchoice/')
+                return redirect('usercfp')
 
 
 
@@ -1010,7 +1115,7 @@ def careerchoice(request):
                 category=request.POST['second-category']
                 data=CareerChoice(career_id=1,second_choice_category=category)
                 data.save()
-                return redirect('/careerchoice/')
+                return redirect('usercfp')
 
             else:
                 cag=request.POST['second-category']
@@ -1018,7 +1123,7 @@ def careerchoice(request):
                 data.second_choice_category=cag
                 data.second_choice_role=None
                 data.save()
-                return redirect('/careerchoice/')
+                return redirect('usercfp')
 
 
         if 'second-role' in request.POST:
@@ -1029,10 +1134,10 @@ def careerchoice(request):
                 data=CareerChoice.objects.get(second_choice_category=con_cag)
                 data.second_choice_role=role
                 data.save()
-                return redirect('/careerchoice/')
+                return redirect('usercfp')
             else:
                 # messages.error(request,"Role and Category Do not Match")
-                return redirect('/careerchoice/')
+                return redirect('usercfp')
 
 
 
@@ -1041,25 +1146,25 @@ def careerchoice(request):
             confirm_first_role=request.POST['confirm_first_role']
             confirm_second_category=request.POST['confirm_second_category']
             confirm_second_role=request.POST['confirm_second_category']
-            data=StudentCFP(category_one=confirm_first_category,role_one=confirm_first_role,category_two=confirm_second_category,role_two=confirm_second_role)
+            data=StudentCFP(category_one=confirm_first_category,role_one=confirm_first_role,category_two=confirm_second_category,role_two=confirm_second_role,user_id_id=details.pk)
             data.save()
-            return redirect('/userprofileEdit/')
-
-    cag_list=CareerCategory.objects.all()
-    if CareerChoice.objects.count()!=0:
-        obj=CareerChoice.objects.get(career_id=1)
-        role_list_one=CFP_role.objects.filter(cfp_category=obj.first_choice_category)
-        role_list_two=CFP_role.objects.filter(cfp_category=obj.second_choice_category)
+            messages.success(request,"CFP Created")
+            return redirect('userprofileEdit')
+    cag_list = CareerCategory.objects.all()
+    if CareerChoice.objects.count() != 0:
+        obj = CareerChoice.objects.get(career_id=1)
+        role_list_one = CFP_role.objects.filter(cfp_category=obj.first_choice_category)
+        role_list_two = CFP_role.objects.filter(cfp_category=obj.second_choice_category)
 
     else:
-        obj="Choose"
-        role_list_one=[]
-        role_list_two=[]
+        obj = "Choose"
+        role_list_one = []
+        role_list_two = []
 
-    context={
-        'cag_list':cag_list,
-        'obj':obj,
-        'role_list_one':role_list_one,
-        'role_list_two':role_list_two
+    context = {
+        'cag_list': cag_list,
+        'obj': obj,
+        'role_list_one': role_list_one,
+        'role_list_two': role_list_two
     }
-    return render(request,'virtualmain_pages/careerchoice.html',context)
+    return render(request,'virtualmain_pages/user-cfp.html',context)
