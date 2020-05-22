@@ -1,0 +1,20 @@
+{% autoescape off %}
+    Dear {{ firstname }} {{ lastname }},
+
+    Greetings from VE - Virtual Employee .
+
+    Your account has been created with the username: {{ user }}. Please click on the link given below to confirm your
+    registration,
+
+    http://{{ domain }}
+
+    (If the above mentioned link does not work, please copy/paste it in your Web Browser).
+
+    We are Providing a temporary password for login. Login by using this credential
+    Temporary password : {{ pass }}
+
+    Best Regards,
+    VE - team
+
+
+{% endautoescape %}

@@ -11,8 +11,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 # EMAIL FROM SETTINGS
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
 from VirtualMain.settings import EMAIL_HOST_USER
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 
 from datetime import datetime
 from .forms import (AddUserForm)
@@ -103,16 +105,17 @@ def adminRolecreation(request):
                     return redirect('adminrolecreation')
 
                 role_user_password=request.POST['password']
-                mail_subject = "[Activate Account] VE - Virtual Employee" \
-                               "Temporary password : "
-
-                send_mail(
-                    mail_subject,
-                    role_user_password,
-                    EMAIL_HOST_USER,
-                    [role_user_email],
-                    fail_silently=False
-                )
+                mail_subject = "[Activate Account] VE - Virtual Employee"
+                current_site = get_current_site(request)
+                message = render_to_string('virtualmain_pages/user_info.html', {
+                    'user': role_user_email,
+                    'firstname': user_firstname,
+                    'lastname': user_lastname,
+                    'domain': current_site.domain,
+                    'pass': role_user_password,
+                })
+                email = EmailMessage(mail_subject, message, from_email=EMAIL_HOST_USER, to=[role_user_email])
+                email.send()
                 try:
 
                     User.objects.create_user(username = role_user_name,email= role_user_email,first_name= user_firstname,
@@ -127,7 +130,7 @@ def adminRolecreation(request):
                     messages.error(request,"Some error occured")
                     return redirect("adminaddcourse")
                 # Saving the role input in the model
-                messages.success(request,"Submitted successfully")
+                messages.success(request,"Email send successfully")
                 return redirect("adminrolecreation")
 
             # When we press Remove Button
