@@ -920,6 +920,7 @@ def category_edit(request,id):
 
 
 
+
 def test(request):
     if request.method=='POST':
         if 'category' in request.POST:
@@ -934,15 +935,25 @@ def test(request):
                 cag=request.POST['category']
                 data=CreateCourse.objects.get(create_id=0)
                 data.create_category=cag
+                data.create_role=None
                 data.save()
                 return redirect('/test/')
 
 
         if 'role' in request.POST:
             c_course=request.POST['c_course']
-            role=request.POST['role']
+            # role=request.POST['role']
             data=CreateCourse.objects.get(create_category=c_course)
-            data.create_role=role
+            # data.create_role=role
+            # data.save()
+            ch=request.POST.getlist('roles[]')
+            role=""
+            for i in ch:
+                role+=i
+                role+="+"
+            role_str=role[:-1]
+
+            data.create_role=role_str
             data.save()
             return redirect('/test/')
 
@@ -951,16 +962,16 @@ def test(request):
             confirm_role=request.POST['confirm_role']
             confirm_course=request.POST['confirm_course']
 
-            check=CFP_role.objects.get(cfp_role=confirm_role)
-            if check.cfp_category != confirm_cag:
-                messages.error(request, 'The Category do not match with CFP Role')
-                return redirect('/test/')
-            else:
-                data=CreateCourse.objects.get(create_role=confirm_role)
-                data.create_course=confirm_course
-                data.save()
-                messages.success(request,"Course Successfully Created Check Database")
-                return redirect('/csmaddcourse/')
+            # check=CFP_role.objects.get(cfp_role=confirm_role)
+            # if check.cfp_category != confirm_cag:
+            #     messages.error(request, 'The Category do not match with CFP Role')
+            #     return redirect('/test/')
+            # else:
+            data=CreateCourse.objects.get(create_role=confirm_role)
+            data.create_course=confirm_course
+            data.save()
+            messages.success(request,"Course Successfully Created Check Database")
+            return redirect('/csmaddcourse/')
             return redirect('/test/')
 
     cag_data=CareerCategory.objects.all()
@@ -968,10 +979,23 @@ def test(request):
         obj=CreateCourse.objects.get(create_id=0)
         role_list=CFP_role.objects.filter(cfp_category=obj.create_category)
         try:
-            course_text=CFP_role.objects.get(cfp_role=obj.create_role)
-            course_list=course_text.cfp_course.split('_')
+            abc=CreateCourse.objects.get(create_id=0)
+            role_text=abc.create_role
+            role_split=role_text.split('+')
+            abc=[]
+            for i in role_split:
+                course_text=CFP_role.objects.get(cfp_role=i)
+                course=course_text.cfp_course.split('_')
+                abc.append(course)
+
+            # course_list=[ele[0] for ele in zip(*abc) if len(set(ele)) == 1]
+            common=set.intersection(*[set(list) for list in abc])
+            course_list=list(common)
+            # print(course_list)
         except:
             course_list=[]
+
+
     else:
         obj="Choose"
         role_list=[]
