@@ -320,26 +320,17 @@ def userprofile(request):
                 }
                 # CFP
                 if StudentCFP.objects.filter(user_id_id=user_details.pk).exists():
-                    print("hai")
                     cfp_details = StudentCFP.objects.get(user_id_id=user_details.pk)
                     # CFP  COURSES
-                    if Course.objects.filter(category=cfp_details.category_one,role=cfp_details.role_one).exists():
-                        lists = Course.objects.filter(category=cfp_details.category_one,role=cfp_details.role_one)
-                        context = {
-                            'cfp_details': cfp_details,
-                            'user_data': user_details,
-                            'user_contact': user_contact,
-                            'user_education': user_education,
-                            'lists':lists,
-                        }
-                        return render(request, 'virtualmain_pages/user-profile.html', context)
-
-                    print(cfp_details)
+                    lists = Course.objects.filter(category=cfp_details.category_one, role=cfp_details.role_one)
+                    lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
                     context = {
                         'cfp_details': cfp_details,
                         'user_data': user_details,
                         'user_contact': user_contact,
                         'user_education': user_education,
+                        'lists': lists,
+                        'lists2': lists2
                     }
                     return render(request, 'virtualmain_pages/user-profile.html', context)
 
