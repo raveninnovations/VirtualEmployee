@@ -419,7 +419,7 @@ h2,
 
 h3,
 .uk-h3 {
-  font-size: 17px;
+  font-size: 1.53125rem;
   line-height: 1.4;
 }
 
@@ -617,8 +617,8 @@ h6,
 .h5,
 .h6 {
   margin: 0 0 15px 0;
-  font-weight: 600;
-  color: #3e416d;
+  font-weight: 500;
+  color: #0b2b48;
   text-transform: capitalize;
 }
 
