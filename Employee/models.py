@@ -6,14 +6,14 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 CATEGORY_CHOICES = (
     ('IT', 'IT & Software'),
-    ('business', 'Business & Startups'),
-    ('design', 'Designs'),
-    ('ele', 'Electronics & Electricals'),
+    ('Business & Startups', 'Business & Startups'),
+    ('Designing', 'Designing'),
+    ('Electronics & Electricals', 'Electronics & Electricals'),
 )
 DIFFICULTY_LEVEL=(
-    ('begin', 'Beginner'),
-    ('inter', 'Intermediate'),
-    ('adv', 'Advanced'),
+    ('Beginner', 'Beginner'),
+    ('Intermediate', 'Intermediate'),
+    ('Advanced', 'Advanced'),
 )
 
 
@@ -96,10 +96,10 @@ class Course(models.Model):
     tagline=models.CharField(max_length=50)
     short_description=models.CharField(max_length=100)
     course_image=models.ImageField(upload_to='csm_images/',null=True,blank=True)
-    category=models.CharField(max_length=10, choices=CATEGORY_CHOICES,null=True,blank=True)
+    category=models.CharField(max_length=30, choices=CATEGORY_CHOICES,null=True,blank=True)
     role=models.CharField(max_length=50,blank=True)
     course=models.CharField(max_length=50,blank=True)
-    difficulty_level=models.CharField(max_length=6, choices=DIFFICULTY_LEVEL,null=True, blank=True)
+    difficulty_level=models.CharField(max_length=20, choices=DIFFICULTY_LEVEL,null=True, blank=True)
 
 
     # must add quiz Details

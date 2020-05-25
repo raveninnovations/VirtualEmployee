@@ -130,7 +130,7 @@ def adminRolecreation(request):
                     messages.error(request,"Some error occured")
                     return redirect("adminaddcourse")
                 # Saving the role input in the model
-                messages.success(request,"Email send successfully")
+                messages.success(request,"Email has been sent successfully")
                 return redirect("adminrolecreation")
 
             # When we press Remove Button
@@ -585,7 +585,8 @@ def csmEditCourse(request,id):
             title = request.POST["title"]
             tagline  = request.POST["tagline"]
             short_description=request.POST["description"]
-            image = request.FILES.get('course_image')
+            course_image = request.FILES.get('course_image', None)
+            # course_image = request.FILES['course_image']
             category = request.POST["category"]
             role = request.POST["role"]
             course = request.POST["course"]
@@ -607,7 +608,9 @@ def csmEditCourse(request,id):
             datas.title=title
             datas.tagline=tagline
             datas.short_description=short_description
-            datas.course_image=image
+            if course_image is not None:
+                datas.course_image=course_image
+                print(course_image)
             datas.category=category
             datas.role=role
             datas.course=course
