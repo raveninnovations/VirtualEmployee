@@ -1225,3 +1225,8 @@ def UserCfp(request):
         'role_list_two': role_list_two
     }
     return render(request,'virtualmain_pages/user-cfp.html',context)
+
+
+
+def pricing(request):
+    return render(request,"virtualmain_pages/pricing.html")
