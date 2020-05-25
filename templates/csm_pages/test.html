@@ -4,19 +4,54 @@
 
     <div id="wrapper" class="admin-panel">
 
-    {% include 'partials/csm-tl-project_partials/_csm_header.html' %}
+        <!-- menu -->
+        <div class="page-menu">
+            <!-- btn close on small devices -->
+            <span class="btn-menu-close" uk-toggle="target: #wrapper ; cls: mobile-active"></span>
+            <!-- traiger btn -->
+            <span class="btn-menu-trigger" uk-toggle="target: .page-menu ; cls: menu-large"></span>
 
-    <div class="page-content">
+            <!-- logo -->
+            <div class="logo uk-visible@s">
+                <a href="{% url 'csmDashboard' %}" class="logo">
+                            <img src="{% static 'images/VES.png' %}" alt="">
+
+                        </a>
+
+            </div>
+            <div class="page-menu-inner" data-simplebar>
+                <ul class="mt-0">
+                    <li><a href="{% url 'csmDashboard' %}"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
+                    <li><a href="{% url 'csmAddCourse' %}"><i class="uil-youtube-alt"></i> <span>Add Course</span></a> </li>
+                    <li><a href="#"><i class="uil-envelope-alt"></i> <span> Message</span></a> </li>
+
+                </ul>
+
+
+
+            </div>
+        </div>
+
+        <!-- Header Container
+        ================================================== -->
+        {% include 'partials/csm-tl-project_partials/_csm_header.html' %}
+
+        <!-- content -->
+        <div class="page-content">
             <div class="page-content-inner">
 
                 <div class="d-flex">
                     <nav id="breadcrumbs" class="mb-3">
                         <ul>
                             <li><a href="#"> <i class="uil-home-alt"></i> </a></li>
-                            <li><a href="#"> Category/CFP Creation </a></li>
+                            <li><a href="#"> Create Course </a></li>
                         </ul>
                     </nav>
                 </div>
+
+
+
+
 
                 <div class="uk-grid">
 
@@ -25,11 +60,12 @@
 
 
                   <div class="uk-width-3-5@m" style="width: 100%">
-                    <div class="uk-width-expand my-5">
+                    <div class="uk-width-expand mb-5 mt-3">
                         <div class="card rounded">
-                          <div class=" container py-3 px-5 uk-width-expand">
 
-                                    <legend class="uk-legend mt-4 text-center">Choose Career Course </legend>
+                          <legend class="uk-legend mt-4 text-center">Choose Career Category </legend>
+
+                          <div class=" container py-3 px-5 uk-width-expand">
 
                                     <form name="course-cag" method="POST">
                                       {% csrf_token %}
@@ -38,6 +74,7 @@
                                                   class="required">*</span></label>
                                           <div class="col-md-9">
                                               <select  name="category" required onchange="submit()">
+                                                <option selected disabled>Choose Category</option>
                                                 {% for i in cag_data %}
                                                   {% if i.category == obj.create_category %}
                                                   <option value="{{i.category}}" selected> {{i.category}} </option>
@@ -52,50 +89,65 @@
                                       </div>
                                     </form>
                             </div>
-                        <div class=" container py-3 px-5 uk-width-expand">
 
-                                    <form name="cfp-role" method="POST">
-                                      {% csrf_token %}
-                                      <div class="form-group row mb-3">
-                                          <div class="col-md-9">
-                                              <input type="hidden" name="c_course" value="{{obj.create_category}}" readonly required>
-                                          </div>
-
-                                      </div>
-
-                                      <div class="form-group row mb-3">
-                                          <label class="col-md-3 col-form-label"> CFP Role <span
-                                                  class="required">*</span></label>
-                                          <div class="col-md-9">
-                                              <select  name="role" required onchange="submit()">
-                                              <option value="">Select role</option>
-                                                {% for i in role_list %}
-                                                <option value="{{i.cfp_role}}">{{i.cfp_role}}</option>
-                                                {% endfor %}
-                                              </select>
-
-                                          </div>
-
-                                      </div>
-                                    </form>
-
-                            </div>
                         </div>
 
                         </div>
                     </div>
 
-                  </div>
+
+
+                    <div class="uk-width-3-5@m" style="width: 100%">
+                      <div class="uk-width-expand mb-5">
+                          <div class="card rounded">
+
+                            <legend class="uk-legend mt-4 text-center">Choose Career Role </legend>
+
+                            <div class=" container py-3 px-5 uk-width-expand">
+
+                                        <form name="cfp-role" method="POST">
+                                          {% csrf_token %}
+                                          <fieldset class="uk-fieldset">
+                                          <div class="form-group row mb-3">
+                                            <label class="col-md-3 col-form-label"> Selected Category <span
+                                                    class="required">*</span></label>
+                                              <div class="col-md-9">
+                                                  <input type="text" name="c_course" value="{{obj.create_category}}" readonly required>
+                                              </div>
+
+                                          </div>
+
+                                          <h5>List of Available Career Roles:</h5>
+                                          <div class="uk-margin  uk-grid">
+                                            {% for i in role_list %}
+                                                     <label><input class="uk-checkbox py-1 px-3 mx-2" type="checkbox" name="roles[]" value="{{i.cfp_role}}">{{i.cfp_role}}</label>
+                                            {%endfor%}
+                                           </div>
+
+                                            <div class="form-group uk-text-center">
+                                              <button  class="btn btn-default px-5" name="role">Save</button>
+                                            </div>
+
+                                           </fieldset>
+                                        </form>
+
+
+                                </div>
+                              </div>
+                          </div>
+                      </div>
+
+
 
 
                   <div class="uk-width-3-5@m" style="width: 100%" >
                     <div class="uk-width-expand ">
                       {% include 'partials/_alerts.html' %}
                         <div class="card rounded">
-                          <div class=" container py-3 px-5 uk-width-expand">
 
-                                    <legend class="uk-legend mt-4 text-center">Submit CFP Course</legend>
+                          <legend class="uk-legend mt-4 text-center">Create CFP Course</legend>
 
+                            <div class=" container py-3 px-5 uk-width-expand">
                                     <form name="cfp-course" method="POST">
                                         {% csrf_token %}
                                       <div class="form-group row mb-3">
@@ -122,16 +174,24 @@
                                                   class="required">*</span></label>
                                           <div class="col-md-9">
                                               <select  name="confirm_course" id="selectbox1" required>
-                                                <option selected disabled></option>
+                                                <option selected disabled>Select Course Tags</option>
                                                 {% for i in course_list %}
                                                   <option value="{{i}}">{{i}}</option>
                                                 {% endfor %}
                                               </select>
-                                              <div class="">
-                                                <button class="btn btn-default" name="course-submit">Submit Course</button>
-                                              </div>
                                           </div>
+                                      </div>
 
+                                      <h6>Note:</h6>
+                                      <ul class="">
+                                        <li><p>Kindly check all the selected data carefully</p></li>
+                                        <li><p>Once the Course is created then the category, role and course data cannot be changed</p></li>
+                                        <li><p>Other than the above mentioned fields, all other fields are editable</p></li>
+                                      </ul>
+
+
+                                      <div class="uk-text-center my-4">
+                                        <button class="btn btn-default" name="course-submit">Start Creating Course</button>
                                       </div>
                                     </form>
                             </div>
@@ -139,26 +199,15 @@
                     </div>
                   </div>
 
-                </div>
-              <!-- footer
+
+
+
+            </div>
+
+
+                <!-- footer
                 ================================================== -->
-                <div class="footer">
-                    <div class="uk-grid-collapse" uk-grid>
-                        <div class="uk-width-expand@s uk-first-column">
-                            <p>© 2019 <strong>Courseplus</strong>. All Rights Reserved. </p>
-                        </div>
-                        <div class="uk-width-auto@s">
-                            <nav class="footer-nav-icon">
-                                <ul>
-                                    <li><a href="#"><i class="icon-brand-facebook"></i></a></li>
-                                    <li><a href="#"><i class="icon-brand-dribbble"></i></a></li>
-                                    <li><a href="#"><i class="icon-brand-youtube"></i></a></li>
-                                    <li><a href="#"><i class="icon-brand-twitter"></i></a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
+                {% include 'partials/_footer.html' %}
 
             </div>
 
@@ -166,9 +215,6 @@
 
         <!-- For Night mode -->
         <script>
-
-
-
             (function (window, document, undefined) {
                 'use strict';
                 if (!('localStorage' in window)) return;
@@ -203,80 +249,7 @@
 
             })(window, document);
 
-
-              // Random Password Generator
-
-            var keylist="abcdefghijklmnopqrstuvwxyz123456789"
-            var temp=''
-
-            function generatepass(plength){
-            temp=''
-            for (i=0;i<plength;i++)
-            temp+=keylist.charAt(Math.floor(Math.random()*keylist.length))
-            return temp
-            }
-
-            function populateform(enterlength){
-            document.pgenerate.password.value=generatepass(enterlength)
-            }
-
-
-
-            // Skill Addition
-
-          // now, add a new to the TABLE.
-          function addSkillRow() {
-              var empTab = document.getElementById('SkillsTable');
-
-              var rowCnt = empTab.rows.length;   // table row count.
-              var tr = empTab.insertRow(rowCnt); // the table row.
-              tr = empTab.insertRow(rowCnt);
-
-              for (var c = 0; c < 1; c++) {
-                  var td = document.createElement('td'); // table definition.
-                  td = tr.insertCell(c);
-                      var ele = document.createElement('input');
-                      ele.setAttribute('type', 'text');
-                      ele.setAttribute('placeholder', 'Add Skills');
-                      td.appendChild(ele);
-
-              }
-          }
-
-
-          // function to extract and submit table data.
-          function Skillsubmit() {
-              var myTab = document.getElementById('SkillsTable');
-              var arrValues =new Array()
-
-              // loop through each row of the table.
-              for (row = 0; row < myTab.rows.length ; row++) {
-                // loop through each cell in a row.
-                  for (c = 0; c < myTab.rows[row].cells.length; c++) {
-                      var element = myTab.rows.item(row).cells[c];
-                      if (element.childNodes[0].getAttribute('type') == 'text') {
-                          arrValues.push(element.childNodes[0].value);
-                      }
-                  }
-              }
-
-              var str="";
-              for(i=0;i<arrValues.length;i++)
-              {
-                str=str.concat(arrValues[i])
-                str=str+'_';
-              }
-
-              req_str=str.substring(0,str.length-1)
-
-              // The final output.
-              // document.getElementById('Reqoutput').innerHTML = req_str;
-
-              var ele1=document.getElementById('sout');
-              ele1.setAttribute('value',req_str);
-          }
-        </script>
-
-
+            </script>
     </div>
+
 {% endblock %}

@@ -81,11 +81,35 @@
                             {% if lists %}
                             {% for list in lists %}
                             <div class="uk-card uk-card-default mx-5 my-4 rounded">
+                            {% if list.course_image %}
                                 <div class="uk-card-media-top rounded" >
                                     <img src="{{ list.course_image.url }} " class="rounded"  alt="">
                                 </div>
+                             {% else %}
+                                <div class="uk-card-media-top rounded" >
+                                    <img src="{% static 'images/course/1.png' %}" class="rounded"  alt="">
+                                </div>
+                                {% endif %}
                                 <div class="uk-card-body p-3">
                                     <h6 >{{ list.course }}</h6>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                        {% if lists2 %}
+                            {% for list2 in lists2 %}
+                            <div class="uk-card uk-card-default mx-5 my-4 rounded">
+                            {% if list2.course_image %}
+                                <div class="uk-card-media-top rounded" >
+                                    <img src="{{ list2.course_image.url }} " class="rounded"  alt="">
+                                </div>
+                             {% else %}
+                                <div class="uk-card-media-top rounded" >
+                                    <img src="{% static 'images/course/1.png' %}" class="rounded"  alt="">
+                                </div>
+                                {% endif %}
+                                <div class="uk-card-body p-3">
+                                    <h6 >{{ list2.course }}</h6>
                                 </div>
                             </div>
                             {% endfor %}
@@ -93,7 +117,7 @@
 
 
 
-                            
+
                         </div>
 
 
@@ -207,6 +231,8 @@
 
                                 </div>
                                     {% endfor %}
+                                    {% else %}
+                                    <p>Currently no courses under this category</p>
                                     {% endif %}
 
 
@@ -231,6 +257,8 @@
 
                             <hr class="m-0">
                             <div class="p-3">
+                                {% if lists2 %}
+                                    {% for list2 in lists2 %}
 
                                 <div class="uk-grid-small uk-flex-middle" uk-grid>
 
@@ -242,9 +270,9 @@
                                           </button>
                                     </div>
                                     <div class="uk-width-expand">
-                                        <h5 class="mb-2"> Angular </h5>
+                                        <h5 class="mb-2"> {{ list2.title }} </h5>
                                         <div class="course-progressbar">
-                                            <div class="course-progressbar-filler" style="width:100%"></div>
+                                            <div class="course-progressbar-filler" style="{{ list2.course_points }}%"></div>
                                         </div>
                                     </div>
 
@@ -253,50 +281,13 @@
                                     </div>
 
                                 </div>
+                                    {% endfor %}
 
-                                <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                {% else %}
+                                    <p>Currently no courses available under this category</p>
+                                 {% endif %}
 
-                                    <div class="uk-width-auto">
-                                        <button type="button" class="btn btn-warning btn-icon-only">
-                                            <span class="d-flex justify-content-center">
-                                                <i class="icon-brand-html5 icon-small"></i>
-                                            </span>
-                                          </button>
-                                    </div>
-                                    <div class="uk-width-expand">
-                                        <h5 class="mb-2"> html5 </h5>
-                                        <div class="course-progressbar">
-                                            <div class="course-progressbar-filler" style="width:35%"></div>
-                                        </div>
-                                    </div>
 
-                                    <div class="mx-4">
-                                      <a href="#"> Badge </a>
-                                    </div>
-
-                                </div>
-
-                                <div class="uk-grid-small uk-flex-middle" uk-grid>
-
-                                    <div class="uk-width-auto">
-                                        <button type="button" class="btn btn-primary btn-icon-only">
-                                            <span class="d-flex justify-content-center">
-                                                <i class="icon-brand-css3-alt icon-small"></i>
-                                            </span>
-                                          </button>
-                                    </div>
-                                    <div class="uk-width-expand">
-                                        <h5 class="mb-2"> css3 </h5>
-                                        <div class="course-progressbar">
-                                            <div class="course-progressbar-filler" style="width:65%"></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mx-4">
-                                      <a href="#"> Badge </a>
-                                    </div>
-
-                                </div>
                             </div>
                         </div>
                     {% endif %}

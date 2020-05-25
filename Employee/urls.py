@@ -38,5 +38,6 @@ urlpatterns = [
     path('category_edit/<int:id>',views.category_edit,name='categoryEdit'),
     path('test/',views.test,name='test'),
     # path('careerchoice/',views.careerchoice,name='careerchoice'),
-    path('usercfp/', views.UserCfp, name='usercfp')
+    path('usercfp/', views.UserCfp, name='usercfp'),
+    path('pricing/',views.pricing,name='pricing')
     ]

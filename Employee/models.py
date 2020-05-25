@@ -170,7 +170,7 @@ class ProjectManager(models.Model):
 class CreateCourse(models.Model):
     create_id=models.IntegerField(default=0)
     create_category=models.CharField(max_length=255)
-    create_role=models.CharField(max_length=255)
+    create_role=models.CharField(max_length=255,null=True)
     create_course=models.CharField(max_length=255)
     create_time=models.DateTimeField(default=datetime.now,blank=True)
 
