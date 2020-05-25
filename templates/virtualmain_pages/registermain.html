@@ -27,19 +27,19 @@
                 </div>
 
                 <!-- column two -->
-                <div class="uk-card-default rounded uk-width-expand mt-5 pt-5 px-4 ">
+                <div class="uk-card-default rounded uk-width-expand mt-5 pt-4 px-4 ">
                   <div class="mb-2 uk-text-center">{% include 'partials/_alerts.html' %}
                       <h3 class="mb-0"> Create new Account</h3>
                       <p class="my-2">Login to manage your account.</p>
                   </div>
                     <ul class="uk-child-width-expand uk-tab"
-                        uk-switcher="connect: #course-edit-tab ; animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium">
-                        <li><a href="#">Register</a></li>
-                        <li><a href="#">License</a></li>
+                        uk-switcher="connect: #course-edit-tab ; animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium" hidden>
+                        <li><a href="#" id="back">Register</a></li>
+                        <li><a href="#" id="next">License</a></li>
                     </ul>
                     <form class="uk-child-width-1-1 uk-grid-small" uk-grid method="post">
                         {% csrf_token %}
-                    <div class="card-body pb-5 pt-2">
+                    <div class="card-body pb-4 pt-2">
                         <ul class="uk-switcher uk-margin" id="course-edit-tab">
                             <li>
                               <!-- column two -->
@@ -158,18 +158,36 @@
                                       }
                                       </script>
 
+                                      <div class="text-right uk-width-expand mt-1">
+                                        <button class="btn btn-default ml-auto px-5" type="button" id="bb" onclick="next();" name="button">Next <i class="uil-angle-right"></i> </button>
+
+                                        <!-- tab switch -->
+                                        <script>
+                                         function next()
+                                            {
+                                              document.getElementById("next").click();
+                                            }
+                                        </script>
+                                      </div>
+
 
                             </li>
 
 
                             <li>
 
-                              <div class="uk-margin">
-                                  <h6>Have License Key ?</h6>
+                              <div>
+                                  <div class="uk-form-group mx-1">
+                                      <label class="uk-form-label"> License Key (Optional)</label>
 
-                                  <label><input class="uk-checkbox p-1 px-3 mx-2" type="checkbox" name="yes-license">Yes</label>
-                                  <label><input class="uk-checkbox p-1 px-3 mx-2" type="checkbox" name="no-license">No</label>
+                                      <div class="uk-position-relative w-100">
+                                          <span class="uk-form-icon">
+                                              <i class="uil-key-skeleton-alt"></i>
+                                          </span>
+                                          <input class="uk-input" type="text" name="license" placeholder="Only for license key holder">
+                                      </div>
 
+                                  </div>
                               </div>
 
 
@@ -183,6 +201,18 @@
 
                                       </div>
                                   </div>
+                              </div>
+
+                              <div class="text-left uk-width-expand mt-2">
+                                <button class="btn btn-default ml-auto pr-5 pl-4" id="bb" type="button" onclick="back();" name="button"><i class="uil-angle-left"></i>Back</button>
+
+                                <!-- tab switch -->
+                                <script>
+                                 function back()
+                                    {
+                                      document.getElementById("back").click();
+                                    }
+                                </script>
                               </div>
                             </li>
                         </ul>
