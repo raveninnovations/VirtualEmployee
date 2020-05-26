@@ -1,10 +1,160 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base1.html' %}
+{% load static %}
+{% block content %}
 
-</body>
-</html>
+
+    <div id="wrapper">
+
+            <div class="course-layouts">
+
+                <div class="course-content bg-dark">
+
+                    <div class="course-header">
+
+                        <a href="#" class="btn-back" uk-toggle="target: .course-layouts; cls: course-sidebar-collapse">
+                            <i class="icon-feather-chevron-left"></i>
+                        </a>
+
+                        <h4 class="text-white"> Build Responsive Websites </h4>
+
+                        <div>
+                            <a href="#">
+                                <i class="icon-feather-help-circle btns"></i> </a>
+                            <div uk-drop="pos: bottom-right;mode : click">
+                                <div class="uk-card-default p-4">
+                                    <h4> Elementum tellus id mauris faucibuss soluta nobis </h4>
+                                    <p class="mt-2 mb-0">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
+                                        diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
+                                        volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
+                                        suscipit lobortis nisl ut aliquip ex ea commodo consequat. Nam liber tempor cum
+                                        soluta nobis eleifend option congue nihil imperdiet</p>
+                                </div>
+                            </div>
+
+                            <a hred="#">
+                                <i class="icon-feather-more-vertical btns"></i>
+                            </a>
+                            <div class="dropdown-option-nav " uk-dropdown="pos: bottom-right ;mode : click">
+                                <ul>
+
+                                    <li><a href="#">
+                                            <i class="icon-feather-bookmark"></i>
+                                            Add To Bookmarks</a></li>
+                                    <li><a href="#">
+                                            <i class="icon-feather-share-2"></i>
+                                            Share With Friend </a></li>
+
+                                    <li>
+                                        <a href="#" id="night-mode" class="btn-night-mode">
+                                            <i class="icon-line-awesome-lightbulb-o"></i> Night mode
+                                            <label class="btn-night-mode-switch">
+                                                <div class="uk-switch-button"></div>
+                                            </label>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="course-content-inner">
+
+                        <ul id="video-slider" class="uk-switcher">
+                        {% if lessons %}
+                                {% for curriculam in lessons %}
+                            {% for topic in topics %}
+                                            {% if topic.topic_id_id == curriculam.pk %}
+                             <div class="video-responsive">
+                                    <iframe src="{{ topic.topic_video.url }}" frameborder="0"
+                                        uk-video="automute: true" allowfullscreen uk-responsive></iframe>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                        {% endif %}
+
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <!-- course sidebar -->
+
+                <div class="course-sidebar">
+                    <div class="course-sidebar-title">
+                        <h3> Table of Contents </h3>
+                    </div>
+                    <div class="course-sidebar-container" data-simplebar>
+
+                        <ul class="course-video-list-section" uk-accordion>
+                            {% if lessons %}
+                                {% for curriculam in lessons %}
+                             <li>
+                                <a class="uk-accordion-title" href="#"> {{ curriculam.lesson_name }} </a>
+                                <div class="uk-accordion-content">
+                                    <!-- course-video-list -->
+                                    <ul class="course-video-list highlight-watched" uk-switcher=" connect: #video-slider  ; animation: uk-animation-slide-right-small, uk-animation-slide-left-medium">
+                                        {% for topic in topics %}
+                                            {% if topic.topic_id_id == curriculam.pk %}
+                                                <br>
+
+                                                <li class=""> <a href="#"> {{ topic.topic_caption }} <span> 5 min </span> </a>
+
+                                            {% endif %}
+                                      {% endfor %}
+                                    </ul>
+                                </div>
+                            </li>
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script>
+            function make_button_active(tab) {
+                //Get item siblings
+                var siblings = tab.siblings();
+
+                /* Remove active class on all buttons
+                siblings.each(function(){
+                    $(this).removeClass('active');
+                }) */
+
+                //Add the clicked button class
+                tab.addClass('watched');
+            }
+
+            //Attach events to highlight-watched
+            $(document).ready(function () {
+
+                if (localStorage) {
+                    var ind = localStorage['tab']
+                    make_button_active($('.highlight-watched li').eq(ind));
+                }
+
+                $(".highlight-watched li").click(function () {
+                    if (localStorage) {
+                        localStorage['tab'] = $(this).index();
+                    }
+                    make_button_active($(this));
+                });
+
+            });
+        </script>
+
+{% endblock %}

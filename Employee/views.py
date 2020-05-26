@@ -334,8 +334,6 @@ def userCourse(request,id):
 
 
 
-
-
         context ={
             'course_details':course_details,
             'lessons': lessons,
@@ -347,6 +345,24 @@ def userCourse(request,id):
         messages.error(request,"Wrong url")
         return redirect('login')
 
+
+def userLesson(request,id):
+    if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        user = request.user
+        course_details = Course.objects.get(id = id)
+        print(course_details.pk)
+        lessons = Lesson.objects.filter(lesson_id_id=course_details.pk)
+        topics = Lesson_Topic.objects.all()
+
+
+
+        context ={
+            'course_details':course_details,
+            'lessons': lessons,
+            'topics': topics,
+        }
+
+    return render(request,'virtualmain_pages/user_course_lesson.html',context)
 
 @login_required
 def userprofile(request):
