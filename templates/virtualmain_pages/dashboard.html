@@ -267,9 +267,9 @@
                             {% if lists %}
                           {% for list in lists %}
                             <li>
-                                <a href="{% url 'usercourse' %}">
+                                <a href="{% url 'usercourse' list.pk %}">
                                     <div class="course-card">
-                                        {% if course.course_image %}
+                                        {% if list.course_image %}
                                         <div class="course-card-thumbnail ">
                                             <img src="{{ list.course_image.url }}" >
                                             <span class="play-button-trigger"></span>
