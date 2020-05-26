@@ -97,20 +97,48 @@
                                             </div>
                                         </div>
 
+                                        {% if datas.course_image %}
                                         <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label" for="short_description">Course Image</label>
                                             <div class="col-md-9">
-                                                {% if datas.course_image %}
+                                                
                                               <div class=" ">
                                                 <img src="{{datas.course_image.url}}" alt="No image">
                                               </div>
-                                                {% else %}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-3">
+                                            <label class="col-md-3 col-form-label" for="short_description">Change the Course Image</label>
+                                            <div class="col-md-9">
                                                 <input type="file" id="real-file" name="course_image"
-                                                 hidden="hidden"/>
-                                             <a class="btn btn-default mb-3"  onclick="" id="Upload-button"> <i>
-                                                class='uil-plus'></i>Upload</a>
+                                                hidden="hidden"/>
+                                                <a class="btn btn-default mb-3"  onclick="" id="Upload-button"> <i
+                                                    class='uil-plus'>
+                                                    
+                                                </i>Upload</a>
                                                 <span id="custom-text">No file choosen</span>
-                                                {% endif %}
+                                                
+                                                
+                                                
+                                            </div>
+                                        </div>
+                                        {% else %}
+                                        <div class="form-group row mb-3">
+                                            <label class="col-md-3 col-form-label" for="short_description">Course Image</label>
+                                            <div class="col-md-9">
+                                                <input type="file" id="real-file" name="course_image"
+                                                hidden="hidden"/>
+                                                <a class="btn btn-default mb-3"  onclick="" id="Upload-button"> <i
+                                                    class='uil-plus'>
+                                                    
+                                                </i>Upload</a>
+                                                <span id="custom-text">No file choosen</span>
+                                                
+                                                
+                                                
+                                            </div>
+                                        </div>
+                                        {% endif %}
 
                                                 <script type="text/javascript">
                                                 const realFileBtn = document.getElementById("real-file");
@@ -132,9 +160,6 @@
                                             });
 
                                                 </script>
-
-                                            </div>
-                                        </div>
 
                                         <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label" for="course_title">Category<span
@@ -163,16 +188,23 @@
                                             </div>
                                         </div>
 
-                                        
                                         <div class="form-group row mb-3">
-                                            <label class="col-md-3 col-form-label" > Difficulty Level <span
+                                            <label class="col-md-3 col-form-label" for="course_title">Difficulty level<span
                                                     class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="difficulty_level"
+                                                    value="{{ datas.difficulty_level }}" required="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-3">
+                                            <label class="col-md-3 col-form-label" >Change Difficulty Level <span
+                                                    class="required"></span></label>
                                             <div class="col-md-9">
 
                                                 <select name="difficulty_level" class="selectpicker">
-                                                    <option value="begin"> Beginner </option>
-                                                    <option value="inter"> Intermediate </option>
-                                                    <option value="adv"> Advanced</option>
+                                                    <option value="Beginner"> Beginner </option>
+                                                    <option value="Intermediate"> Intermediate </option>
+                                                    <option value="Advanced"> Advanced</option>
                                                 </select>
 
                                             </div>

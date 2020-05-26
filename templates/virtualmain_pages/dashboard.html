@@ -244,20 +244,13 @@
 
                 </div>
 
-
-
-
-
-
-
-
                 <div class="section-small pt-0">
 
                     <div class="course-grid-slider" uk-slider="finite: true">
 
                         <div class="grid-slider-header">
                             <div>
-                                <h4 class="uk-text-truncate"> Courses by CFP
+                                <h4 class="uk-text-truncate"> Courses by CFP</h4>
 
                             </div>
                             <div class="grid-slider-header-link">
@@ -270,28 +263,31 @@
                         </div>
 
                         <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-3@s uk-grid">
-                          {% for course in course_data %}
+                        {% if cfp_details %}
+                            {% if lists %}
+                          {% for list in lists %}
                             <li>
-                                <a href="course-intro.html">
+                                <a href="{% url 'usercourse' %}">
                                     <div class="course-card">
                                         {% if course.course_image %}
                                         <div class="course-card-thumbnail ">
-                                            <img src="{{course.course_image.url}}" >
+                                            <img src="{{ list.course_image.url }}" >
                                             <span class="play-button-trigger"></span>
                                         </div>
                                         {% else %}
+                                            <p>Course image is not provided</p>
                                         {% endif %}
                                         <div class="course-card-body">
                                             <div class="course-card-info">
                                                 <div>
-                                                    <span class="catagroy">{{course.category}}</span>
+                                                    <span class="catagroy">{{list.category}}</span>
                                                 </div>
                                                 <div>
                                                     <i class="icon-feather-bookmark icon-small"></i>
                                                 </div>
                                             </div>
-                                            <h4>{{course.title}}</h4>
-                                            <p> {{course.tagline}} </p>
+                                            <h4>{{list.title}}</h4>
+                                            <p> {{list.tagline}} </p>
                                             <div class="course-card-footer">
                                                 <h5> <i class="icon-feather-film"></i> 12 Lectures </h5>
                                                 <h5> <i class="icon-feather-clock"></i> 64 Hours </h5>
@@ -303,6 +299,46 @@
 
                             </li>
                             {% endfor %}
+                                {% endif %}
+                        {% endif %}
+                        {% if cfp_details %}
+                            {% if lists2 %}
+                          {% for list in lists2 %}
+                            <li>
+                                <a href="{% url 'usercourse' list.pk %}">
+                                    <div class="course-card">
+                                        {% if list.course_image %}
+                                        <div class="course-card-thumbnail ">
+                                            <img src="{{ list.course_image.url }}" >
+                                            <span class="play-button-trigger"></span>
+                                        </div>
+                                        {% else %}
+                                            <p>Course image is not provided</p>
+                                        {% endif %}
+                                        <div class="course-card-body">
+                                            <div class="course-card-info">
+                                                <div>
+                                                    <span class="catagroy">{{list.category}}</span>
+                                                </div>
+                                                <div>
+                                                    <i class="icon-feather-bookmark icon-small"></i>
+                                                </div>
+                                            </div>
+                                            <h4>{{list.title}}</h4>
+                                            <p> {{list.tagline}} </p>
+                                            <div class="course-card-footer">
+                                                <h5> <i class="icon-feather-film"></i> 12 Lectures </h5>
+                                                <h5> <i class="icon-feather-clock"></i> 64 Hours </h5>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </a>
+
+                            </li>
+                            {% endfor %}
+                                {% endif %}
+                        {% endif %}
                         </ul>
 
                     </div>
