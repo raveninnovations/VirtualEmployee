@@ -233,7 +233,7 @@ def adduser(request):
             messages.error(request, 'Some error occured !')
             return redirect('register')
         messages.success(request, 'User Added!')
-        return redirect('register')
+        return redirect('dashboard')
     context ={
         'form':form
     }
@@ -287,7 +287,27 @@ def logout(request):
 @login_required
 def userdashboard(request):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
-        course_data=Course.objects.all()
+        user = request.user
+
+        user_details = UserDetails.objects.get(user_id_id=user.pk)
+        course_data = Course.objects.all()
+        try:
+            if StudentCFP.objects.filter(user_id_id=user_details.pk).exists():
+                cfp_details = StudentCFP.objects.get(user_id_id=user_details.pk)
+                # CFP  COURSES
+                lists = Course.objects.filter(category=cfp_details.category_one, role=cfp_details.role_one)
+                lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
+                context ={
+                    'cfp_details':cfp_details,
+                    'lists':lists,
+                    'lists2':lists2,
+                    'course_data': course_data,
+
+                }
+                return render(request,'virtualmain_pages/dashboard.html',context)
+        except:
+            print("Error")
+
         context={
             'course_data':course_data,
         }
@@ -295,6 +315,22 @@ def userdashboard(request):
     else:
         messages.error(request,"Wrong URL")
         return redirect('logout')
+
+@login_required
+def userCourse(request,id):
+    if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        user = request.user
+        course_details = Course.objects.get(id = id)
+
+        context ={
+            'course_details':course_details,
+        }
+
+        return render(request,"virtualmain_pages/user_course_intro.html",context)
+    else:
+        messages.error(request,"Wrong url")
+        return redirect('login')
+
 
 @login_required
 def userprofile(request):
@@ -324,6 +360,7 @@ def userprofile(request):
                     # CFP  COURSES
                     lists = Course.objects.filter(category=cfp_details.category_one, role=cfp_details.role_one)
                     lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
+
                     context = {
                         'cfp_details': cfp_details,
                         'user_data': user_details,
