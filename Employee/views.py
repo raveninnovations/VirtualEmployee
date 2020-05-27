@@ -1,6 +1,7 @@
 import re
 import random
 import uuid
+import datetime as dt
 from django.contrib import messages
 from email_validator import validate_email, EmailNotValidError
 from django.contrib.auth import login,logout,authenticate
@@ -10,6 +11,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+
+from moviepy.editor import VideoFileClip
 # EMAIL FROM SETTINGS
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -233,7 +236,7 @@ def adduser(request):
             messages.error(request, 'Some error occured !')
             return redirect('register')
         messages.success(request, 'User Added!')
-        return redirect('register')
+        return redirect('dashboard')
     context ={
         'form':form
     }
@@ -287,7 +290,31 @@ def logout(request):
 @login_required
 def userdashboard(request):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
-        course_data=Course.objects.all()
+        user = request.user
+
+        user_details = UserDetails.objects.get(user_id_id=user.pk)
+        course_data = Course.objects.all()
+        try:
+            if StudentCFP.objects.filter(user_id_id=user_details.pk).exists():
+
+                cfp_details = StudentCFP.objects.get(user_id_id=user_details.pk)
+
+                # CFP  COURSES
+                lists = Course.objects.filter(category=cfp_details.category_one, role=cfp_details.role_one)
+
+                lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
+                print("haaaaai")
+                context = {
+                    'cfp_details':cfp_details,
+                    'lists':lists,
+                    'lists2':lists2,
+                    'course_data': course_data,
+
+                }
+                return render(request,'virtualmain_pages/dashboard.html',context)
+        except:
+            print("Error")
+
         context={
             'course_data':course_data,
         }
@@ -295,6 +322,47 @@ def userdashboard(request):
     else:
         messages.error(request,"Wrong URL")
         return redirect('logout')
+
+@login_required
+def userCourse(request,id):
+    if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        user = request.user
+        course_details = Course.objects.get(id = id)
+        print(course_details.pk)
+        lessons = Lesson.objects.filter(lesson_id_id=course_details.pk)
+        topics = Lesson_Topic.objects.all()
+
+
+
+        context ={
+            'course_details':course_details,
+            'lessons': lessons,
+            'topics': topics,
+        }
+
+        return render(request,"virtualmain_pages/user_course_intro.html",context)
+    else:
+        messages.error(request,"Wrong url")
+        return redirect('login')
+
+
+def userLesson(request,id):
+    if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        user = request.user
+        course_details = Course.objects.get(id = id)
+        print(course_details.pk)
+        lessons = Lesson.objects.filter(lesson_id_id=course_details.pk)
+        topics = Lesson_Topic.objects.all()
+
+
+
+        context ={
+            'course_details':course_details,
+            'lessons': lessons,
+            'topics': topics,
+        }
+
+    return render(request,'virtualmain_pages/user_course_lesson.html',context)
 
 @login_required
 def userprofile(request):
@@ -324,6 +392,7 @@ def userprofile(request):
                     # CFP  COURSES
                     lists = Course.objects.filter(category=cfp_details.category_one, role=cfp_details.role_one)
                     lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
+
                     context = {
                         'cfp_details': cfp_details,
                         'user_data': user_details,
@@ -654,11 +723,18 @@ def csmAddCurriculam(request,id):
                 topic_caption = request.POST['topic_descrip']
                 topic_video = request.FILES.get('topic_video')
                 lesson = request.POST['les_id']
+                video = VideoFileClip(topic_video.temporary_file_path())
+                print("Duration")
+                video_sec = video.duration
+                video_hr = str(dt.timedelta(seconds=video_sec))
+                print(video_hr)
+                video_dur = video_hr[:video_hr.index('.')]
+
                 try:
                     lesson_private = Lesson.objects.get(lesson_private=lesson)
                     if lesson_private:
                         print("enter")
-                        topic = Lesson_Topic(topic_id_id=lesson_private.pk, topic_caption=topic_caption, topic_video= topic_video)
+                        topic = Lesson_Topic(topic_id_id=lesson_private.pk, topic_caption=topic_caption, topic_video= topic_video,video_duration=video_dur)
                         topic.save()
                         messages.success(request,"Topic added to lesson")
                     else:
