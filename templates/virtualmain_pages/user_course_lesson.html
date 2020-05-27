@@ -68,8 +68,10 @@
                             {% for topic in topics %}
                                             {% if topic.topic_id_id == curriculam.pk %}
                              <div class="video-responsive">
-                                    <iframe src="{{ topic.topic_video.url }}" frameborder="0"
-                                        uk-video="automute: true" allowfullscreen uk-responsive></iframe>
+                                    <video width='60%' height="40%" style="display:block; margin:0 auto;" controls >
+                                                    <source src="{{ topic.topic_video.url }}" type='video/mp4'>
+                                                    Your browser does not support the video tag.
+                                                </video>
                                 </div>
                             {% endif %}
                         {% endfor %}
@@ -103,7 +105,12 @@
                                             {% if topic.topic_id_id == curriculam.pk %}
                                                 <br>
 
-                                                <li class=""> <a href="#"> {{ topic.topic_caption }} <span> 5 min </span> </a>
+{#                                                <li class=""> <a href="#"> {{ topic.topic_caption }} <span> 5 min </span> </a></li>#}
+{#                                                <li><video width='60%' height="40%" style="display:block; margin:0 auto;" controls hidden>#}
+{#                                                    <source src="{{ topic.topic_video.url }}" type='video/mp4'>#}
+{#                                                    Your browser does not support the video tag.#}
+{#                                                </video></li>#}
+                                                <li><input type="submit" value="{{ topic.topic_caption }}" style="width: 100%"> </li>
 
                                             {% endif %}
                                       {% endfor %}
