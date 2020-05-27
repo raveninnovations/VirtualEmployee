@@ -161,18 +161,17 @@
                               </div>
 
                               <div class="ml-0">
-                                <button class="uk-button btn-default uk-width-expand mx-2" type="button">Select</button>
+                                <input class="uk-button btn-default uk-width-expand mx-2" type="button"  value="Select">
                                 <div uk-dropdown="pos: bottom-left">
+                                  {% for item in cfp_list %}
                                     <ul class="uk-nav uk-dropdown-nav">
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Web Developer</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Machine Learning</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Data Science</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">App Development</span></li>
-
-                                    </ul>
+                                        <li class="uk-width-expand" ><input class="" name="project_cfp" style="height:15px; width:15px;" id="item{{ forloop.counter }}"  value="{{ item.cfp_role }}" type="checkbox"/>
+                                          &nbsp;<span class="ml-3">{{item.cfp_role}}</span>
+                                        </li>
+                                      
+                                      </ul>
+                                        
+                                  {% endfor %}
                                 </div>
                               </div>
 

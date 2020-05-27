@@ -24,13 +24,13 @@
                       <li><a href="{% url 'adminprojects' %}"><i class="uil-robot"></i> <span>Projects</span></a> </li>
                     <li><a href="{% url 'adminLicense' %}"><i class="uil-key-skeleton"></i> <span>Licence Key</span></a> </li>
 
-                    <li><a href="students.html"><i class="uil-users-alt"></i> <span> students</span></a> </li>
-                    <li><a href="instructures.html"><i class="uil-graduation-hat"></i> <span> Instructers</span></a>
+                    <li><a href="students.html"><i class="uil-users-alt"></i> <span> Students</span></a> </li>
+                    <li><a href="instructors.html"><i class="uil-graduation-hat"></i> <span> Instructors</span></a>
                     </li>
 
 
                     <li><a href="#"><i class="uil-file-alt"></i> <span> News</span></a> </li>
-                       <li><a href="messages.html"><i class="uil-envelope-alt"></i> <span> Message</span></a> </li>
+                       <li><a href="messages.html"><i class="uil-envelope-alt"></i> <span> Messages</span></a> </li>
                 </ul>
 
 
@@ -146,7 +146,7 @@
                                                 <span class="notification-icon btn btn-soft-danger disabled">
                                                     <i class="icon-feather-thumbs-up"></i></span>
                                                 <span class="notification-text">
-                                                    <strong>Adrian Mohani</strong> Like Your Comment On Course
+                                                    <strong>Adrian Mohani</strong> Liked Your Comment On Course
                                                     <span class="text-primary">Javascript Introduction </span>
                                                     <br> <span class="time-ago"> 9 hours ago </span>
                                                 </span>
@@ -157,7 +157,7 @@
                                                 <span class="notification-icon btn btn-soft-primary disabled">
                                                     <i class="icon-feather-message-circle"></i></span>
                                                 <span class="notification-text">
-                                                    <strong>Stella Johnson</strong> Replay Your Comments in
+                                                    <strong>Stella Johnson</strong> Replied For Your Comment in
                                                     <span class="text-primary">Programming for Games</span>
                                                     <br> <span class="time-ago"> 12 hours ago </span>
                                                 </span>
@@ -168,7 +168,7 @@
                                                 <span class="notification-icon btn btn-soft-success disabled">
                                                     <i class="icon-feather-star"></i></span>
                                                 <span class="notification-text">
-                                                    <strong>Alex Dolgove</strong> Added New Review In Course
+                                                    <strong>Alex Dolgove</strong> Added New Review In The Course
                                                     <span class="text-primary">Full Stack PHP Developer</span>
                                                     <br> <span class="time-ago"> 19 hours ago </span>
                                                 </span>
@@ -179,7 +179,7 @@
                                                 <span class="notification-icon btn btn-soft-danger disabled">
                                                     <i class="icon-feather-share-2"></i></span>
                                                 <span class="notification-text">
-                                                    <strong>Jonathan Madano</strong> Shared Your Discussion On Course
+                                                    <strong>Jonathan Madano</strong> Shared Your Discussion On The Course
                                                     <span class="text-primary">Css Flex Box </span>
                                                     <br> <span class="time-ago"> Yesterday </span>
                                                 </span>
@@ -285,7 +285,7 @@
                                 {% if user.is_authenticated %}
                                     {% if user.is_staff %}
                                         <div class="dropdown-user-name">
-                                    {{ user.username }}<span>Adminstrator</span>
+                                    {{ user.username }}<span>Administrator</span>
                                 </div>
                                   {% else %}
 
