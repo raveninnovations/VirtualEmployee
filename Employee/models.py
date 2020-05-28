@@ -132,8 +132,7 @@ class Lesson(models.Model):
 class Lesson_Topic(models.Model):
     topic_id = models.ForeignKey(Lesson,on_delete=models.CASCADE)
     topic_caption = models.CharField(max_length=500)
-    topic_video = models.FileField(upload_to='csm_videos/', null=True,blank=True)
-    video_duration = models.CharField(max_length=50,null=True)
+    topic_video = models.CharField(max_length=500, null=True,blank=True)
 
     def __str__(self):
         return self.topic_caption

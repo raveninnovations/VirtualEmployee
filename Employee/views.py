@@ -721,20 +721,22 @@ def csmAddCurriculam(request,id):
 
             if 'addTopic' in request.POST:
                 topic_caption = request.POST['topic_descrip']
-                topic_video = request.FILES.get('topic_video')
+                topic_video = request.POST['topic_video']
                 lesson = request.POST['les_id']
-                video = VideoFileClip(topic_video.temporary_file_path())
-                print("Duration")
-                video_sec = video.duration
-                video_hr = str(dt.timedelta(seconds=video_sec))
-                print(video_hr)
-                video_dur = video_hr[:video_hr.index('.')]
+                # Video duration
+
+                # video = VideoFileClip(topic_video.temporary_file_path())
+                # print("Duration")
+                # video_sec = video.duration
+                # video_hr = str(dt.timedelta(seconds=video_sec))
+                # print(video_hr)
+                # video_dur = video_hr[:video_hr.index('.')]
 
                 try:
                     lesson_private = Lesson.objects.get(lesson_private=lesson)
                     if lesson_private:
                         print("enter")
-                        topic = Lesson_Topic(topic_id_id=lesson_private.pk, topic_caption=topic_caption, topic_video= topic_video,video_duration=video_dur)
+                        topic = Lesson_Topic(topic_id_id=lesson_private.pk, topic_caption=topic_caption, topic_video= topic_video)
                         topic.save()
                         messages.success(request,"Topic added to lesson")
                     else:
@@ -779,7 +781,7 @@ def csmEditLesson(request,id):
             if 'topicEdit' in request.POST:
                 topic_id = request.POST['unique_topic']
                 caption = request.POST['topic_descrip']
-                video = request.FILES.get('topic_video')
+                video = request.POST['topic_video']
                 print(topic_id)
                 topic = Lesson_Topic.objects.get(id = topic_id)
                 topic.topic_caption =caption
@@ -863,6 +865,11 @@ def projectManager(request):
         # proj.project_cfp.set(cfp_list) 
         proj.save()
         return redirect("/projectmanager/")
+    proj = ProjectManager.objects.get(id = 1)
+    cfps = proj.project_cfp
+    list2 =['sa','ra']
+    print(list2[0])
+    print(proj.project_cfp[0])
     return render(request,'ProjectModule_Pages/Project_manager.html',{"cfp_list":cfp_list})
 
 def projectDashboard(request):

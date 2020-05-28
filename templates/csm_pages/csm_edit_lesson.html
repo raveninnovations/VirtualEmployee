@@ -1,6 +1,12 @@
 {% extends 'base1.html' %}
 {% load static %}
 {% block content %}
+    <style>
+    .edit_upload{
+            margin-top: 5px;
+    width: 92%;
+    }
+    </style>
 
     <div id="wrapper" class="admin-panel">
 
@@ -117,13 +123,13 @@
                                       <form name="ediForm" method="POST" enctype="multipart/form-data">{% csrf_token %}
                                           <td><textarea rows="5" class="uk-input bg-secondary" name="topic_descrip" style="height: 100%" required>{{ topic.topic_caption }}</textarea></td>
 
-                                          <td>{% if topic.topic_video.url != "NULL" %}
-                                                <video width='60%' height="40%" style="display:block; margin:0 auto;" controls>
-                                                    <source src="{{ topic.topic_video.url }}" type='video/mp4'>
-                                                    Your browser does not support the video tag.
-                                                </video>
+                                          <td>{% if topic.topic_video != "NULL" %}
+
+                                              <iframe src="{{ topic.topic_video }}" frameborder="0"
+                                        uk-video="automute: true" allowfullscreen uk-responsive style="width: 92%"></iframe>
+
                                               {% endif %}
-                                          <input type="file" name="topic_video" class="alert-dark"  style="width: 60%;margin-left: 120px">
+                                          <input type="text" name="topic_video" class="alert-dark" style="width: 92%;margin-top: 5px" placeholder="Change video">
                                            </td>
 
 
