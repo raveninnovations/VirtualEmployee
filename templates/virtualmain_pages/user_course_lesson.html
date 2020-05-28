@@ -68,8 +68,13 @@
                             {% for topic in topics %}
                                             {% if topic.topic_id_id == curriculam.pk %}
                              <div class="video-responsive">
-                                    <video width='60%' height="40%" style="display:block; margin:0 auto;" controls >
-                                                    <source src="{{ topic.topic_video.url }}" type='video/mp4'>
+                                    <video
+									id="vid2"
+									class="video-js vjs-default-skin vjs-big-play-centered"
+									controls
+									width="940" height="640"
+									data-setup='{ "techOrder": ["youtube", "html5"], "sources": [{ "type": "video/youtube", "src": "{{ topic.topic_video }}"}] }'
+									>
                                                     Your browser does not support the video tag.
                                                 </video>
                                 </div>
@@ -103,14 +108,14 @@
                                     <ul class="course-video-list highlight-watched" uk-switcher=" connect: #video-slider  ; animation: uk-animation-slide-right-small, uk-animation-slide-left-medium">
                                         {% for topic in topics %}
                                             {% if topic.topic_id_id == curriculam.pk %}
-                                                <br>
 
-{#                                                <li class=""> <a href="#"> {{ topic.topic_caption }} <span> 5 min </span> </a></li>#}
+
+                                                      <li> <a href="#"> {{ topic.topic_caption }} <span> 5 min </span> </a></li>
 {#                                                <li><video width='60%' height="40%" style="display:block; margin:0 auto;" controls hidden>#}
 {#                                                    <source src="{{ topic.topic_video.url }}" type='video/mp4'>#}
 {#                                                    Your browser does not support the video tag.#}
 {#                                                </video></li>#}
-                                                <li><input type="submit" value="{{ topic.topic_caption }}" style="width: 100%"> </li>
+{#                                                <li><input type="submit" value="{{ topic.topic_caption }}" style="width: 100%"> </li>#}
 
                                             {% endif %}
                                       {% endfor %}
