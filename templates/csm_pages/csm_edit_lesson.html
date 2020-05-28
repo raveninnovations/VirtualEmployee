@@ -126,7 +126,7 @@
                                           <td>{% if topic.topic_video != "NULL" %}
 
                                               <iframe src="{{ topic.topic_video }}" frameborder="0"
-                                        uk-video="automute: true" allowfullscreen uk-responsive style="width: 92%"></iframe>
+                                        style="width: 92%" autostart="false"></iframe>
 
                                               {% endif %}
                                           <input type="text" name="topic_video" class="alert-dark" style="width: 92%;margin-top: 5px" placeholder="Change video">
