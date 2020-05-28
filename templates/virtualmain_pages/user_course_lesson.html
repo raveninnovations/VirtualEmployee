@@ -67,17 +67,13 @@
                                 {% for curriculam in lessons %}
                             {% for topic in topics %}
                                             {% if topic.topic_id_id == curriculam.pk %}
+                                            <li>
                              <div class="video-responsive">
-                                    <video
-									id="vid2"
-									class="video-js vjs-default-skin vjs-big-play-centered"
-									controls
-									width="940" height="640"
-									data-setup='{ "techOrder": ["youtube", "html5"], "sources": [{ "type": "video/youtube", "src": "{{ topic.topic_video }}"}] }'
-									>
-                                                    Your browser does not support the video tag.
-                                                </video>
+                               <!-- <video width='60%' height="40%" style="display:block; margin:0 auto;" controls >
+                                               <source src="{{ topic.topic_video }}" type='video/mp4'></video> -->
+                                               <iframe src="{{topic.topic_video}}" width="" height=""></iframe>
                                 </div>
+                                </li>
                             {% endif %}
                         {% endfor %}
                         {% endfor %}
@@ -101,7 +97,7 @@
                         <ul class="course-video-list-section" uk-accordion>
                             {% if lessons %}
                                 {% for curriculam in lessons %}
-                             <li>
+                             <li class="uk-open">
                                 <a class="uk-accordion-title" href="#"> {{ curriculam.lesson_name }} </a>
                                 <div class="uk-accordion-content">
                                     <!-- course-video-list -->
@@ -110,12 +106,12 @@
                                             {% if topic.topic_id_id == curriculam.pk %}
 
 
-                                                      <li> <a href="#"> {{ topic.topic_caption }} <span> 5 min </span> </a></li>
-{#                                                <li><video width='60%' height="40%" style="display:block; margin:0 auto;" controls hidden>#}
+                                                   <li> <a href="#"> {{ topic.topic_caption }} <span> 5 min </span> </a></li>
+<!-- {#                                                <li><video width='60%' height="40%" style="display:block; margin:0 auto;" controls hidden>#}
 {#                                                    <source src="{{ topic.topic_video.url }}" type='video/mp4'>#}
 {#                                                    Your browser does not support the video tag.#}
 {#                                                </video></li>#}
-{#                                                <li><input type="submit" value="{{ topic.topic_caption }}" style="width: 100%"> </li>#}
+{#                                                <li><input type="submit" value="{{ topic.topic_caption }}" style="width: 100%"> </li>#} -->
 
                                             {% endif %}
                                       {% endfor %}
@@ -134,10 +130,10 @@
 
 
 
-        </div>
+         </div>
 
             <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-        <script>
+         <script>
             function make_button_active(tab) {
                 //Get item siblings
                 var siblings = tab.siblings();
