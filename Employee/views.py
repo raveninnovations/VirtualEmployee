@@ -888,7 +888,7 @@ def projectManager(request):
             project_category=request.POST.get("project_cfp")
             project_cfp=request.POST.get("project_cfp")
 
-            
+
             proj=ProjectManager.objects.create(
                 project_title=project_title,
                 project_description=project_description,
@@ -1097,7 +1097,7 @@ def test(request):
             data=CreateCourse.objects.get(create_category=c_course)
             # data.create_role=role
             # data.save()
-            ch=request.POST.getlist('roles[]')
+            ch=request.POST.getlist('roles')  #previously roles[]
             role=""
             for i in ch:
                 role+=i
