@@ -163,6 +163,7 @@ class ProjectManager(models.Model):
     project_duration=models.IntegerField()
     candidates_required=models.IntegerField(null=True)
     project_docs=models.FileField(upload_to='proj_docs/', null=True,blank=True)
+    project_category=models.CharField(max_length=200,null=True, blank=True)
     project_cfp=models.CharField(max_length=200,null=True, blank=True)
     # project_cfp=models.ManyToManyField(CFP_role, related_name="cfp")
     def __str__(self):
@@ -205,3 +206,13 @@ class StudentCFP(models.Model):
 
     def _str__(self):
         return self.user_id
+
+
+class ProjectCFPStore(models.Model):
+    create_id=models.IntegerField(default=0)
+    create_category=models.CharField(max_length=255)
+    create_role=models.CharField(max_length=255,null=True)
+    create_time=models.DateTimeField(default=datetime.now,blank=True)
+
+    def __str__(self):
+        return self.create_category
