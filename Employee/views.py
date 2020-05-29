@@ -186,6 +186,7 @@ def adminLicense(request):
 
 def adduser(request):
     form = AddUserForm
+    lisences = AdminLicense.objects.all()
     if request.method =='POST':
         firstname = request.POST['first']
         lastname = request.POST['last']
@@ -194,6 +195,7 @@ def adduser(request):
         username = request.POST['email']
         password = request.POST['password1']
         conform = request.POST['password2']
+        license_key = request.POST['license']
 
         regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
         if User.objects.filter(email=email).exists():
@@ -221,14 +223,31 @@ def adduser(request):
             messages.error(request,'Password mismatch')
             return redirect('register')
         # Generating unique id
+
+
+
+
         num = random.randint(10000000, 99999999)
         str1 = 'VE'
         unique_id = str1+str(num)
         try:
+            if license_key:
+                if AdminLicense.objects.filter(key=license_key).exists():
+                    key = AdminLicense.objects.get(key=license_key)
+
+                else:
+                    messages.error(request,'License Key Not Valid')
+                    return redirect('register')
+
             User.objects.create_user(username=username,email=email,first_name=firstname,last_name=lastname,password=password)
             u_id = User.objects.get(username=username)
             addusr = UserDetails(user_id=u_id,user_pass=password,user_phone=userphone,user_unique=unique_id)
             addusr.save()
+            if license_key:
+                return redirect('login')
+            else:
+                return redirect('pricing')
+
 
         except:
             usr = User.objects.get(username=email)
@@ -1319,4 +1338,5 @@ def UserCfp(request):
 
 
 def pricing(request):
+
     return render(request,"virtualmain_pages/pricing.html")
