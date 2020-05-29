@@ -864,6 +864,16 @@ def projectManager(request):
         )
         # proj.project_cfp.set(cfp_list) 
         proj.save()
+        return redirect("projectmanager")
+
+        if 'cfproleselect' in request.POST:
+            project_cfp = request.POST["project_cfp"]
+
+            cfp = ProjectManager.objects.get(user=request.user)
+            cfp.project_cfp = project_cfp
+
+            cfp.save()
+            
         return redirect("/projectmanager/")
     proj = ProjectManager.objects.get(id = 1)
     cfps = proj.project_cfp
@@ -871,6 +881,20 @@ def projectManager(request):
     print(list2[0])
     print(proj.project_cfp[0])
     return render(request,'ProjectModule_Pages/Project_manager.html',{"cfp_list":cfp_list})
+
+# def cfproleselect(request):
+#     cfp = ProjectManager.objects.get(user=request.user)
+#     if request.method == "POST":
+#         project_cfp = request.POST["project_cfp"]
+
+#         cfp = ProjectManager.objects.get(user=request.user)
+#         cfp.project_cfp = project_cfp
+
+#         cfp.save()
+        
+#         return redirect("/projectmanager/")
+
+#     return redirect("/projectmanager/")
 
 def projectDashboard(request):
     project=ProjectManager.objects.all()

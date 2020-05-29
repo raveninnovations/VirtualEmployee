@@ -163,6 +163,8 @@
                               <div class="ml-0">
                                 <input class="uk-button btn-default uk-width-expand mx-2" type="button"  value="Select">
                                 <div uk-dropdown="pos: bottom-left">
+                                  <form name="cfproleselect" method="POST">
+                                    {% csrf_token %}
                                   {% for item in cfp_list %}
                                     <ul class="uk-nav uk-dropdown-nav">
                                         <li class="uk-width-expand" ><input class="" name="project_cfp" style="height:15px; width:15px;" id="item{{ forloop.counter }}"  value="{{ item.cfp_role }}" type="checkbox"/>
@@ -170,12 +172,23 @@
                                         </li>
                                       
                                       </ul>
-                                        
-                                  {% endfor %}
+                                      {% endfor %}
+                                         
+                                  </form>
                                 </div>
                               </div>
-
-                          </div>
+                            
+                              <br>
+                              <!-- <div class="mt-4">
+                                <input type="text" class="uk-input" id="form-horizontal-text" name="c_role" value="{{obj.create_category}}" readonly required>
+                              </div> -->
+                            </div>
+                                      <div class="uk-margin">
+                                        <label class="uk-form-label" for="form-horizontal-text">CFP Role Selected</label>
+                                        <div class="uk-form-controls">
+                                            <input class="uk-input" id="form-horizontal-text" type="text"  value="{{cfp_list.cfp_role}}" readonly required>
+                                        </div>
+                                    </div>
 
 
                           <div class="mt-5">
