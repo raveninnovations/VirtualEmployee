@@ -105,40 +105,32 @@
                             <!-- course description -->
                             <li class="course-description-content">
 
-                                <h4> Description </h4>
+                                <h4><strong>Description </strong></h4>
                                 <p> {{ course_details.short_description }}</p>
                                 <p> {{ course_details.short_description }}</p>
 
 
-                                <h4> What you’ll learn </h4>
-                                    <div class="uk-child-width-1-2@s" uk-grid>
-                                        <div>
-                                            <ul class="list-2">
+                                <h4><strong> What you’ll learn </strong></h4>
+                                        <div class="" >
+                                            <ul class="list-2 uk-child-width-1-2@s" uk-grid >
+                                              {% for i in learn_list %}
+                                              <div class="my-0">
+                                                <li>{{i}} </li>
+                                              </div>
 
-                                                <li>Setting up the environment </li>
-                                                <li>Advanced HTML Practices</li>
-                                                <li>Build a portfolio website</li>
-                                                <li>Responsive Designs</li>
+                                              {% endfor %}
                                             </ul>
                                         </div>
-                                        <div>
-                                            <ul class="list-2">
-                                                <li>Understand HTML Programming</li>
-                                                <li>Code HTML</li>
-                                                <li>Start building beautiful websites</li>
-                                            </ul>
-                                        </div>
-                                    </div>
 
 
-                                    <h4> Requirements </h4>
+                                    <h4><strong> Requirements </strong></h4>
                                     <ul class="list-1">
-                                        <li>Any computer will work: Windows, macOS or Linux</li>
-                                        <li>Basic programming HTML and CSS.</li>
-                                        <li>Basic/Minimal understanding of JavaScript</li>
+                                      {% for i in req_list %}
+                                        <li>{{i}}</li>
+                                      {% endfor %}
                                     </ul>
 
-                                    <h4> Here is exactly what we cover in this course: </h4>
+                                    <h4> <strong>Here is exactly what we cover in this course: </strong></h4>
                                     <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
                                         nibh
                                        </p>
@@ -191,7 +183,7 @@
                             <!-- course Faq-->
                             <li>
 
-                                <h4 class="my-4"> Course Faq</h4>
+                                <h4 class="my-4"> <strong>Course Faq</strong></h4>
 
                                 <ul class="course-faq" uk-accordion>
 
@@ -651,9 +643,8 @@
                                 <div class="uk-child-width-1-2 uk-grid-small mb-4" uk-grid>
                                     <div>
                                         <a href="{% url 'userlesson' course_details.pk %}"
-                                            class="uk-width-1-1 btn btn-default transition-3d-hover" ><i class="uil-play"></i> Start </a>
+                                         class="uk-width-1-1 btn btn-default transition-3d-hover play"><i class="uil-play"></i> Start </a>
                                     </div>
-
                                 </div>
 
                                 <p class="uk-text-bold"> This Course Incluce </p>

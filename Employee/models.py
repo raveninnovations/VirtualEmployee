@@ -16,12 +16,10 @@ DIFFICULTY_LEVEL=(
     ('Advanced', 'Advanced'),
 )
 
-
 class AdminLicense(models.Model):
     key = models.CharField(max_length=100)
     years =  models.IntegerField()
     date = models.DateTimeField(default=datetime.now,null=True)
-
     def __str__(self):
         return self.key
 
@@ -224,3 +222,15 @@ class ProjectCFPStore(models.Model):
 
     def __str__(self):
         return self.create_category
+
+
+class ProgressCourse(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    course_id=models.IntegerField(default=0)
+    title = models.CharField(max_length=50)
+    category=models.CharField(max_length=30, choices=CATEGORY_CHOICES,null=True,blank=True)
+    role=models.CharField(max_length=50,blank=True)
+    course=models.CharField(max_length=50,blank=True)
+
+    def __str__(self):
+        return self.title
