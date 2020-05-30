@@ -21,7 +21,7 @@ from django.core.mail import send_mail, EmailMessage
 
 from datetime import datetime
 from .forms import (AddUserForm)
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore
+from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,ProjectManager,AdminLicense,UsedLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore
 
 # Create your views here.
 # ADMIN SECTION
@@ -178,8 +178,10 @@ def adminLicense(request):
                 messages.success(request,"Key is generated")
                 return redirect("adminLicense")
         keys = AdminLicense.objects.order_by('-date')
+        u_keys = UsedLicense.objects.order_by('-u_date')
         context ={
-            'keys' : keys
+            'keys' : keys,
+            'u_keys':u_keys
         }
 
         return render(request,"Admin_pages/admin_license.html",context)
@@ -234,6 +236,15 @@ def adduser(request):
             if license_key:
                 if AdminLicense.objects.filter(key=license_key).exists():
                     key = AdminLicense.objects.get(key=license_key)
+                    if UsedLicense.objects.filter(u_key=key).exists():
+                        print("Key is Used")
+                        messages.error(request,"Key is already applied")
+                        return redirect('register')
+                    else:
+                        used_key = UsedLicense(u_key=key.key,u_years=key.years)
+                        used_key.save()
+                        key.delete()
+                        messages.success(request,"License Key applied ! You can login")
 
                 else:
                     messages.error(request,'License Key Not Valid')
@@ -244,10 +255,10 @@ def adduser(request):
             addusr = UserDetails(user_id=u_id,user_pass=password,user_phone=userphone,user_unique=unique_id)
             addusr.save()
             if license_key:
+
                 return redirect('login')
             else:
                 return redirect('pricing')
-
 
         except:
             usr = User.objects.get(username=email)

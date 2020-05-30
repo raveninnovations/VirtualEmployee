@@ -25,6 +25,14 @@ class AdminLicense(models.Model):
     def __str__(self):
         return self.key
 
+class UsedLicense(models.Model):
+    u_key = models.CharField(max_length=100)
+    u_years =  models.IntegerField()
+    u_date = models.DateTimeField(default=datetime.now,null=True)
+
+    def __str__(self):
+        return self.u_key
+
 class UserDetails(models.Model):
     user_id = models.ForeignKey(User,on_delete=models.CASCADE)
     user_phone = PhoneNumberField(null=False, blank=False, unique=False, default='+91')
