@@ -21,11 +21,9 @@ from django.core.mail import send_mail, EmailMessage
 
 from datetime import datetime
 from .forms import (AddUserForm)
-<<<<<<< HEAD
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,ProjectManager,AdminLicense,UsedLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore
-=======
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse
->>>>>>> 0e92e0cfd8231d1cdaf1285918bd4e30391a0878
+
+from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense
+
 
 # Create your views here.
 # ADMIN SECTION
