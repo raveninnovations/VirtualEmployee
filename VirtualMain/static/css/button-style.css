@@ -37,6 +37,22 @@ border-width: 0px;
 	width: 50%;
 	background: rgba(255,255,255,0.05);
 }
+
+
+#bb:hover span:nth-child(1)
+
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 4px;
+	background: linear-gradient(to right, #0a2319, #25e292);
+	animation: animate1 2s  linear infinite;
+
+
+}
+
 #bb span:nth-child(1)
 
 {
@@ -64,6 +80,23 @@ border-width: 0px;
 	}
 }
 
+
+#bb:hover span:nth-child(2)
+
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 4px;
+	height: 100%;
+	background: linear-gradient(to bottom, #0a2319, #25e292);
+    animation: animate2 2s  linear infinite;
+    animation-delay: 1s;
+}
+
+
+
+
 #bb span:nth-child(2)
 
 {
@@ -89,6 +122,19 @@ border-width: 0px;
 	}
 }
 
+#bb:hover span:nth-child(3)
+
+{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 4px;
+	background: linear-gradient(to left, #0a2319, #25e292);
+	animation: animate3 2s  linear infinite;
+
+}
+
 #bb span:nth-child(3)
 
 {
@@ -111,6 +157,21 @@ border-width: 0px;
 	{
 		transform: translateX(-100%);
 	}
+}
+
+
+#bb:hover span:nth-child(4)
+
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 4px;
+	height: 100%;
+	background: linear-gradient(to top, #0a2319, #25e292);
+	animation: animate4 2s  linear infinite;
+	animation-delay: 1s;
+
 }
 
 #bb span:nth-child(4)
