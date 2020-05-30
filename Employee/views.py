@@ -21,7 +21,7 @@ from django.core.mail import send_mail, EmailMessage
 
 from datetime import datetime
 from .forms import (AddUserForm)
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore
+from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse
 
 # Create your views here.
 # ADMIN SECTION
@@ -294,6 +294,7 @@ def userdashboard(request):
 
         user_details = UserDetails.objects.get(user_id_id=user.pk)
         course_data = Course.objects.all()
+
         try:
             if StudentCFP.objects.filter(user_id_id=user_details.pk).exists():
 
@@ -303,12 +304,15 @@ def userdashboard(request):
                 lists = Course.objects.filter(category=cfp_details.category_one, role=cfp_details.role_one)
 
                 lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
-                print("haaaaai")
+
+                progress_course=ProgressCourse.objects.filter(user=user)
+                # print("haaaaai")
                 context = {
                     'cfp_details':cfp_details,
                     'lists':lists,
                     'lists2':lists2,
                     'course_data': course_data,
+                    'progress_course':progress_course
 
                 }
                 return render(request,'virtualmain_pages/dashboard.html',context)
@@ -317,6 +321,7 @@ def userdashboard(request):
 
         context={
             'course_data':course_data,
+
         }
         return render(request,'virtualmain_pages/dashboard.html',context)
     else:
@@ -332,12 +337,17 @@ def userCourse(request,id):
         lessons = Lesson.objects.filter(lesson_id_id=course_details.pk)
         topics = Lesson_Topic.objects.all()
 
+        req_str=course_details.requirements
+        req_list=req_str.split('_')
 
-
+        learn_str=course_details.learnings
+        learn_list=learn_str.split('_')
         context ={
             'course_details':course_details,
             'lessons': lessons,
             'topics': topics,
+            'req_list':req_list,
+            'learn_list':learn_list
         }
 
         return render(request,"virtualmain_pages/user_course_intro.html",context)
@@ -354,7 +364,18 @@ def userLesson(request,id):
         lessons = Lesson.objects.filter(lesson_id_id=course_details.pk)
         topics = Lesson_Topic.objects.all()
 
-
+        if request.method=='POST':
+            try:
+                if ProgressCourse.objects.get(user=user,course_id=id).exists():
+                    return redirect(request.path_info)
+                # else:
+                #     obj=ProgressCourse(user=user,course_id=id,title=course_details.title,role=course_details.role,course=course_details.course)
+                #     return redirect(request.path_info)
+            except:
+                obj=ProgressCourse(user=user,course_id=id,title=course_details.title,role=course_details.role,course=course_details.course)
+                obj.save()
+                return redirect(request.path_info)
+            return redirect(request.path_info)
 
         context ={
             'course_details':course_details,
