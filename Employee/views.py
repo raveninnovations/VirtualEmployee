@@ -1,5 +1,5 @@
 import re
-import random
+import random, math
 import uuid
 import datetime as dt
 from django.contrib import messages
@@ -21,16 +21,44 @@ from django.core.mail import send_mail, EmailMessage
 
 from datetime import datetime
 from .forms import (AddUserForm)
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP
+from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore
 
 # Create your views here.
 # ADMIN SECTION
 
 @login_required
 def adminDashboard(request):
+    user=request.user
+    # admindash=AdminLicense.objects.get(adminuser=request.user)
     if request.user.is_staff and request.user.is_superuser:
         total_students=UserDetails.objects.all().count()
         total_sales=total_students*5000
+        if request.method == 'POST':
+            
+            if 'requestotp' in request.POST:
+                # otp = 152421
+                digits = "0123456789"
+                OTP = ""
+                # length of password can be changed 
+                # by changing value in range 
+                for i in range(4) : 
+                    OTP += digits[math.floor(random.random() * 10)] 
+                
+
+                mail_subject = "OTP for Admin License Page"
+                message = f'Hi {request.user.first_name}, please enter this OTP: {OTP}'
+                email = EmailMessage(mail_subject, message, from_email=EMAIL_HOST_USER, to=[user.email,])
+                email.send()
+
+            if 'obtainedotp' in request.POST:
+                receivedOtp=request.POST["receivedOtp"]
+                
+                if receivedOtp is not int(OTP):
+                    messages.error(request, "OTP mismatched")
+                else:
+                    return redirect("/admin_license/")
+
+
         context={
             'total_students':total_students,
             'total_sales':total_sales,
@@ -845,56 +873,89 @@ def tlProjectDetails(request):
 
 def projectManager(request):
     cfp_list=CFP_role.objects.all()
-    if request.method == "POST":
-        project_title=request.POST["project_title"]
-        project_description=request.POST["project_description"]
-        project_thumbnail=request.FILES.get("project_thumbnail")
-        project_duration=request.POST["project_duration"]
-        candidates_required=request.POST["candidates_required"]
-        project_docs=request.FILES.get("project_docs")
-        project_cfp=request.POST.getlist("project_cfp")
-        proj=ProjectManager.objects.create(
-            project_title=project_title,
-            project_description=project_description,
-            project_thumbnail=project_thumbnail,
-            project_duration=project_duration,
-            candidates_required=candidates_required,
-            project_docs=project_docs,
-            project_cfp=project_cfp
-        )
-        # proj.project_cfp.set(cfp_list) 
-        proj.save()
-        return redirect("projectmanager")
+    if request.method=='POST':
+        if 'category' in request.POST:
+            count=ProjectCFPStore.objects.all().count()
+            if count==0:
+                cag=request.POST['category']
+                data=ProjectCFPStore(create_category=cag)
+                data.save()
+                return redirect('/projectmanager/')
 
-        if 'cfproleselect' in request.POST:
-            project_cfp = request.POST["project_cfp"]
+            else:
+                cag=request.POST['category']
+                data=ProjectCFPStore.objects.get(create_id=0)
+                data.create_category=cag
+                data.create_role=None
+                data.save()
+                return redirect('/projectmanager/')
 
-            cfp = ProjectManager.objects.get(user=request.user)
-            cfp.project_cfp = project_cfp
 
-            cfp.save()
-            
-        return redirect("/projectmanager/")
-    proj = ProjectManager.objects.get(id = 1)
-    cfps = proj.project_cfp
-    list2 =['sa','ra']
-    print(list2[0])
-    print(proj.project_cfp[0])
-    return render(request,'ProjectModule_Pages/Project_manager.html',{"cfp_list":cfp_list})
+        if 'role' in request.POST:
+            c_course=request.POST['c_course']
+            data=ProjectCFPStore.objects.get(create_category=c_course)
+            ch=request.POST.getlist('project_cfp')
+            role=""
+            for i in ch:
+                role+=i
+                role+="+"
+            role_str=role[:-1]
 
-# def cfproleselect(request):
-#     cfp = ProjectManager.objects.get(user=request.user)
-#     if request.method == "POST":
-#         project_cfp = request.POST["project_cfp"]
+            data.create_role=role_str
+            data.save()
+            return redirect('/projectmanager/')
 
-#         cfp = ProjectManager.objects.get(user=request.user)
-#         cfp.project_cfp = project_cfp
 
-#         cfp.save()
-        
-#         return redirect("/projectmanager/")
+        if '':
+            project_title=request.POST["project_title"]
+            project_description=request.POST["project_description"]
+            project_thumbnail=request.FILES.get("project_thumbnail")
+            project_duration=request.POST["project_duration"]
+            candidates_required=request.POST["candidates_required"]
+            project_docs=request.FILES.get("project_docs")
+            project_category=request.POST.get("project_cfp")
+            project_cfp=request.POST.get("project_cfp")
 
-#     return redirect("/projectmanager/")
+
+            proj=ProjectManager.objects.create(
+                project_title=project_title,
+                project_description=project_description,
+                project_thumbnail=project_thumbnail,
+                project_duration=project_duration,
+                candidates_required=candidates_required,
+                project_docs=project_docs,
+                project_cfp=cfp_str
+            )
+            # proj.project_cfp.set(cfp_list)
+            proj.save()
+            return redirect("/projectmanager/")
+
+
+    cag_data=CareerCategory.objects.all()
+    if ProjectCFPStore.objects.count()!=0:
+        obj=ProjectCFPStore.objects.get(create_id=0)
+        role_list=CFP_role.objects.filter(cfp_category=obj.create_category)
+        ch=obj.create_role
+        if ch==None:
+            cfp_list=[]
+        else:
+            cfp_list=ch.split('+')
+
+    else:
+        obj="Choose"
+        role_list=[]
+        cfp_list=[]
+
+    context={
+        'cag_data':cag_data,
+        'obj':obj,
+        'role_list':role_list,
+        'cfp_list':cfp_list
+    }
+
+
+    return render(request,'ProjectModule_Pages/Project_manager.html',context)
+
 
 def projectDashboard(request):
     project=ProjectManager.objects.all()
@@ -1060,7 +1121,7 @@ def test(request):
             data=CreateCourse.objects.get(create_category=c_course)
             # data.create_role=role
             # data.save()
-            ch=request.POST.getlist('roles[]')
+            ch=request.POST.getlist('roles')  #previously roles[]
             role=""
             for i in ch:
                 role+=i

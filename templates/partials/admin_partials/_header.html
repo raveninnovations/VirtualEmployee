@@ -22,7 +22,13 @@
                     <li><a href="{% url 'cfp_create' %}"><i class="uil-user-check"></i> <span>CFP Creations</span></a> </li>
                     <li><a href="{% url 'admincourse' %}"><i class="uil-youtube-alt"></i> <span> Courses</span></a> </li>
                       <li><a href="{% url 'adminprojects' %}"><i class="uil-robot"></i> <span>Projects</span></a> </li>
-                    <li><a href="{% url 'adminLicense' %}"><i class="uil-key-skeleton"></i> <span>Licence Key</span></a> </li>
+                    <li>
+                        
+                        <!-- <a href="{% url 'adminLicense' %}"> -->
+                        <a href="#modal-example" uk-toggle>
+                        <i class="uil-key-skeleton"></i> <span>Licence Key</span></a> 
+                
+                    </li>
 
                     <li><a href="students.html"><i class="uil-users-alt"></i> <span> Students</span></a> </li>
                     <li><a href="instructors.html"><i class="uil-graduation-hat"></i> <span> Instructors</span></a>
@@ -37,6 +43,28 @@
 
             </div>
         </div>
+
+        <div id="modal-example" class="uk-flex-top" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+              <form name="requestotp" method="POST">
+                {% csrf_token %}
+
+                <h2 class="uk-modal-title">Request OTP</h2>
+                <p>Before accessing the admin license page, please request the admin, an OTP.</p>
+                <p class="uk-text-center">
+                    <input class="uk-button uk-button-primary" name="requestotp" type="Submit" value="Request OTP" required >
+                </p>
+                </form>
+                <form name="obtainedotp" method="POST">
+                    {% csrf_token %}
+                <input type="text" placeholder="Enter OTP" id="receivedOtp" name="receivedOtp">
+                <button class="uk-button uk-button-default uk-modal-close" type="button">Close</button>
+                <input class="uk-button uk-button-primary" name="obtainedotp" required type="submit" value="Submit">
+
+            </form>
+            </div>
+        </div>
+
 
         <!-- Header Container
         ================================================== -->

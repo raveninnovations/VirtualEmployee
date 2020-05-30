@@ -43,6 +43,85 @@
 
 
 
+                <div class="uk-width-expand mb-5 mt-3">
+                    <div class="card rounded">
+
+                      <legend class="uk-legend my-4 text-center">Set CFP Eligibility</legend>
+
+                      <div class=" container pt-3 pb-0 px-5 uk-width-expand">
+
+                                <form name="course-cag" method="POST">
+                                  {% csrf_token %}
+                                  <div class="form-group row mb-3">
+                                      <label class="col-md-3 col-form-label"> Category <span
+                                              class="required">*</span></label>
+                                      <div class="col-md-9">
+                                          <select  name="category" required onchange="submit()">
+                                            <option selected disabled>Choose Category</option>
+                                            {% for i in cag_data %}
+                                              {% if i.category == obj.create_category %}
+                                              <option value="{{i.category}}" selected> {{i.category}} </option>
+                                              {% else %}
+                                              <option value="{{i.category}}"> {{i.category}} </option>
+                                              {% endif %}
+                                            {% endfor %}
+                                          </select>
+
+                                      </div>
+
+                                  </div>
+                                </form>
+                        </div>
+
+                        <div class=" container pb-3 px-5 uk-width-expand">
+                                    <form name="cfp-role" method="POST">
+                                      {% csrf_token %}
+                                      <fieldset class="uk-fieldset">
+                                      <div class="form-group row mb-3">
+
+                                          <div class="col-md-9">
+                                              <input type="text" name="c_course" value="{{obj.create_category}}" readonly required hidden>
+                                          </div>
+
+                                      </div>
+
+
+                                      <div class="form-group row mb-3">
+                                          <label class="col-md-3 col-form-label">CFP Roles:<span
+                                                  class="required">*</span></label>
+                                          <div class="col-md-9" style="width:50%;">
+                                            <div class="uk-width-1-2" >
+
+
+                                            <input class="uk-button btn-white uk-width-expand mx-2" style="border:1px solid #3e416d;"vtype="button"  value="Choose From Here">
+                                            <div uk-dropdown="pos: bottom-left" class="uk-width-1-2">
+                                              {% for item in role_list %}
+                                                <ul class="uk-nav uk-dropdown-nav uk-width-expand">
+                                                    <li class="uk-width-expand" ><input class="" name="project_cfp" style="height:15px; width:15px;" id="item{{ forloop.counter }}"  value="{{ item.cfp_role }}" type="checkbox"/>
+                                                      &nbsp;<span class="ml-3">{{item.cfp_role}}</span>
+                                                    </li>
+
+                                                  </ul>
+
+                                              {% endfor %}
+                                            </div>
+                                              </div>
+                                          </div>
+
+                                      </div>
+
+
+                                        <div class="form-group uk-text-center">
+                                          <button  class="btn btn-default px-5" name="role">Save</button>
+                                        </div>
+
+                                       </fieldset>
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+
+
 
                 <div class="uk-card-default rounded">
                     <div class="p-3">
@@ -68,7 +147,7 @@
                             </div>
                           </div>
 
-                          <div class="uk-margin">
+                          <div class="uk-margin my-4">
                             <label class="uk-form-label" for="form-horizontal-text">Project Thumbnail</label>
                             <div uk-form-custom class="ml-3" >
                                 <input type="file" name="project_thumbnail" id="real-file">
@@ -97,53 +176,11 @@
                                                 </script>
                           </div>
 
-                          <div class="uk-margin">
+                          <div class="uk-margin my-4">
                               <label class="uk-form-label" for="form-horizontal-text">Project Duration</label>
                               <div class="uk-form-controls">
                                   <input class="uk-input" name="project_duration" id="form-horizontal-text" type="number" placeholder="Enter Total Months">
                               </div>
-                          </div>
-
-                          <div class="uk-margin">
-                            <label class="uk-form-label" for="form-horizontal-text">Course Eligibility</label>
-                            <div uk-form-custom class="ml-3" >
-                                <input type="file">
-                                <button class="btn btn-default btn-sm" type="button" tabindex="-1">Add Field</button>
-                            </div>
-                          </div>
-
-
-
-                          <div class="uk-inline">
-                            <div class="uk-inline">
-                              <button class="uk-button uk-width-expand " type="button">Select Course</button>
-                              <div uk-dropdown="pos: bottom-left">
-                                  <ul class="uk-nav uk-dropdown-nav">
-                                      <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Web Developer</span></li>
-                                      <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Machine Learning</span></li>
-
-                                      <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Data Science</span></li>
-
-                                      <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">App Development</span></li>
-
-                                  </ul>
-                              </div>
-                            </div>
-
-                            <div class="uk-inline">
-                              <button class="uk-button  uk-width-expand " type="button">Select Course</button>
-                              <div uk-dropdown="pos: bottom-left">
-                                  <ul class="uk-nav uk-dropdown-nav">
-                                      <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Web Developer</span></li>
-                                      <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Machine Learning</span></li>
-
-                                      <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Data Science</span></li>
-
-                                      <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">App Development</span></li>
-
-                                  </ul>
-                              </div>
-                            </div>
                           </div>
 
                         </div>
@@ -155,46 +192,46 @@
                       <div class="uk-width-2-5@m px-2">
 
                         <div class="m-3">
-                          <div class="uk-inline uk-flex mb-3 ">
-                              <div class="uk-width-auto">
-                                <label class="uk-form-label" >Carrer Focus Path(CFP)</label>
+                          <h4 class="uk-text-bold mb-2"> CFP Eligibility </h4>
+                          <div class="uk-margin">
+                              <label class="uk-form-label" for="form-horizontal-text">Category</label>
+                              <div class="uk-form-controls">
+                                  <input class="uk-input" id="form-horizontal-text" type="text" name="project_category" value="{{obj.create_category}}" readonly>
                               </div>
+                          </div>
 
-                              <div class="ml-0">
-                                <input class="uk-button btn-default uk-width-expand mx-2" type="button"  value="Select">
-                                <div uk-dropdown="pos: bottom-left">
-                                  <form name="cfproleselect" method="POST">
-                                    {% csrf_token %}
-                                  {% for item in cfp_list %}
-                                    <ul class="uk-nav uk-dropdown-nav">
-                                        <li class="uk-width-expand" ><input class="" name="project_cfp" style="height:15px; width:15px;" id="item{{ forloop.counter }}"  value="{{ item.cfp_role }}" type="checkbox"/>
-                                          &nbsp;<span class="ml-3">{{item.cfp_role}}</span>
-                                        </li>
-                                      
-                                      </ul>
-                                      {% endfor %}
-                                         
-                                  </form>
-                                </div>
+                          <div class="uk-margin">
+                              <label class="uk-form-label" for="form-horizontal-text">CFP Role</label>
+                              <div class="uk-form-controls">
+                                  <input class="uk-input" id="form-horizontal-text" type="text" name="project_role" value="{{obj.create_role}}" readonly>
                               </div>
-                            
-                              <br>
-                              <!-- <div class="mt-4">
-                                <input type="text" class="uk-input" id="form-horizontal-text" name="c_role" value="{{obj.create_category}}" readonly required>
-                              </div> -->
-                            </div>
-                                      <div class="uk-margin">
-                                        <label class="uk-form-label" for="form-horizontal-text">CFP Role Selected</label>
-                                        <div class="uk-form-controls">
-                                            <input class="uk-input" id="form-horizontal-text" type="text"  value="{{cfp_list.cfp_role}}" readonly required>
-                                        </div>
-                                    </div>
-
+                          </div>
 
                           <div class="mt-5">
-                              <h5 class="uk-text-bold mb-2"> CFP Eligibility </h5>
-                                <div class="uk-flex uk-flex-between mt-3">
-                                    <h6 class="pl-4 text-muted">Data Scientist</h6>
+                              <h4 class="uk-text-bold mb-2"> Set Eligibility Criteria</h4>
+
+                              {% for i in cfp_list %}
+
+                              <div class="uk-margin">
+                                   <label class="uk-form-label" for="form-horizontal-select">{{i}}</label>
+                                   <div class="uk-form-controls">
+                                       <select class="uk-select" id="form-horizontal-select">
+                                           <option>Class 1</option>
+                                           <option>Class 2</option>
+                                           <option>Class 3</option>
+                                           <option>Class 4</option>
+                                           <option>Class 5</option>
+                                           <option>Class 6</option>
+                                           <option>Class 7</option>
+                                           <option>Class 8</option>
+                                           <option>Class 9</option>
+                                           <option>Class 10</option>
+                                       </select>
+                                   </div>
+                               </div>
+
+                                <!-- <div class="uk-flex uk-flex-between mt-3">
+                                    <h6 class="pl-4 text-muted">{{i}}</h6>
                                   <button class="uk-button uk-width-auto mx-2" type="button">Select</button>
 
                                   <div uk-dropdown="pos: bottom-left">
@@ -221,67 +258,8 @@
 
                                       </ul>
                                   </div>
-                                </div>
-
-                                <div class="uk-flex uk-flex-between mt-3">
-                                    <h6 class="pl-4 text-muted">Web Developer</h6>
-                                  <button class="uk-button uk-width-auto mx-2" type="button">Select</button>
-
-                                  <div uk-dropdown="pos: bottom-left">
-                                      <ul class="uk-nav uk-dropdown-nav">
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 1</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 2</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 3</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 4</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 5</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 6</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 7</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 8</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 9</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 10</span></li>
-
-                                      </ul>
-                                  </div>
-                                </div>
-
-                                <div class="uk-flex uk-flex-between mt-3">
-                                    <h6 class="pl-4 text-muted">Machine Learning</h6>
-                                  <button class="uk-button uk-width-auto mx-2" type="button">Select</button>
-
-                                  <div uk-dropdown="pos: bottom-left">
-                                      <ul class="uk-nav uk-dropdown-nav">
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 1</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 2</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 3</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 4</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 5</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 6</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 7</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 8</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 9</span></li>
-
-                                        <li class="uk-width-expand" ><input class="" style="height:15px; width:15px;" type="checkbox"/>&nbsp;<span class="ml-3">Class 10</span></li>
-
-                                      </ul>
-                                  </div>
-                                </div>
+                                </div> -->
+                                {% endfor %}
 
 
 
@@ -300,7 +278,7 @@
                                 <a class="btn btn-default" type="button" onclick="" id="Upload-button" tabindex="-1">Upload</a>
                             <br>
                             <span id="custom-text" style="float: right;">No file choosen</span>
-    
+
                             </div>
                                             <script type="text/javascript">
                                                 const realFileBtn = document.getElementById("real-file");
@@ -330,8 +308,8 @@
 
                       </div>
 
-                      <div class=" mx-auto ">
-                        <input type="submit" class="btn btn-default"  grey px-5>
+                      <div class=" mx-auto mt-3">
+                        <button class="btn btn-default px-5" name="project_submit">Create Project</button>
                       </div>
                     </form>
 

@@ -117,12 +117,36 @@
 
                                           </div>
 
-                                          <h5>List of Available Career Roles:</h5>
+                                          <!-- <h5>List of Available Career Roles:</h5>
                                           <div class="uk-margin  uk-grid">
                                             {% for i in role_list %}
                                                      <label><input class="uk-checkbox py-1 px-3 mx-2" type="checkbox" name="roles[]" value="{{i.cfp_role}}">{{i.cfp_role}}</label>
                                             {%endfor%}
+                                           </div> -->
+
+                                           <div class="form-group row mb-3">
+                                               <label class="col-md-3 col-form-label">Available CFP Roles<span
+                                                       class="required">*</span></label>
+                                               <div class="col-md-9" style="width:50%;">
+                                                 <div class="uk-width-1-2" >
+
+
+                                                 <input class="uk-button btn-white uk-width-expand mx-2" style="border:1px solid #3e416d;"vtype="button"  value="Choose From Here">
+                                                 <div uk-dropdown="pos: bottom-left" class="uk-width-1-2">
+                                                   {% for i in role_list %}
+                                                     <ul class="uk-nav uk-dropdown-nav uk-width-expand">
+                                                         <li class="uk-width-expand" ><input class="" name="roles" style="height:15px; width:15px;" id="item{{ forloop.counter }}"  value="{{ i.cfp_role }}" type="checkbox"/>
+                                                           &nbsp;<span class="ml-3">{{i.cfp_role}}</span>
+                                                         </li>
+
+                                                       </ul>
+
+                                                   {% endfor %}
+                                                  </div>
+                                                 </div>
+                                               </div>
                                            </div>
+
 
                                             <div class="form-group uk-text-center">
                                               <button  class="btn btn-default px-5" name="role">Save</button>
