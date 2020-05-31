@@ -79,13 +79,7 @@ def adminCourses(request):
         return redirect('logout')
 
 
-@login_required
-def adminAddcourse(request):
-    if request.user.is_staff and request.user.is_superuser:
-        return render(request,'Admin_pages/add-course.html')
-    else:
-        messages.error(request,"Wrong URL")
-        return redirect('logout')
+
 @login_required
 def adminProjects(request):
     if request.user.is_staff and request.user.is_superuser:
@@ -216,6 +210,27 @@ def adminLicense(request):
 
         return render(request,"Admin_pages/admin_license.html",context)
 
+@login_required
+def adminLicenseInfo(request,id):
+    if request.user.is_staff and request.user.is_superuser:
+        print(id)
+        license_info = UsedLicense.objects.get(id = id)
+        try:
+            student_info = UserDetails.objects.get(user_license=license_info.u_key)
+
+            context ={
+                'student':student_info
+            }
+            return render(request,'Admin_pages/admin_license_info.html',context)
+
+        except:
+            print("error")
+
+        return render(request,'Admin_pages/admin_license_info.html')
+    else:
+        messages.error(request,"Wrong URL")
+        return redirect('login')
+
 def adduser(request):
     form = AddUserForm
     lisences = AdminLicense.objects.all()
@@ -279,10 +294,11 @@ def adduser(request):
                 else:
                     messages.error(request,'License Key Not Valid')
                     return redirect('register')
-
+            else:
+                license_key =None
             User.objects.create_user(username=username,email=email,first_name=firstname,last_name=lastname,password=password)
             u_id = User.objects.get(username=username)
-            addusr = UserDetails(user_id=u_id,user_pass=password,user_phone=userphone,user_unique=unique_id)
+            addusr = UserDetails(user_id=u_id,user_pass=password,user_phone=userphone,user_unique=unique_id,user_license=license_key)
             addusr.save()
             if license_key:
 
@@ -1119,7 +1135,6 @@ def projectDashboard(request):
 
 @login_required
 def cfp_create(request):
-
     if request.method=='POST':
         if 'category_submit' in request.POST:
             cag_name=request.POST['cagname']
@@ -1202,7 +1217,7 @@ def cfp_edit(request,id):
             datas.cfp_course=cfp_course
             datas.save()
 
-            return redirect('/cfp_create/')
+            return redirect('cfp_create')
 
         if 'cfp_delete' in request.POST:
             delete_id=request.POST['delete_id']

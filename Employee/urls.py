@@ -8,11 +8,13 @@ urlpatterns = [
     path('',views.userlogin,name='login'),
     path('logout/', views.logout, name='logout'),
     path('admindashboard/',views.adminDashboard,name="admindashboard"),
-    path('courses/',views.adminCourses,name='admincourse'),
-    path('add_course/',views.adminAddcourse,name='adminaddcourse'),
-    path('projects/',views.adminProjects,name='adminprojects'),
-    path('role_creation/',views.adminRolecreation,name='adminrolecreation'),
-    path('admin_license/',views.adminLicense,name='adminLicense'),
+    path('admindashboard/courses/',views.adminCourses,name='admincourse'),
+    path('admindashboard/projects/',views.adminProjects,name='adminprojects'),
+    path('admindashboard/role_creation/',views.adminRolecreation,name='adminrolecreation'),
+    path('admindashboard/admin_license/',views.adminLicense,name='adminLicense'),
+    path('admindashboard/license_info/<int:id>', views.adminLicenseInfo, name='licenseInfo'),
+    path('admindashboard/cfp_create/',views.cfp_create,name='cfp_create'),
+    path('admindashboard/cfp_edit/<int:id>',views.cfp_edit,name='cfpEdit'),
     # User Section
     path('userdashboard/',views.userdashboard,name='dashboard'),
     path('userprofile/',views.userprofile,name='userprofile'),
@@ -35,8 +37,7 @@ urlpatterns = [
     path('projectmanager/',views.projectManager,name='projectManager'),
     path('projectdashboard/',views.projectDashboard,name='projectDashboard'),
     #Create category and CFP
-    path('cfp_create/',views.cfp_create,name='cfp_create'),
-    path('cfp_edit/<int:id>',views.cfp_edit,name='cfpEdit'),
+
     path('category_edit/<int:id>',views.category_edit,name='categoryEdit'),
     path('test/',views.test,name='test'),
     path('testEdit/<int:id>',views.testEdit,name='testEdit'),

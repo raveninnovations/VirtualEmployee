@@ -1,0 +1,181 @@
+{% extends 'base1.html' %}
+{% block content %}
+
+    <div id="wrapper" class="admin-panel">
+
+    {% include 'partials/admin_partials/_header.html' %}
+
+    <div class="page-content">
+            <div class="page-content-inner">
+
+                <div class="d-flex">
+                    <nav id="breadcrumbs" class="mb-3">
+                        <ul>
+                            <li><a href="{% url 'admindashboard' %}"> <i class="uil-home-alt"></i> Dashboard</a></li>
+                            <li><a href="{% url 'adminLicense' %}"> License key </a></li>
+                            <li>Category/CFP Edit </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="uk-grid">
+
+
+                  <div class="uk-width-3-5@m" style="width: 42%">
+
+
+
+                    <div class="uk-width-expand my-5">
+                        <div class="card rounded">
+                          <div class=" container py-3 px-5 uk-width-expand">
+
+                                <fieldset class="uk-fieldset">
+
+                                    <legend class="uk-legend mt-4 text-center">Student Info</legend>
+
+
+
+                                    <div class="uk-margin">
+                                        Full name:
+                                        <input class="uk-input bg-secondary" name="cfp_role" type="text" value="{{ student.user_id.first_name }} {{ student.user_id.last_name }}" readonly>
+                                    </div>
+                                <div class="uk-margin">
+                                        Email:
+                                        <input class="uk-input bg-secondary" name="cfp_role" type="text" value="{{student.user_id.email}}" readonly>
+                                    </div>
+                                <div class="uk-margin">
+                                        Contact:
+                                        <input class="uk-input bg-secondary" name="cfp_role" type="text" value="{{ student.user_phone }}" readonly>
+                                    </div>
+
+                                </fieldset>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                  </div>
+
+                    <div class="uk-width-3-5@m" style="width: 55%">
+
+
+
+                    <div class="uk-width-expand my-5">
+                        <div class="card rounded">
+                          <div class=" container py-3 px-5 uk-width-expand">
+
+                                <fieldset class="uk-fieldset">
+
+                                    <legend class="uk-legend mt-4 text-center">Student Info</legend>
+
+
+
+                                    <div class="uk-margin">
+                                        Joined Date:
+                                        <input class="uk-input bg-secondary" name="cfp_role" type="text" value="{{ student.user_date }}" readonly>
+                                    </div>
+                                <div class="uk-margin">
+                                        License Key:
+                                        <input class="uk-input bg-secondary" name="cfp_role" type="text" value="{{ student.user_license }}" readonly>
+                                    </div>
+                                <div class="uk-margin">
+                                        Contact:
+                                        <input class="uk-input bg-secondary" name="cfp_role" type="text" value="{{ student.user_phone }}" readonly>
+                                    </div>
+
+                                </fieldset>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                  </div>
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+                <!-- footer
+                ================================================== -->
+                {% include 'partials/_footer.html' %}
+
+            </div>
+
+        </div>
+
+        <!-- For Night mode -->
+        <script>
+
+
+            (function (window, document, undefined) {
+                'use strict';
+                if (!('localStorage' in window)) return;
+                var nightMode = localStorage.getItem('gmtNightMode');
+                if (nightMode) {
+                    document.documentElement.className += ' night-mode';
+                }
+            })(window, document);
+
+
+            (function (window, document, undefined) {
+
+                'use strict';
+
+                // Feature test
+                if (!('localStorage' in window)) return;
+
+                // Get our newly insert toggle
+                var nightMode = document.querySelector('#night-mode');
+                if (!nightMode) return;
+
+                // When clicked, toggle night mode on or off
+                nightMode.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    document.documentElement.classList.toggle('night-mode');
+                    if (document.documentElement.classList.contains('night-mode')) {
+                        localStorage.setItem('gmtNightMode', true);
+                        return;
+                    }
+                    localStorage.removeItem('gmtNightMode');
+                }, false);
+
+            })(window, document);
+
+
+              // Random Password Generator
+
+            var keylist="abcdefghijklmnopqrstuvwxyz123456789"
+            var temp=''
+
+            function generatepass(plength){
+            temp=''
+            for (i=0;i<plength;i++)
+            temp+=keylist.charAt(Math.floor(Math.random()*keylist.length))
+            return temp
+            }
+
+            function populateform(enterlength){
+            document.pgenerate.password.value=generatepass(enterlength)
+            }
+
+
+
+        </script>
+
+
+    </div>
+{% endblock %}

@@ -74,7 +74,7 @@
                                       <tr>
                                           <th>Date</th>
                                           <th>Key</th>
-                                          <th>Validity</th>
+                                          <th>Validity-Years</th>
                                       </tr>
                                   </thead>
                                   <tbody>
@@ -101,7 +101,7 @@
 
 
                                   <div class=" my-auto text-center uk-width-expand">
-                                      <legend class="uk-legend ">Used License Key's</legend>
+                                      <legend class="uk-legend ">Used License Keys</legend>
                                   </div>
 
 
@@ -112,7 +112,8 @@
                                       <tr>
                                           <th>Date</th>
                                           <th>Key</th>
-                                          <th>Validity</th>
+                                          <th>Validity-Years</th>
+                                           <th></th>
                                       </tr>
                                   </thead>
                                   <tbody>
@@ -122,6 +123,7 @@
                                         <td>{{key.u_date}}</td>
                                         <td>{{key.u_key}}</td>
                                         <td>{{ key.u_years }}</td>
+                                          <td><a href="{% url 'licenseInfo' key.pk %}" class="btn btn-default">Info</a> </td>
                                       </tr>
 
 
