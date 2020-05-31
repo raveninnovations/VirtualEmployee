@@ -124,7 +124,7 @@
                                             {%endfor%}
                                            </div> -->
 
-                                           <div class="form-group row mb-3">
+                                           <!-- <div class="form-group row mb-3">
                                                <label class="col-md-3 col-form-label">Available CFP Roles<span
                                                        class="required">*</span></label>
                                                <div class="col-md-9" style="width:50%;">
@@ -145,12 +145,26 @@
                                                   </div>
                                                  </div>
                                                </div>
+                                           </div> -->
+
+                                           <div class="form-group row mb-3">
+                                               <label class="col-md-3 col-form-label"> CFP Roles <span
+                                                       class="required">*</span></label>
+                                               <div class="col-md-9">
+                                                   <select  name="role" required onchange="submit()">
+                                                     <option selected disabled>Choose CFP Role</option>
+                                                     {% for i in role_list %}
+                                                       {% if i.cfp_role == obj.create_role %}
+                                                       <option value="{{i.cfp_role}}" selected> {{i.cfp_role}} </option>
+                                                       {% else %}
+                                                       <option value="{{i.cfp_role}}"> {{i.cfp_role}} </option>
+                                                       {% endif %}
+                                                     {% endfor %}
+                                                   </select>
+
+                                               </div>
                                            </div>
 
-
-                                            <div class="form-group uk-text-center">
-                                              <button  class="btn btn-default px-5" name="role">Save</button>
-                                            </div>
 
                                            </fieldset>
                                         </form>
