@@ -365,7 +365,13 @@ def userdashboard(request):
 
                 lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
 
-                progress_course=ProgressCourse.objects.filter(user=user)
+                if ProgressCourse.objects.filter(user=user).exists():
+                    print("hai")
+                    progress_course = ProgressCourse.objects.filter(user=user)
+                else:
+
+                    progress_course = None
+
                 # print("haaaaai")
                 context = {
                     'cfp_details':cfp_details,
