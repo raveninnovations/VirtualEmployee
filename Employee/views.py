@@ -36,16 +36,16 @@ def adminDashboard(request):
         total_students=UserDetails.objects.all().count()
         total_sales=total_students*5000
         if request.method == 'POST':
-            
+
             if 'requestotp' in request.POST:
                 # otp = 152421
                 digits = "0123456789"
                 OTP = ""
-                # length of password can be changed 
-                # by changing value in range 
-                for i in range(4) : 
-                    OTP += digits[math.floor(random.random() * 10)] 
-                
+                # length of password can be changed
+                # by changing value in range
+                for i in range(4) :
+                    OTP += digits[math.floor(random.random() * 10)]
+
 
                 mail_subject = "OTP for Admin License Page"
                 message = f'Hi {request.user.first_name}, please enter this OTP: {OTP}'
@@ -54,7 +54,7 @@ def adminDashboard(request):
 
             if 'obtainedotp' in request.POST:
                 receivedOtp=request.POST["receivedOtp"]
-                
+
                 if receivedOtp is not int(OTP):
                     messages.error(request, "OTP mismatched")
                 else:
@@ -432,7 +432,7 @@ def userLesson(request,id):
                 #     obj=ProgressCourse(user=user,course_id=id,title=course_details.title,role=course_details.role,course=course_details.course)
                 #     return redirect(request.path_info)
             except:
-                obj=ProgressCourse(user=user,course_id=id,title=course_details.title,role=course_details.role,course=course_details.course)
+                obj=ProgressCourse(user=user,course_id=id,title=course_details.title,category=course_details.category,role=course_details.role,course=course_details.course)
                 obj.save()
                 return redirect(request.path_info)
             return redirect(request.path_info)
