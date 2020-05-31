@@ -101,7 +101,7 @@
                                         <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label" for="short_description">Course Image</label>
                                             <div class="col-md-9">
-                                                
+
                                               <div class=" ">
                                                 <img src="{{datas.course_image.url}}" alt="No image">
                                               </div>
@@ -114,12 +114,12 @@
                                                 hidden="hidden"/>
                                                 <a class="btn btn-default mb-3"  onclick="" id="Upload-button"> <i
                                                     class='uil-plus'>
-                                                    
+
                                                 </i>Upload</a>
                                                 <span id="custom-text">No file choosen</span>
-                                                
-                                                
-                                                
+
+
+
                                             </div>
                                         </div>
                                         {% else %}
@@ -130,12 +130,12 @@
                                                 hidden="hidden"/>
                                                 <a class="btn btn-default mb-3"  onclick="" id="Upload-button"> <i
                                                     class='uil-plus'>
-                                                    
+
                                                 </i>Upload</a>
                                                 <span id="custom-text">No file choosen</span>
-                                                
-                                                
-                                                
+
+
+
                                             </div>
                                         </div>
                                         {% endif %}
@@ -160,6 +160,12 @@
                                             });
 
                                                 </script>
+
+
+                                                <div class="">
+                                                  <a class="btn btn-default" href="{% url 'testEdit' t_id %}">Change the Course</a>
+                                                </div>
+
 
                                         <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label" for="course_title">Category<span

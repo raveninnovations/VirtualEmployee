@@ -740,48 +740,52 @@ def csmEditCourse(request,id):
         c_id = id
         # print(c_id)
         datas = Course.objects.get(id = c_id)
+        t_id = datas.id
+        print(t_id)
         if request.method == "POST":
-            title = request.POST["title"]
-            tagline  = request.POST["tagline"]
-            short_description=request.POST["description"]
-            course_image = request.FILES.get('course_image', None)
-            # course_image = request.FILES['course_image']
-            category = request.POST["category"]
-            role = request.POST["role"]
-            course = request.POST["course"]
-            difficulty_level = request.POST["difficulty_level"]
-            # lesson_title=request.POST["lesson_title"]
-            # topic=request.POST["topic"]
-            meta_keywords = request.POST["meta_keywords"]
-            meta_description = request.POST["meta_description"]
+            if 'course_submit' in request.POST:
+                title = request.POST["title"]
+                tagline  = request.POST["tagline"]
+                short_description=request.POST["description"]
+                course_image = request.FILES.get('course_image', None)
+                # course_image = request.FILES['course_image']
+                category = request.POST["category"]
+                role = request.POST["role"]
+                course = request.POST["course"]
+                difficulty_level = request.POST["difficulty_level"]
+                # lesson_title=request.POST["lesson_title"]
+                # topic=request.POST["topic"]
+                meta_keywords = request.POST["meta_keywords"]
+                meta_description = request.POST["meta_description"]
 
-            # Prerequisites
-            requirements=request.POST['req']
-            learnings=request.POST['learn']
+                # Prerequisites
+                requirements=request.POST['req']
+                learnings=request.POST['learn']
 
-            course_points = request.POST["course_points"]
-            certificate = request.POST["certificate"]
+                course_points = request.POST["course_points"]
+                certificate = request.POST["certificate"]
 
-            datas = Course.objects.get(id = c_id)
+                datas = Course.objects.get(id = c_id)
 
-            datas.title=title
-            datas.tagline=tagline
-            datas.short_description=short_description
-            if course_image is not None:
-                datas.course_image=course_image
-                print(course_image)
-            datas.category=category
-            datas.role=role
-            datas.course=course
-            datas.difficulty_level=difficulty_level
-            datas.meta_keywords=meta_keywords
-            datas.meta_description=meta_description
-            datas.course_points=course_points
-            datas.certificate=certificate
-            datas.requirements=requirements
-            datas.learnings=learnings
-            datas.save()
-            return redirect("/csmdashboard/")
+                datas.title=title
+                datas.tagline=tagline
+                datas.short_description=short_description
+                if course_image is not None:
+                    datas.course_image=course_image
+                    print(course_image)
+                datas.category=category
+                datas.role=role
+                datas.course=course
+                datas.difficulty_level=difficulty_level
+                datas.meta_keywords=meta_keywords
+                datas.meta_description=meta_description
+                datas.course_points=course_points
+                datas.certificate=certificate
+                datas.requirements=requirements
+                datas.learnings=learnings
+                datas.save()
+                return redirect("/csmdashboard/")
+
 
         # Breakdown the requirements and learnings into list with help of python split()
         req_para=datas.requirements
@@ -794,11 +798,91 @@ def csmEditCourse(request,id):
             'datas' : datas,
             'req_list':req_list,
             'learn_list':learn_list,
+            't_id':t_id,
         }
         return render(request,'csm_pages/csm_edit_course.html',context)
     else:
         messages.error(request,"Wrong URL")
         return redirect('logout')
+
+
+def testEdit(request,id):
+    if request.method=='POST':
+        if 'category' in request.POST:
+            count=CreateCourse.objects.all().count()
+            if count==0:
+                cag=request.POST['category']
+                data=CreateCourse(create_category=cag)
+                data.save()
+                return redirect(request.path_info)
+
+            else:
+                cag=request.POST['category']
+                data=CreateCourse.objects.get(create_id=0)
+                data.create_category=cag
+                data.create_role=None
+                data.save()
+                return redirect(request.path_info)
+
+
+        if 'role' in request.POST:
+            c_course=request.POST['c_course']
+            data=CreateCourse.objects.get(create_category=c_course)
+            role=request.POST.get('role')
+            data.create_role=role
+            data.save()
+            return redirect(request.path_info)
+
+        if 'edit-course-submit' in request.POST:
+            confirm_cag=request.POST['confirm_cag']
+            confirm_role=request.POST['confirm_role']
+            confirm_course=request.POST['confirm_course']
+
+            # check=CFP_role.objects.get(cfp_role=confirm_role)
+            # if check.cfp_category != confirm_cag:
+            #     messages.error(request, 'The Category do not match with CFP Role')
+            #     return redirect('/testEdit/')
+            # else:
+            data=CreateCourse.objects.get(create_role=confirm_role)
+            data.create_course=confirm_course
+            data.save()
+            messages.success(request,"Course Changes Successfull Created Check Database")
+            return redirect('csmEditCourse',id)
+
+
+    cag_data=CareerCategory.objects.all()
+    if CreateCourse.objects.count()!=0:
+        obj=CreateCourse.objects.get(create_id=0)
+        role_list=CFP_role.objects.filter(cfp_category=obj.create_category)
+        try:
+            abc=CreateCourse.objects.get(create_id=0)
+            role_text=abc.create_role
+            role_split=role_text.split('+')
+            abc=[]
+            for i in role_split:
+                course_text=CFP_role.objects.get(cfp_role=i)
+                course=course_text.cfp_course.split('_')
+                abc.append(course)
+
+            common=set.intersection(*[set(list) for list in abc])
+            course_list=list(common)
+            # print(course_list)
+        except:
+            course_list=[]
+
+
+    else:
+        obj="Choose"
+        role_list=[]
+        course_list=[]
+
+    context={
+        'cag_data':cag_data,
+        'obj':obj,
+        'role_list':role_list,
+        'course_list':course_list
+    }
+    return render(request,'csm_pages/testEdit.html',context)
 
 
 @login_required
@@ -1218,7 +1302,7 @@ def test(request):
             data.save()
             messages.success(request,"Course Successfully Created Check Database")
             return redirect('/csmaddcourse/')
-            return redirect('/test/')
+
 
     cag_data=CareerCategory.objects.all()
     if CreateCourse.objects.count()!=0:
