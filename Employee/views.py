@@ -1192,14 +1192,14 @@ def test(request):
             data=CreateCourse.objects.get(create_category=c_course)
             # data.create_role=role
             # data.save()
-            ch=request.POST.getlist('roles')  #previously roles[]
-            role=""
-            for i in ch:
-                role+=i
-                role+="+"
-            role_str=role[:-1]
+            role=request.POST.get('role')  #previously roles[]
+            # role=""
+            # for i in ch:
+            #     role+=i
+            #     role+="+"
+            # role_str=role[:-1]
 
-            data.create_role=role_str
+            data.create_role=role
             data.save()
             return redirect('/test/')
 
