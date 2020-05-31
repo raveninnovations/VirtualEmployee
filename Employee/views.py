@@ -1,5 +1,5 @@
 import re
-import random
+import random, math
 import uuid
 import datetime as dt
 from django.contrib import messages
@@ -21,16 +21,46 @@ from django.core.mail import send_mail, EmailMessage
 
 from datetime import datetime
 from .forms import (AddUserForm)
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse
+
+from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense
+
 
 # Create your views here.
 # ADMIN SECTION
 
 @login_required
 def adminDashboard(request):
+    user=request.user
+    # admindash=AdminLicense.objects.get(adminuser=request.user)
     if request.user.is_staff and request.user.is_superuser:
         total_students=UserDetails.objects.all().count()
         total_sales=total_students*5000
+        if request.method == 'POST':
+            
+            if 'requestotp' in request.POST:
+                # otp = 152421
+                digits = "0123456789"
+                OTP = ""
+                # length of password can be changed 
+                # by changing value in range 
+                for i in range(4) : 
+                    OTP += digits[math.floor(random.random() * 10)] 
+                
+
+                mail_subject = "OTP for Admin License Page"
+                message = f'Hi {request.user.first_name}, please enter this OTP: {OTP}'
+                email = EmailMessage(mail_subject, message, from_email=EMAIL_HOST_USER, to=[user.email,])
+                email.send()
+
+            if 'obtainedotp' in request.POST:
+                receivedOtp=request.POST["receivedOtp"]
+                
+                if receivedOtp is not int(OTP):
+                    messages.error(request, "OTP mismatched")
+                else:
+                    return redirect("/admin_license/")
+
+
         context={
             'total_students':total_students,
             'total_sales':total_sales,
@@ -178,14 +208,17 @@ def adminLicense(request):
                 messages.success(request,"Key is generated")
                 return redirect("adminLicense")
         keys = AdminLicense.objects.order_by('-date')
+        u_keys = UsedLicense.objects.order_by('-u_date')
         context ={
-            'keys' : keys
+            'keys' : keys,
+            'u_keys':u_keys
         }
 
         return render(request,"Admin_pages/admin_license.html",context)
 
 def adduser(request):
     form = AddUserForm
+    lisences = AdminLicense.objects.all()
     if request.method =='POST':
         firstname = request.POST['first']
         lastname = request.POST['last']
@@ -194,6 +227,7 @@ def adduser(request):
         username = request.POST['email']
         password = request.POST['password1']
         conform = request.POST['password2']
+        license_key = request.POST['license']
 
         regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
         if User.objects.filter(email=email).exists():
@@ -221,14 +255,40 @@ def adduser(request):
             messages.error(request,'Password mismatch')
             return redirect('register')
         # Generating unique id
+
+
+
+
         num = random.randint(10000000, 99999999)
         str1 = 'VE'
         unique_id = str1+str(num)
         try:
+            if license_key:
+                if AdminLicense.objects.filter(key=license_key).exists():
+                    key = AdminLicense.objects.get(key=license_key)
+                    if UsedLicense.objects.filter(u_key=key).exists():
+                        print("Key is Used")
+                        messages.error(request,"Key is already applied")
+                        return redirect('register')
+                    else:
+                        used_key = UsedLicense(u_key=key.key,u_years=key.years)
+                        used_key.save()
+                        key.delete()
+                        messages.success(request,"License Key applied ! You can login")
+
+                else:
+                    messages.error(request,'License Key Not Valid')
+                    return redirect('register')
+
             User.objects.create_user(username=username,email=email,first_name=firstname,last_name=lastname,password=password)
             u_id = User.objects.get(username=username)
             addusr = UserDetails(user_id=u_id,user_pass=password,user_phone=userphone,user_unique=unique_id)
             addusr.save()
+            if license_key:
+
+                return redirect('login')
+            else:
+                return redirect('pricing')
 
         except:
             usr = User.objects.get(username=email)
@@ -598,6 +658,18 @@ def userchangepassword(request):
 @login_required
 def csmDashboard(request):
     if request.user.is_active and request.user.is_staff and not request.user.is_superuser:
+
+        if request.method == 'POST':
+            if 'courseDelete' in request.POST:
+                print("Delete Course")
+                c_id = request.POST['del_id']
+                try:
+                    course_del =Course.objects.get(id = c_id).delete()
+                    messages.success(request,"Deleted successfully")
+                except:
+                    messages.error(request,"Some error occured")
+
+
         if request.user.is_authenticated:
             allCourses = Course.objects.filter(user=request.user)
             for i in allCourses:
@@ -948,10 +1020,6 @@ def projectManager(request):
 
 
     return render(request,'ProjectModule_Pages/Project_manager.html',context)
-
-
-
-
 
 
 def projectDashboard(request):
@@ -1401,4 +1469,5 @@ def UserCfp(request):
 
 
 def pricing(request):
+
     return render(request,"virtualmain_pages/pricing.html")
