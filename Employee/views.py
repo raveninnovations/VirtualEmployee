@@ -83,7 +83,11 @@ def adminCourses(request):
 @login_required
 def adminProjects(request):
     if request.user.is_staff and request.user.is_superuser:
-        return render(request,'Admin_pages/projects.html')
+        projects=ProjectManager.objects.all()
+        context={
+            'projects':projects,
+        }
+        return render(request,'Admin_pages/projects.html',context)
     else:
         messages.error(request,"Wrong URL")
         return redirect('logout')
@@ -1077,15 +1081,15 @@ def projectManager(request):
             return redirect('/projectmanager/')
 
 
-        if '':
+        if 'project_submit' in request.POST:
             project_title=request.POST["project_title"]
             project_description=request.POST["project_description"]
             project_thumbnail=request.FILES.get("project_thumbnail")
             project_duration=request.POST["project_duration"]
             candidates_required=request.POST["candidates_required"]
             project_docs=request.FILES.get("project_docs")
-            project_category=request.POST.get("project_cfp")
-            project_cfp=request.POST.get("project_cfp")
+            project_category=request.POST.get("project_category")
+            project_cfp=request.POST.get("project_role")
 
 
             proj=ProjectManager.objects.create(
@@ -1095,10 +1099,13 @@ def projectManager(request):
                 project_duration=project_duration,
                 candidates_required=candidates_required,
                 project_docs=project_docs,
-                project_cfp=cfp_str
+                project_category=project_category,
+                project_cfp=project_cfp
             )
             # proj.project_cfp.set(cfp_list)
             proj.save()
+
+            obj=ProjectCFPStore.objects.all().delete()
             return redirect("/projectmanager/")
 
 
@@ -1129,8 +1136,11 @@ def projectManager(request):
 
 
 def projectDashboard(request):
-    project=ProjectManager.objects.all()
-    return render(request,'ProjectModule_Pages/Project_dashboard.html',{"project":project})
+    projects=ProjectManager.objects.all()
+    context={
+        'projects':projects,
+    }
+    return render(request,'ProjectModule_Pages/Project_dashboard.html',context)
 
 
 @login_required
