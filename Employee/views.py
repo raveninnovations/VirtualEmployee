@@ -22,7 +22,7 @@ from django.core.mail import send_mail, EmailMessage
 from datetime import datetime
 from .forms import (AddUserForm)
 
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense
+from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense
 
 
 # Create your views here.
@@ -658,6 +658,18 @@ def userchangepassword(request):
 @login_required
 def csmDashboard(request):
     if request.user.is_active and request.user.is_staff and not request.user.is_superuser:
+
+        if request.method == 'POST':
+            if 'courseDelete' in request.POST:
+                print("Delete Course")
+                c_id = request.POST['del_id']
+                try:
+                    course_del =Course.objects.get(id = c_id).delete()
+                    messages.success(request,"Deleted successfully")
+                except:
+                    messages.error(request,"Some error occured")
+
+
         if request.user.is_authenticated:
             allCourses = Course.objects.filter(user=request.user)
             for i in allCourses:
