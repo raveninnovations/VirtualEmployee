@@ -176,8 +176,21 @@
 
                             <li>
 
+                              <div class="text-left uk-width-expand mt-2">
+                                <button class="btn btn-default ml-auto pr-5 pl-4" id="bb" type="button" onclick="back();" name="button"><i class="uil-angle-left"></i>Back</button>
+
+                                <!-- tab switch -->
+                                <script>
+                                 function back()
+                                    {
+                                      document.getElementById("back").click();
+                                    }
+                                </script>
+                              </div>
+
+
                               <div>
-                                  <div class="uk-form-group mx-1">
+                                  <div class="uk-form-group mx-1 mt-3 my-4">
                                       <label class="uk-form-label"> License Key (Optional)</label>
 
                                       <div class="uk-position-relative w-100">
@@ -191,28 +204,19 @@
                               </div>
 
 
-                           
-                              <div class="text-left uk-width-expand mt-2">
-                                <button class="btn btn-default ml-auto pr-5 pl-4" id="bb" type="button" onclick="back();" name="button"><i class="uil-angle-left"></i>Back</button>
 
-                                <!-- tab switch -->
-                                <script>
-                                 function back()
-                                    {
-                                      document.getElementById("back").click();
-                                    }
-                                </script>
-                              </div>
+                          <div class="uk-width-auto@s uk-width-expand ml-5 mt-4">
+                              <button id="bb" type="submit" class=" uk-width-expand"><span></span><span></span><span></span><span></span>Get Started</button>
 
-                              <div>
-                                <div class="mt-4 uk-flex-middle uk-grid-small" uk-grid>
-                                  
-                                    <div class="uk-width-auto@s">
-                                        <button id="bb" type="submit"><span></span><span></span><span></span><span></span>Get Started</button>
+                          </div>
 
-                                    </div>
-                                </div>
-                            </div>
+                          <hr>
+
+                          <div class="uk-width-expand text-center">
+                            <p><a href="{% url 'login' %}">Already Have An Account? <strong>Log In</strong></a></p>
+                          </div>
+
+
 
                             </li>
                         </ul>
