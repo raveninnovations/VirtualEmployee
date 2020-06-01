@@ -45,17 +45,18 @@ def adminDashboard(request):
 
                 OTP = random.randint(99, 9999)
                 request.session['num'] = OTP
-
+                print(OTP)
                 mail_subject = "OTP for Admin License Page"
-                message = f'Hi {request.user.first_name}, please enter this OTP: {OTP}'
+                message = f'Hi,{request.user.first_name} is requesting for an OTP to access Admin License page, please share this OTP : {OTP}'
                 email = EmailMessage(mail_subject, message, from_email=EMAIL_HOST_USER, to=[user_email,])
                 email.send()
 
             if 'obtainedotp' in request.POST:
-                old_otp = request.session['num']
+                new_otp = request.session['num']
                 receivedOtp=request.POST["receivedOtp"]
                 print(receivedOtp)
-                if int(receivedOtp) == old_otp:
+                print(new_otp)
+                if int(receivedOtp) == new_otp:
                     messages.success(request,'Welcome')
                     return redirect('adminLicense')
 
@@ -396,7 +397,6 @@ def userdashboard(request):
 
                     progress_course = None
 
-                # print("haaaaai")
                 context = {
                     'cfp_details':cfp_details,
                     'lists':lists,
@@ -1251,7 +1251,7 @@ def cfp_edit(request,id):
         'category_list':category_list,
     }
 
-    return render(request,'Admin_pages/cfp_edit.html',context);
+    return render(request,'Admin_pages/cfp_edit.html',context)
 
 
 @login_required
@@ -1280,7 +1280,7 @@ def category_edit(request,id):
 
 
 
-def test(request):
+def createcourse(request):
     if request.method=='POST':
         if 'category' in request.POST:
             count=CreateCourse.objects.all().count()
@@ -1288,7 +1288,7 @@ def test(request):
                 cag=request.POST['category']
                 data=CreateCourse(create_category=cag)
                 data.save()
-                return redirect('/test/')
+                return redirect('/createcourse/')
 
             else:
                 cag=request.POST['category']
@@ -1296,7 +1296,7 @@ def test(request):
                 data.create_category=cag
                 data.create_role=None
                 data.save()
-                return redirect('/test/')
+                return redirect('/createcourse/')
 
 
         if 'role' in request.POST:
@@ -1314,7 +1314,7 @@ def test(request):
 
             data.create_role=role
             data.save()
-            return redirect('/test/')
+            return redirect('/createcourse/')
 
         if 'course-submit' in request.POST:
             confirm_cag=request.POST['confirm_cag']
@@ -1487,7 +1487,7 @@ def UserCfp(request):
             else:
                 cag=request.POST['first-category']
                 data=CareerChoice.objects.get(career_id=1)
-                data.first_choice_category=cag;
+                data.first_choice_category=cag
                 data.first_choice_role=None
                 data.save()
                 return redirect('usercfp')
