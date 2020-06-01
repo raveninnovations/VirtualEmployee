@@ -31,39 +31,41 @@ from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, Caree
 @login_required
 def adminDashboard(request):
     user=request.user
+
+    user_email = "ravencorporations@gmail.com"
     # admindash=AdminLicense.objects.get(adminuser=request.user)
     if request.user.is_staff and request.user.is_superuser:
         total_students=UserDetails.objects.all().count()
         total_sales=total_students*5000
+
         if request.method == 'POST':
-
+            num = 1012
             if 'requestotp' in request.POST:
-                # otp = 152421
-                digits = "0123456789"
-                OTP = ""
-                # length of password can be changed
-                # by changing value in range
-                for i in range(4) :
-                    OTP += digits[math.floor(random.random() * 10)]
 
+                OTP = random.randint(99, 9999)
+                request.session['num'] = OTP
 
                 mail_subject = "OTP for Admin License Page"
                 message = f'Hi {request.user.first_name}, please enter this OTP: {OTP}'
-                email = EmailMessage(mail_subject, message, from_email=EMAIL_HOST_USER, to=[user.email,])
+                email = EmailMessage(mail_subject, message, from_email=EMAIL_HOST_USER, to=[user_email,])
                 email.send()
 
             if 'obtainedotp' in request.POST:
+                old_otp = request.session['num']
                 receivedOtp=request.POST["receivedOtp"]
+                print(receivedOtp)
+                if int(receivedOtp) == old_otp:
+                    messages.success(request,'Welcome')
+                    return redirect('adminLicense')
 
-                if receivedOtp is not int(OTP):
-                    messages.error(request, "OTP mismatched")
                 else:
-                    return redirect("/admin_license/")
+                    messages.error(request, "OTP mismatched")
 
 
         context={
             'total_students':total_students,
             'total_sales':total_sales,
+
         }
         return render(request,"Admin_pages/dashboard.html",context)
     else:
