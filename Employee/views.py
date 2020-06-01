@@ -36,7 +36,6 @@ def adminDashboard(request):
         total_students=UserDetails.objects.all().count()
         total_sales=total_students*5000
         if request.method == 'POST':
-
             if 'requestotp' in request.POST:
                 # otp = 152421
                 digits = "0123456789"
@@ -54,11 +53,10 @@ def adminDashboard(request):
 
             if 'obtainedotp' in request.POST:
                 receivedOtp=request.POST["receivedOtp"]
-
-                if receivedOtp is not int(OTP):
-                    messages.error(request, "OTP mismatched")
-                else:
+                if receivedOtp == OTP:
                     return redirect("/admin_license/")
+                else:
+                    messages.error(request, "OTP mismatched")
 
 
         context={

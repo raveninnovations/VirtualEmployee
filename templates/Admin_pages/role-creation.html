@@ -129,10 +129,10 @@
                                           <td>{{role.role_user_email}}</td>
                                           <td>{{role.role_create_date | date}}</td>
                                           <!-- <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove" >Remove</button></td> -->
-                                          <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove" uk-toggle="target: #modal-example">Remove</button></td>
+                                          <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove" uk-toggle="target: #modal-del">Remove</button></td>
 
                                           <!-- Remove Button Click Warning Message Modal -->
-                                          <div id="modal-example" uk-modal>
+                                          <div id="modal-del" uk-modal>
                                             <div class="uk-modal-dialog uk-modal-body">
                                               <form name="removeentry" method="POST">
                                                 {% csrf_token %}
