@@ -1,4 +1,7 @@
 {% extends 'base1.html' %}
+{% block title %}
+Role Creation
+{% endblock %}
 {% block content %}
 
     <div id="wrapper" class="admin-panel">
@@ -59,9 +62,9 @@
                                     <div class="uk-margin">
                                         <div class="uk-inline d-flex">
                                             <div class="mt-1">
-                                              <input type="button" class="btn btn-default"  value="Generate Password" onClick="populateform(8)" required><br />
+                                              <input type="button" class="btn btn-default"  value="Generate Password" onClick="populateform(8)" required>
                                             </div>
-                                            <div class="mx-1 ">
+                                            <div class="mt-1 ml-2 ">
                                               <input class="uk-input bg-secondary" name="password" type="text" placeholder="Password">
                                             </div>
 
