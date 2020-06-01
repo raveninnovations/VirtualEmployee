@@ -223,7 +223,8 @@ def adminLicenseInfo(request,id):
             student_info = UserDetails.objects.get(user_license=license_info.u_key)
 
             context ={
-                'student':student_info
+                'student':student_info,
+                'license':license_info
             }
             return render(request,'Admin_pages/admin_license_info.html',context)
 
