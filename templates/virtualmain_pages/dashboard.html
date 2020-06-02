@@ -151,7 +151,7 @@
                                   <a href="{% url 'userlesson' i.course_id %}">
                                     <div class="course-card-resume">
                                         <div class="course-card-resume-thumbnail">
-                                            <img src="../assets/images/course/2.png">
+                                            <img src="{{ i.course_image.url }}">
                                         </div>
                                         <div class="course-card-resume-body">
                                             <h5>{{i.title}}</h5>

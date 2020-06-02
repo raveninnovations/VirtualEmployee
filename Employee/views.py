@@ -462,7 +462,7 @@ def userLesson(request,id):
                 #     obj=ProgressCourse(user=user,course_id=id,title=course_details.title,role=course_details.role,course=course_details.course)
                 #     return redirect(request.path_info)
             except:
-                obj=ProgressCourse(user=user,course_id=id,title=course_details.title,category=course_details.category,role=course_details.role,course=course_details.course)
+                obj=ProgressCourse(user=user,course_id=id,title=course_details.title,category=course_details.category,role=course_details.role,course=course_details.course,course_image=course_details.course_image)
                 obj.save()
                 return redirect(request.path_info)
             return redirect(request.path_info)
