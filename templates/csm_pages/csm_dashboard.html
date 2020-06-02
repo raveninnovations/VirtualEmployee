@@ -1,5 +1,8 @@
 {% extends 'base1.html' %}
 {% load static %}
+{% block title %}
+CSM Page
+{% endblock %}
 {% block content %}
 
     <div id="wrapper" class="admin-panel">
@@ -55,7 +58,7 @@
 
                   <div class="mt-3 uk-width-expand">
                       {% include 'partials/_alerts.html' %}
-                    <a class="btn btn-default btn-lg " href="/test/">Create Course</a>
+                    <a class="btn btn-default btn-lg " href="/createcourse/">Create Course</a>
                   </div>
 
 
@@ -80,7 +83,7 @@
                                     <tr>
                                         <th>Course Id </th>
                                         <th>Course Name</th>
-                                        <th>Categoty</th>
+                                        <th>Category</th>
                                         <th>Course Created</th>
                                         <th></th>
                                         <th></th>
@@ -93,14 +96,14 @@
                                     {% for course in courses %}
                                         <form>
                                     <tr>
-                                        <td>{{course.id}}</td>
+                                        <td>C_ID{{course.id}}</td>
                                         <td>{{course.title}}</td>
                                         <td>{{course.category}}</td>
                                         <td>{{course.created}}</td>
                                         <td><a class="uk-button-dark btn btn-dark" href="{% url 'csmEditCourse' course.id %}" type="button" name="Remove">Edit</a></td>
 
-                                        <td><a class="uk-button-success btn btn-success" href="{% url 'csmAddCurriculam' course.pk %}">Add Curriculam</a></td>
-{#                                        <td><button class="uk-button-red btn btn-alert" type="button" name="Remove">Add Quizz</button></td>#}
+                                        <td><a class="uk-button-success btn btn-success" href="{% url 'csmAddCurriculam' course.pk %}">Add Curriculum</a></td>
+{#                                        <td><button class="uk-button-red btn btn-alert" type="button" name="Remove">Add Quiz</button></td>#}
 
                                         <td><button class="uk-button-danger btn btn-alert" type="button"  uk-toggle="target: #modal-example">Delete</button></td>
                                             <!-- <i class="icon-feather-delete"></i> -->

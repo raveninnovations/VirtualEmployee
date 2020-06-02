@@ -58,10 +58,11 @@
                 <form name="obtainedotp" method="POST">
                     {% csrf_token %}
                 <input type="text" placeholder="Enter OTP" id="receivedOtp" name="receivedOtp">
-                <button class="uk-button uk-button-default uk-modal-close" type="button">Close</button>
+                <div class="uk-flex uk-flex-between">
+                <button class="uk-button uk-button-small uk-width-1-6 uk-modal-close" type="button">Close</button>
                 <input class="uk-button uk-button-primary" name="obtainedotp" required type="submit" value="Submit">
-
-            </form>
+                </div>
+                </form>
             </div>
         </div>
 

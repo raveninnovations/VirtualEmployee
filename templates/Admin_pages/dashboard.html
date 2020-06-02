@@ -1,4 +1,7 @@
 {% extends 'base1.html' %}
+{% block title %}
+Admin Page
+{% endblock %}
 {% block content %}
 
     <div id="wrapper" class="admin-panel">
@@ -14,6 +17,7 @@
 
 
                         <div class="section-small">
+                            {% include 'partials/_alerts.html' %}
 
                             <h3> Welcome {{ user.first_name }}  ! </h3>
 

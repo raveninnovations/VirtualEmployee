@@ -268,6 +268,7 @@
 
                                 <div>
                                     <h5 class="uk-text-bold mb-2"> Current year </h5>
+                                    <select id="ddlYears"></select>
                                     <input type="text" name="in_year" class="uk-input" value="{{ edu.year }}">
                                 </div>
                               </div>
@@ -299,6 +300,7 @@
                                 </div>
                                 <div>
                                     <h5 class="uk-text-bold mb-2"> Current year </h5>
+
                                     <input type="text" name="in_year" class="uk-input" placeholder="year">
                                 </div>
 
@@ -378,5 +380,25 @@
 
         })(window, document);
     </script>
+
+
+<script type="text/javascript">
+    window.onload = function () {
+        //Reference the DropDownList.
+        var ddlYears = document.getElementById("ddlYears");
+
+        //Determine the Current Year.
+        var currentYear = (new Date()).getFullYear();
+
+        //Loop and add the Year values to DropDownList.
+        for (var i = currentYear; i >= 1950; i++) {
+            var option = document.createElement("OPTION");
+            option.innerHTML = i;
+            option.value = i;
+            ddlYears.appendChild(option);
+        }
+    };
+</script>
+
 
 {% endblock %}
