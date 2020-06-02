@@ -75,8 +75,9 @@ Course Details
                                 <div class="course-details-info">
 
                                     <ul>
-                                        <li> Created by <a href="#"> Jonathan Madano </a> </li>
-                                        <li> Last updated 10/2019</li>
+                                        <li> Created by <a href="#"> {{ course_details.user.first_name }} {{ course_details.user.last_name }} </a> </li>
+                                            <li> Email : {{ course_details.user.email }}</li>
+                                        <li> Last updated : 26/01/2020</li>
                                     </ul>
 
                                 </div>
