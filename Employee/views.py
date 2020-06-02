@@ -866,6 +866,16 @@ def testEdit(request,id):
             data=CreateCourse.objects.get(create_role=confirm_role)
             data.create_course=confirm_course
             data.save()
+
+            obj=Course.objects.get(id=id)
+            obj.category=data.create_category
+            obj.role=data.create_role
+            obj.course=data.create_course
+            obj.save()
+
+
+            data=CreateCourse.objects.all().delete()
+
             messages.success(request,"Course Changes Successfull Created Check Database")
             return redirect('csmEditCourse',id)
 
@@ -900,7 +910,8 @@ def testEdit(request,id):
         'cag_data':cag_data,
         'obj':obj,
         'role_list':role_list,
-        'course_list':course_list
+        'course_list':course_list,
+        'id':id
     }
     return render(request,'csm_pages/testEdit.html',context)
 
