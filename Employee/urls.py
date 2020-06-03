@@ -35,6 +35,7 @@ urlpatterns = [
     path('tl-projectdetails/',views.tlProjectDetails,name='tlProjectDetails'),
     # PROJECT Section
     path('projectmanager/',views.projectManager,name='projectManager'),
+    path('projecteditmanager/<int:id>',views.projectEditManager,name='projectEditManager'),
     path('projectdashboard/',views.projectDashboard,name='projectDashboard'),
     #Create category and CFP
 

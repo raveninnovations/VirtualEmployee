@@ -43,7 +43,11 @@ Projects
                                          <div class="uk-card uk-card-default">
                                              <div class="uk-card-media-top">
                                                   <span class="uk-card-badge uk-label uk-position-top-right bg-primary">Latest</span>
-                                                 <img src="{{ project.project_thumbnail.url }}" alt="">
+                                                  {% if project.project_thumbnail %}
+                                                  <img src="{{project.project_thumbnail.url}}" alt="">
+                                                  {% else %}
+                                                  <img src="" alt="">
+                                                  {% endif %}
                                              </div>
                                              <div class="uk-card-body">
                                                  <h3 class="uk-card-title">{{project.project_title}}</h3>
