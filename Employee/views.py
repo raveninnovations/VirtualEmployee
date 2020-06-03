@@ -235,8 +235,17 @@ def adminLicenseInfo(request,id):
         messages.error(request,"Wrong URL")
         return redirect('login')
 
+
 def adminStudents(request):
-    return render(request,'Admin_pages/admin_students.html')
+    students=UserDetails.objects.all()
+    students_contact=UserContact.objects.all()
+    context={
+        'students':students,
+        'students_contact':students_contact
+    }
+    return render(request,'Admin_pages/admin_students.html',context)
+
+
 
 def adduser(request):
     form = AddUserForm
