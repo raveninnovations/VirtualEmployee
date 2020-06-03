@@ -31,18 +31,15 @@ from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, Caree
 @login_required
 def adminDashboard(request):
     user=request.user
-
     user_email = "ravencorporations@gmail.com"
     # admindash=AdminLicense.objects.get(adminuser=request.user)
     if request.user.is_staff and request.user.is_superuser:
         total_students=UserDetails.objects.all().count()
         total_sales=total_students*5000
-
-
         if request.method == 'POST':
             num = 1012
             if 'requestotp' in request.POST:
-
+                print("hai")
                 OTP = random.randint(99, 9999)
                 request.session['num'] = OTP
                 print(OTP)
@@ -50,6 +47,7 @@ def adminDashboard(request):
                 message = f'Hi,{request.user.first_name} is requesting for an OTP to access Admin License page, please share this OTP : {OTP}'
                 email = EmailMessage(mail_subject, message, from_email=EMAIL_HOST_USER, to=[user_email,])
                 email.send()
+                messages.success(request,'Contact admin for OTP')
 
             if 'obtainedotp' in request.POST:
                 new_otp = request.session['num']
@@ -81,9 +79,6 @@ def adminCourses(request):
     else:
         messages.error(request,"Wrong URL")
         return redirect('logout')
-
-
-
 @login_required
 def adminProjects(request):
     if request.user.is_staff and request.user.is_superuser:
@@ -195,7 +190,7 @@ def adminRolecreation(request):
         messages.error(request,"Wrong URL")
         return redirect('logout')
 
-
+@login_required
 def adminLicense(request):
     if request.user.is_staff and request.user.is_superuser:
 
@@ -239,6 +234,9 @@ def adminLicenseInfo(request,id):
     else:
         messages.error(request,"Wrong URL")
         return redirect('login')
+
+def adminStudents(request):
+    return render(request,'Admin_pages/admin_students.html')
 
 def adduser(request):
     form = AddUserForm
@@ -390,9 +388,10 @@ def userdashboard(request):
 
                 lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
 
-                if ProgressCourse.objects.filter(user=user).exists():
-                    print("hai")
+                if ProgressCourse.objects.filter(user_id=user.pk).exists():
+                    print("hello")
                     progress_course = ProgressCourse.objects.filter(user=user)
+
                 else:
 
                     progress_course = None
@@ -402,10 +401,13 @@ def userdashboard(request):
                     'lists':lists,
                     'lists2':lists2,
                     'course_data': course_data,
-                    'progress_course':progress_course
+                    'progress_course':progress_course,
 
                 }
-                return render(request,'virtualmain_pages/dashboard.html',context)
+                return render(request, 'virtualmain_pages/dashboard.html', context)
+            else:
+                return render(request,'virtualmain_pages/dashboard.html')
+
         except:
             print("Error")
 
@@ -413,7 +415,7 @@ def userdashboard(request):
             'course_data':course_data,
 
         }
-        return render(request,'virtualmain_pages/dashboard.html',context)
+        return render(request,'virtualmain_pages/dashboard.html', context)
     else:
         messages.error(request,"Wrong URL")
         return redirect('logout')
