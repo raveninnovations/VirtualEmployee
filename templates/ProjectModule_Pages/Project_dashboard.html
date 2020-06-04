@@ -72,11 +72,16 @@ Projects
 
                                   <div class="uk-child-width-1-3@m" uk-grid>
                                     {% for project in projects %}
+                                    <a href="{% url 'projectEditManager' project.pk %}">
                                      <div>
                                          <div class="uk-card uk-card-default">
                                              <div class="uk-card-media-top">
-                                                  <span class="uk-card-badge uk-label uk-position-top-right bg-primary">Latest</span>
-                                                 <img src="{{project.project_thumbnail.url}}" alt="">
+                                                  <span class="uk-card-badge uk-label uk-position-top-right bg-primary">{{project.project_category}}</span>
+                                                  {% if project.project_thumbnail %}
+                                                  <img src="{{project.project_thumbnail.url}}" alt="">
+                                                  {% else %}
+                                                  <img src="" alt="">
+                                                  {% endif %}
                                              </div>
                                              <div class="uk-card-body">
                                                  <h3 class="uk-card-title">{{project.project_title}}</h3>
@@ -84,6 +89,7 @@ Projects
                                              </div>
                                          </div>
                                      </div>
+                                     </a>
                                      {% endfor %}
 
                                  </div>
@@ -101,7 +107,7 @@ Projects
 
                                                <span class="uk-card-badge uk-label uk-position-top-right bg-primary">Assigned</span>
                                             </div>
-                                                 <img src="{{project.project_thumbnail}}" alt="">
+                                                 <img src="" alt="">
                                              </div>
                                              <div class="uk-card-body">
                                                  <h3 class="uk-card-title">{{project.project_title }}</h3>

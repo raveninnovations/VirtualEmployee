@@ -268,7 +268,7 @@
 
                                 <div>
                                     <h5 class="uk-text-bold mb-2"> Current year </h5>
-                                    <select id="ddlYears"></select>
+                                  
                                     <input type="text" name="in_year" class="uk-input" value="{{ edu.year }}">
                                 </div>
                               </div>
@@ -300,8 +300,9 @@
                                 </div>
                                 <div>
                                     <h5 class="uk-text-bold mb-2"> Current year </h5>
+                                    <select id="ddlYears" name="in_year" class="uk-input"></select>
+                                   
 
-                                    <input type="text" name="in_year" class="uk-input" placeholder="year">
                                 </div>
 
 
@@ -309,7 +310,7 @@
                                 <div class="mx-3 mb-2">
                                     <h5 class="uk-text-bold mb-2"> Institution Name </h5>
                                     <input type="text" name="in_name" class="uk-input" placeholder="Institution name">
-                                </div>
+                                </div>Login Failed! Your email or password is incorrect.
                                 <div class="mx-3 mb-2">
                                     <h5 class="uk-text-bold mb-2"> Institution Address </h5>
                                     <input type="text" class="uk-input" name="in_address" placeholder="Institution Address">
@@ -391,7 +392,7 @@
         var currentYear = (new Date()).getFullYear();
 
         //Loop and add the Year values to DropDownList.
-        for (var i = currentYear; i >= 1950; i++) {
+        for (var i = currentYear; i >= 1950; i--) {
             var option = document.createElement("OPTION");
             option.innerHTML = i;
             option.value = i;

@@ -233,6 +233,7 @@ class ProgressCourse(models.Model):
     category=models.CharField(max_length=30,null=True,blank=True)
     role=models.CharField(max_length=50,blank=True)
     course=models.CharField(max_length=50,blank=True)
+    course_image=models.ImageField(upload_to='progress_image/',null=True,blank=True)
 
     def __str__(self):
         return self.title

@@ -139,14 +139,14 @@ Project Manager
                           <div class="uk-margin">
                               <label class="uk-form-label" for="form-horizontal-text">Project Title</label>
                               <div class="uk-form-controls">
-                                  <input class="uk-input" id="form-horizontal-text" type="text" name="project_title" placeholder="Some text...">
+                                  <input class="uk-input" id="form-horizontal-text" type="text" name="project_title" value="{{project.project_title}}">
                               </div>
                           </div>
 
                           <div class="uk-margin">
                             <label class="uk-form-label" for="form-horizontal-text">Project Description</label>
                             <div class="uk-form-controls">
-                             <textarea class="uk-textarea" rows="5" name="project_description" placeholder="Enter Description"></textarea>
+                             <textarea class="uk-textarea" rows="5" name="project_description" >{{project.project_description}}</textarea>
                             </div>
                           </div>
 
@@ -179,10 +179,14 @@ Project Manager
                                                 </script>
                           </div>
 
+
+
+
+
                           <div class="uk-margin my-4">
                               <label class="uk-form-label" for="form-horizontal-text">Project Duration</label>
                               <div class="uk-form-controls">
-                                  <input class="uk-input" name="project_duration" id="form-horizontal-text" type="number" placeholder="Enter Total Months">
+                                  <input class="uk-input" name="project_duration" id="form-horizontal-text" type="number" value="{{project.project_duration}}">
                               </div>
                           </div>
 
@@ -199,14 +203,23 @@ Project Manager
                           <div class="uk-margin">
                               <label class="uk-form-label" for="form-horizontal-text">Category</label>
                               <div class="uk-form-controls">
+                                {% if check == 1 %}
                                   <input class="uk-input" id="form-horizontal-text" type="text" name="project_category" value="{{obj.create_category}}" readonly>
+                                {% else %}
+                                  <input class="uk-input" id="form-horizontal-text" type="text" name="project_category" value="{{project.project_category}}" readonly>
+                                {% endif %}
                               </div>
                           </div>
 
                           <div class="uk-margin">
                               <label class="uk-form-label" for="form-horizontal-text">CFP Role</label>
                               <div class="uk-form-controls">
+                              {% if check == 1 %}
                                   <input class="uk-input" id="form-horizontal-text" type="text" name="project_role" value="{{obj.create_role}}" readonly>
+                                {% else %}
+                                <input class="uk-input" id="form-horizontal-text" type="text" name="project_role" value="{{project.project_cfp}}" readonly>
+
+                              {% endif %}
                               </div>
                           </div>
 
@@ -270,7 +283,7 @@ Project Manager
                           <div class="uk-margin">
                               <label class="uk-form-label" for="form-horizontal-text">Candidates Required</label>
                               <div class="uk-form-controls">
-                                  <input class="uk-input" id="form-horizontal-text" type="Number" name="candidates_required" placeholder="Max">
+                                  <input class="uk-input" id="form-horizontal-text" type="Number" name="candidates_required" value="{{project.candidates_required}}">
                               </div>
                           </div>
 
@@ -312,7 +325,7 @@ Project Manager
                       </div>
 
                       <div class=" mx-auto mt-3">
-                        <button class="btn btn-default px-5" name="project_submit">Create Project</button>
+                        <button class="btn btn-default px-5" name="change_project_submit">Save the changes</button>
                       </div>
                     </form>
 

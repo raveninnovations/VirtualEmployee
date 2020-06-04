@@ -54,7 +54,7 @@
 
                 <div uk-grid>
 
-                    <div class="uk-width-2-5@m uk-flex-first" style="width: 50%">
+                    <div class="uk-width-2-5@m uk-flex-first uk-width-expand">
                         {% include 'partials/_alerts.html' %}
                        <div class="uk-card-default rounded p-4 mt-5">
 
@@ -155,9 +155,6 @@
                       <!-- SECOND CHOICE  ENDS-->
                     <div class="uk-width-expand@m">
 
-
-                    <form name="confirm-course" method="POST">
-                         {% csrf_token %}
                         <legend class="uk-legend my-4 text-center">Confirm Your Choice </legend>
                         <div class=" container pt-3 px-5  uk-width-expand">
                             <h5>First Choice</h5>
@@ -203,15 +200,78 @@
 
                         </div>
 
-
+<!--
                         <div class="text-center">
                             <button type="submit" class=" form-group px-5 btn btn-default" name="confirm_submit">Confirm</button>
+                        </div> -->
+
+
+
+
+                    <div class="text-center">
+
+                        <a class="uk-button btn btn-default uk-margin-small-right text-white text-center" type="button" uk-toggle="target: #modal-close-default">Submit</a>
+
+                          <!-- This is the modal with the default close button -->
+                          <div id="modal-close-default" uk-modal>
+                              <div class="uk-modal-dialog uk-modal-body pb-2 pt-3 rounded">
+                                  <button class="uk-modal-close-default" type="button" uk-close></button>
+                                  <h2 class="uk-modal-title">Are you sure you want to submit this?</h2>
+                                  <form name="confirm-course" method="POST">
+                                       {% csrf_token %}
+                                  <div class=" container pt-0 px-4  uk-width-expand">
+                                    
+                                      <h4 class="text-center">First Choice</h4>
+                                      <div class="form-group row mb-0">
+                                          <label class="col-md-3 col-form-label">Category<span
+                                                  class="required">*</span></label>
+
+                                          <div class="col-md-9">
+                                              <input type="text" name="confirm_first_category" value="{{obj.first_choice_category}}" required readonly>
+                                          </div>
+                                      </div>
+
+                                      <div class="form-group row mb-0">
+                                          <label class="col-md-3 col-form-label">  Role<span
+                                                  class="required">*</span></label>
+
+                                          <div class="col-md-9">
+                                              <input type="text" name="confirm_first_role" value="{{obj.first_choice_role}}" required readonly>
+                                          </div>
+                                      </div>
+
+                                  </div>
+
+                                  <div class=" container pt-0 px-4  uk-width-expand">
+                                      <h4 class="text-center">Second Choice</h4>
+                                      <div class="form-group row mb-0">
+                                          <label class="col-md-3 col-form-label"> Category<span
+                                                  class="required">*</span></label>
+
+                                          <div class="col-md-9">
+                                              <input type="text" name="confirm_second_category" value="{{obj.second_choice_category}}" required readonly>
+                                          </div>
+                                      </div>
+
+                                      <div class="form-group row mb-0">
+                                          <label class="col-md-3 col-form-label"> Role<span
+                                                  class="required">*</span></label>
+
+                                          <div class="col-md-9">
+                                              <input type="text" name="confirm_second_role" value="{{obj.second_choice_role}}" required readonly>
+                                          </div>
+                                      </div>
+
+                                  </div>
+                                  <div class="text-center">
+                                      <button type="submit" class=" form-group px-5 btn btn-default" name="confirm_submit">Confirm</button>
+                                  </div>
+
+                                </form>
+                              </div>
+                          </div>
+
                         </div>
-
-                    </form>
-
-
-
 
 
 

@@ -75,8 +75,9 @@ Course Details
                                 <div class="course-details-info">
 
                                     <ul>
-                                        <li> Created by <a href="#"> Jonathan Madano </a> </li>
-                                        <li> Last updated 10/2019</li>
+                                        <li> Created by <a href="#"> {{ course_details.user.first_name }} {{ course_details.user.last_name }} </a> </li>
+                                            <li> Email : {{ course_details.user.email }}</li>
+                                        <li> Last updated : 26/01/2020</li>
                                     </ul>
 
                                 </div>
@@ -108,7 +109,6 @@ Course Details
                             <li class="course-description-content">
 
                                 <h4><strong>Description </strong></h4>
-                                <p> {{ course_details.short_description }}</p>
                                 <p> {{ course_details.short_description }}</p>
 
 
@@ -659,7 +659,7 @@ Course Details
                                         <span> <i class="uil-award"></i> Certificate </span>
                                     </div>
                                     <div>
-                                        <span> <i class="uil-file-alt"></i> 12 Article </span>
+                                        <span> <i class="uil-file-alt"></i> {{ lessons.count }} Lessons </span>
                                     </div>
                                     <div>
                                         <span> <i class="uil-video"></i> Watch Offline </span>

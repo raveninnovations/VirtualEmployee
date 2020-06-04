@@ -31,18 +31,15 @@ from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, Caree
 @login_required
 def adminDashboard(request):
     user=request.user
-
     user_email = "ravencorporations@gmail.com"
     # admindash=AdminLicense.objects.get(adminuser=request.user)
     if request.user.is_staff and request.user.is_superuser:
         total_students=UserDetails.objects.all().count()
         total_sales=total_students*5000
-
-
         if request.method == 'POST':
             num = 1012
             if 'requestotp' in request.POST:
-
+                print("hai")
                 OTP = random.randint(99, 9999)
                 request.session['num'] = OTP
                 print(OTP)
@@ -50,6 +47,7 @@ def adminDashboard(request):
                 message = f'Hi,{request.user.first_name} is requesting for an OTP to access Admin License page, please share this OTP : {OTP}'
                 email = EmailMessage(mail_subject, message, from_email=EMAIL_HOST_USER, to=[user_email,])
                 email.send()
+                messages.success(request,'Contact admin for OTP')
 
             if 'obtainedotp' in request.POST:
                 new_otp = request.session['num']
@@ -88,9 +86,6 @@ def adminCourses(request):
     else:
         messages.error(request,"Wrong URL")
         return redirect('logout')
-
-
-
 @login_required
 def adminProjects(request):
     if request.user.is_staff and request.user.is_superuser:
@@ -202,7 +197,7 @@ def adminRolecreation(request):
         messages.error(request,"Wrong URL")
         return redirect('logout')
 
-
+@login_required
 def adminLicense(request):
     if request.user.is_staff and request.user.is_superuser:
 
@@ -246,6 +241,18 @@ def adminLicenseInfo(request,id):
     else:
         messages.error(request,"Wrong URL")
         return redirect('login')
+
+
+def adminStudents(request):
+    students=UserDetails.objects.all()
+    students_contact=UserContact.objects.all()
+    context={
+        'students':students,
+        'students_contact':students_contact
+    }
+    return render(request,'Admin_pages/admin_students.html',context)
+
+
 
 def adduser(request):
     form = AddUserForm
@@ -397,9 +404,10 @@ def userdashboard(request):
 
                 lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
 
-                if ProgressCourse.objects.filter(user=user).exists():
-                    print("hai")
+                if ProgressCourse.objects.filter(user_id=user.pk).exists():
+                    print("hello")
                     progress_course = ProgressCourse.objects.filter(user=user)
+
                 else:
 
                     progress_course = None
@@ -409,10 +417,13 @@ def userdashboard(request):
                     'lists':lists,
                     'lists2':lists2,
                     'course_data': course_data,
-                    'progress_course':progress_course
+                    'progress_course':progress_course,
 
                 }
-                return render(request,'virtualmain_pages/dashboard.html',context)
+                return render(request, 'virtualmain_pages/dashboard.html', context)
+            else:
+                return render(request,'virtualmain_pages/dashboard.html')
+
         except:
             print("Error")
 
@@ -420,7 +431,7 @@ def userdashboard(request):
             'course_data':course_data,
 
         }
-        return render(request,'virtualmain_pages/dashboard.html',context)
+        return render(request,'virtualmain_pages/dashboard.html', context)
     else:
         messages.error(request,"Wrong URL")
         return redirect('logout')
@@ -469,7 +480,7 @@ def userLesson(request,id):
                 #     obj=ProgressCourse(user=user,course_id=id,title=course_details.title,role=course_details.role,course=course_details.course)
                 #     return redirect(request.path_info)
             except:
-                obj=ProgressCourse(user=user,course_id=id,title=course_details.title,category=course_details.category,role=course_details.role,course=course_details.course)
+                obj=ProgressCourse(user=user,course_id=id,title=course_details.title,category=course_details.category,role=course_details.role,course=course_details.course,course_image=course_details.course_image)
                 obj.save()
                 return redirect(request.path_info)
             return redirect(request.path_info)
@@ -1137,7 +1148,7 @@ def projectManager(request):
             proj.save()
 
             obj=ProjectCFPStore.objects.all().delete()
-            return redirect("/projectmanager/")
+            return redirect("/projectdashboard/")
 
 
     cag_data=CareerCategory.objects.all()
@@ -1164,6 +1175,97 @@ def projectManager(request):
 
 
     return render(request,'ProjectModule_Pages/Project_manager.html',context)
+
+
+def projectEditManager(request,id):
+    pid=id
+    project=ProjectManager.objects.get(id=pid)
+    check=ProjectCFPStore.objects.all().count
+    cfp_list=CFP_role.objects.all()
+    if request.method=='POST':
+        if 'category' in request.POST:
+            count=ProjectCFPStore.objects.all().count()
+            if count==0:
+                cag=request.POST['category']
+                data=ProjectCFPStore(create_category=cag)
+                data.save()
+                return redirect(request.path_info)
+
+            else:
+                cag=request.POST['category']
+                data=ProjectCFPStore.objects.get(create_id=0)
+                data.create_category=cag
+                data.create_role=None
+                data.save()
+                return redirect(request.path_info)
+
+
+        if 'role' in request.POST:
+            c_course=request.POST['c_course']
+            data=ProjectCFPStore.objects.get(create_category=c_course)
+            ch=request.POST.getlist('project_cfp')
+            role=""
+            for i in ch:
+                role+=i
+                role+="+"
+            role_str=role[:-1]
+
+            data.create_role=role_str
+            data.save()
+            return redirect(request.path_info)
+
+
+        if 'change_project_submit' in request.POST:
+            project_title=request.POST["project_title"]
+            project_description=request.POST["project_description"]
+            project_thumbnail=request.FILES.get("project_thumbnail")
+            project_duration=request.POST["project_duration"]
+            candidates_required=request.POST["candidates_required"]
+            project_docs=request.FILES.get("project_docs")
+            project_category=request.POST.get("project_category")
+            project_cfp=request.POST.get("project_role")
+
+
+            project.project_title=project_title
+            project.project_description=project_description
+            project.project_thumbnail=project_thumbnail
+            project.project_duration=project_duration
+            project.candidates_required=candidates_required
+            project.project_docs=project_docs
+            project.project_category=project_category
+            project.project_cfp=project_cfp
+
+            project.save()
+
+            obj=ProjectCFPStore.objects.all().delete()
+            return redirect("/projectdashboard/")
+
+
+    cag_data=CareerCategory.objects.all()
+    if ProjectCFPStore.objects.count()!=0:
+        obj=ProjectCFPStore.objects.get(create_id=0)
+        role_list=CFP_role.objects.filter(cfp_category=obj.create_category)
+        ch=obj.create_role
+        if ch==None:
+            cfp_list=[]
+        else:
+            cfp_list=ch.split('+')
+
+    else:
+        obj="Choose"
+        role_list=[]
+        cfp_list=[]
+
+    context={
+        'cag_data':cag_data,
+        'obj':obj,
+        'role_list':role_list,
+        'cfp_list':cfp_list,
+        'project':project,
+        'check':check
+    }
+
+    return render(request,'ProjectModule_Pages/Project_edit_manager.html',context)
 
 
 def projectDashboard(request):

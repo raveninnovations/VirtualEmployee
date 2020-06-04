@@ -15,6 +15,7 @@ urlpatterns = [
     path('admindashboard/license_info/<int:id>', views.adminLicenseInfo, name='licenseInfo'),
     path('admindashboard/cfp_create/',views.cfp_create,name='cfp_create'),
     path('admindashboard/cfp_edit/<int:id>',views.cfp_edit,name='cfpEdit'),
+    path('admindashboard/student_info/', views.adminStudents, name='adminStudents'),
     # User Section
     path('userdashboard/',views.userdashboard,name='dashboard'),
     path('userprofile/',views.userprofile,name='userprofile'),
@@ -35,6 +36,7 @@ urlpatterns = [
     path('tl-projectdetails/',views.tlProjectDetails,name='tlProjectDetails'),
     # PROJECT Section
     path('projectmanager/',views.projectManager,name='projectManager'),
+    path('projecteditmanager/<int:id>',views.projectEditManager,name='projectEditManager'),
     path('projectdashboard/',views.projectDashboard,name='projectDashboard'),
     #Create category and CFP
 
