@@ -81,6 +81,30 @@
                                             </div>
                                         </div>
                                         <div class="form-group row mb-3">
+                                            <label class="col-md-3 col-form-label" for="course_title">Choosen instructor<span
+                                                    class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" id="course_title" name="instructor"
+                                                    value="{{ datas.instructor }}" required="" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-3">
+                                            <label class="col-md-3 col-form-label" for="course_title">Change Course Instructor<span
+                                                    class="required">*</span></label>
+                                            <div class="col-md-9">
+                                                <select  name="instructor">
+                                                    <option selected disabled>Choose Instructor</option>
+                                                    {% for i in inst %}
+                                                      {% if i.user_role == "Instructor" %}
+                                                      <option value="{{i.role_user_name}}" > {{i.role_user_name}} </option>
+                                                      {% else %}
+                                                      <!-- <option value="{{i.role_user_name}}"> {{i.role_user_name}} </option> -->
+                                                      {% endif %}
+                                                    {% endfor %}
+                                                  </select>    
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label" for="course_title">Course tagline<span
                                                     class="required">*</span></label>
                                             <div class="col-md-9">
@@ -208,7 +232,7 @@
                                                     class="required">*</span></label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" name="difficulty_level"
-                                                    value="{{ datas.difficulty_level }}" required="">
+                                                    value="{{ datas.difficulty_level}}" required="" readonly>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-3">

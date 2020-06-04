@@ -837,18 +837,20 @@ def csmEditCourse(request,id):
                 datas.save()
                 return redirect("/csmdashboard/")
 
-
+        
         # Breakdown the requirements and learnings into list with help of python split()
         req_para=datas.requirements
         learn_para=datas.learnings
 
         req_list=req_para.split('_')
         learn_list=learn_para.split('_')
-
+        
+        inst=RoleDetail.objects.all()
         context ={
             'datas' : datas,
             'req_list':req_list,
             'learn_list':learn_list,
+            'inst':inst,
             't_id':t_id,
         }
         return render(request,'csm_pages/csm_edit_course.html',context)
