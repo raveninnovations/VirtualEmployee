@@ -131,7 +131,7 @@ Project Manager
                         <h5 class="mb-0"> Create Project </h5>
                     </div>
                     <hr class="m-0">
-                    <form class="uk-width-expand uk-form-horizontal uk-grid-small p-4" method="POST"  uk-grid  >
+                    <form class="uk-width-expand uk-form-horizontal uk-grid-small p-4" method="POST"  uk-grid enctype="multipart/form-data" >
                         {% csrf_token %}
                       <div class="uk-width-3-5@m px-2">
 
@@ -150,7 +150,7 @@ Project Manager
                             </div>
                           </div>
 
-                          <div class="uk-margin my-4">
+                          <div class="form-group uk-margin my-4">
                             <label class="uk-form-label" for="form-horizontal-text">Project Thumbnail</label>
                             <div uk-form-custom class="ml-3" >
                                 <input type="file" name="project_thumbnail" id="real-file">
@@ -158,25 +158,25 @@ Project Manager
                                 <span id="custom-text">No file choosen</span>
                             </div>
                             <script type="text/javascript">
-                                const realFileBtn = document.getElementById("real-file");
-                                const CustomBtn = document.getElementById("Upload-button");
-                                const customTxt = document.getElementById("custom-text");
-                                                CustomBtn.addEventListener ("click", function() {
-                                                realFileBtn.click()
+                                  const realFileBtn = document.getElementById("real-file");
+                                  const CustomBtn = document.getElementById("Upload-button");
+                                  const customTxt = document.getElementById("custom-text");
+                                                  CustomBtn.addEventListener ("click", function() {
+                                                  realFileBtn.click()
 
-                                                });
+                                                  });
 
-                                                realFileBtn.addEventListener("change", function() {
-                                              if (realFileBtn.value) {
-                                                customTxt.innerHTML = realFileBtn.value.match(
-                                                  /[\/\\]([\w\d\s\.\-\(\)]+)$/
-                                                )[1];
-                                              } else {
-                                                customTxt.innerHTML = "No file chosen, yet.";
-                                              }
-                                            });
+                                                  realFileBtn.addEventListener("change", function() {
+                                                if (realFileBtn.value) {
+                                                  customTxt.innerHTML = realFileBtn.value.match(
+                                                    /[\/\\]([\w\d\s\.\-\(\)]+)$/
+                                                  )[1];
+                                                } else {
+                                                  customTxt.innerHTML = "No file chosen, yet.";
+                                                }
+                                              });
 
-                                                </script>
+                            </script>
                           </div>
 
                           <div class="uk-margin my-4">
