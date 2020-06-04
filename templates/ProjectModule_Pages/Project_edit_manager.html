@@ -49,6 +49,41 @@ Project Manager
                 <div class="uk-width-expand mb-5 mt-3">
                     <div class="card rounded">
 
+                      <legend class="uk-legend my-4 text-center">Assign Technical Lead</legend>
+
+                      <div class=" container pt-3 pb-0 px-5 uk-width-expand">
+
+                                <form name="project_tl" method="POST">
+                                  {% csrf_token %}
+                                  <div class="form-group row mb-3">
+                                      <label class="col-md-3 col-form-label"> Technical Lead <span
+                                              class="required">*</span></label>
+                                      <div class="col-md-9">
+                                          <select  name="tl" required onchange="submit()">
+                                            <option selected disabled>Choose TL</option>
+                                            {% for i in tls %}
+                                              {% if i.role_user_id == project.project_tl %}
+                                              <option value="{{i.role_user_id}}" selected>{{i.role_user_id}} - {{i.role_user_name}}</option>
+                                              {% else %}
+                                              <option value="{{i.role_user_id}}">{{i.role_user_id}} - {{i.role_user_name}}</option>
+                                              {% endif %}
+                                            {% endfor %}
+                                          </select>
+
+                                      </div>
+
+                                  </div>
+                                </form>
+                              </div>
+                          </div>
+                      </div>
+
+
+
+
+                <div class="uk-width-expand mb-5 mt-3">
+                    <div class="card rounded">
+
                       <legend class="uk-legend my-4 text-center">Set CFP Eligibility</legend>
 
                       <div class=" container pt-3 pb-0 px-5 uk-width-expand">

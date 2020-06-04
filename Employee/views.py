@@ -1166,7 +1166,15 @@ def projectEditManager(request,id):
     project=ProjectManager.objects.get(id=pid)
     check=ProjectCFPStore.objects.all().count
     cfp_list=CFP_role.objects.all()
+    tls=RoleDetail.objects.filter(user_role="TL")
     if request.method=='POST':
+        if 'tl' in request.POST:
+            tl=request.POST['tl']
+            project.project_tl=tl
+            project.save()
+            return redirect(request.path_info)
+
+
         if 'category' in request.POST:
             count=ProjectCFPStore.objects.all().count()
             if count==0:
@@ -1246,7 +1254,8 @@ def projectEditManager(request,id):
         'role_list':role_list,
         'cfp_list':cfp_list,
         'project':project,
-        'check':check
+        'check':check,
+        'tls':tls
     }
 
     return render(request,'ProjectModule_Pages/Project_edit_manager.html',context)
