@@ -78,7 +78,7 @@ def adminCourses(request):
 
         if request.user.is_authenticated:
             allCourses = Course.objects.all()
-            
+
             context ={
                 'courses':allCourses,
             }
@@ -394,6 +394,7 @@ def userdashboard(request):
         user_details = UserDetails.objects.get(user_id_id=user.pk)
         course_data = Course.objects.all()
 
+
         try:
             if StudentCFP.objects.filter(user_id_id=user_details.pk).exists():
 
@@ -401,8 +402,26 @@ def userdashboard(request):
 
                 # CFP  COURSES
                 lists = Course.objects.filter(category=cfp_details.category_one, role=cfp_details.role_one)
-
                 lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
+
+                #Displaying Projects
+                projects1=ProjectManager.objects.filter(project_category=cfp_details.category_one)
+                projects2=ProjectManager.objects.filter(project_category=cfp_details.category_two)
+
+                cfp1_projects=[]
+                cfp2_projects=[]
+
+                for i in projects1:
+                    res=i.project_cfp.find(cfp_details.role_one)
+                    if res != -1:
+                        cfp1_projects.append(i)
+
+                for j in projects2:
+                    res=j.project_cfp.find(cfp_details.role_two)
+                    if res != -1:
+                        cfp2_projects.append(j)
+
+                print('suceess')
 
                 if ProgressCourse.objects.filter(user_id=user.pk).exists():
                     print("hello")
@@ -418,6 +437,8 @@ def userdashboard(request):
                     'lists2':lists2,
                     'course_data': course_data,
                     'progress_course':progress_course,
+                    'cfp1_projects':cfp1_projects,
+                    'cfp2_projects':cfp2_projects
 
                 }
                 return render(request, 'virtualmain_pages/dashboard.html', context)
@@ -670,11 +691,64 @@ def userEdit(request):
 
 
 def userProject(request):
-    proj=ProjectManager.objects.all()
-    context={
-        "proj":proj
-    }
-    return render(request,'virtualmain_pages/user-project.html', context)
+    # proj=ProjectManager.objects.all()
+    # context={
+    #     "proj":proj
+    # }
+    # return render(request,'virtualmain_pages/user-project.html', context)
+
+    if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        user = request.user
+
+        user_details = UserDetails.objects.get(user_id_id=user.pk)
+        try:
+            if StudentCFP.objects.filter(user_id_id=user_details.pk).exists():
+
+                cfp_details = StudentCFP.objects.get(user_id_id=user_details.pk)
+                #Displaying Projects
+                projects1=ProjectManager.objects.filter(project_category=cfp_details.category_one)
+                projects2=ProjectManager.objects.filter(project_category=cfp_details.category_two)
+
+                cfp1_projects=[]
+                cfp2_projects=[]
+
+                for i in projects1:
+                    res=i.project_cfp.find(cfp_details.role_one)
+                    if res != -1:
+                        cfp1_projects.append(i)
+
+                for j in projects2:
+                    res=j.project_cfp.find(cfp_details.role_two)
+                    if res != -1:
+                        cfp2_projects.append(j)
+
+                print('suceess')
+
+                # if ProgressCourse.objects.filter(user_id=user.pk).exists():
+                #     print("hello")
+                #     progress_course = ProgressCourse.objects.filter(user=user)
+                #
+                # else:
+                #
+                #     progress_course = None
+
+                context = {
+                    'cfp1_projects':cfp1_projects,
+                    'cfp2_projects':cfp2_projects
+
+                }
+                return render(request, 'virtualmain_pages/user-project.html', context)
+            else:
+                return render(request,'virtualmain_pages/user-project.html')
+
+        except:
+            print("Error")
+
+        return render(request,'virtualmain_pages/user-project.html', context)
+    else:
+        messages.error(request,"Wrong URL")
+        return redirect('logout')
+
 
 def userchangepassword(request):
     user = request.user
@@ -736,7 +810,7 @@ def csmAddCourse(request):
         user = request.user
         inst=RoleDetail.objects.all()
         data=CreateCourse.objects.get(create_id=0)
-        
+
         if request.method == "POST":
             title = request.POST["title"]
             instructor=request.POST["instructor"]
@@ -766,7 +840,7 @@ def csmAddCourse(request):
             create.save()
 
             inst=RoleDetail.objects.all()
-            
+
 
             obj=CreateCourse.objects.all()
             obj.delete()
@@ -1184,7 +1258,15 @@ def projectEditManager(request,id):
     project=ProjectManager.objects.get(id=pid)
     check=ProjectCFPStore.objects.all().count
     cfp_list=CFP_role.objects.all()
+    tls=RoleDetail.objects.filter(user_role="TL")
     if request.method=='POST':
+        if 'tl' in request.POST:
+            tl=request.POST['tl']
+            project.project_tl=tl
+            project.save()
+            return redirect(request.path_info)
+
+
         if 'category' in request.POST:
             count=ProjectCFPStore.objects.all().count()
             if count==0:
@@ -1264,7 +1346,8 @@ def projectEditManager(request,id):
         'role_list':role_list,
         'cfp_list':cfp_list,
         'project':project,
-        'check':check
+        'check':check,
+        'tls':tls
     }
 
     return render(request,'ProjectModule_Pages/Project_edit_manager.html',context)
