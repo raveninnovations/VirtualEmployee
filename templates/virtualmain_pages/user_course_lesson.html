@@ -70,6 +70,7 @@
                     <div class="course-content-inner">
 
                         <ul id="video-slider" class="uk-switcher">
+                           
                         {% if lessons %}
                                 {% for curriculam in lessons %}
                             {% for topic in topics %}
@@ -79,6 +80,11 @@
                                <!-- <video width='60%' height="40%" style="display:block; margin:0 auto;" controls >
                                                <source src="{{ topic.topic_video }}" type='video/mp4'></video> -->
                                                <iframe src="{{topic.topic_video}}" width="" height=""></iframe>
+                                    
+                                    
+                                     <!-- <iframe id="player" src="https://www.youtube.com/embed/DjB1OvEYMhY?enablejsapi=1" height="540" width="350"></iframe> -->
+                                   
+                                
                                 </div>
                                 </li>
                             {% endif %}
@@ -106,6 +112,7 @@
                     <div class="course-sidebar-container" data-simplebar>
 
                         <ul class="course-video-list-section" uk-accordion>
+                            <p id="display"></p>
                             {% if lessons %}
                                 {% for curriculam in lessons %}
                              <li class="uk-open">
@@ -117,7 +124,7 @@
                                             {% if topic.topic_id_id == curriculam.pk %}
 
 
-                                                   <li> <a href="#"> {{ topic.topic_caption }} <span> 5 min </span> </a></li>
+                                                   <li> <a href="#"> {{ topic.topic_caption }} <span> 5 mins</span> </a></li>
 <!-- {#                                                <li><video width='60%' height="40%" style="display:block; margin:0 auto;" controls hidden>#}
 {#                                                    <source src="{{ topic.topic_video.url }}" type='video/mp4'>#}
 {#                                                    Your browser does not support the video tag.#}
@@ -175,5 +182,39 @@
 
             });
         </script>
+                <!-- <script>
+                    var player, timer, timeSpent = [], display = document.getElementById('display');
 
+                    function onYouTubeIframeAPIReady() {
+                        player = new YT.Player( 'player', {
+                            events: { 'onStateChange': onPlayerStateChange }
+                        });
+                    }
+
+                    function onPlayerStateChange(event) {
+                        if(event.data === 1) { // Started playing
+                            if(!timeSpent.length){
+                                for(var i=0, l=parseInt(player.getDuration()); i<l; i++) timeSpent.push(false);
+                            }
+                            timer = setInterval(record,100);
+                        } else {
+                            clearInterval(timer);
+                        }
+                    }
+
+                    function record(){
+                        timeSpent[ parseInt(player.getCurrentTime()) ] = true;
+                        showPercentage();
+                    }
+
+                    function showPercentage(){
+                        var percent = 0;
+                        for(var i=0, l=timeSpent.length; i<l; i++){
+                            if(timeSpent[i]) percent++;
+                        }
+                        percent = Math.round(percent / timeSpent.length * 100);
+                        display.innerHTML = percent + "%";
+                        console.log(percent)
+                    }
+                </script> -->
 {% endblock %}

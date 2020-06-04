@@ -75,7 +75,14 @@ def adminDashboard(request):
 @login_required
 def adminCourses(request):
     if request.user.is_staff and request.user.is_superuser:
-        return render(request,'Admin_pages/courses.html')
+
+        if request.user.is_authenticated:
+            allCourses = Course.objects.all()
+            
+            context ={
+                'courses':allCourses,
+            }
+        return render(request,'Admin_pages/courses.html',context)
     else:
         messages.error(request,"Wrong URL")
         return redirect('logout')
@@ -112,7 +119,7 @@ def adminRolecreation(request):
 
                 user_firstname = request.POST['fname']
                 user_lastname = request.POST['lname']
-                role_user_name=request.POST['email']
+                role_user_name=request.POST['fname']
                 role_user_email=request.POST['email']
                 regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
                 if User.objects.filter(email=role_user_email).exists():
@@ -727,9 +734,12 @@ def csmDashboard(request):
 def csmAddCourse(request):
     if request.user.is_active and request.user.is_staff and not request.user.is_superuser:
         user = request.user
+        inst=RoleDetail.objects.all()
         data=CreateCourse.objects.get(create_id=0)
+        
         if request.method == "POST":
             title = request.POST["title"]
+            instructor=request.POST["instructor"]
             tagline  = request.POST["tagline"]
             short_description=request.POST["description"]
             image = request.FILES.get('course_image')
@@ -750,10 +760,13 @@ def csmAddCourse(request):
             learnings=request.POST["learn"]
 
 
-            create = Course(user_id=user.id,title=title,tagline=tagline,short_description=short_description,
+            create = Course(user_id=user.id,title=title,tagline=tagline,short_description=short_description,instructor=instructor,
                            course_image=image,category=category,role=role,course=course,difficulty_level=difficulty_level,meta_keywords=meta_keywords,
                             meta_description=meta_description,course_points=course_points,certificate=certificate,requirements=requirements,learnings=learnings)
             create.save()
+
+            inst=RoleDetail.objects.all()
+            
 
             obj=CreateCourse.objects.all()
             obj.delete()
@@ -763,6 +776,7 @@ def csmAddCourse(request):
 
         context={
             'data':data,
+            'inst':inst
         }
         return render(request,'csm_pages/csm_add_course.html',context)
     else:
@@ -780,6 +794,7 @@ def csmEditCourse(request,id):
         if request.method == "POST":
             if 'course_submit' in request.POST:
                 title = request.POST["title"]
+                instructor=request.POST["instructor"]
                 tagline  = request.POST["tagline"]
                 short_description=request.POST["description"]
                 course_image = request.FILES.get('course_image', None)
@@ -803,6 +818,7 @@ def csmEditCourse(request,id):
                 datas = Course.objects.get(id = c_id)
 
                 datas.title=title
+                datas.instructor=instructor
                 datas.tagline=tagline
                 datas.short_description=short_description
                 if course_image is not None:
