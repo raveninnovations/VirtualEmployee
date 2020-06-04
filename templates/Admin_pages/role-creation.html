@@ -144,7 +144,8 @@ Role Creation
                                                 <p>Are You sure you want to delete this role?</p>
                                                 <p class="uk-text-right">
                                                   <!-- The below hidden input tag is to pass the particular role_user_id that i want to delete -->
-                                                    <input type="hidden" name="del_id" value="{{role.user_id_id}}">
+                                                  <p>Enter Role ID:</p>
+                                                    <input type="text" name="del_id" required>
                                                     <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
                                                     <button class="uk-button uk-button-primary" name="delete" type="submit">Yes I am Sure</button>
                                                 </p>

@@ -119,7 +119,7 @@ def adminRolecreation(request):
 
                 user_firstname = request.POST['fname']
                 user_lastname = request.POST['lname']
-                role_user_name=request.POST['fname']
+                role_user_name=request.POST['email']
                 role_user_email=request.POST['email']
                 regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
                 if User.objects.filter(email=role_user_email).exists():
@@ -155,9 +155,17 @@ def adminRolecreation(request):
                 email.send()
                 try:
 
-                    User.objects.create_user(username = role_user_name,email= role_user_email,first_name= user_firstname,
-                                                    last_name = user_lastname,password = role_user_password,is_staff =True)
-
+                    user=User.objects.create_user(username = role_user_name,email= role_user_email,first_name= user_firstname,
+                                                    last_name = user_lastname,password = role_user_password)
+                    if user_role == "CSM":
+                        user.is_staff = True
+                    elif user_role == "TL":
+                        user.is_staff = False
+                        user.is_superuser = True
+                    elif user_role == "PCM":
+                        user.is_superuser=True
+                        user.is_staff = False
+                    user.save()
                     u_id = User.objects.get(username=role_user_name)
                     role = RoleDetail(user_id=u_id, role_user_id=role_user_id, user_role=user_role, role_user_name=role_user_name,
                                       role_user_email=role_user_email, role_user_password=role_user_password)
@@ -173,10 +181,16 @@ def adminRolecreation(request):
             # When we press Remove Button
             if 'delete' in request.POST:
                 del_id=request.POST['del_id']
-                roled=RoleDetail.objects.get(user_id_id=del_id).delete()
-                # Delete from the user table
-                user_del = User.objects.get(id=del_id).delete()
-                messages.success(request,"Deleted success")
+
+                if RoleDetail.objects.filter(role_user_id=del_id).exists():
+                    main_id_1 =RoleDetail.objects.get(role_user_id=del_id)
+                    main_id = main_id_1.user_id_id
+                    roled=RoleDetail.objects.get(role_user_id=del_id).delete()
+                    # Delete from the user table
+                    user_del = User.objects.get(id=main_id).delete()
+                    messages.success(request,"Deleted success")
+                else:
+                    messages.error(request,"Some error occured")
                 return redirect('adminrolecreation')
 
             if 'roleSort' in request.POST:
@@ -351,6 +365,7 @@ def userlogin(request):
         # Roles
 
         if user is not None:
+
             login(request, user)
             if request.user.is_staff and request.user.is_superuser:
                 print('Welcome admin')
@@ -364,7 +379,9 @@ def userlogin(request):
                         if role.user_role == "CSM":
                             return redirect('csmDashboard')
                         elif role.user_role == "TL":
-                            print("TL PAGE")
+                            return redirect('tlDashboard')
+                        elif role.user_role == "PCM":
+                            return redirect('projectDashboard')
                         else:
                             messages.error(request, "Error occured in Role")
                 except:
@@ -1170,7 +1187,9 @@ def tlProjectDetails(request,id):
 
 # PROJECT MODULE SECTION
 
+@login_required
 def projectManager(request):
+
     cfp_list=CFP_role.objects.all()
     if request.method=='POST':
         if 'category' in request.POST:
@@ -1259,112 +1278,121 @@ def projectManager(request):
     return render(request,'ProjectModule_Pages/Project_manager.html',context)
 
 
+@login_required
 def projectEditManager(request,id):
-    pid=id
-    project=ProjectManager.objects.get(id=pid)
-    check=ProjectCFPStore.objects.all().count
-    cfp_list=CFP_role.objects.all()
-    tls=RoleDetail.objects.filter(user_role="TL")
-    if request.method=='POST':
-        if 'tl' in request.POST:
-            tl=request.POST['tl']
-            project.project_tl=tl
-            project.save()
-            return redirect(request.path_info)
+    if request.user.is_active and request.user.is_superuser and not request.user.is_staff:
+        pid=id
+        project=ProjectManager.objects.get(id=pid)
+        check=ProjectCFPStore.objects.all().count
+        cfp_list=CFP_role.objects.all()
+        tls=RoleDetail.objects.filter(user_role="TL")
+        if request.method=='POST':
+            if 'tl' in request.POST:
+                tl=request.POST['tl']
+                project.project_tl=tl
+                project.save()
+                return redirect(request.path_info)
 
 
-        if 'category' in request.POST:
-            count=ProjectCFPStore.objects.all().count()
-            if count==0:
-                cag=request.POST['category']
-                data=ProjectCFPStore(create_category=cag)
+            if 'category' in request.POST:
+                count=ProjectCFPStore.objects.all().count()
+                if count==0:
+                    cag=request.POST['category']
+                    data=ProjectCFPStore(create_category=cag)
+                    data.save()
+                    return redirect(request.path_info)
+
+                else:
+                    cag=request.POST['category']
+                    data=ProjectCFPStore.objects.get(create_id=0)
+                    data.create_category=cag
+                    data.create_role=None
+                    data.save()
+                    return redirect(request.path_info)
+
+
+            if 'role' in request.POST:
+                c_course=request.POST['c_course']
+                data=ProjectCFPStore.objects.get(create_category=c_course)
+                ch=request.POST.getlist('project_cfp')
+                role=""
+                for i in ch:
+                    role+=i
+                    role+="+"
+                role_str=role[:-1]
+
+                data.create_role=role_str
                 data.save()
                 return redirect(request.path_info)
 
+
+            if 'change_project_submit' in request.POST:
+                project_title=request.POST["project_title"]
+                project_description=request.POST["project_description"]
+                project_thumbnail=request.FILES.get("project_thumbnail")
+                project_duration=request.POST["project_duration"]
+                candidates_required=request.POST["candidates_required"]
+                project_docs=request.FILES.get("project_docs")
+                project_category=request.POST.get("project_category")
+                project_cfp=request.POST.get("project_role")
+
+
+                project.project_title=project_title
+                project.project_description=project_description
+                project.project_thumbnail=project_thumbnail
+                project.project_duration=project_duration
+                project.candidates_required=candidates_required
+                project.project_docs=project_docs
+                project.project_category=project_category
+                project.project_cfp=project_cfp
+
+                project.save()
+
+                obj=ProjectCFPStore.objects.all().delete()
+                return redirect("/projectdashboard/")
+
+
+        cag_data=CareerCategory.objects.all()
+        if ProjectCFPStore.objects.count()!=0:
+            obj=ProjectCFPStore.objects.get(create_id=0)
+            role_list=CFP_role.objects.filter(cfp_category=obj.create_category)
+            ch=obj.create_role
+            if ch==None:
+                cfp_list=[]
             else:
-                cag=request.POST['category']
-                data=ProjectCFPStore.objects.get(create_id=0)
-                data.create_category=cag
-                data.create_role=None
-                data.save()
-                return redirect(request.path_info)
+                cfp_list=ch.split('+')
 
-
-        if 'role' in request.POST:
-            c_course=request.POST['c_course']
-            data=ProjectCFPStore.objects.get(create_category=c_course)
-            ch=request.POST.getlist('project_cfp')
-            role=""
-            for i in ch:
-                role+=i
-                role+="+"
-            role_str=role[:-1]
-
-            data.create_role=role_str
-            data.save()
-            return redirect(request.path_info)
-
-
-        if 'change_project_submit' in request.POST:
-            project_title=request.POST["project_title"]
-            project_description=request.POST["project_description"]
-            project_thumbnail=request.FILES.get("project_thumbnail")
-            project_duration=request.POST["project_duration"]
-            candidates_required=request.POST["candidates_required"]
-            project_docs=request.FILES.get("project_docs")
-            project_category=request.POST.get("project_category")
-            project_cfp=request.POST.get("project_role")
-
-
-            project.project_title=project_title
-            project.project_description=project_description
-            project.project_thumbnail=project_thumbnail
-            project.project_duration=project_duration
-            project.candidates_required=candidates_required
-            project.project_docs=project_docs
-            project.project_category=project_category
-            project.project_cfp=project_cfp
-
-            project.save()
-
-            obj=ProjectCFPStore.objects.all().delete()
-            return redirect("/projectdashboard/")
-
-
-    cag_data=CareerCategory.objects.all()
-    if ProjectCFPStore.objects.count()!=0:
-        obj=ProjectCFPStore.objects.get(create_id=0)
-        role_list=CFP_role.objects.filter(cfp_category=obj.create_category)
-        ch=obj.create_role
-        if ch==None:
-            cfp_list=[]
         else:
-            cfp_list=ch.split('+')
+            obj="Choose"
+            role_list=[]
+            cfp_list=[]
 
+        context={
+            'cag_data':cag_data,
+            'obj':obj,
+            'role_list':role_list,
+            'cfp_list':cfp_list,
+            'project':project,
+            'check':check,
+            'tls':tls
+        }
+
+        return render(request,'ProjectModule_Pages/Project_edit_manager.html',context)
     else:
-        obj="Choose"
-        role_list=[]
-        cfp_list=[]
+        messages.error(request, 'Wrong URL')
+        return redirect('login')
 
-    context={
-        'cag_data':cag_data,
-        'obj':obj,
-        'role_list':role_list,
-        'cfp_list':cfp_list,
-        'project':project,
-        'check':check,
-        'tls':tls
-    }
-
-    return render(request,'ProjectModule_Pages/Project_edit_manager.html',context)
-
-
+@login_required
 def projectDashboard(request):
-    projects=ProjectManager.objects.all()
-    context={
-        'projects':projects,
-    }
-    return render(request,'ProjectModule_Pages/Project_dashboard.html',context)
+    if request.user.is_active and request.user.is_superuser and not request.user.is_staff:
+        projects=ProjectManager.objects.all()
+        context={
+            'projects':projects,
+        }
+        return render(request,'ProjectModule_Pages/Project_dashboard.html',context)
+    else:
+        messages.error(request,'Wrong URL')
+        return redirect('login')
 
 
 @login_required
