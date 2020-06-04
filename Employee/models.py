@@ -107,7 +107,7 @@ class Course(models.Model):
     role=models.CharField(max_length=50,blank=True)
     course=models.CharField(max_length=50,blank=True)
     difficulty_level=models.CharField(max_length=20, choices=DIFFICULTY_LEVEL,null=True, blank=True)
-
+    instructor=models.CharField(max_length=200,null=True, blank=True)
 
     # must add quiz Details
 
@@ -180,6 +180,7 @@ class ProjectManager(models.Model):
 class CreateCourse(models.Model):
     create_id=models.IntegerField(default=0)
     create_category=models.CharField(max_length=255)
+    create_instructor=models.CharField(max_length=255,null=True)
     create_role=models.CharField(max_length=255,null=True)
     create_course=models.CharField(max_length=255)
     create_time=models.DateTimeField(default=datetime.now,blank=True)
