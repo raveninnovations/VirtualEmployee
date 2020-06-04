@@ -1,5 +1,8 @@
 {% extends 'base1.html' %}
 {% load static %}
+{% block title %}
+TL Dashboard
+{% endblock %}
 <style>
     .description-box{
   background-color: #edeff0;
@@ -62,75 +65,43 @@
 
                     </ul>
 
-
+                        <div class="uk-width-4-4@m my-4">
                         <div class="uk-card uk-card-body">
-                        <ul class="uk-switcher" id="projects-tab">
+                        <ul class="uk-switcher uk-margin" id="projects-tab">
+                            <a href="/tl-projectdetails/">
+                            <li class=" uk-width-auto px-2">    
+                                <div class="uk-child-width-1-3@m" uk-grid>
+                                {% for project in projects %}
+                                <div>
+                                    <div class="uk-card uk-card-default">
+                                        <div class="uk-card-media-top">
 
-                            <li>
-                                   <!--  <div class="row">
-                                    <div class="col-xl-10 m-auto"> -->
-                                <div class="uk-flex uk-flex-center uk-padding">
-                                        <!-- <div class="uk-child-width-1-3"> -->
-                                                <div class="uk-card uk-width-auto uk-card-default uk-box-shadow-medium uk-margin-large-right">
-                                                    <div class="uk-card-media-top">
+                                            {% if project.project_thumbnail %}
+                                                  <img src="{{project.project_thumbnail.url}}" alt="">
+                                            {% else %}
+                                                  <img src="" alt="">
+                                            {% endif %}
 
-                                                        <img src="{% static 'images/course/2.png' %}">
+                                        </div>
+                                        <div class=" uk-text-left uk-text-small uk-card-body">
 
-                                                    </div>
-                                                    <hr>
-                                                    <div class=" uk-text-left uk-text-small uk-card-body">
+                                            <p>Project Name: {{project.project_title}}</p>
+                                            <p>Project Assigned By: Jonathan</p>
+                                            <p>Project Description: {{project.project_description}}</p>
+                                            <p>Team Count:{{project.candidates_required}}</p>
+                                        </div>
+                                    </div>
+                                            
+                                </div>
+                                <!-- </div> -->
 
-                                                        <p>Project Name</p>
-                                                        <p>Project Assigned By</p>
-                                                        <p>Project Description</p>
-                                                        <p>Team Count</p>
-                                                    </div>
-                                                </div>
-                                            <!-- </div> -->
-                                        <!-- <div class="uk-child-width-1-3"> -->
-                                                <div class="uk-card uk-width-auto uk-card-default uk-box-shadow-medium uk-margin-large-right">
-                                                    <div class="uk-card-media-top">
-
-                                                        <img src="{% static 'images/course/2.png' %}">
-
-                                                    </div>
-                                                    <hr>
-                                                    <div class=" uk-text-left uk-text-small uk-card-body">
-
-                                                        <p>Project Name</p>
-                                                        <p>Project Assigned By</p>
-                                                        <p>Project Description</p>
-                                                        <p>Team Count</p>
-                                                    </div>
-                                                </div>
-                                            <!-- </div> -->
-                                            <!-- <div class="uk-height-small"> -->
-
-                                                <div class="uk-card uk-width-auto uk-card-default uk-box-shadow-medium">
-                                                     <div class="uk-card-media-top">
-
-                                                        <img src="{% static 'images/course/2.png' %}">
-
-                                                    </div>
-                                                     <hr>
-                                                    <div class="uk-text-left uk-text-small uk-card-body">
-
-                                                        <p>Project name</p>
-                                                        <p>Project Assigned By</p>
-                                                        <p>Project Description</p>
-                                                        <p>Project Count</p>
-                                                    </div>
-
-                                                </div>
-                                            <!-- </div> -->
-                                   <!--      </div>
-                                    </div> -->
+                                {% endfor %}
                                 </div>
                             </li>
-
+                            
                         </ul>
                     </div>
-                    <!-- </div> -->
+                    </div>
             </div>
           <!-- footer
                 ================================================== -->

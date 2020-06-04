@@ -293,209 +293,209 @@
 
 
 
-                                                                                       <!-- Add Requirements Section -->
+             <!-- Add Requirements Section -->
 
 
-                                                                                               <div class="row justify-content-center">
-                                                                                                   <div class="col-xl-9">
+                     <div class="row justify-content-center">
+                         <div class="col-xl-9">
 
-                                                                                                           <a class="btn btn-default text-white  mb-3" type="button" id="addRequirementRow" onclick="addRequirementRow()"><i
-                                                                                                                   class='uil-plus'></i>Requirements</a>
-
-
-
-                                                                                                           <table id="RequirementTable" class="uk-width-expand">
-                                                                                                             <thead>
-                                                                                                               <!-- <tr>
-                                                                                                                 <td><input type='text' class='uk-input1'
-                                                                                                                     placeholder="Any computer will work: Windows, macOS or Linux"></td>
-                                                                                                               </tr>
-                                                                                                               <tr>
-                                                                                                                 <td><input type='text' class='uk-input1'
-                                                                                                                     placeholder="Basic programming HTML and CSS."></td>
-                                                                                                               </tr>
-                                                                                                               <tr>
-                                                                                                                 <td><input type='text' class='uk-input1'
-                                                                                                                     placeholder="Basic/Minimal understanding of JavaScript"></td>
-                                                                                                               </tr> -->
-
-                                                                                                               {% for req_item in req_list %}
-                                                                                                               <tr>
-                                                                                                                 <td><input type='text' class='uk-input1'
-                                                                                                                     value="{{req_item}}"></td>
-                                                                                                               </tr>
-                                                                                                               {% endfor %}
-
-                                                                                                             </thead>
-                                                                                                           </table>
-
-
-                                                                                                           <!-- Hidem Input for Requirements -->
-                                                                                                           <input type="hidden" name="req" id="rout" name="req-string" value='Output:'>
-
-                                                                                                   </div>
-                                                                                               </div>
-
-                                                                                               <!-- Javascript For Add Requirements -->
-                                                                                               <script>
-
-                                                                                                   // now, add a new to the TABLE.
-                                                                                                   function addRequirementRow() {
-                                                                                                       var empTab = document.getElementById('RequirementTable');
-
-                                                                                                       var rowCnt = empTab.rows.length;   // table row count.
-                                                                                                       var tr = empTab.insertRow(rowCnt); // the table row.
-                                                                                                       tr = empTab.insertRow(rowCnt);
-
-                                                                                                       for (var c = 0; c < 1; c++) {
-                                                                                                           var td = document.createElement('td'); // table definition.
-                                                                                                           td = tr.insertCell(c);
-                                                                                                               var ele = document.createElement('input');
-                                                                                                               ele.setAttribute('type', 'text');
-                                                                                                               ele.setAttribute('placeholder', 'Other Requirements...');
-                                                                                                               td.appendChild(ele);
-
-                                                                                                       }
-                                                                                                   }
-
-
-                                                                                                   // function to extract and submit table data.
-                                                                                                   function Reqsubmit() {
-                                                                                                       var myTab = document.getElementById('RequirementTable');
-                                                                                                       var arrValues =new Array()
-
-                                                                                                       // loop through each row of the table.
-                                                                                                       for (row = 0; row < myTab.rows.length ; row++) {
-                                                                                                         // loop through each cell in a row.
-                                                                                                           for (c = 0; c < myTab.rows[row].cells.length; c++) {
-                                                                                                               var element = myTab.rows.item(row).cells[c];
-                                                                                                               if (element.childNodes[0].getAttribute('type') == 'text') {
-                                                                                                                   arrValues.push(element.childNodes[0].value);
-                                                                                                               }
-                                                                                                           }
-                                                                                                       }
-
-                                                                                                       var str="";
-                                                                                                       for(i=0;i<arrValues.length;i++)
-                                                                                                       {
-                                                                                                         str=str.concat(arrValues[i])
-                                                                                                         str=str+'_';
-                                                                                                       }
-
-                                                                                                       req_str=str.substring(0,str.length-1)
-
-                                                                                                       // The final output.
-                                                                                                       // document.getElementById('Reqoutput').innerHTML = req_str;
-
-                                                                                                       var ele1=document.getElementById('rout');
-                                                                                                       ele1.setAttribute('value',req_str);
-                                                                                                   }
-                                                                                               </script>
-                                                                                       <!-- Add Requirements Section Ends-->
+                                 <a class="btn btn-default text-white  mb-3" type="button" id="addRequirementRow" onclick="addRequirementRow()"><i
+                                         class='uil-plus'></i>Requirements</a>
 
 
 
+                                 <table id="RequirementTable" class="uk-width-expand">
+                                   <thead>
+                                     <!-- <tr>
+                                       <td><input type='text' class='uk-input1'
+                                           placeholder="Any computer will work: Windows, macOS or Linux"></td>
+                                     </tr>
+                                     <tr>
+                                       <td><input type='text' class='uk-input1'
+                                           placeholder="Basic programming HTML and CSS."></td>
+                                     </tr>
+                                     <tr>
+                                       <td><input type='text' class='uk-input1'
+                                           placeholder="Basic/Minimal understanding of JavaScript"></td>
+                                     </tr> -->
+
+                                     {% for req_item in req_list %}
+                                     <tr>
+                                       <td><input type='text' class='uk-input1'
+                                           value="{{req_item}}"></td>
+                                     </tr>
+                                     {% endfor %}
+
+                                   </thead>
+                                 </table>
 
 
-                                                                                       <!-- Add What Will You Learn Section Starts-->
+                                 <!-- Hidem Input for Requirements -->
+                                 <input type="hidden" name="req" id="rout" name="req-string" value='Output:'>
 
-                                                                                             <div class="row justify-content-center">
-                                                                                                 <div class="col-xl-9">
+                         </div>
+                     </div>
 
-                                                                                                           <a class="btn btn-default text-white mb-3" type="button" id="addLearnRow" onclick="addLearnRow()"><i
-                                                                                                                   class='uil-plus'></i>What Will You Learn</a>
+                     <!-- Javascript For Add Requirements -->
+                     <script>
 
+                         // now, add a new to the TABLE.
+                         function addRequirementRow() {
+                             var empTab = document.getElementById('RequirementTable');
 
+                             var rowCnt = empTab.rows.length;   // table row count.
+                             var tr = empTab.insertRow(rowCnt); // the table row.
+                             tr = empTab.insertRow(rowCnt);
 
-                                                                                                           <table id="LearnTable" class="uk-width-expand">
-                                                                                                             <thead>
-                                                                                                               <!-- <tr>
-                                                                                                                 <td><input type='text' class='uk-input1'
-                                                                                                                     placeholder="Any computer will work: Windows, macOS or Linux"></td>
-                                                                                                               </tr>
-                                                                                                               <tr>
-                                                                                                                 <td><input type='text' class='uk-input1'
-                                                                                                                     placeholder="Basic programming HTML and CSS."></td>
-                                                                                                               </tr>
-                                                                                                               <tr>
-                                                                                                                 <td><input type='text' class='uk-input1'
-                                                                                                                     placeholder="Basic/Minimal understanding of JavaScript"></td>
-                                                                                                               </tr> -->
+                             for (var c = 0; c < 1; c++) {
+                                 var td = document.createElement('td'); // table definition.
+                                 td = tr.insertCell(c);
+                                     var ele = document.createElement('input');
+                                     ele.setAttribute('type', 'text');
+                                     ele.setAttribute('placeholder', 'Other Requirements...');
+                                     td.appendChild(ele);
 
-                                                                                                               {% for learn_item in learn_list %}
-                                                                                                               <tr>
-                                                                                                                 <td><input type='text' class='uk-input1'
-                                                                                                                     value="{{learn_item}}"></td>
-                                                                                                               </tr>
-                                                                                                               {% endfor %}
+                             }
+                         }
 
 
-                                                                                                             </thead>
-                                                                                                           </table>
+                         // function to extract and submit table data.
+                         function Reqsubmit() {
+                             var myTab = document.getElementById('RequirementTable');
+                             var arrValues =new Array()
 
-                                                                                                           <!-- Hidem Input for What do you learn -->
-                                                                                                           <input type="hidden" name="learn" id="lout" name="learn-string" value='Output:''>
+                             // loop through each row of the table.
+                             for (row = 0; row < myTab.rows.length ; row++) {
+                               // loop through each cell in a row.
+                                 for (c = 0; c < myTab.rows[row].cells.length; c++) {
+                                     var element = myTab.rows.item(row).cells[c];
+                                     if (element.childNodes[0].getAttribute('type') == 'text') {
+                                         arrValues.push(element.childNodes[0].value);
+                                     }
+                                 }
+                             }
 
-                                                                                                 </div>
-                                                                                             </div>
+                             var str="";
+                             for(i=0;i<arrValues.length;i++)
+                             {
+                               str=str.concat(arrValues[i])
+                               str=str+'_';
+                             }
 
+                             req_str=str.substring(0,str.length-1)
 
+                             // The final output.
+                             // document.getElementById('Reqoutput').innerHTML = req_str;
 
-                                                                                             <!-- Javascript for What will you Learn -->
-                                                                                             <script>
-                                                                                                 // now, add a new to the TABLE.
-                                                                                                 function addLearnRow() {
-                                                                                                     var empTab = document.getElementById('LearnTable');
-
-                                                                                                     var rowCnt = empTab.rows.length;   // table row count.
-                                                                                                     var tr = empTab.insertRow(rowCnt); // the table row.
-                                                                                                     tr = empTab.insertRow(rowCnt);
-
-                                                                                                     for (var c = 0; c < 1; c++) {
-                                                                                                         var td = document.createElement('td'); // table definition.
-                                                                                                         td = tr.insertCell(c);
-                                                                                                             var ele = document.createElement('input');
-                                                                                                             ele.setAttribute('type', 'text');
-                                                                                                             ele.setAttribute('placeholder', 'Other Requirements...');
-                                                                                                             td.appendChild(ele);
-
-                                                                                                     }
-                                                                                                 }
-
-
-                                                                                                 // function to extract and submit table data.
-                                                                                                 function Learnsubmit() {
-                                                                                                     var myTab = document.getElementById('LearnTable');
-                                                                                                     var arrValues =new Array()
-
-                                                                                                     // loop through each row of the table.
-                                                                                                     for (row = 0; row < myTab.rows.length ; row++) {
-                                                                                                       // loop through each cell in a row.
-                                                                                                         for (c = 0; c < myTab.rows[row].cells.length; c++) {
-                                                                                                             var element = myTab.rows.item(row).cells[c];
-                                                                                                             if (element.childNodes[0].getAttribute('type') == 'text') {
-                                                                                                                 arrValues.push(element.childNodes[0].value);
-                                                                                                             }
-                                                                                                         }
-                                                                                                     }
-
-                                                                                                     var str="";
-                                                                                                     for(i=0;i<arrValues.length;i++)
-                                                                                                     {
-                                                                                                       str=str.concat(arrValues[i])
-                                                                                                       str=str+'_';
-                                                                                                     }
-
-                                                                                                     learn_str=str.substring(0,str.length-1)
-
-                                                                                                     // The final output.
-                                                                                                     // document.getElementById('Learnoutput').innerHTML = learn_str;
+                             var ele1=document.getElementById('rout');
+                             ele1.setAttribute('value',req_str);
+                         }
+                     </script>
+             <!-- Add Requirements Section Ends-->
 
 
-                                                                                                     var ele1=document.getElementById('lout');
-                                                                                                     ele1.setAttribute('value',learn_str);
-                                                                                                 }
-                                                                                             </script>
+
+
+
+             <!-- Add What Will You Learn Section Starts-->
+
+                   <div class="row justify-content-center">
+                       <div class="col-xl-9">
+
+                                 <a class="btn btn-default text-white mb-3" type="button" id="addLearnRow" onclick="addLearnRow()"><i
+                                         class='uil-plus'></i>What Will You Learn</a>
+
+
+
+                                 <table id="LearnTable" class="uk-width-expand">
+                                   <thead>
+                                     <!-- <tr>
+                                       <td><input type='text' class='uk-input1'
+                                           placeholder="Any computer will work: Windows, macOS or Linux"></td>
+                                     </tr>
+                                     <tr>
+                                       <td><input type='text' class='uk-input1'
+                                           placeholder="Basic programming HTML and CSS."></td>
+                                     </tr>
+                                     <tr>
+                                       <td><input type='text' class='uk-input1'
+                                           placeholder="Basic/Minimal understanding of JavaScript"></td>
+                                     </tr> -->
+
+                                     {% for learn_item in learn_list %}
+                                     <tr>
+                                       <td><input type='text' class='uk-input1'
+                                           value="{{learn_item}}"></td>
+                                     </tr>
+                                     {% endfor %}
+
+
+                                   </thead>
+                                 </table>
+
+                                 <!-- Hidem Input for What do you learn -->
+                                 <input type="hidden" name="learn" id="lout" name="learn-string" value='Output:''>
+
+                       </div>
+                   </div>
+
+
+
+                   <!-- Javascript for What will you Learn -->
+                   <script>
+                       // now, add a new to the TABLE.
+                       function addLearnRow() {
+                           var empTab = document.getElementById('LearnTable');
+
+                           var rowCnt = empTab.rows.length;   // table row count.
+                           var tr = empTab.insertRow(rowCnt); // the table row.
+                           tr = empTab.insertRow(rowCnt);
+
+                           for (var c = 0; c < 1; c++) {
+                               var td = document.createElement('td'); // table definition.
+                               td = tr.insertCell(c);
+                                   var ele = document.createElement('input');
+                                   ele.setAttribute('type', 'text');
+                                   ele.setAttribute('placeholder', 'Other Requirements...');
+                                   td.appendChild(ele);
+
+                           }
+                       }
+
+
+                       // function to extract and submit table data.
+                       function Learnsubmit() {
+                           var myTab = document.getElementById('LearnTable');
+                           var arrValues =new Array()
+
+                           // loop through each row of the table.
+                           for (row = 0; row < myTab.rows.length ; row++) {
+                             // loop through each cell in a row.
+                               for (c = 0; c < myTab.rows[row].cells.length; c++) {
+                                   var element = myTab.rows.item(row).cells[c];
+                                   if (element.childNodes[0].getAttribute('type') == 'text') {
+                                       arrValues.push(element.childNodes[0].value);
+                                   }
+                               }
+                           }
+
+                           var str="";
+                           for(i=0;i<arrValues.length;i++)
+                           {
+                             str=str.concat(arrValues[i])
+                             str=str+'_';
+                           }
+
+                           learn_str=str.substring(0,str.length-1)
+
+                           // The final output.
+                           // document.getElementById('Learnoutput').innerHTML = learn_str;
+
+
+                           var ele1=document.getElementById('lout');
+                           ele1.setAttribute('value',learn_str);
+                       }
+                   </script>
 
                                                                                      <!-- Add What Will You Learn Section Ends-->
 

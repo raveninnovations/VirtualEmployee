@@ -1157,9 +1157,15 @@ def csmSettings(request):
 # TL MODULE SECTION
 
 def tlDashboard(request):
-    return render(request,'TL_Pages/tl_dashboard.html')
+    projects=ProjectManager.objects.all()
+    context={
+        'projects':projects,
+    }
+    return render(request,'TL_Pages/tl_dashboard.html',context)
 
-def tlProjectDetails(request):
+
+
+def tlProjectDetails(request,id):
     return render(request,'TL_Pages/tl_project_details.html')
 
 # PROJECT MODULE SECTION

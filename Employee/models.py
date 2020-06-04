@@ -172,7 +172,7 @@ class ProjectManager(models.Model):
     project_docs=models.FileField(upload_to='proj_docs/', null=True,blank=True)
     project_category=models.CharField(max_length=200,null=True, blank=True)
     project_cfp=models.CharField(max_length=200,null=True, blank=True)
-    project_tl=models.CharField(max_length=200, blank=True)
+    # project_tl=models.CharField(max_length=200, blank=True)
     # project_cfp=models.ManyToManyField(CFP_role, related_name="cfp")
     def __str__(self):
         return self.project_title
