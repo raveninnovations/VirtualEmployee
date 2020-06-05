@@ -1241,10 +1241,34 @@ def tlDashboard(request):
         return redirect('login')
 
 
-
-
 def tlProjectDetails(request,id):
     return render(request,'TL_Pages/tl_project_details.html')
+
+def tlSettings(request):
+    user = request.user
+    details = RoleDetail.objects.get(user_id_id=user.pk)
+    form = PasswordChangeForm(user=request.user)
+    if request.method == 'POST':
+        new_pass = request.POST['new_password1']
+        try:
+            form = PasswordChangeForm(user=request.user, data=request.POST)
+            if form.is_valid():
+                form.save()
+                update_session_auth_hash(request, form.user)
+                messages.success(request, 'Password Changed Successfully!')
+                details.role_user_password = new_pass
+                details.save()
+                return redirect(tlSettings)
+        except:
+            messages.error(request, 'User is not able to change password !')
+
+        else:
+            messages.error(request,'Password not matching !')
+            return redirect(tlSettings)
+    context = {
+        'form': form,
+    }
+    return render(request, "TL_pages/tl_settings.html", context)
 
 # PROJECT MODULE SECTION
 
@@ -1471,13 +1495,13 @@ def pcmSettings(request):
                 messages.success(request, 'Password Changed Successfully!')
                 details.role_user_password = new_pass
                 details.save()
-                return redirect(csmSettings)
+                return redirect(pcmSettings)
         except:
             messages.error(request, 'User is not able to change password !')
 
         else:
             messages.error(request,'Password not matching !')
-            return redirect(csmSettings)
+            return redirect(pcmSettings)
     context = {
         'form': form,
     }
