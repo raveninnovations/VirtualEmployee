@@ -2,6 +2,7 @@ import re
 import random, math
 import uuid
 import datetime as dt
+from datetime import datetime
 from django.contrib import messages
 from email_validator import validate_email, EmailNotValidError
 from django.contrib.auth import login,logout,authenticate
@@ -241,12 +242,25 @@ def adminLicenseInfo(request,id):
         license_info = UsedLicense.objects.get(id = id)
         try:
             student_info = UserDetails.objects.get(user_license=license_info.u_key)
+            delta = dt.timedelta(days=366)
+            license_year = license_info.u_years * delta
+            today =dt.datetime.now().date()
+            print(license_info.u_date.date())
+            print(today)
+            days_over = today - student_info.user_date.date()
+            print(days_over)
+            print("Days left")
+            days_left = license_year - days_over
+            print(days_left)
 
-            context ={
-                'student':student_info,
-                'license':license_info
+            context = {
+                'student': student_info,
+                'license': license_info,
+                'today':today,
+                'days_over':days_over,
+                'days_left':days_left,
             }
-            return render(request,'Admin_pages/admin_license_info.html',context)
+            return render(request, 'Admin_pages/admin_license_info.html', context)
 
         except:
             print("error")
