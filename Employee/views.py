@@ -1230,7 +1230,10 @@ def csmSettings(request):
 @login_required
 def tlDashboard(request):
     if request.user.is_active and request.user.is_superuser and not request.user.is_staff:
-        projects=ProjectManager.objects.all()
+        user=request.user
+        print(user)
+        data=RoleDetail.objects.get(role_user_email=user.email)
+        projects=ProjectManager.objects.filter(project_tl=data.role_user_id)
 
         context={
             'projects':projects,
@@ -1242,7 +1245,16 @@ def tlDashboard(request):
 
 
 def tlProjectDetails(request,id):
-    return render(request,'TL_Pages/tl_project_details.html')
+    data=ProjectManager.objects.get(id=id)
+    students=EnrolledProject.objects.filter(project=data)
+    info=UserDetails.objects.all()
+    print(students)
+    context={
+        'data':data,
+        'students':students,
+        'info':info
+    }
+    return render(request,'TL_Pages/tl_project_details.html',context)
 
 def tlSettings(request):
     user = request.user
