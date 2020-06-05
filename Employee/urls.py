@@ -34,6 +34,8 @@ urlpatterns = [
     # TL Section
     path('tldashboard/',views.tlDashboard,name='tlDashboard'),
     path('tl-projectdetails/',views.tlProjectDetails,name='tlProjectDetails'),
+    path('tl-settings/',views.tlSettings,name='tlSettings'),
+
     # PROJECT Section
     path('projectmanager/',views.projectManager,name='projectManager'),
     path('projecteditmanager/<int:id>',views.projectEditManager,name='projectEditManager'),
