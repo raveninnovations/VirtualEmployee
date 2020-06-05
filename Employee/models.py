@@ -172,7 +172,7 @@ class ProjectManager(models.Model):
     project_docs=models.FileField(upload_to='proj_docs/', null=True,blank=True)
     project_category=models.CharField(max_length=200,null=True, blank=True)
     project_cfp=models.CharField(max_length=200,null=True, blank=True)
-    # project_tl=models.CharField(max_length=200, blank=True)
+    project_tl=models.CharField(max_length=200, blank=True)
     # project_cfp=models.ManyToManyField(CFP_role, related_name="cfp")
     def __str__(self):
         return self.project_title
@@ -238,3 +238,9 @@ class ProgressCourse(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class EnrolledProject(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    project = models.ForeignKey(ProjectManager, on_delete=models.CASCADE, null=True)
+    enrolled_date=models.DateTimeField(default=datetime.now,blank=True)

@@ -22,7 +22,7 @@ from django.core.mail import send_mail, EmailMessage
 from datetime import datetime
 from .forms import (AddUserForm)
 
-from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense
+from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject
 
 
 # Create your views here.
@@ -708,12 +708,6 @@ def userEdit(request):
 
 
 def userProject(request):
-    # proj=ProjectManager.objects.all()
-    # context={
-    #     "proj":proj
-    # }
-    # return render(request,'virtualmain_pages/user-project.html', context)
-
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
         user = request.user
 
@@ -739,6 +733,9 @@ def userProject(request):
                     if res != -1:
                         cfp2_projects.append(j)
 
+
+                enrolled_projects=EnrolledProject.objects.filter(user=user)
+
                 print('suceess')
 
                 # if ProgressCourse.objects.filter(user_id=user.pk).exists():
@@ -751,7 +748,8 @@ def userProject(request):
 
                 context = {
                     'cfp1_projects':cfp1_projects,
-                    'cfp2_projects':cfp2_projects
+                    'cfp2_projects':cfp2_projects,
+                    'enrolled_projects':enrolled_projects
 
                 }
                 return render(request, 'virtualmain_pages/user-project.html', context)
@@ -765,6 +763,38 @@ def userProject(request):
     else:
         messages.error(request,"Wrong URL")
         return redirect('logout')
+
+
+def userProjectDetails(request,id):
+    if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        user = request.user
+        p_id=id
+        project=ProjectManager.objects.get(id=p_id)
+        if request.method == 'POST':
+            try:
+                check=EnrolledProject.objects.filter(user=user,project=project).exists()
+                if check == True:
+                    messages.error(request,"You have already enrolled in this course")
+                    return redirect(request.path_info)
+                else:
+                    data=EnrolledProject(user=user,project=project)
+                    data.save()
+                    messages.success(request,"You have sucessfully enrolled in this course")
+                    return redirect(request.path_info)
+            except:
+                print("Error")
+
+        context={
+            'project':project
+        }
+
+    else:
+        messages.error(request,"Wrong URL")
+        return redirect('logout')
+
+    return render(request,'virtualmain_pages/user-project-details.html',context)
+
+
 
 
 def userchangepassword(request):
@@ -928,14 +958,14 @@ def csmEditCourse(request,id):
                 datas.save()
                 return redirect("/csmdashboard/")
 
-        
+
         # Breakdown the requirements and learnings into list with help of python split()
         req_para=datas.requirements
         learn_para=datas.learnings
 
         req_list=req_para.split('_')
         learn_list=learn_para.split('_')
-        
+
         inst=RoleDetail.objects.all()
         context ={
             'datas' : datas,
