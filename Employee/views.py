@@ -2,6 +2,7 @@ import re
 import random, math
 import uuid
 import datetime as dt
+from datetime import datetime
 from django.contrib import messages
 from email_validator import validate_email, EmailNotValidError
 from django.contrib.auth import login,logout,authenticate
@@ -241,12 +242,25 @@ def adminLicenseInfo(request,id):
         license_info = UsedLicense.objects.get(id = id)
         try:
             student_info = UserDetails.objects.get(user_license=license_info.u_key)
+            delta = dt.timedelta(days=366)
+            license_year = license_info.u_years * delta
+            today =dt.datetime.now().date()
+            print(license_info.u_date.date())
+            print(today)
+            days_over = today - student_info.user_date.date()
+            print(days_over)
+            print("Days left")
+            days_left = license_year - days_over
+            print(days_left)
 
-            context ={
-                'student':student_info,
-                'license':license_info
+            context = {
+                'student': student_info,
+                'license': license_info,
+                'today':today,
+                'days_over':days_over,
+                'days_left':days_left,
             }
-            return render(request,'Admin_pages/admin_license_info.html',context)
+            return render(request, 'Admin_pages/admin_license_info.html', context)
 
         except:
             print("error")
@@ -256,10 +270,21 @@ def adminLicenseInfo(request,id):
         messages.error(request,"Wrong URL")
         return redirect('login')
 
-
+@login_required
 def adminStudents(request):
-    students=UserDetails.objects.all()
-    students_contact=UserContact.objects.all()
+
+    students = UserDetails.objects.all()
+    students_contact = UserContact.objects.all()
+
+    if request.method == 'POST':
+        if 'id_search' in request.POST:
+            emp_id = request.POST['id_search']
+            if UserDetails.objects.filter(user_unique=emp_id).exists():
+                print("Exists")
+                students = UserDetails.objects.filter(user_unique=emp_id)
+
+
+
     context={
         'students':students,
         'students_contact':students_contact
@@ -1202,13 +1227,19 @@ def csmSettings(request):
 
 
 # TL MODULE SECTION
-
+@login_required
 def tlDashboard(request):
-    projects=ProjectManager.objects.all()
-    context={
-        'projects':projects,
-    }
-    return render(request,'TL_Pages/tl_dashboard.html',context)
+    if request.user.is_active and request.user.is_superuser and not request.user.is_staff:
+        projects=ProjectManager.objects.all()
+
+        context={
+            'projects':projects,
+        }
+        return render(request,'TL_Pages/tl_dashboard.html',context)
+    else:
+        messages.error(request,"Wrong URL")
+        return redirect('login')
+
 
 
 
@@ -1221,6 +1252,7 @@ def tlProjectDetails(request,id):
 def projectManager(request):
 
     cfp_list=CFP_role.objects.all()
+    user = request.user
     if request.method=='POST':
         if 'category' in request.POST:
             count=ProjectCFPStore.objects.all().count()
@@ -1266,6 +1298,7 @@ def projectManager(request):
 
 
             proj=ProjectManager.objects.create(
+                user_id= user.pk,
                 project_title=project_title,
                 project_description=project_description,
                 project_thumbnail=project_thumbnail,
@@ -1424,6 +1457,31 @@ def projectDashboard(request):
         messages.error(request,'Wrong URL')
         return redirect('login')
 
+def pcmSettings(request):
+    user = request.user
+    details = RoleDetail.objects.get(user_id_id=user.pk)
+    form = PasswordChangeForm(user=request.user)
+    if request.method == 'POST':
+        new_pass = request.POST['new_password1']
+        try:
+            form = PasswordChangeForm(user=request.user, data=request.POST)
+            if form.is_valid():
+                form.save()
+                update_session_auth_hash(request, form.user)
+                messages.success(request, 'Password Changed Successfully!')
+                details.role_user_password = new_pass
+                details.save()
+                return redirect(csmSettings)
+        except:
+            messages.error(request, 'User is not able to change password !')
+
+        else:
+            messages.error(request,'Password not matching !')
+            return redirect(csmSettings)
+    context = {
+        'form': form,
+    }
+    return render(request, "ProjectModule_pages/pcm_settings.html", context)
 
 @login_required
 def cfp_create(request):

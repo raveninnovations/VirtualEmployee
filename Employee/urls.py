@@ -39,6 +39,7 @@ urlpatterns = [
     path('projectmanager/',views.projectManager,name='projectManager'),
     path('projecteditmanager/<int:id>',views.projectEditManager,name='projectEditManager'),
     path('projectdashboard/',views.projectDashboard,name='projectDashboard'),
+    path('pcmsettings/',views.pcmSettings,name='pcmSettings'),
     #Create category and CFP
 
     path('category_edit/<int:id>',views.category_edit,name='categoryEdit'),
