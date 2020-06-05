@@ -1,0 +1,173 @@
+{% extends 'base1.html' %}
+{% load static %}{% block title %}User-Project{% endblock %}
+{% block content %}
+ <div id="wrapper">
+
+        <div id="searchbox">
+
+            <div class="search-overlay"></div>
+
+            <div class="search-input-wrapper">
+                <div class="search-input-container">
+                    <div class="search-input-control">
+                        <span class="icon-feather-x btn-close uk-animation-scale-up"
+                            uk-toggle="target: #searchbox; cls: is-active"></span>
+                        <div class=" uk-animation-slide-bottom">
+                            <input type="text" name="search" autofocus required>
+                            <p class="search-help">Type the name of the Course and book you are looking for</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- overlay seach on mobile-->
+        <div class="nav-overlay uk-navbar-left uk-position-relative uk-flex-1 bg-grey uk-light p-2" hidden
+            style="z-index: 10000;">
+            <div class="uk-navbar-item uk-width-expand" style="min-height: 60px;">
+                <form class="uk-search uk-search-navbar uk-width-1-1">
+                    <input class="uk-search-input" type="search" placeholder="Search..." autofocus>
+                </form>
+            </div>
+            <a class="uk-navbar-toggle" uk-close uk-toggle="target: .nav-overlay; animation: uk-animation-fade"
+                href="#"></a>
+        </div>
+
+        {#     MENU   #}
+        {% include 'partials/user_partials/_menu.html' %}
+
+        <div class="page-content">
+
+
+            {% include 'partials/user_partials/_header.html' %}
+
+
+            <br>
+
+             <div class="page-content-inner">
+
+              <h2>Projects Info</h2>
+
+
+                    <div class="uk-width-expand  my-5 ">
+                      <div class="uk-width-3-5 mx-auto  " >
+                      {% include 'partials/_alerts.html' %}
+                            <div class="uk-card uk-card-default rounded">
+                                <div class="uk-card-media-top img-fluid uk-height-1-2 ">
+                                  {% if project.project_thumbnail %}
+                                    <img src="{{project.project_thumbnail.url}}" class="rounded"  alt="">
+                                  {% else %}
+                                    <img src="" alt="">
+                                  {% endif %}
+                                </div>
+                                <div class="uk-card-body ">
+                                    <h1 class="uk-card-title text-center mt-0">{{project.project_title}}</h1>
+                                    <div class="uk-child-width-1-2@s" uk-grid>
+                                      <div class="">
+                                        <h4 class="mb-0">Project Description:</h4>
+                                      </div>
+                                      <div class="">
+                                          <p class="mt-0"><strong>{{project.project_description}}</strong></p>
+                                      </div>
+                                    </div>
+
+                                    <div class="uk-child-width-1-2@s" uk-grid>
+                                      <div class="">
+                                        <h4 class="mb-0">Project Category</h4>
+                                      </div>
+                                      <div class="">
+                                          <p class="mt-0"><strong>{{project.project_category}}</strong></p>
+                                      </div>
+                                    </div>
+
+                                    <div class="uk-child-width-1-2@s" uk-grid>
+                                      <div class="">
+                                        <h4 class="mb-0">Project Roles</h4>
+                                      </div>
+                                      <div class="">
+                                          <p class="mt-0"><strong>{{project.project_cfp}}</strong></p>
+                                      </div>
+                                    </div>
+
+                                    <div class="uk-child-width-1-2@s" uk-grid>
+                                      <div class="">
+                                        <h4 class="mb-0">Candidates Required</h4>
+                                      </div>
+                                      <div class="">
+                                          <p class="mt-0"><strong>{{project.candidates_required}}</strong></p>
+                                      </div>
+                                    </div>
+
+                                    <div class="uk-child-width-1-2@s" uk-grid>
+                                      <div class="">
+                                        <h4 class="mb-0">Project Duration</h4>
+                                      </div>
+                                      <div class="">
+                                          <p class="mt-0"><strong>{{project.project_duration}}</strong></p>
+                                      </div>
+                                    </div>
+
+                                    <form method="POST">
+                                      {% csrf_token %}
+
+                                    <div class="text-center mt-4">
+                                      <button type="submit" class="btn btn-default px-5" name="button">Enroll</button>
+                                    </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+
+
+                      </div>
+
+                    </div>
+
+
+
+              </div>
+
+
+
+             {% include 'partials/_footer.html' %}
+        </div>
+
+    <!-- For Night mode -->
+    <script>
+        (function (window, document, undefined) {
+            'use strict';
+            if (!('localStorage' in window)) return;
+            var nightMode = localStorage.getItem('gmtNightMode');
+            if (nightMode) {
+                document.documentElement.className += ' night-mode';
+            }
+        })(window, document);
+
+
+        (function (window, document, undefined) {
+
+            'use strict';
+
+            // Feature test
+            if (!('localStorage' in window)) return;
+
+            // Get our newly insert toggle
+            var nightMode = document.querySelector('#night-mode');
+            if (!nightMode) return;
+
+            // When clicked, toggle night mode on or off
+            nightMode.addEventListener('click', function (event) {
+                event.preventDefault();
+                document.documentElement.classList.toggle('night-mode');
+                if (document.documentElement.classList.contains('night-mode')) {
+                    localStorage.setItem('gmtNightMode', true);
+                    return;
+                }
+                localStorage.removeItem('gmtNightMode');
+            }, false);
+
+        })(window, document);
+    </script>
+
+{% endblock %}

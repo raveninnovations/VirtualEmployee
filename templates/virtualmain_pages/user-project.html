@@ -74,6 +74,7 @@
                                   <div class="uk-child-width-1-3@m" uk-grid>
 
                                     {% for i in cfp1_projects %}
+                                    <a href="{% url 'userprojectdetails' i.pk  %}">
                                      <div class="rounded">
                                          <div class="uk-card uk-card-default rounded">
                                              <div class="uk-card-media-top rounded">
@@ -92,10 +93,11 @@
                                              </div>
                                          </div>
                                      </div>
-
+                                     </a>
                                     {% endfor %}
 
                                     {% for i in cfp2_projects %}
+                                    <a href="{% url 'userprojectdetails' i.pk  %}">
                                      <div class="rounded">
                                          <div class="uk-card uk-card-default rounded">
                                              <div class="uk-card-media-top rounded">
@@ -113,7 +115,7 @@
                                              </div>
                                          </div>
                                      </div>
-
+                                     </a>
                                     {% endfor %}
 
 
@@ -123,24 +125,56 @@
 
 
                                 <li class=" uk-width-auto px-2">
+
                                   <div class="uk-child-width-1-3@m" uk-grid>
-                                    {% for proj in proj %}
-                                    <div class="rounded">
-                                        <div class="uk-card uk-card-default rounded">
-                                            <div class="uk-card-media-top rounded">
 
-                                                <img src="{{proj.project_thumbnail}}" class="rounded" alt="..">
-                                            </div>
-                                            <div class="uk-card-body r">
-                                                <h5 class="m-0">Name : {{proj.project_title}}</h5>
-                                                <h5 class="m-0">Category: </h5>
-                                                <h5 class="m-0">Required Members: {{proj.candidates_required}}</h5>
-                                                <h5 class="m-0">Project Date: {{proj.project_duration}}</h5>
+                                    {% for i in cfp1_projects %}
+                                    <a href="{% url 'userprojectdetails' i.pk  %}">
+                                     <div class="rounded">
+                                         <div class="uk-card uk-card-default rounded">
+                                             <div class="uk-card-media-top rounded">
+                                               {% if i.project_thumbnail %}
+                                                 <img src="{{i.project_thumbnail.url}}" class="rounded" alt="">
+                                                {% else %}
+                                                <img src="" class="rounded" alt="">
+                                                {% endif %}
+                                             </div>
+                                             <div class="uk-card-body r">
+                                               <h5 class="m-0"><strong>Name :</strong> {{i.project_title}}</h5>
+                                               <h5 class="m-0"><strong>Category :</strong> {{i.project_category}}</h5>
+                                               <h5 class="m-0"><strong>Required Members :</strong> {{i.candidates_required}}</h5>
+                                               <h5 class="m-0"><strong>Project Durations :</strong> {{i.project_duration}} months</h5>
 
-                                            </div>
-                                        </div>
-                                    </div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     </a>
                                     {% endfor %}
+
+                                    {% for i in cfp2_projects %}
+                                    <a href="{% url 'userprojectdetails' i.pk  %}">
+                                     <div class="rounded">
+                                         <div class="uk-card uk-card-default rounded">
+                                             <div class="uk-card-media-top rounded">
+                                               {% if i.project_thumbnail %}
+                                                 <img src="{{i.project_thumbnail.url}}" class="rounded" alt="">
+                                                {% else %}
+                                                <img src="" class="rounded" alt="">
+                                                {% endif %}
+                                             </div>
+                                             <div class="uk-card-body r">
+                                               <h5 class="m-0"><strong>Name :</strong> {{i.project_title}}</h5>
+                                               <h5 class="m-0"><strong>Category :</strong> {{i.project_category}}</h5>
+                                               <h5 class="m-0"><strong>Required Members :</strong> {{i.candidates_required}}</h5>
+                                               <h5 class="m-0"><strong>Project Durations :</strong> {{i.project_duration}} months</h5>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     </a>
+                                    {% endfor %}
+
+
+
                                  </div>
 
                                 </li>
@@ -252,7 +286,7 @@
 
                     <div class="uk-card-default rounded  my-4 pb-2">
                         <div class="uk-flex uk-flex-between uk-flex-middle py-4 px-5">
-                            <h5 class="mb-0"> Enrolled Projects </h5>
+                            <h4 class="mb-0"> Enrolled Projects </h4>
                                 <a href="#" uk-tooltip="title:Edit Account; pos: left"> <i
                                         class="icon-feather-settings"></i> </a>
                         </div>
@@ -260,40 +294,24 @@
                         <div class="uk-container pb-3">
                           <div class="uk-child-width-1-4@m  px-4" uk-grid>
 
+                          {% for i in enrolled_projects %}
+                          <div class="course-card-resume p-0 mx-2">
+                              <div class="course-card-resume-thumbnail">
+                                {% if i.project.project_thumbnail %}
+                                  <img src="{{ i.project.project_thumbnail.url }}" >
+                                {% else %}
+                                  <img src="" >
+                                {% endif %}
+                              </div>
+                              <div class="uk-card-body px-3 py-3">
+                                  <h5 class="m-0"><strong>Name : </strong>{{i.project.project_title}}</h5>
+                                  <h5 class="m-0"><strong>Category: </strong>{{i.project.project_category}}</h5>
+                                  <!-- <h5 class="m-0">Project CFP :{{i.project.project_cfp}}</h5> -->
+                                  <!-- <h5 class="m-0">Project Date: {{i.project.project_t}}</h5> -->
 
-
-
-                            <div class="rounded">
-                            <div class="uk-card uk-card-small uk-card-primary uk-card-hover uk-card-body uk-light">
-                                <h3 class="uk-card-title">Title Name</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                <span class="uk-label">Status</span>
-                            </div>
-
+                              </div>
                           </div>
-                        <div class="rounded">
-                            <div class="uk-card  uk-card-small uk-card-primary uk-card-hover uk-card-body uk-light">
-                                <h3 class="uk-card-title">Title Name</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                <span class="uk-label">Status</span>
-                            </div>
-                        </div>
-
-                        <div class="rounded">
-                            <div class="uk-card  uk-card-small uk-card-primary uk-card-hover uk-card-body uk-light">
-                                <h3 class="uk-card-title">Title Name</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                <span class="uk-label">Status</span>
-                            </div>
-                        </div>
-
-                        <div class="rounded">
-                            <div class="uk-card  uk-card-small uk-card-primary uk-card-hover uk-card-body uk-light">
-                                <h3 class="uk-card-title">Title Name</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                <span class="uk-label">Status</span>
-                            </div>
-                        </div>
+                          {% endfor %}
 
 
                             </div>
@@ -304,7 +322,7 @@
 
                     <div class="uk-card-default rounded pb-2">
                         <div class="uk-flex uk-flex-between uk-flex-middle py-4 px-5">
-                            <h5 class="mb-0"> Project Certificates </h5>
+                            <h4 class="mb-0"> Project Certificates </h4>
                                 <a href="#" uk-tooltip="title:Edit Account; pos: left"> <i
                                         class="icon-feather-settings"></i> </a>
                         </div>

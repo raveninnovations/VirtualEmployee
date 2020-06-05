@@ -21,6 +21,7 @@ urlpatterns = [
     path('userprofile/',views.userprofile,name='userprofile'),
     path('user-profile-edit/',views.userEdit,name='userprofileEdit'),
     path('user-project/',views.userProject,name='userproject'),
+    path('user-project-details/<int:id>',views.userProjectDetails,name='userprojectdetails'),
     path('user-course/<int:id>', views.userCourse, name='usercourse'),
     path('user-lesson/<int:id>', views.userLesson, name='userlesson'),
     path('user-change-password/',views.userchangepassword, name='userchangepassword'),

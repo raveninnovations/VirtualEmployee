@@ -239,3 +239,9 @@ class ProgressCourse(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class EnrolledProject(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    project = models.ForeignKey(ProjectManager, on_delete=models.CASCADE, null=True)
+    enrolled_date=models.DateTimeField(default=datetime.now,blank=True)

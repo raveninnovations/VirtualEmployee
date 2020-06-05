@@ -4,6 +4,14 @@ Student Info
 {% endblock %}
 {% block content %}{% load static%}
 
+    <style>
+    .fil{
+        background: transparent;
+    /* background: white; */
+    border: aliceblue;
+    }
+    </style>
+
     <div id="wrapper" class="admin-panel">
 
     {% include 'partials/admin_partials/_header.html' %}
@@ -16,7 +24,7 @@ Student Info
                     <nav id="breadcrumbs" class="mb-3">
                         <ul>
                             <li><a href="#"> <i class="uil-home-alt"></i> </a></li>
-                            <li><a href="#"> Sutdents </a></li>
+                            <li><a href="{% url 'admindashboard' %}"> Dashboard </a></li>
                             <li>Sutdents list</li>
                         </ul>
                     </nav>
@@ -36,22 +44,26 @@ Student Info
                                     <i class="uil-search"></i>
                                 </a>
                                 <div class="uk-drop" uk-drop="mode: click; pos: left-center; offset: 0">
-                                    <form class="uk-search uk-search-navbar uk-width-1-1">
+                                    <form class="uk-search uk-search-navbar uk-width-1-1" method="post">
+                                        {% csrf_token %}
                                         <input class="uk-search-input shadow-0 uk-form-small" type="search"
-                                            placeholder="Employee ID" autofocus>
+                                            placeholder="Employee ID" autofocus name="id_search">
                                     </form>
                                 </div>
+
+                                <form method="post">
 
                                 <a href="#" class="btn btn-icon btn-hover  btn-circle" uk-tooltip="filter">
                                     <i class="uil-filter"></i>
                                 </a>
                                 <div uk-dropdown="pos: bottom-right ; mode: click ;animation: uk-animation-scale-up">
                                     <ul class="uk-nav uk-dropdown-nav">
-                                        <li class="uk-active"><a href="#"> Newest </a></li>
-                                        <li><a href="#">From A-Z</a></li>
-                                        <li><a href="#">From Z-A</a></li>
+                                        <li class="uk-active"><button type="submit" value="From Z-A" class="fil"> Newest</button></li>
+                                        <li><button type="submit" value="From Z-A" class="fil"> FROM A-Z</button></li>
+                                        <li><button type="submit" value="From Z-A" class="fil"> FROM Z-A</button></li>
                                     </ul>
                                 </div>
+                                </form>
 
 
                                 <a href="#" class="btn btn-icon btn-hover  btn-circle" uk-tooltip="More">
@@ -84,23 +96,34 @@ Student Info
                             </thead>
                             <tbody class="list">
                               {% for student in students %}
+
                                 <tr>
                                     <th scope="row">
                                         <div class="media align-items-center">
+                                        {%  for info in students_contact %}
+                                            {% if info.user_id_id == student.pk %}
                                             <div>
+
                                                 <div class="avatar-parent-child" style="width: max-content">
-                                                  {% if student.user_id.user_pic %}
+
+
+                                                      {% if info.user_pic %}
                                                     <img alt="Image placeholder"
-                                                        src="{{student.user_id.user_pic.url}}"
+                                                        src="{{info.user_pic.url}}"
                                                         class="avatar  rounded-circle">
                                                   {% else %}
                                                   <img alt="Image placeholder"
                                                       src=""
                                                       class="avatar  rounded-circle">
                                                   {% endif %}
+
                                                     <span class="avatar-child avatar-badge bg-success"></span>
+
                                                 </div>
+
                                             </div>
+                                            {% endif %}
+                                            {% endfor %}
                                             <div class="media-body ml-4">
                                                 <a href="#" class="name h6 mb-0 text-sm">{{student.user_id.first_name}} {{student.user_id.last_name}}</a>
                                                 <small class="d-block font-weight-bold">{{student.user_unique}}</small>
@@ -130,7 +153,8 @@ Student Info
                                         </div>
                                     </td>
                                 </tr>
-                                {% endfor %}
+                                      {% endfor %}
+
                             </tbody>
                         </table>
                     </div>
