@@ -270,10 +270,21 @@ def adminLicenseInfo(request,id):
         messages.error(request,"Wrong URL")
         return redirect('login')
 
-
+@login_required
 def adminStudents(request):
-    students=UserDetails.objects.all()
-    students_contact=UserContact.objects.all()
+
+    students = UserDetails.objects.all()
+    students_contact = UserContact.objects.all()
+
+    if request.method == 'POST':
+        if 'id_search' in request.POST:
+            emp_id = request.POST['id_search']
+            if UserDetails.objects.filter(user_unique=emp_id).exists():
+                print("Exists")
+                students = UserDetails.objects.filter(user_unique=emp_id)
+
+
+
     context={
         'students':students,
         'students_contact':students_contact
