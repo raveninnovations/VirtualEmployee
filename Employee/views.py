@@ -1186,13 +1186,19 @@ def csmSettings(request):
 
 
 # TL MODULE SECTION
-
+@login_required
 def tlDashboard(request):
-    projects=ProjectManager.objects.all()
-    context={
-        'projects':projects,
-    }
-    return render(request,'TL_Pages/tl_dashboard.html',context)
+    if request.user.is_active and request.user.is_superuser and not request.user.is_staff:
+        projects=ProjectManager.objects.all()
+
+        context={
+            'projects':projects,
+        }
+        return render(request,'TL_Pages/tl_dashboard.html',context)
+    else:
+        messages.error(request,"Wrong URL")
+        return redirect('login')
+
 
 
 
@@ -1205,6 +1211,7 @@ def tlProjectDetails(request,id):
 def projectManager(request):
 
     cfp_list=CFP_role.objects.all()
+    user = request.user
     if request.method=='POST':
         if 'category' in request.POST:
             count=ProjectCFPStore.objects.all().count()
@@ -1250,6 +1257,7 @@ def projectManager(request):
 
 
             proj=ProjectManager.objects.create(
+                user_id= user.pk,
                 project_title=project_title,
                 project_description=project_description,
                 project_thumbnail=project_thumbnail,
