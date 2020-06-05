@@ -246,7 +246,7 @@
                                 </div>
                                 {% if user.is_authenticated %}
                                 <div class="dropdown-user-name">
-                                    {{ user.first_name }} {{ user.last_name }} <span>CSM - ADMIN</span>
+                                    {{ user.first_name }} {{ user.last_name }} <span>PCM - ADMIN</span>
                                 </div>
                                 {% else %}
                                 {% endif %}
@@ -263,7 +263,7 @@
                                             <i class="icon-material-outline-dashboard"></i> Dashboard</a>
                                     </li>
 
-                                    <li><a href="{% url 'csmSettings' %}">
+                                    <li><a href="{% url 'pcmSettings' %}">
                                             <i class="icon-feather-settings"></i> Account Settings</a>
                                     </li>
 

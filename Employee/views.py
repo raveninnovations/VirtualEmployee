@@ -1408,6 +1408,31 @@ def projectDashboard(request):
         messages.error(request,'Wrong URL')
         return redirect('login')
 
+def pcmSettings(request):
+    user = request.user
+    details = RoleDetail.objects.get(user_id_id=user.pk)
+    form = PasswordChangeForm(user=request.user)
+    if request.method == 'POST':
+        new_pass = request.POST['new_password1']
+        try:
+            form = PasswordChangeForm(user=request.user, data=request.POST)
+            if form.is_valid():
+                form.save()
+                update_session_auth_hash(request, form.user)
+                messages.success(request, 'Password Changed Successfully!')
+                details.role_user_password = new_pass
+                details.save()
+                return redirect(csmSettings)
+        except:
+            messages.error(request, 'User is not able to change password !')
+
+        else:
+            messages.error(request,'Password not matching !')
+            return redirect(csmSettings)
+    context = {
+        'form': form,
+    }
+    return render(request, "ProjectModule_pages/pcm_settings.html", context)
 
 @login_required
 def cfp_create(request):
