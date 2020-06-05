@@ -164,6 +164,7 @@ class CFP_role(models.Model):
         return self.cfp_role
 
 class ProjectManager(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     project_title=models.CharField(max_length=100)
     project_description=models.TextField(blank=True)
     project_thumbnail=models.ImageField(upload_to='proj_images/',null=True,blank=True)
