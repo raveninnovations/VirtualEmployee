@@ -8,10 +8,9 @@
 .vid{
         background: transparent;
     color: darkslategray;
-
-
-
 }
+
+ input:hover {background: #CFCDCC}
 
 </style>
 
@@ -89,7 +88,7 @@
                                             {% if topic.topic_id_id == curriculam.pk %}
                                                 <form method="post">{% csrf_token %}
 
-                                                 <input type="submit" name="video" class="vid" value="{{ topic.topic_caption }}" style="border:1px solid #FF0000;width: 100%">
+                                                 <input type="submit" name="video" class="vid my-0 py-0" value="{{ topic.topic_caption }}" style="border:0px solid #FF0000;width: 100%">
                                                 </form>
 
                                             {% endif %}
