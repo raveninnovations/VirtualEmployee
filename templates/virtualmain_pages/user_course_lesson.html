@@ -70,7 +70,7 @@
                     <div class="course-content-inner">
 
                         <ul id="video-slider" class="uk-switcher">
-                           
+
                         {% if lessons %}
                                 {% for curriculam in lessons %}
                             {% for topic in topics %}
@@ -80,11 +80,11 @@
                                <!-- <video width='60%' height="40%" style="display:block; margin:0 auto;" controls >
                                                <source src="{{ topic.topic_video }}" type='video/mp4'></video> -->
                                                <iframe src="{{topic.topic_video}}" width="" height=""></iframe>
-                                    
-                                    
+
+
                                      <!-- <iframe id="player" src="https://www.youtube.com/embed/DjB1OvEYMhY?enablejsapi=1" height="540" width="350"></iframe> -->
-                                   
-                                
+
+
                                 </div>
                                 </li>
                             {% endif %}
@@ -104,10 +104,19 @@
                 <div class="course-sidebar">
                     <div class="course-sidebar-title">
                         <h3> Table of Contents </h3>
+                        {% if check == 0 %}
                         <form method=POST>
                           {% csrf_token %}
-                          <button type="submit" name="button" class=" mx-4 btn btn-default">Add To Progress</button>
+                          <button type="submit" name="button" class=" mx-4 btn btn-default" >Add To Progress</button>
                         </form>
+                        {% else %}
+
+                            <form method=POST>
+                              {% csrf_token %}
+                              <button type="submit" name="button" class=" mx-4 btn btn-default" disabled>Added to Progress</button>
+                            </form>
+
+                        {% endif %}
                     </div>
                     <div class="course-sidebar-container" data-simplebar>
 

@@ -446,6 +446,7 @@ def userdashboard(request):
                 lists = Course.objects.filter(category=cfp_details.category_one, role=cfp_details.role_one)
                 lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
 
+
                 #Displaying Projects
                 projects1=ProjectManager.objects.filter(project_category=cfp_details.category_one)
                 projects2=ProjectManager.objects.filter(project_category=cfp_details.category_two)
@@ -468,6 +469,7 @@ def userdashboard(request):
                 if ProgressCourse.objects.filter(user_id=user.pk).exists():
                     print("hello")
                     progress_course = ProgressCourse.objects.filter(user=user)
+                    print("missing")
 
                 else:
 
@@ -488,7 +490,7 @@ def userdashboard(request):
                 return render(request,'virtualmain_pages/dashboard.html')
 
         except:
-            print("Error")
+            print("Error in dashboard")
 
         context={
             'course_data':course_data,
@@ -536,22 +538,30 @@ def userLesson(request,id):
         topics = Lesson_Topic.objects.all()
 
         if request.method=='POST':
-            try:
-                if ProgressCourse.objects.get(user=user,course_id=id).exists():
-                    return redirect(request.path_info)
-                # else:
-                #     obj=ProgressCourse(user=user,course_id=id,title=course_details.title,role=course_details.role,course=course_details.course)
-                #     return redirect(request.path_info)
-            except:
-                obj=ProgressCourse(user=user,course_id=id,title=course_details.title,category=course_details.category,role=course_details.role,course=course_details.course,course_image=course_details.course_image)
-                obj.save()
+
+            if ProgressCourse.objects.filter(user=user,course_id=id).exists():
+                print("Already in progress table")
                 return redirect(request.path_info)
+            # else:
+            #     obj=ProgressCourse(user=user,course_id=id,title=course_details.title,role=course_details.role,course=course_details.course)
+            #     return redirect(request.path_info)
+
+            obj=ProgressCourse(user=user,course_id=id,title=course_details.title,category=course_details.category,role=course_details.role,course=course_details.course,course_image=course_details.course_image)
+            obj.save()
             return redirect(request.path_info)
+
+        if ProgressCourse.objects.filter(user=user,course_id=id).exists():
+            check=1
+            print("ok")
+        else:
+            check=0
+            print("no")
 
         context ={
             'course_details':course_details,
             'lessons': lessons,
             'topics': topics,
+            'check':check
         }
 
     return render(request,'virtualmain_pages/user_course_lesson.html',context)
