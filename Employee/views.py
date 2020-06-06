@@ -174,7 +174,7 @@ def adminRolecreation(request):
 
                 except:
                     messages.error(request,"Some error occured")
-                    return redirect("adminaddcourse")
+                    return redirect("adminrolecreation")
                 # Saving the role input in the model
                 messages.success(request,"Email has been sent successfully")
                 return redirect("adminrolecreation")
@@ -444,6 +444,7 @@ def userdashboard(request):
                 lists = Course.objects.filter(category=cfp_details.category_one, role=cfp_details.role_one)
                 lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
 
+
                 #Displaying Projects
                 projects1=ProjectManager.objects.filter(project_category=cfp_details.category_one)
                 projects2=ProjectManager.objects.filter(project_category=cfp_details.category_two)
@@ -466,6 +467,7 @@ def userdashboard(request):
                 if ProgressCourse.objects.filter(user_id=user.pk).exists():
                     print("hello")
                     progress_course = ProgressCourse.objects.filter(user=user)
+                    print("missing")
 
                 else:
 
@@ -486,7 +488,7 @@ def userdashboard(request):
                 return render(request,'virtualmain_pages/dashboard.html')
 
         except:
-            print("Error")
+            print("Error in dashboard")
 
         context={
             'course_data':course_data,
@@ -534,22 +536,30 @@ def userLesson(request,id):
         topics = Lesson_Topic.objects.all()
 
         if request.method=='POST':
-            try:
-                if ProgressCourse.objects.get(user=user,course_id=id).exists():
-                    return redirect(request.path_info)
-                # else:
-                #     obj=ProgressCourse(user=user,course_id=id,title=course_details.title,role=course_details.role,course=course_details.course)
-                #     return redirect(request.path_info)
-            except:
-                obj=ProgressCourse(user=user,course_id=id,title=course_details.title,category=course_details.category,role=course_details.role,course=course_details.course,course_image=course_details.course_image)
-                obj.save()
+
+            if ProgressCourse.objects.filter(user=user,course_id=id).exists():
+                print("Already in progress table")
                 return redirect(request.path_info)
+            # else:
+            #     obj=ProgressCourse(user=user,course_id=id,title=course_details.title,role=course_details.role,course=course_details.course)
+            #     return redirect(request.path_info)
+
+            obj=ProgressCourse(user=user,course_id=id,title=course_details.title,category=course_details.category,role=course_details.role,course=course_details.course,course_image=course_details.course_image)
+            obj.save()
             return redirect(request.path_info)
+
+        if ProgressCourse.objects.filter(user=user,course_id=id).exists():
+            check=1
+            print("ok")
+        else:
+            check=0
+            print("no")
 
         context ={
             'course_details':course_details,
             'lessons': lessons,
             'topics': topics,
+            'check':check
         }
 
     return render(request,'virtualmain_pages/user_course_lesson.html',context)
@@ -729,7 +739,7 @@ def userEdit(request):
         messages.error(request,"Wrong URL")
         return redirect('logout')
 
-
+@login_required
 def userProject(request):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
         user = request.user
@@ -787,7 +797,7 @@ def userProject(request):
         messages.error(request,"Wrong URL")
         return redirect('logout')
 
-
+@login_required
 def userProjectDetails(request,id):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
         user = request.user
@@ -819,7 +829,7 @@ def userProjectDetails(request,id):
 
 
 
-
+@login_required
 def userchangepassword(request):
     user = request.user
     details = UserDetails.objects.get(user_id_id=user.pk)
@@ -1197,38 +1207,47 @@ def csmEditLesson(request,id):
         messages.error(request,"Wrong URL")
         return redirect('logout')
 
+@login_required
 def csmSettings(request):
-    user = request.user
-    details = RoleDetail.objects.get(user_id_id=user.pk)
-    form = PasswordChangeForm(user=request.user)
-    if request.method == 'POST':
-        new_pass = request.POST['new_password1']
-        try:
-            form = PasswordChangeForm(user=request.user, data=request.POST)
-            if form.is_valid():
-                form.save()
-                update_session_auth_hash(request, form.user)
-                messages.success(request, 'Password Changed Successfully!')
-                details.role_user_password = new_pass
-                details.save()
-                return redirect(csmSettings)
-        except:
-            messages.error(request, 'User is not able to change password !')
+    if request.user.is_active and request.user.is_staff and not request.user.is_superuser:
 
-        else:
-            messages.error(request,'Password not matching !')
-            return redirect(csmSettings)
-    context = {
-        'form': form,
-    }
-    return render(request, "csm_pages/csm_settings.html", context)
+        user = request.user
+        details = RoleDetail.objects.get(user_id_id=user.pk)
+        form = PasswordChangeForm(user=request.user)
+        if request.method == 'POST':
+            new_pass = request.POST['new_password1']
+            try:
+                form = PasswordChangeForm(user=request.user, data=request.POST)
+                if form.is_valid():
+                    form.save()
+                    update_session_auth_hash(request, form.user)
+                    messages.success(request, 'Password Changed Successfully!')
+                    details.role_user_password = new_pass
+                    details.save()
+                    return redirect(csmSettings)
+            except:
+                messages.error(request, 'User is not able to change password !')
+
+            else:
+                messages.error(request,'Password not matching !')
+                return redirect(csmSettings)
+        context = {
+            'form': form,
+        }
+        return render(request, "csm_pages/csm_settings.html", context)
+    else:
+        messages.error(request,"Wrong URL")
+        return redirect('login')
 
 
 # TL MODULE SECTION
 @login_required
 def tlDashboard(request):
     if request.user.is_active and request.user.is_superuser and not request.user.is_staff:
-        projects=ProjectManager.objects.all()
+        user=request.user
+        print(user)
+        data=RoleDetail.objects.get(role_user_email=user.email)
+        projects=ProjectManager.objects.filter(project_tl=data.role_user_id)
 
         context={
             'projects':projects,
@@ -1238,129 +1257,152 @@ def tlDashboard(request):
         messages.error(request,"Wrong URL")
         return redirect('login')
 
-
+@login_required
 def tlProjectDetails(request,id):
-    return render(request,'TL_Pages/tl_project_details.html')
+    if request.user.is_active and request.user.is_superuser and not request.user.is_staff:
+        data=ProjectManager.objects.get(id=id)
+        students=EnrolledProject.objects.filter(project=data)
+        info=UserDetails.objects.all()
+        print(students)
+        context={
+            'data':data,
+            'students':students,
+            'info':info
+        }
+        return render(request,'TL_Pages/tl_project_details.html',context)
+    else:
+        messages.error(request,"Wrong URL")
+        return redirect('login')
 
+@login_required
 def tlSettings(request):
-    user = request.user
-    details = RoleDetail.objects.get(user_id_id=user.pk)
-    form = PasswordChangeForm(user=request.user)
-    if request.method == 'POST':
-        new_pass = request.POST['new_password1']
-        try:
-            form = PasswordChangeForm(user=request.user, data=request.POST)
-            if form.is_valid():
-                form.save()
-                update_session_auth_hash(request, form.user)
-                messages.success(request, 'Password Changed Successfully!')
-                details.role_user_password = new_pass
-                details.save()
-                return redirect(tlSettings)
-        except:
-            messages.error(request, 'User is not able to change password !')
+    if request.user.is_active and request.user.is_superuser and not request.user.is_staff:
 
-        else:
-            messages.error(request,'Password not matching !')
-            return redirect(tlSettings)
-    context = {
-        'form': form,
-    }
-    return render(request, "TL_Pages/tl_settings.html", context)
+        user = request.user
+        details = RoleDetail.objects.get(user_id_id=user.pk)
+        form = PasswordChangeForm(user=request.user)
+        if request.method == 'POST':
+            new_pass = request.POST['new_password1']
+            try:
+                form = PasswordChangeForm(user=request.user, data=request.POST)
+                if form.is_valid():
+                    form.save()
+                    update_session_auth_hash(request, form.user)
+                    messages.success(request, 'Password Changed Successfully!')
+                    details.role_user_password = new_pass
+                    details.save()
+                    return redirect(tlSettings)
+            except:
+                messages.error(request, 'User is not able to change password !')
+
+            else:
+                messages.error(request,'Password not matching !')
+                return redirect(tlSettings)
+        context = {
+            'form': form,
+        }
+        return render(request, "TL_pages/tl_settings.html", context)
+    else:
+        messages.error(request,"Wrong URL")
+        return redirect('login')
 
 # PROJECT MODULE SECTION
 
 @login_required
 def projectManager(request):
+    if request.user.is_active and request.user.is_superuser and not request.user.is_staff:
 
-    cfp_list=CFP_role.objects.all()
-    user = request.user
-    if request.method=='POST':
-        if 'category' in request.POST:
-            count=ProjectCFPStore.objects.all().count()
-            if count==0:
-                cag=request.POST['category']
-                data=ProjectCFPStore(create_category=cag)
+        cfp_list=CFP_role.objects.all()
+        user = request.user
+        if request.method=='POST':
+            if 'category' in request.POST:
+                count=ProjectCFPStore.objects.all().count()
+                if count==0:
+                    cag=request.POST['category']
+                    data=ProjectCFPStore(create_category=cag)
+                    data.save()
+                    return redirect('/projectmanager/')
+
+                else:
+                    cag=request.POST['category']
+                    data=ProjectCFPStore.objects.get(create_id=0)
+                    data.create_category=cag
+                    data.create_role=None
+                    data.save()
+                    return redirect('/projectmanager/')
+
+
+            if 'role' in request.POST:
+                c_course=request.POST['c_course']
+                data=ProjectCFPStore.objects.get(create_category=c_course)
+                ch=request.POST.getlist('project_cfp')
+                role=""
+                for i in ch:
+                    role+=i
+                    role+="+"
+                role_str=role[:-1]
+
+                data.create_role=role_str
                 data.save()
                 return redirect('/projectmanager/')
 
+
+            if 'project_submit' in request.POST:
+                project_title=request.POST["project_title"]
+                project_description=request.POST["project_description"]
+                project_thumbnail=request.FILES.get("project_thumbnail")
+                project_duration=request.POST["project_duration"]
+                candidates_required=request.POST["candidates_required"]
+                project_docs=request.FILES.get("project_docs")
+                project_category=request.POST.get("project_category")
+                project_cfp=request.POST.get("project_role")
+
+
+                proj=ProjectManager.objects.create(
+                    user_id= user.pk,
+                    project_title=project_title,
+                    project_description=project_description,
+                    project_thumbnail=project_thumbnail,
+                    project_duration=project_duration,
+                    candidates_required=candidates_required,
+                    project_docs=project_docs,
+                    project_category=project_category,
+                    project_cfp=project_cfp
+                )
+                # proj.project_cfp.set(cfp_list)
+                proj.save()
+
+                obj=ProjectCFPStore.objects.all().delete()
+                return redirect("/projectdashboard/")
+
+
+        cag_data=CareerCategory.objects.all()
+        if ProjectCFPStore.objects.count()!=0:
+            obj=ProjectCFPStore.objects.get(create_id=0)
+            role_list=CFP_role.objects.filter(cfp_category=obj.create_category)
+            ch=obj.create_role
+            if ch==None:
+                cfp_list=[]
             else:
-                cag=request.POST['category']
-                data=ProjectCFPStore.objects.get(create_id=0)
-                data.create_category=cag
-                data.create_role=None
-                data.save()
-                return redirect('/projectmanager/')
+                cfp_list=ch.split('+')
 
-
-        if 'role' in request.POST:
-            c_course=request.POST['c_course']
-            data=ProjectCFPStore.objects.get(create_category=c_course)
-            ch=request.POST.getlist('project_cfp')
-            role=""
-            for i in ch:
-                role+=i
-                role+="+"
-            role_str=role[:-1]
-
-            data.create_role=role_str
-            data.save()
-            return redirect('/projectmanager/')
-
-
-        if 'project_submit' in request.POST:
-            project_title=request.POST["project_title"]
-            project_description=request.POST["project_description"]
-            project_thumbnail=request.FILES.get("project_thumbnail")
-            project_duration=request.POST["project_duration"]
-            candidates_required=request.POST["candidates_required"]
-            project_docs=request.FILES.get("project_docs")
-            project_category=request.POST.get("project_category")
-            project_cfp=request.POST.get("project_role")
-
-
-            proj=ProjectManager.objects.create(
-                user_id= user.pk,
-                project_title=project_title,
-                project_description=project_description,
-                project_thumbnail=project_thumbnail,
-                project_duration=project_duration,
-                candidates_required=candidates_required,
-                project_docs=project_docs,
-                project_category=project_category,
-                project_cfp=project_cfp
-            )
-            # proj.project_cfp.set(cfp_list)
-            proj.save()
-
-            obj=ProjectCFPStore.objects.all().delete()
-            return redirect("/projectdashboard/")
-
-
-    cag_data=CareerCategory.objects.all()
-    if ProjectCFPStore.objects.count()!=0:
-        obj=ProjectCFPStore.objects.get(create_id=0)
-        role_list=CFP_role.objects.filter(cfp_category=obj.create_category)
-        ch=obj.create_role
-        if ch==None:
-            cfp_list=[]
         else:
-            cfp_list=ch.split('+')
+            obj="Choose"
+            role_list=[]
+            cfp_list=[]
 
+        context={
+            'cag_data':cag_data,
+            'obj':obj,
+            'role_list':role_list,
+            'cfp_list':cfp_list
+        }
+
+
+        return render(request,'ProjectModule_Pages/Project_manager.html',context)
     else:
-        obj="Choose"
-        role_list=[]
-        cfp_list=[]
-
-    context={
-        'cag_data':cag_data,
-        'obj':obj,
-        'role_list':role_list,
-        'cfp_list':cfp_list
-    }
-
-
-    return render(request,'ProjectModule_Pages/Project_manager.html',context)
+        messages.error(request,"Wrong URL")
+        return redirect('login')
 
 
 @login_required
@@ -1479,7 +1521,9 @@ def projectDashboard(request):
         messages.error(request,'Wrong URL')
         return redirect('login')
 
+@login_required
 def pcmSettings(request):
+
     user = request.user
     details = RoleDetail.objects.get(user_id_id=user.pk)
     form = PasswordChangeForm(user=request.user)
