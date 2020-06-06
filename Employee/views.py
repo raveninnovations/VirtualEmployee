@@ -174,7 +174,7 @@ def adminRolecreation(request):
 
                 except:
                     messages.error(request,"Some error occured")
-                    return redirect("adminaddcourse")
+                    return redirect("adminrolecreation")
                 # Saving the role input in the model
                 messages.success(request,"Email has been sent successfully")
                 return redirect("adminrolecreation")
@@ -1505,7 +1505,7 @@ def pcmSettings(request):
     context = {
         'form': form,
     }
-    return render(request, "ProjectModule_pages/pcm_settings.html", context)
+    return render(request, "ProjectModule_Pages/pcm_settings.html", context)
 
 @login_required
 def cfp_create(request):
