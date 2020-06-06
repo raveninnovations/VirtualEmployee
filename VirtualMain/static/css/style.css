@@ -97,8 +97,8 @@ body {
   background: #edeff0;
   text-transform: none;
     letter-spacing: normal;
-   
-  
+
+
 }
 
 @media (max-width:960px) {
@@ -624,7 +624,7 @@ h6,
   font-weight: 400 !important;
   color: #1a2d48;
   text-transform: capitalize;
-  
+
 }
 
 .lead {
@@ -863,7 +863,7 @@ select {
 }
 
 select {
-  padding: 15px 18px;
+  padding: 3px 18px;
   cursor: pointer;
 }
 
@@ -11273,7 +11273,7 @@ select.selectpicker {
 
 .uk-input {
   display: block !important;
-    width: 100% !important; 
+    width: 100% !important;
     height: calc(1.5em + 0.9375rem + 2px) !important;
     padding: 0.46875rem 0.625rem !important;
     font-size: 0.875rem !important;
@@ -11287,10 +11287,10 @@ select.selectpicker {
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
 }
 
-.textinput 
+.textinput
 {
 display: block !important;
-width: 100% !important; 
+width: 100% !important;
 height: calc(1.5em + 0.9375rem + 2px) !important;
 padding: 0.46875rem 0.625rem !important;
 font-size: 0.875rem !important;
@@ -11306,7 +11306,7 @@ transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !import
 
 .textInput {
   display: block !important;
-  width: 100% !important; 
+  width: 100% !important;
   height: calc(1.5em + 0.9375rem + 2px) !important;
   padding: 0.46875rem 0.625rem !important;
   font-size: 0.875rem !important;

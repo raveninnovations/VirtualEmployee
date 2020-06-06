@@ -5,6 +5,13 @@
 .course-layouts{
     margin-top: 60px;
 }
+.vid{
+        background: transparent;
+    color: darkslategray;
+
+
+
+}
 
 </style>
 
@@ -22,76 +29,24 @@
                             <i class="icon-feather-chevron-left"></i>
                         </a>
 
-                        <h4 class="text-white"> Build Responsive Websites </h4>
-
-                        <div>
-                            <a href="#">
-                                <i class="icon-feather-help-circle btns"></i> </a>
-                            <div uk-drop="pos: bottom-right;mode : click">
-                                <div class="uk-card-default p-4">
-                                    <h4> Elementum tellus id mauris faucibuss soluta nobis </h4>
-                                    <p class="mt-2 mb-0">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                                        diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
-                                        volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
-                                        suscipit lobortis nisl ut aliquip ex ea commodo consequat. Nam liber tempor cum
-                                        soluta nobis eleifend option congue nihil imperdiet</p>
-                                </div>
-                            </div>
-
-                            <a hred="#">
-                                <i class="icon-feather-more-vertical btns"></i>
-                            </a>
-                            <div class="dropdown-option-nav " uk-dropdown="pos: bottom-right ;mode : click">
-                                <ul>
-
-                                    <li><a href="#">
-                                            <i class="icon-feather-bookmark"></i>
-                                            Add To Bookmarks</a></li>
-                                    <li><a href="#">
-                                            <i class="icon-feather-share-2"></i>
-                                            Share With Friend </a></li>
-
-                                    <li>
-                                        <a href="#" id="night-mode" class="btn-night-mode">
-                                            <i class="icon-line-awesome-lightbulb-o"></i> Night mode
-                                            <label class="btn-night-mode-switch">
-                                                <div class="uk-switch-button"></div>
-                                            </label>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                        <h4 class="text-white" style="float: left"> Build Responsive Websites </h4>
 
 
-                        </div>
 
                     </div>
 
                     <div class="course-content-inner">
 
                         <ul id="video-slider" class="uk-switcher">
-                           
-                        {% if lessons %}
-                                {% for curriculam in lessons %}
-                            {% for topic in topics %}
-                                            {% if topic.topic_id_id == curriculam.pk %}
-                                            <li>
-                             <div class="video-responsive">
-                               <!-- <video width='60%' height="40%" style="display:block; margin:0 auto;" controls >
-                                               <source src="{{ topic.topic_video }}" type='video/mp4'></video> -->
-                                               <iframe src="{{topic.topic_video}}" width="" height=""></iframe>
-                                    
-                                    
-                                     <!-- <iframe id="player" src="https://www.youtube.com/embed/DjB1OvEYMhY?enablejsapi=1" height="540" width="350"></iframe> -->
-                                   
-                                
-                                </div>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                        {% endfor %}
-                        {% endif %}
 
+
+                                            <li>
+                                     <div class="video-responsive">
+                                         {% if t_video %}
+                                         <iframe src="{{ t_video.topic_video }}" width="" height=""></iframe>
+                                         {% endif %}
+                                        </div>
+                                </li>
 
                         </ul>
 
@@ -104,33 +59,38 @@
                 <div class="course-sidebar">
                     <div class="course-sidebar-title">
                         <h3> Table of Contents </h3>
+                        {% if check == 0 %}
                         <form method=POST>
                           {% csrf_token %}
-
-                          <button type="submit" name="button" class=" mx-4 btn btn-default">Add To Progress</button>
+                          <button type="submit" name="button" class=" mx-4 btn btn-default" >Add To Progress</button>
                         </form>
+                        {% else %}
+
+                            <form method=POST>
+                              {% csrf_token %}
+                              <button type="submit" name="button" class=" mx-4 btn btn-default" disabled>Added to Progress</button>
+                            </form>
+
+                        {% endif %}
                     </div>
                     <div class="course-sidebar-container" data-simplebar>
 
                         <ul class="course-video-list-section" uk-accordion>
-                            <p id="display"></p>
+
                             {% if lessons %}
                                 {% for curriculam in lessons %}
                              <li class="uk-open">
                                 <a class="uk-accordion-title" href="#"> {{ curriculam.lesson_name }} </a>
                                 <div class="uk-accordion-content">
                                     <!-- course-video-list -->
-                                    <ul class="course-video-list highlight-watched" uk-switcher=" connect: #video-slider  ; animation: uk-animation-slide-right-small, uk-animation-slide-left-medium">
+                                    <ul class="course-video-list highlight-watched"
+                                        uk-switcher=" connect: #video-slider  ; animation: uk-animation-slide-right-small, uk-animation-slide-left-medium">
                                         {% for topic in topics %}
                                             {% if topic.topic_id_id == curriculam.pk %}
+                                                <form method="post">{% csrf_token %}
 
-
-                                                   <li> <a href="#"> {{ topic.topic_caption }} <span> 5 mins</span> </a></li>
-<!-- {#                                                <li><video width='60%' height="40%" style="display:block; margin:0 auto;" controls hidden>#}
-{#                                                    <source src="{{ topic.topic_video.url }}" type='video/mp4'>#}
-{#                                                    Your browser does not support the video tag.#}
-{#                                                </video></li>#}
-{#                                                <li><input type="submit" value="{{ topic.topic_caption }}" style="width: 100%"> </li>#} -->
+                                                 <input type="submit" name="video" class="vid" value="{{ topic.topic_caption }}" style="border:1px solid #FF0000;width: 100%">
+                                                </form>
 
                                             {% endif %}
                                       {% endfor %}
@@ -139,7 +99,9 @@
                             </li>
                                 {% endfor %}
                             {% endif %}
+
                         </ul>
+
 
                     </div>
 
@@ -151,8 +113,8 @@
 
          </div>
 
-            <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-         <script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script>
             function make_button_active(tab) {
                 //Get item siblings
                 var siblings = tab.siblings();
@@ -183,6 +145,11 @@
 
             });
         </script>
+
+
+
+
+
                 <!-- <script>
                     var player, timer, timeSpent = [], display = document.getElementById('display');
 
