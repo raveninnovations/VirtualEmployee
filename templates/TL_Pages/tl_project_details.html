@@ -37,43 +37,84 @@
         {% include 'partials/tl_partials/_tl_header.html' %}
             <div class="page-content">
             <div class="page-content-inner">
-                <div class="card">
+                <div class="card pr-5">
                     <div class="uk-flex uk-flex-between">
-                        <p class="uk-margin-large-left uk-margin-medium-top " >Project Title</p>
-                        <p class="uk-margin-large-right uk-margin-medium-top ">Project duration</p>
+                      <div class="ml-5">
+                        <h5 class=" uk-margin-medium-top " >Project Title</h5>
+                        <h1>{{data.project_title}}</h1>
+                      </div>
+                      <div class="">
+                      <p class="uk-margin-large-right uk-margin-medium-top ">Project duration</p>
+                        <h1>{{data.project_duration}} Months</h1>
+                      </div>
                     </div>
-                    <br>
-                     <div class="uk-flex ">
-                    <div class="uk-margin-large-left">
-                       <p> Description</p>
-                       <p class="description-box">
 
-                       </p>
+
+
+                     <!-- <div class="uk-flex "> -->
+                    <div class="uk-width-expand ml-5 pr-5 uk-margin-large-right">
+                       <h5 class=" uk-margin-medium-top " >Description :</h5>
+                       <h5 class="description-box text-justify">{{data.project_description}}
+                       </h5>
                     </div>
-                    <div class="uk-margin-large-left">
+                    <!-- <div class="uk-margin-large-left">
                     <p >Project docs</p>
                     <button class="btn btn-default mb-3 download-btn" > Download </button>
-                    </div>
-                    </div>
+                    </div> -->
+                    <!-- </div> -->
                     <br>
 
                 </div>
                  <div class="card">
+
+
+                   <!-- <table class="uk-table uk-table-hover uk-table-divider">
+    <thead>
+        <tr>
+            <th>Number</th>
+            <th>Pic</th>
+            <th>ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Table Data</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+        </tr>
+        <tr>
+            <td>Table Data</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+        </tr>
+        <tr>
+            <td>Table Data</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+        </tr>
+    </tbody>
+</table> -->
+
+
+
                     <h5 class="uk-margin-large-left uk-margin-medium-top ">Team List</h5>
+
+
                     <br>
+                     {% for i in students %}
                     <div class="uk-flex uk-flex-between  uk-flex-wrap uk-flex-wrap-around">
                         <!-- row1 -->
                         <div>
                             <p class="uk-padding-small uk-margin-medium-left">1.</p>
                         </div>
                         <div>
-                            <p class="image-size"></p>
+                            <p class="image-size"><img src="" alt=""></p>
                         </div>
                         <div>
-                            <p class="uk-padding uk-padding-small">ID</p>
+                            <p class="uk-padding uk-padding-small">ID : {{i.user_unique}}</p>
                         </div>
                           <div>
-                            <p class="uk-padding uk-padding-small">NAME</p>
+                            <p class="uk-padding uk-padding-small">NAME : {{i.user.first_name}} {{i.user.last_name}}</p>
                         </div>
                         <div>
                              <p class="description-box">
@@ -84,31 +125,8 @@
                             <button class="btn btn-default mb-3 message-btn uk-margin-medium-right" > Message </button>
                         </div>
                     </div>
-                        <!-- row2 -->
-                     <div class="uk-flex uk-flex-between  uk-flex-wrap uk-flex-wrap-around">
+                    {% endfor %}
 
-                        <div>
-                            <p class="uk-padding-small uk-margin-medium-left">2.</p>
-                        </div>
-                        <div>
-                            <p class="image-size"></p>
-                        </div>
-                        <div>
-                            <p class="uk-padding uk-padding-small">ID</p>
-                        </div>
-                          <div>
-                            <p class="uk-padding uk-padding-small">NAME</p>
-                        </div>
-                        <div>
-                             <p class="description-box">
-
-                       </p>
-                        </div>
-                          <div>
-                            <button class="btn btn-default mb-3 message-btn uk-margin-medium-right" > Message </button>
-                        </div>
-
-                    </div>
                 </div>
           <!-- footer
                 ================================================== -->
