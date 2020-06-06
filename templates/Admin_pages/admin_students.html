@@ -25,7 +25,7 @@ Student Info
                         <ul>
                             <li><a href="#"> <i class="uil-home-alt"></i> </a></li>
                             <li><a href="{% url 'admindashboard' %}"> Dashboard </a></li>
-                            <li>Sutdents list</li>
+                            <li>Students list</li>
                         </ul>
                     </nav>
                 </div>
@@ -51,19 +51,21 @@ Student Info
                                     </form>
                                 </div>
 
-                                <form method="post">
-
+                                <!-- <form method="post"> -->
+                                    <!-- {% csrf_token %} -->
                                 <a href="#" class="btn btn-icon btn-hover  btn-circle" uk-tooltip="filter">
                                     <i class="uil-filter"></i>
                                 </a>
                                 <div uk-dropdown="pos: bottom-right ; mode: click ;animation: uk-animation-scale-up">
                                     <ul class="uk-nav uk-dropdown-nav">
-                                        <li class="uk-active"><button type="submit" value="From Z-A" class="fil"> Newest</button></li>
-                                        <li><button type="submit" value="From Z-A" class="fil"> FROM A-Z</button></li>
-                                        <li><button type="submit" value="From Z-A" class="fil"> FROM Z-A</button></li>
+                                        
+                                        <li class="uk-active"><a href="/admindashboard/student_info/" style="font-size: 15px; margin-left: 7px;color: black;" class="fil"> Latest</a></li>
+                                        
+                                        <li><button onclick="sortTable()" class="fil"> FROM A-Z</button></li>
+                                        <li><button  value="From Z-A" onclick="reverseSortTable()" class="fil"> FROM Z-A</button></li>
                                     </ul>
                                 </div>
-                                </form>
+                                <!-- </form> -->
 
 
                                 <a href="#" class="btn btn-icon btn-hover  btn-circle" uk-tooltip="More">
@@ -73,7 +75,7 @@ Student Info
                                     <ul class="uk-nav uk-dropdown-nav">
                                         <li><a href="#"> Refresh </a></li>
                                         <li><a href="#">Manage</a></li>
-                                        <li><a href="#">Setting</a></li>
+                                        <li><a href="#">Settings</a></li>
                                     </ul>
                                 </div>
 
@@ -83,12 +85,12 @@ Student Info
                     </div>
                     <!-- Table -->
                     <div class="table-responsive">
-                        <table class="table align-items-center">
+                        <table class="table align-items-center" id="myTable">
                             <thead>
                                 <tr>
                                     <th scope="col">Name</th>
                                     <th scope="col">Joined at</th>
-                                    <th scope="col">Enerolled</th>
+                                    <th scope="col">Enrolled</th>
                                     <th scope="col">Total payments</th>
                                     <th scope="col">Activity</th>
                                     <th scope="col"> </th>
@@ -98,7 +100,7 @@ Student Info
                               {% for student in students %}
 
                                 <tr>
-                                    <th scope="row">
+                                    <td scope="row">
                                         <div class="media align-items-center">
                                         {%  for info in students_contact %}
                                             {% if info.user_id_id == student.pk %}
@@ -110,7 +112,7 @@ Student Info
                                                       {% if info.user_pic %}
                                                     <img alt="Image placeholder"
                                                         src="{{info.user_pic.url}}"
-                                                        class="avatar  rounded-circle">
+                                                        class="avatar rounded-circle">
                                                   {% else %}
                                                   <img alt="Image placeholder"
                                                       src=""
@@ -125,11 +127,11 @@ Student Info
                                             {% endif %}
                                             {% endfor %}
                                             <div class="media-body ml-4">
-                                                <a href="#" class="name h6 mb-0 text-sm">{{student.user_id.first_name}} {{student.user_id.last_name}}</a>
+                                                <p class="name h6 mb-0 text-sm" >{{student.user_id.first_name}} {{student.user_id.last_name}}</p>
                                                 <small class="d-block font-weight-bold">{{student.user_unique}}</small>
                                             </div>
                                         </div>
-                                    </th>
+                                    </td>
                                     <td>{{student.user_date | date}}</td>
                                     <td> 15 </td>
                                     <td> $1035,00 </td>
@@ -186,6 +188,80 @@ Student Info
 
         </div>
 
+
+<script>
+    function sortTable() {
+      var table, rows, switching, i, x, y, shouldSwitch;
+      table = document.getElementById("myTable");
+      switching = true;
+      /*Make a loop that will continue until
+      no switching has been done:*/
+      while (switching) {
+        //start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        /*Loop through all table rows (except the
+        first, which contains table headers):*/
+        for (i = 1; i < (rows.length - 1); i++) {
+          //start by saying there should be no switching:
+          shouldSwitch = false;
+          /*Get the two elements you want to compare,
+          one from current row and one from the next:*/
+          x = rows[i].getElementsByTagName("TD")[0];
+          y = rows[i + 1].getElementsByTagName("TD")[0];
+          //check if the two rows should switch place:
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            //if so, mark as a switch and break the loop:
+            shouldSwitch = true;
+            break;
+          }
+        }
+        if (shouldSwitch) {
+          /*If a switch has been marked, make the switch
+          and mark that a switch has been done:*/
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+        }
+      }
+    }
+
+    //reverse sort
+
+    function reverseSortTable() {
+      var table, rows, switching, i, x, y, shouldSwitch;
+      table = document.getElementById("myTable");
+      switching = true;
+      /*Make a loop that will continue until
+      no switching has been done:*/
+      while (switching) {
+        //start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        /*Loop through all table rows (except the
+        first, which contains table headers):*/
+        for (i = 1; i < (rows.length - 1); i++) {
+          //start by saying there should be no switching:
+          shouldSwitch = false;
+          /*Get the two elements you want to compare,
+          one from current row and one from the next:*/
+          x = rows[i].getElementsByTagName("TD")[0];
+          y = rows[i + 1].getElementsByTagName("TD")[0];
+          //check if the two rows should switch place:
+          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+            //if so, mark as a switch and break the loop:
+            shouldSwitch = true;
+            break;
+          }
+        }
+        if (shouldSwitch) {
+          /*If a switch has been marked, make the switch
+          and mark that a switch has been done:*/
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+        }
+      }
+    }
+    </script>
         <!-- For Night mode -->
         <script>
             (function (window, document, undefined) {

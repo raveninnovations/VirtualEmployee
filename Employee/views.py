@@ -273,7 +273,7 @@ def adminLicenseInfo(request,id):
 @login_required
 def adminStudents(request):
 
-    students = UserDetails.objects.all()
+    students = UserDetails.objects.order_by('-user_date')
     students_contact = UserContact.objects.all()
 
     if request.method == 'POST':
@@ -283,14 +283,12 @@ def adminStudents(request):
                 print("Exists")
                 students = UserDetails.objects.filter(user_unique=emp_id)
 
-
-
     context={
         'students':students,
-        'students_contact':students_contact
+        'students_contact':students_contact,
+        # 'my_words':my_words,
     }
     return render(request,'Admin_pages/admin_students.html',context)
-
 
 
 def adduser(request):
@@ -1268,7 +1266,7 @@ def tlSettings(request):
     context = {
         'form': form,
     }
-    return render(request, "TL_pages/tl_settings.html", context)
+    return render(request, "TL_Pages/tl_settings.html", context)
 
 # PROJECT MODULE SECTION
 
@@ -1505,7 +1503,7 @@ def pcmSettings(request):
     context = {
         'form': form,
     }
-    return render(request, "ProjectModule_pages/pcm_settings.html", context)
+    return render(request, "ProjectModule_Pages/pcm_settings.html", context)
 
 @login_required
 def cfp_create(request):
