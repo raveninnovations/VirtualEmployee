@@ -56,7 +56,7 @@ All Courses
                                               <tr class="my-0">
                                                 <td class="p-1"><h6> Instructor Name</h6></td>
                                                 <td class="p-1"><h6>-</h6> </td>
-                                                <td class="p-1"><h6> </h6></td>
+                                                <td class="p-1"><h6> {{ course.instructor }}</h6></td>
                                               </tr>
                                           </tbody>
                                       </table>
@@ -68,21 +68,8 @@ All Courses
                         </a>
                     </div>
                     {% endfor %}
-                    
+
                 </div>
-
-
-                <ul class="uk-pagination my-5 uk-flex-center" uk-margin>
-                    <li class="uk-active"><span>1</span></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li class="uk-disabled"><span>...</span></li>
-                    <li><a href="#"><span uk-pagination-next></span></a></li>
-                </ul>
-
-
-
-
                 {% include 'partials/_footer.html' %}
             </div>
 
