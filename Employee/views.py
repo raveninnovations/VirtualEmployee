@@ -549,6 +549,7 @@ def userLesson(request,id):
                 if not watched.objects.filter(video=t_video.pk).exists():
                     save = watched(status="watched",video_id=t_video.pk,course_id=course_details.pk)
                     save.save()
+                return redirect(request.path_info)
 
 
         if ProgressCourse.objects.filter(user=user, course_id=id).exists():
