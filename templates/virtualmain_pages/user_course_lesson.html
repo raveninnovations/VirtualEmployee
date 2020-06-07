@@ -10,6 +10,15 @@
     color: darkslategray;
 }
 
+.round{
+        font-size: 22px;
+    color: black;
+
+    border-radius: 16px;
+    font-weight: bold;
+    background: seagreen;
+}
+
  input:hover {background: #CFCDCC}
 
 </style>
@@ -28,7 +37,7 @@
                             <i class="icon-feather-chevron-left"></i>
                         </a>
 
-                        <h4 class="text-white" style="float: left"> Build Responsive Websites </h4>
+                        <h4 class="text-white" > Build Responsive Websites </h4>
 
 
 
@@ -61,14 +70,11 @@
                         {% if check == 0 %}
                         <form method=POST>
                           {% csrf_token %}
-                          <button type="submit" name="button" class=" mx-4 btn btn-default" >Add To Progress</button>
+                          <button type="submit" name="add" class=" mx-4 btn btn-default" >Add To Progress</button>
                         </form>
                         {% else %}
 
-                            <form method=POST>
-                              {% csrf_token %}
-                              <button type="submit" name="button" class=" mx-4 btn btn-default" disabled>Added to Progress</button>
-                            </form>
+
 
                         {% endif %}
                     </div>
@@ -88,7 +94,16 @@
                                             {% if topic.topic_id_id == curriculam.pk %}
                                                 <form method="post">{% csrf_token %}
 
-                                                 <input type="submit" name="video" class="vid my-0 py-0" value="{{ topic.topic_caption }}" style="border:0px solid #FF0000;width: 100%">
+                                                 <li><input type="submit" name="video" class="vid my-0 py-0" value="{{ topic.topic_caption }}" style="border:0px solid #FF0000;width: 90%">
+
+                                                     {% for watch in watch %}
+                                                     {% if topic.pk == watch.video_id %}
+                                                     <span class="round"><i class="icon-feather-check" style="color: darkgreen"></i></span>
+                                                         {% else %}
+
+                                                         {% endif %}
+                                                 {% endfor %}
+                                                 </li>
                                                 </form>
 
                                             {% endif %}

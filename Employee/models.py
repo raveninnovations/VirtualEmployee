@@ -236,6 +236,7 @@ class ProgressCourse(models.Model):
     role=models.CharField(max_length=50,blank=True)
     course=models.CharField(max_length=50,blank=True)
     course_image=models.ImageField(upload_to='progress_image/',null=True,blank=True)
+    topics_count = models.IntegerField(null=True)
 
     def __str__(self):
         return self.title
@@ -245,3 +246,9 @@ class EnrolledProject(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     project = models.ForeignKey(ProjectManager, on_delete=models.CASCADE, null=True)
     enrolled_date=models.DateTimeField(default=datetime.now,blank=True)
+
+
+class watched(models.Model):
+    video = models.ForeignKey(Lesson_Topic,models.CASCADE)
+    status = models.CharField(max_length=50)
+    course = models.ForeignKey(Course,on_delete=models.CASCADE,null=True)
