@@ -521,6 +521,7 @@ def userCourse(request,id):
 
 def userLesson(request,id):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        print(id)
         user = request.user
         course_details = Course.objects.get(id = id)
         lessons = Lesson.objects.filter(lesson_id_id=course_details.pk)
@@ -550,9 +551,18 @@ def userLesson(request,id):
                     save = watched(status="watched",video_id=t_video.pk,course_id=course_details.pk)
                     save.save()
 
-
+        progress=None
         if ProgressCourse.objects.filter(user=user, course_id=id).exists():
-
+            try:
+                progress = ProgressCourse.objects.get(user= user,course_id=id)
+                count=watched.objects.filter(course_id=progress.course_id)
+                if count.count() == progress.topics_count:
+                    progress = progress.topics_count
+                else:
+                    print("not executed")
+                    progress = None
+            except:
+                progress =None
             check=1
             print("ok")
         else:
@@ -566,6 +576,7 @@ def userLesson(request,id):
             'check':check,
             't_video':t_video,
             'watch': saves,
+            'progress':progress,
         }
 
     return render(request,'virtualmain_pages/user_course_lesson.html',context)

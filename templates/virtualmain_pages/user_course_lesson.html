@@ -18,6 +18,11 @@
     font-weight: bold;
     background: seagreen;
 }
+#bb{
+    width: 60%;
+    margin-left: 20px;
+
+}
 
  input:hover {background: #CFCDCC}
 
@@ -108,12 +113,18 @@
 
                                             {% endif %}
                                       {% endfor %}
+
                                     </ul>
                                 </div>
                             </li>
                                 {% endfor %}
                             {% endif %}
 
+                        {% if progress %}
+                            <form method="post">
+                                <p>COMPLETED<button id="bb" type="submit" value="{{ progress }}" name="claim">Claim rewards</button></p>
+                            </form>
+                        {% endif %}
                         </ul>
 
 
@@ -161,42 +172,4 @@
         </script>
 
 
-
-
-
-                <!-- <script>
-                    var player, timer, timeSpent = [], display = document.getElementById('display');
-
-                    function onYouTubeIframeAPIReady() {
-                        player = new YT.Player( 'player', {
-                            events: { 'onStateChange': onPlayerStateChange }
-                        });
-                    }
-
-                    function onPlayerStateChange(event) {
-                        if(event.data === 1) { // Started playing
-                            if(!timeSpent.length){
-                                for(var i=0, l=parseInt(player.getDuration()); i<l; i++) timeSpent.push(false);
-                            }
-                            timer = setInterval(record,100);
-                        } else {
-                            clearInterval(timer);
-                        }
-                    }
-
-                    function record(){
-                        timeSpent[ parseInt(player.getCurrentTime()) ] = true;
-                        showPercentage();
-                    }
-
-                    function showPercentage(){
-                        var percent = 0;
-                        for(var i=0, l=timeSpent.length; i<l; i++){
-                            if(timeSpent[i]) percent++;
-                        }
-                        percent = Math.round(percent / timeSpent.length * 100);
-                        display.innerHTML = percent + "%";
-                        console.log(percent)
-                    }
-                </script> -->
 {% endblock %}

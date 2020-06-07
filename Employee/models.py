@@ -250,5 +250,8 @@ class EnrolledProject(models.Model):
 
 class watched(models.Model):
     video = models.ForeignKey(Lesson_Topic,models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
     status = models.CharField(max_length=50)
-    course = models.ForeignKey(Course,on_delete=models.CASCADE,null=True)
+    claim_reward = models.IntegerField(default=0,null=True)
+
+
