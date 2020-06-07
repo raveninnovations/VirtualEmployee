@@ -121,7 +121,7 @@
                             {% endif %}
 
                         {% if progress %}
-                            <form method="post">
+                            <form method="post">{% csrf_token %}
                                 <p>COMPLETED<button id="bb" type="submit" value="{{ progress }}" name="claim">Claim rewards</button></p>
                             </form>
                         {% endif %}
