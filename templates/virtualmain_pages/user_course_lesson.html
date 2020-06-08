@@ -107,10 +107,12 @@
                                                  <li><input type="submit" name="video" class="vid my-0 py-0" value="{{ topic.topic_caption }}" style="border:0px solid #FF0000;width: 90%">
 
                                                      {% for watch in watch %}
+                                                         {% if watch.user_id == user_details.pk %}
                                                      {% if topic.pk == watch.video_id %}
                                                      <span class="round"><i class="icon-feather-check" style="color: darkgreen"></i></span>
                                                          {% else %}
 
+                                                         {% endif %}
                                                          {% endif %}
                                                  {% endfor %}
                                                  </li>

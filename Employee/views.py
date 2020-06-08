@@ -548,8 +548,8 @@ def userLesson(request,id):
             if 'video' in request.POST:
                 name = request.POST['video']
                 t_video = Lesson_Topic.objects.get(topic_caption=name)
-                if not watched.objects.filter(video=t_video.pk).exists():
-                    save = watched(status="watched",video_id=t_video.pk,course_id=course_details.pk)
+                if not watched.objects.filter(video=t_video.pk,user_id=user_details.pk).exists():
+                    save = watched(status="watched",video_id=t_video.pk,course_id=course_details.pk,user_id=user_details.pk)
                     save.save()
 
             if 'claim' in request.POST:
@@ -584,6 +584,7 @@ def userLesson(request,id):
 
         context ={
             'course_details':course_details,
+            'user_details':user_details,
             'lessons': lessons,
             'topics': topics,
             'check':check,

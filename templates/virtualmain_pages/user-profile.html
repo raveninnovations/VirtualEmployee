@@ -320,19 +320,6 @@
     <script>
         var total=0;
         var tota2=0;
-{#        {% if lists %}#}
-{#        {% for list in lists %}#}
-{#            {% for claim in claims %}#}
-{#                {% if claim.user_id == user_data.pk %}#}
-{#                {% if claim.category == list.category and claim.claim_id.role == list.role %}#}
-{#                    total += {{ claim.points }};#}
-{#                    alert(total);#}
-{#                {% endif %}#}
-{#                {% endif %}#}
-{#            {% endfor %}#}
-{##}
-{#        {% endfor %}#}
-{#        {% endif %}#}
 
         {% for claim in claims %}
             {% if claim.user_id == user_data.pk %}
