@@ -1,6 +1,13 @@
 {% extends 'base1.html' %}
 {% load static %}{% block title %}User-Profile{% endblock %}
+<style>
+    progress[value]::-webkit-progress-value {
+    transition: width 0.5s;
+    background: orange;
+}
+</style>
 {% block content %}
+
  <div id="wrapper">
 
         <div id="searchbox">
@@ -200,7 +207,7 @@
                                     <a href="#"> Badge </a>
                             </div>
                             <div class="uk-container mb-3 px-4">
-                              <progress class="uk-progress" value="300" max="1000"></progress>
+                              <progress class="uk-progress progress" id="pro1" max="1000"></progress>
 
                             </div>
 
@@ -220,7 +227,11 @@
                                     <div class="uk-width-expand">
                                         <h5 class="mb-2"> {{ list.title }} </h5>
                                         <div class="course-progressbar">
+                                            {% for claim in claims %}
+                                                {% if claim.claim_id_id == list.pk %}
                                             <div class="course-progressbar-filler" style="width:{{ list.course_points }}%"></div>
+                                                {% endif %}
+                                                {% endfor %}
                                         </div>
                                     </div>
 
@@ -251,7 +262,7 @@
                                     <a href="#"> Badge </a>
                             </div>
                             <div class="uk-container mb-3 px-4">
-                              <progress class="uk-progress" value="65" max="1000"></progress>
+                              <progress class="uk-progress" id="pro2" max="1000"></progress>
 
                             </div>
 
@@ -259,8 +270,8 @@
                             <div class="p-3">
                                 {% if lists2 %}
                                     {% for list2 in lists2 %}
-
                                 <div class="uk-grid-small uk-flex-middle" uk-grid>
+
 
                                     <div class="uk-width-auto">
                                         <button type="button" class="btn btn-danger btn-icon-only">
@@ -272,7 +283,11 @@
                                     <div class="uk-width-expand">
                                         <h5 class="mb-2"> {{ list2.title }} </h5>
                                         <div class="course-progressbar">
-                                            <div class="course-progressbar-filler" style="{{ list2.course_points }}%"></div>
+                                            {% for claim in claims %}
+                                                {% if claim.claim_id_id == list2.pk %}
+                                            <div class="course-progressbar-filler" style="width:{{ list2.course_points }}%"></div>
+                                                {% endif %}
+                                             {% endfor %}
                                         </div>
                                     </div>
 
@@ -301,6 +316,51 @@
         </div>
 
  </div>
+
+    <script>
+        var total=0;
+        var tota2=0;
+{#        {% if lists %}#}
+{#        {% for list in lists %}#}
+{#            {% for claim in claims %}#}
+{#                {% if claim.user_id == user_data.pk %}#}
+{#                {% if claim.category == list.category and claim.claim_id.role == list.role %}#}
+{#                    total += {{ claim.points }};#}
+{#                    alert(total);#}
+{#                {% endif %}#}
+{#                {% endif %}#}
+{#            {% endfor %}#}
+{##}
+{#        {% endfor %}#}
+{#        {% endif %}#}
+
+        {% for claim in claims %}
+            {% if claim.user_id == user_data.pk %}
+                {% for list in lists %}
+                    {% if claim.claim_id_id == list.pk %}
+                        total += {{ claim.points }};
+
+
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+        document.getElementById("pro1").value = total;
+
+ {% for claim in claims %}
+            {% if claim.user_id == user_data.pk %}
+                {% for list2 in lists %}
+                    {% if claim.claim_id_id == list.pk %}
+                        tota2 += {{ claim.points }};
+
+
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+        document.getElementById("pro2").value = tota2;
+
+    </script>
     <!-- For Night mode -->
     <script>
         (function (window, document, undefined) {

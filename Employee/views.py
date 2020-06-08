@@ -23,7 +23,7 @@ from django.core.mail import send_mail, EmailMessage
 from datetime import datetime
 from .forms import (AddUserForm)
 
-from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched
+from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim
 
 
 # Create your views here.
@@ -523,6 +523,7 @@ def userLesson(request,id):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
         print(id)
         user = request.user
+        user_details = UserDetails.objects.get(user_id_id=user.pk)
         course_details = Course.objects.get(id = id)
         lessons = Lesson.objects.filter(lesson_id_id=course_details.pk)
         topics = Lesson_Topic.objects.all()
@@ -551,8 +552,18 @@ def userLesson(request,id):
                     save = watched(status="watched",video_id=t_video.pk,course_id=course_details.pk)
                     save.save()
 
-
-
+            if 'claim' in request.POST:
+                print("claim rewards")
+                try:
+                    if not Claim.objects.filter(claim_id_id = course_details.pk).exists():
+                        claim = Claim(claim_id_id=course_details.pk,category=course_details.category,points=course_details.course_points,user_id=user_details.pk)
+                        claim.save()
+                        messages.success(request,"Rewards Credited")
+                    else:
+                        messages.error(request,"Claim already done")
+                        print("claim done already")
+                except:
+                    messages.error(request,"Claim failed")
         progress=None
         if ProgressCourse.objects.filter(user=user, course_id=id).exists():
             try:
@@ -590,7 +601,7 @@ def userprofile(request):
         print(user.id)
         user_details = UserDetails.objects.get(user_id_id=user.pk)
         courses = Course.objects.all()
-
+        claim = Claim.objects.all()
         if UserEducation.objects.filter(user_id_id=user_details.pk).exists():
             user_education = UserEducation.objects.get(user_id_id=user_details.pk)
             context = {
@@ -618,7 +629,9 @@ def userprofile(request):
                         'user_contact': user_contact,
                         'user_education': user_education,
                         'lists': lists,
-                        'lists2': lists2
+                        'lists2': lists2,
+                        'claims' :claim,
+
                     }
                     return render(request, 'virtualmain_pages/user-profile.html', context)
 

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role, ProjectManager,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,EnrolledProject,watched
+from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role, ProjectManager,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,EnrolledProject,watched,Claim
 
 # Register your models here.
 
@@ -21,3 +21,4 @@ admin.site.register(ProjectCFPStore)
 admin.site.register(ProgressCourse)
 admin.site.register(EnrolledProject)
 admin.site.register(watched)
+admin.site.register(Claim)
