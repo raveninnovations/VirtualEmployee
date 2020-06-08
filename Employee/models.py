@@ -247,11 +247,17 @@ class EnrolledProject(models.Model):
     project = models.ForeignKey(ProjectManager, on_delete=models.CASCADE, null=True)
     enrolled_date=models.DateTimeField(default=datetime.now,blank=True)
 
-
+# Watched videos
 class watched(models.Model):
     video = models.ForeignKey(Lesson_Topic,models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
     status = models.CharField(max_length=50)
     claim_reward = models.IntegerField(default=0,null=True)
 
+# claim rewards
+class Claim(models.Model):
+    claim_id = models.ForeignKey(Course,models.CASCADE,null=True)
+    user = models.ForeignKey(UserDetails,models.CASCADE,null=True)
+    points = models.CharField(max_length=50,null=True)
+    category = models.CharField(max_length=100)
 
