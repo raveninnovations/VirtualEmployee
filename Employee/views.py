@@ -290,6 +290,11 @@ def adminStudents(request):
     }
     return render(request,'Admin_pages/admin_students.html',context)
 
+# def delete_student(request, student_id):
+# 	student_instance = UserDetails.objects.get(pk=student_id)
+# 	student_instance.delete()
+
+# 	return redirect("/admindashboard/student_info/")
 
 def adduser(request):
     form = AddUserForm

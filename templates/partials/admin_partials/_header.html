@@ -335,7 +335,7 @@
                                 {% if user.is_authenticated %}
                                     {% if user.is_staff %}
                                         <div class="dropdown-user-name">
-                                    {{ user.username }}<span>Administrator</span>
+                                    {{ user.first_name }} {{ user.last_name }}<span>Administrator</span>
                                 </div>
                                   {% else %}
 
