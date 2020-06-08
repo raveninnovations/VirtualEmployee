@@ -16,6 +16,7 @@ urlpatterns = [
     path('admindashboard/cfp_create/',views.cfp_create,name='cfp_create'),
     path('admindashboard/cfp_edit/<int:id>',views.cfp_edit,name='cfpEdit'),
     path('admindashboard/student_info/', views.adminStudents, name='adminStudents'),
+    # path('delete_student/<int:student_id>/', views.delete_student,name='delete_student'),
     # User Section
     path('userdashboard/',views.userdashboard,name='dashboard'),
     path('userprofile/',views.userprofile,name='userprofile'),

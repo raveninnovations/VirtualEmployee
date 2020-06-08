@@ -273,7 +273,7 @@ def adminLicenseInfo(request,id):
 @login_required
 def adminStudents(request):
 
-    students = UserDetails.objects.all()
+    students = UserDetails.objects.order_by('-user_date')
     students_contact = UserContact.objects.all()
 
     if request.method == 'POST':
@@ -283,15 +283,18 @@ def adminStudents(request):
                 print("Exists")
                 students = UserDetails.objects.filter(user_unique=emp_id)
 
-
-
     context={
         'students':students,
-        'students_contact':students_contact
+        'students_contact':students_contact,
+        # 'my_words':my_words,
     }
     return render(request,'Admin_pages/admin_students.html',context)
 
+# def delete_student(request, student_id):
+# 	student_instance = UserDetails.objects.get(pk=student_id)
+# 	student_instance.delete()
 
+# 	return redirect("/admindashboard/student_info/")
 
 def adduser(request):
     form = AddUserForm

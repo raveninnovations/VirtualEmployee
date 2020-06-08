@@ -75,12 +75,12 @@
                 <!-- course sidebar -->
 
                 <div class="course-sidebar">
-                    <div class="course-sidebar-title">
-                        <h3> Table of Contents </h3>
+                    <div class="course-sidebar-title " style="background:#3e416d;">
+                        <h3 class="text-white"> <strong>Table of Contents </strong></h3>
                         {% if check == 0 %}
                         <form method=POST>
                           {% csrf_token %}
-                          <button type="submit" name="add" class=" mx-4 btn btn-default" >Add To Progress</button>
+                          <button type="submit" name="add" class=" mx-4 btn btn-primary ml-3" >Add To Progress</button>
                         </form>
                         {% else %}
 
@@ -95,7 +95,7 @@
                             {% if lessons %}
                                 {% for curriculam in lessons %}
                              <li class="uk-open">
-                                <a class="uk-accordion-title" href="#"> {{ curriculam.lesson_name }} </a>
+                                <a class="uk-accordion-title text-white" href="#" style="background:#7296db;"> {{ curriculam.lesson_name }} </a>
                                 <div class="uk-accordion-content">
                                     <!-- course-video-list -->
                                     <ul class="course-video-list highlight-watched"
@@ -104,12 +104,12 @@
                                             {% if topic.topic_id_id == curriculam.pk %}
                                                 <form method="post">{% csrf_token %}
 
-                                                 <li><input type="submit" name="video" class="vid my-0 py-0" value="{{ topic.topic_caption }}" style="border:0px solid #FF0000;width: 90%">
+                                                 <li><input type="submit" name="video" class="vid my-0 py-0" value="{{ topic.topic_caption }}" style="border:0px solid #c7d3eb;width: 90%">
 
                                                      {% for watch in watch %}
                                                          {% if watch.user_id == user_details.pk %}
                                                      {% if topic.pk == watch.video_id %}
-                                                     <span class="round"><i class="icon-feather-check" style="color: darkgreen"></i></span>
+                                                     <span class="round"><i class="icon-feather-check " style="color: darkgreen"></i></span>
                                                          {% else %}
 
                                                          {% endif %}
