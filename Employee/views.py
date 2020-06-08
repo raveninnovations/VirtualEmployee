@@ -568,10 +568,13 @@ def userLesson(request,id):
                 except:
                     messages.error(request,"Claim failed")
         progress=None
-        if ProgressCourse.objects.filter(user=user, course_id=id).exists():
+        if ProgressCourse.objects.filter(user_id=user.pk, course_id=id).exists():
             try:
                 progress = ProgressCourse.objects.get(user= user,course_id=id)
-                count=watched.objects.filter(course_id=progress.course_id)
+                print(progress.topics_count)
+
+                count=watched.objects.filter(course_id=progress.course_id,user_id=user_details.pk)
+                print("new")
                 if count.count() == progress.topics_count:
                     progress = progress.topics_count
                 else:
