@@ -5,65 +5,51 @@
 .course-layouts{
     margin-top: 60px;
 }
+.vid{
+        background: transparent;
+    color: darkslategray;
+}
+
+.round{
+        font-size: 22px;
+    color: black;
+
+    border-radius: 16px;
+    font-weight: bold;
+    background: seagreen;
+}
+#bb{
+    width: 60%;
+    margin-left: 20px;
+
+}
+
+ input:hover {background: #CFCDCC}
 
 </style>
 
     <div id="wrapper">
     {% include 'partials/user_partials/_header.html' %}
 
+
             <div class="course-layouts">
+
 
 
                 <div class="course-content bg-dark">
 
+
                     <div class="course-header">
+
+                            {% include 'partials/_alerts.html' %}
 
                         <a href="#" class="btn-back" uk-toggle="target: .course-layouts; cls: course-sidebar-collapse">
                             <i class="icon-feather-chevron-left"></i>
                         </a>
 
-                        <h4 class="text-white"> Build Responsive Websites </h4>
-
-                        <div>
-                            <a href="#">
-                                <i class="icon-feather-help-circle btns"></i> </a>
-                            <div uk-drop="pos: bottom-right;mode : click">
-                                <div class="uk-card-default p-4">
-                                    <h4> Elementum tellus id mauris faucibuss soluta nobis </h4>
-                                    <p class="mt-2 mb-0">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                                        diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
-                                        volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
-                                        suscipit lobortis nisl ut aliquip ex ea commodo consequat. Nam liber tempor cum
-                                        soluta nobis eleifend option congue nihil imperdiet</p>
-                                </div>
-                            </div>
-
-                            <a hred="#">
-                                <i class="icon-feather-more-vertical btns"></i>
-                            </a>
-                            <div class="dropdown-option-nav " uk-dropdown="pos: bottom-right ;mode : click">
-                                <ul>
-
-                                    <li><a href="#">
-                                            <i class="icon-feather-bookmark"></i>
-                                            Add To Bookmarks</a></li>
-                                    <li><a href="#">
-                                            <i class="icon-feather-share-2"></i>
-                                            Share With Friend </a></li>
-
-                                    <li>
-                                        <a href="#" id="night-mode" class="btn-night-mode">
-                                            <i class="icon-line-awesome-lightbulb-o"></i> Night mode
-                                            <label class="btn-night-mode-switch">
-                                                <div class="uk-switch-button"></div>
-                                            </label>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+{#                        <h4 class="text-white" > Build Responsive Websites </h4>#}
 
 
-                        </div>
 
                     </div>
 
@@ -71,27 +57,14 @@
 
                         <ul id="video-slider" class="uk-switcher">
 
-                        {% if lessons %}
-                                {% for curriculam in lessons %}
-                            {% for topic in topics %}
-                                            {% if topic.topic_id_id == curriculam.pk %}
+
                                             <li>
-                             <div class="video-responsive">
-                               <!-- <video width='60%' height="40%" style="display:block; margin:0 auto;" controls >
-                                               <source src="{{ topic.topic_video }}" type='video/mp4'></video> -->
-                                               <iframe src="{{topic.topic_video}}" width="" height=""></iframe>
-
-
-                                     <!-- <iframe id="player" src="https://www.youtube.com/embed/DjB1OvEYMhY?enablejsapi=1" height="540" width="350"></iframe> -->
-
-
-                                </div>
+                                     <div class="video-responsive">
+                                         {% if t_video %}
+                                         <iframe src="{{ t_video.topic_video }}" width="" height=""></iframe>
+                                         {% endif %}
+                                        </div>
                                 </li>
-                            {% endif %}
-                        {% endfor %}
-                        {% endfor %}
-                        {% endif %}
-
 
                         </ul>
 
@@ -107,47 +80,58 @@
                         {% if check == 0 %}
                         <form method=POST>
                           {% csrf_token %}
-                          <button type="submit" name="button" class=" mx-4 btn btn-default" >Add To Progress</button>
+                          <button type="submit" name="add" class=" mx-4 btn btn-default" >Add To Progress</button>
                         </form>
                         {% else %}
 
-                            <form method=POST>
-                              {% csrf_token %}
-                              <button type="submit" name="button" class=" mx-4 btn btn-default" disabled>Added to Progress</button>
-                            </form>
+
 
                         {% endif %}
                     </div>
                     <div class="course-sidebar-container" data-simplebar>
 
                         <ul class="course-video-list-section" uk-accordion>
-                            <!-- <p id="display"></p> -->
+
                             {% if lessons %}
                                 {% for curriculam in lessons %}
                              <li class="uk-open">
                                 <a class="uk-accordion-title" href="#"> {{ curriculam.lesson_name }} </a>
                                 <div class="uk-accordion-content">
                                     <!-- course-video-list -->
-                                    <ul class="course-video-list highlight-watched" uk-switcher=" connect: #video-slider  ; animation: uk-animation-slide-right-small, uk-animation-slide-left-medium">
+                                    <ul class="course-video-list highlight-watched"
+                                        uk-switcher=" connect: #video-slider  ; animation: uk-animation-slide-right-small, uk-animation-slide-left-medium">
                                         {% for topic in topics %}
                                             {% if topic.topic_id_id == curriculam.pk %}
+                                                <form method="post">{% csrf_token %}
 
+                                                 <li><input type="submit" name="video" class="vid my-0 py-0" value="{{ topic.topic_caption }}" style="border:0px solid #FF0000;width: 90%">
 
-                                                   <li> <a href="#"> {{ topic.topic_caption }} <span> 5 mins</span> </a></li>
-<!-- {#                                                <li><video width='60%' height="40%" style="display:block; margin:0 auto;" controls hidden>#}
-{#                                                    <source src="{{ topic.topic_video.url }}" type='video/mp4'>#}
-{#                                                    Your browser does not support the video tag.#}
-{#                                                </video></li>#}
-{#                                                <li><input type="submit" value="{{ topic.topic_caption }}" style="width: 100%"> </li>#} -->
+                                                     {% for watch in watch %}
+                                                     {% if topic.pk == watch.video_id %}
+                                                     <span class="round"><i class="icon-feather-check" style="color: darkgreen"></i></span>
+                                                         {% else %}
+
+                                                         {% endif %}
+                                                 {% endfor %}
+                                                 </li>
+                                                </form>
 
                                             {% endif %}
                                       {% endfor %}
+
                                     </ul>
                                 </div>
                             </li>
                                 {% endfor %}
                             {% endif %}
+
+                        {% if progress %}
+                            <form method="post">{% csrf_token %}
+                                <p>COMPLETED<button id="bb" type="submit" value="{{ progress }}" name="claim">Claim rewards</button></p>
+                            </form>
+                        {% endif %}
                         </ul>
+
 
                     </div>
 
@@ -159,8 +143,8 @@
 
          </div>
 
-            <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-         <script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script>
             function make_button_active(tab) {
                 //Get item siblings
                 var siblings = tab.siblings();
@@ -191,39 +175,6 @@
 
             });
         </script>
-                <!-- <script>
-                    var player, timer, timeSpent = [], display = document.getElementById('display');
 
-                    function onYouTubeIframeAPIReady() {
-                        player = new YT.Player( 'player', {
-                            events: { 'onStateChange': onPlayerStateChange }
-                        });
-                    }
 
-                    function onPlayerStateChange(event) {
-                        if(event.data === 1) { // Started playing
-                            if(!timeSpent.length){
-                                for(var i=0, l=parseInt(player.getDuration()); i<l; i++) timeSpent.push(false);
-                            }
-                            timer = setInterval(record,100);
-                        } else {
-                            clearInterval(timer);
-                        }
-                    }
-
-                    function record(){
-                        timeSpent[ parseInt(player.getCurrentTime()) ] = true;
-                        showPercentage();
-                    }
-
-                    function showPercentage(){
-                        var percent = 0;
-                        for(var i=0, l=timeSpent.length; i<l; i++){
-                            if(timeSpent[i]) percent++;
-                        }
-                        percent = Math.round(percent / timeSpent.length * 100);
-                        display.innerHTML = percent + "%";
-                        console.log(percent)
-                    }
-                </script> -->
 {% endblock %}

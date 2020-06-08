@@ -236,6 +236,7 @@ class ProgressCourse(models.Model):
     role=models.CharField(max_length=50,blank=True)
     course=models.CharField(max_length=50,blank=True)
     course_image=models.ImageField(upload_to='progress_image/',null=True,blank=True)
+    topics_count = models.IntegerField(null=True)
 
     def __str__(self):
         return self.title
@@ -245,3 +246,18 @@ class EnrolledProject(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     project = models.ForeignKey(ProjectManager, on_delete=models.CASCADE, null=True)
     enrolled_date=models.DateTimeField(default=datetime.now,blank=True)
+
+# Watched videos
+class watched(models.Model):
+    video = models.ForeignKey(Lesson_Topic,models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
+    status = models.CharField(max_length=50)
+    claim_reward = models.IntegerField(default=0,null=True)
+
+# claim rewards
+class Claim(models.Model):
+    claim_id = models.ForeignKey(Course,models.CASCADE,null=True)
+    user = models.ForeignKey(UserDetails,models.CASCADE,null=True)
+    points = models.CharField(max_length=50,null=True)
+    category = models.CharField(max_length=100)
+

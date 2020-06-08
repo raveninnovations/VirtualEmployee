@@ -23,7 +23,7 @@ from django.core.mail import send_mail, EmailMessage
 from datetime import datetime
 from .forms import (AddUserForm)
 
-from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject
+from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim
 
 
 # Create your views here.
@@ -439,7 +439,6 @@ def userdashboard(request):
         user_details = UserDetails.objects.get(user_id_id=user.pk)
         course_data = Course.objects.all()
 
-
         try:
             if StudentCFP.objects.filter(user_id_id=user_details.pk).exists():
 
@@ -449,14 +448,11 @@ def userdashboard(request):
                 lists = Course.objects.filter(category=cfp_details.category_one, role=cfp_details.role_one)
                 lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
 
-
                 #Displaying Projects
                 projects1=ProjectManager.objects.filter(project_category=cfp_details.category_one)
                 projects2=ProjectManager.objects.filter(project_category=cfp_details.category_two)
-
                 cfp1_projects=[]
                 cfp2_projects=[]
-
                 for i in projects1:
                     res=i.project_cfp.find(cfp_details.role_one)
                     if res != -1:
@@ -466,16 +462,10 @@ def userdashboard(request):
                     res=j.project_cfp.find(cfp_details.role_two)
                     if res != -1:
                         cfp2_projects.append(j)
-
-                print('suceess')
-
                 if ProgressCourse.objects.filter(user_id=user.pk).exists():
-                    print("hello")
+
                     progress_course = ProgressCourse.objects.filter(user=user)
-                    print("missing")
-
                 else:
-
                     progress_course = None
 
                 context = {
@@ -485,7 +475,7 @@ def userdashboard(request):
                     'course_data': course_data,
                     'progress_course':progress_course,
                     'cfp1_projects':cfp1_projects,
-                    'cfp2_projects':cfp2_projects
+                    'cfp2_projects':cfp2_projects,
 
                 }
                 return render(request, 'virtualmain_pages/dashboard.html', context)
@@ -534,26 +524,61 @@ def userCourse(request,id):
 
 def userLesson(request,id):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        print(id)
         user = request.user
+        user_details = UserDetails.objects.get(user_id_id=user.pk)
         course_details = Course.objects.get(id = id)
-        print(course_details.pk)
         lessons = Lesson.objects.filter(lesson_id_id=course_details.pk)
         topics = Lesson_Topic.objects.all()
-
+        saves = watched.objects.all()
+        t_video =None
         if request.method=='POST':
-
-            if ProgressCourse.objects.filter(user=user,course_id=id).exists():
-                print("Already in progress table")
+            if 'add' in request.POST:
+                total_topics = []
+                for i in lessons:
+                    topic = Lesson_Topic.objects.filter(topic_id_id=i.id)
+                    for j in topic:
+                        print(j.id)
+                        total_topics.append(j.id)
+                print(len(total_topics))
+                obj = ProgressCourse(user=user, course_id=id, title=course_details.title,
+                                     category=course_details.category,
+                                     role=course_details.role, course=course_details.course,
+                                     course_image=course_details.course_image, topics_count=len(total_topics))
+                obj.save()
                 return redirect(request.path_info)
-            # else:
-            #     obj=ProgressCourse(user=user,course_id=id,title=course_details.title,role=course_details.role,course=course_details.course)
-            #     return redirect(request.path_info)
 
-            obj=ProgressCourse(user=user,course_id=id,title=course_details.title,category=course_details.category,role=course_details.role,course=course_details.course,course_image=course_details.course_image)
-            obj.save()
-            return redirect(request.path_info)
+            if 'video' in request.POST:
+                name = request.POST['video']
+                t_video = Lesson_Topic.objects.get(topic_caption=name)
+                if not watched.objects.filter(video=t_video.pk).exists():
+                    save = watched(status="watched",video_id=t_video.pk,course_id=course_details.pk)
+                    save.save()
 
-        if ProgressCourse.objects.filter(user=user,course_id=id).exists():
+            if 'claim' in request.POST:
+                print("claim rewards")
+                try:
+                    if not Claim.objects.filter(claim_id_id = course_details.pk).exists():
+                        claim = Claim(claim_id_id=course_details.pk,category=course_details.category,points=course_details.course_points,user_id=user_details.pk)
+                        claim.save()
+                        messages.success(request,"Rewards Credited")
+                    else:
+                        messages.error(request,"Claim already done")
+                        print("claim done already")
+                except:
+                    messages.error(request,"Claim failed")
+        progress=None
+        if ProgressCourse.objects.filter(user=user, course_id=id).exists():
+            try:
+                progress = ProgressCourse.objects.get(user= user,course_id=id)
+                count=watched.objects.filter(course_id=progress.course_id)
+                if count.count() == progress.topics_count:
+                    progress = progress.topics_count
+                else:
+                    print("not executed")
+                    progress = None
+            except:
+                progress =None
             check=1
             print("ok")
         else:
@@ -564,7 +589,10 @@ def userLesson(request,id):
             'course_details':course_details,
             'lessons': lessons,
             'topics': topics,
-            'check':check
+            'check':check,
+            't_video':t_video,
+            'watch': saves,
+            'progress':progress,
         }
 
     return render(request,'virtualmain_pages/user_course_lesson.html',context)
@@ -576,7 +604,7 @@ def userprofile(request):
         print(user.id)
         user_details = UserDetails.objects.get(user_id_id=user.pk)
         courses = Course.objects.all()
-
+        claim = Claim.objects.all()
         if UserEducation.objects.filter(user_id_id=user_details.pk).exists():
             user_education = UserEducation.objects.get(user_id_id=user_details.pk)
             context = {
@@ -604,7 +632,9 @@ def userprofile(request):
                         'user_contact': user_contact,
                         'user_education': user_education,
                         'lists': lists,
-                        'lists2': lists2
+                        'lists2': lists2,
+                        'claims' :claim,
+
                     }
                     return render(request, 'virtualmain_pages/user-profile.html', context)
 
