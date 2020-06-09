@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+from django.shortcuts import get_object_or_404
 
 from moviepy.editor import VideoFileClip
 # EMAIL FROM SETTINGS
@@ -2031,3 +2032,9 @@ def UserCfp(request):
 def pricing(request):
 
     return render(request,"virtualmain_pages/pricing.html")
+
+
+def error_404_view(request, exception):
+    return render(request, 'virtualmain_pages/404.html')
+def error_500_view(request):
+    return render(request, 'virtualmain_pages/500.html')
