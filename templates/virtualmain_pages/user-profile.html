@@ -204,7 +204,11 @@
                             <div class="uk-flex uk-flex-between uk-flex-middle pt-1 pb-3 px-4">
 
                                 <h4 class="mb-0">{{ cfp_details.role_one }}</h4>
-                                    <a href="#"> Badge </a>
+                                    <!-- <a href="#"> Badge </a> -->
+                                    <div class="mx-4 my-2" style="height:60px; width:60px;">
+                                      <img src="" id="b1" alt="">
+                                    </div>
+
                             </div>
                             <div class="uk-container mb-3 px-4">
                               <progress class="uk-progress progress" id="pro1" max="1000"></progress>
@@ -235,8 +239,37 @@
                                         </div>
                                     </div>
 
-                                    <div class="mx-4">
-                                      <a href="#"> Badge </a>
+                                    <div class="mx-4" style="height:60px; width:60px;">
+                                      {% if list.course_points >= 0 and list.course_points <= 9 %}
+                                        <img src="{% static 'images/badges/class1.png' %}" alt="">
+                                      {% endif %}
+                                      {% if list.course_points >= 10 and list.course_points <= 19 %}
+                                        <img src="{% static 'images/badges/class2.png' %}" alt="">
+                                      {% endif %}
+                                      {% if list.course_points >= 20 and list.course_points <= 29 %}
+                                        <img src="{% static 'images/badges/class3.png' %}" alt="">
+                                      {% endif %}
+                                      {% if list.course_points >= 30 and list.course_points <= 39 %}
+                                        <img src="{% static 'images/badges/class4.png' %}" alt="">
+                                      {% endif %}
+                                      {% if list.course_points >= 40 and list.course_points <= 49 %}
+                                        <img src="{% static 'images/badges/class5.png' %}" alt="">
+                                      {% endif %}
+                                      {% if list.course_points >= 50 and list.course_points <= 59 %}
+                                        <img src="{% static 'images/badges/class6.png' %}" alt="">
+                                      {% endif %}
+                                      {% if list.course_points >= 60 and list.course_points <= 69 %}
+                                        <img src="{% static 'images/badges/class7.png' %}" alt="">
+                                      {% endif %}
+                                      {% if list.course_points >= 70 and list.course_points <= 79 %}
+                                        <img src="{% static 'images/badges/class8.png' %}" alt="">
+                                      {% endif %}
+                                      {% if list.course_points >= 80 and list.course_points <= 89 %}
+                                        <img src="{% static 'images/badges/class9.png' %}" alt="">
+                                      {% endif %}
+                                      {% if list.course_points >= 90 and list.course_points <= 100 %}
+                                        <img src="{% static 'images/badges/class10.png' %}" alt="">
+                                      {% endif %}
                                     </div>
 
 
@@ -259,7 +292,12 @@
                             <div class="uk-flex uk-flex-between uk-flex-middle pt-1 pb-3 px-4">
 
                                 <h4 class="mb-0">{{ cfp_details.role_two }}</h4>
-                                    <a href="#"> Badge </a>
+
+                                <div class="mx-4 my-2" style="height:60px; width:60px;">
+                                  <img src="" id="b2" alt="">
+                                </div>
+
+
                             </div>
                             <div class="uk-container mb-3 px-4">
                               <progress class="uk-progress" id="pro2" max="1000"></progress>
@@ -291,8 +329,37 @@
                                         </div>
                                     </div>
 
-                                    <div class="mx-4">
-                                      <a href="#"> Badge </a>
+                                    <div class="mx-4" style="height:60px; width:60px;">
+                                      {% if list2.course_points >= 0 and list2.course_points <= 9 %}
+                                        <img src="{% static 'images/badges/class1.png' %}" alt="">
+                                      {% endif %}
+                                      {% if list2.course_points >= 10 and list2.course_points <= 19 %}
+                                        <img src="{% static 'images/badges/class2.png' %}" alt="">
+                                      {% endif %}
+                                      {% if list2.course_points >= 20 and list2.course_points <= 29 %}
+                                        <img src="{% static 'images/badges/class3.png' %}" alt="">
+                                      {% endif %}
+                                      {% if list2.course_points >= 30 and list2.course_points <= 39 %}
+                                        <img src="{% static 'images/badges/class4.png' %}" alt="">
+                                      {% endif %}
+                                      {% if list2.course_points >= 40 and list2.course_points <= 49 %}
+                                        <img src="{% static 'images/badges/class5.png' %}" alt="">
+                                      {% endif %}
+                                      {% if list2.course_points >= 50 and list2.course_points <= 59 %}
+                                        <img src="{% static 'images/badges/class6.png' %}" alt="">
+                                      {% endif %}
+                                      {% if list2.course_points >= 60 and list2.course_points <= 69 %}
+                                        <img src="{% static 'images/badges/class7.png' %}" alt="">
+                                      {% endif %}
+                                      {% if list2.course_points >= 70 and list2.course_points <= 79 %}
+                                        <img src="{% static 'images/badges/class8.png' %}" alt="">
+                                      {% endif %}
+                                      {% if list2.course_points >= 80 and list2.course_points <= 89 %}
+                                        <img src="{% static 'images/badges/class9.png' %}" alt="">
+                                      {% endif %}
+                                      {% if list2.course_points >= 90 and list2.course_points <= 100 %}
+                                        <img src="{% static 'images/badges/class10.png' %}" alt="">
+                                      {% endif %}
                                     </div>
 
                                 </div>
@@ -334,6 +401,49 @@
         {% endfor %}
         document.getElementById("pro1").value = total;
 
+        // Badge Immplementation in CFP1
+        if(total>=0 && total<100)
+        {
+          document.getElementById("b1").src = "{% static 'images/badges/class1.png' %}";
+        }
+        else if(total>=100 && total<200)
+        {
+          document.getElementById("b1").src = "{% static 'images/badges/class2.png' %}";
+        }
+        else if(total>=200 && total<300)
+        {
+          document.getElementById("b1").src = "{% static 'images/badges/class3.png' %}";
+        }
+        else if(total>=300 && total<400)
+        {
+          document.getElementById("b1").src = "{% static 'images/badges/class4.png' %}";
+        }
+        else if(total>=400 && total<500)
+        {
+          document.getElementById("b1").src = "{% static 'images/badges/class5.png' %}";
+        }
+        else if(total>=500 && total<600)
+        {
+          document.getElementById("b1").src = "{% static 'images/badges/class6.png' %}";
+        }
+        else if(total>=600 && total<700)
+        {
+          document.getElementById("b1").src = "{% static 'images/badges/class7.png' %}";
+        }
+        else if(total>=700 && total<800)
+        {
+          document.getElementById("b1").src = "{% static 'images/badges/class8.png' %}";
+        }
+        else if(total>=800 && total<900)
+        {
+          document.getElementById("b1").src = "{% static 'images/badges/class9.png' %}";
+        }
+        else if(total>=900 && total<=1000)
+        {
+          document.getElementById("b1").src = "{% static 'images/badges/class10.png' %}";
+        }
+
+
  {% for claim in claims %}
             {% if claim.user_id == user_data.pk %}
                 {% for list2 in lists %}
@@ -346,6 +456,50 @@
             {% endif %}
         {% endfor %}
         document.getElementById("pro2").value = tota2;
+
+
+        // Badge Immplementation in CFP2
+        if(tota2>=0 && tota2<100)
+        {
+          document.getElementById("b2").src = "{% static 'images/badges/class1.png' %}";
+        }
+        else if(tota2>=100 && tota2<200)
+        {
+          document.getElementById("b2").src = "{% static 'images/badges/class2.png' %}";
+        }
+        else if(tota2>=200 && tota2<300)
+        {
+          document.getElementById("b2").src = "{% static 'images/badges/class3.png' %}";
+        }
+        else if(tota2>=300 && tota2<400)
+        {
+          document.getElementById("b2").src = "{% static 'images/badges/class4.png' %}";
+        }
+        else if(tota2>=400 && tota2<500)
+        {
+          document.getElementById("b2").src = "{% static 'images/badges/class5.png' %}";
+        }
+        else if(tota2>=500 && tota2<600)
+        {
+          document.getElementById("b2").src = "{% static 'images/badges/class6.png' %}";
+        }
+        else if(tota2>=600 && tota2<700)
+        {
+          document.getElementById("b2").src = "{% static 'images/badges/class7.png' %}";
+        }
+        else if(tota2>=700 && tota2<800)
+        {
+          document.getElementById("b2").src = "{% static 'images/badges/class8.png' %}";
+        }
+        else if(tota2>=800 && tota2<900)
+        {
+          document.getElementById("b2").src = "{% static 'images/badges/class9.png' %}";
+        }
+        else if(tota2>=900 && tota2<=1000)
+        {
+          document.getElementById("b2").src = "{% static 'images/badges/class10.png' %}";
+        }
+
 
     </script>
     <!-- For Night mode -->
