@@ -64,7 +64,7 @@ CSM Add courses
                         <li><a href="#">Rewards</a></li>
                         <li><a href="#">Finish</a></li>
                     </ul>
-                    <form method="POST"  enctype="multipart/form-data">
+                    <form method="POST"  enctype="multipart/form-data" onsubmit="return validateForm()" name="myForm">
                     <div class="card-body">
                         <ul class="uk-switcher uk-margin" id="course-edit-tab">
 
@@ -80,9 +80,11 @@ CSM Add courses
                                                     class="required">*</span></label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" id="course_title" name="title"
-                                                    placeholder="Enter course title" required="">
+                                                    placeholder="Enter course title" >
                                             </div>
+
                                         </div>
+
                                         <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label" for="course_title">Course Instructor<span
                                                     class="required">*</span></label>
@@ -96,7 +98,7 @@ CSM Add courses
                                                       <!-- <option value="{{i.role_user_name}}"> {{i.role_user_name}} </option> -->
                                                       {% endif %}
                                                     {% endfor %}
-                                                  </select>    
+                                                  </select>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-3">
@@ -104,7 +106,7 @@ CSM Add courses
                                                     class="required">*</span></label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" id="course_title" name="tagline"
-                                                    placeholder="Enter short tagline" required="">
+                                                    placeholder="Enter short tagline">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-3">
@@ -175,7 +177,7 @@ CSM Add courses
                                                     value="{{data.create_course}}" required="" style="border:none;" readonly>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="form-group row mb-3">
                                             <label class="col-md-3 col-form-label" > Difficulty Level <span
                                                     class="required">*</span></label>
@@ -733,6 +735,27 @@ CSM Add courses
                 }, false);
 
             })(window, document);
+
+
+
+              function validateForm() {
+                var title = document.forms["myForm"]["title"].value;
+                var tagline= document.forms["myForm"]["tagline"].value;
+
+                if (title == "") {
+                alert("Course Title must not be empty");
+                return false;
+                }
+
+                if (tagline == "") {
+                alert("Course Tagline must not be empty");
+                return false;
+                }
+
+
+            }
+
+
         </script>
 
             </div>
