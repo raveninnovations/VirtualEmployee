@@ -417,8 +417,19 @@ def userlogin(request):
                     messages.error(request, "login failed")
                     print("error")
                 if request.user.is_active:
+                    try:
+                        license = UserDetails.objects.get(user_id_id=user.pk)
+                        if license.user_license:
+                            print("license key added")
+                        else:
+                            print("No license key")
+                            messages.error(request, "Dont have permission to login")
+                            return redirect('login')
+                    except:
+                        messages.error(request,"Dont have permission to login")
+                        return redirect('login')
                     return redirect(userdashboard)
-                    messages.success(request, 'Successfully loggedin')
+
 
         messages.error(request, "Login failed")
         return redirect('login')
