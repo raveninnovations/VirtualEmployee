@@ -94,7 +94,7 @@
 
                            <div>
                               <h5 class="uk-text-bold">Residential Address</h5>
-                                  <p> {{ student_contact.address1 }} -- {{student_contact.address2 }}</p>
+                                  <p> {{ user_contact.address1 }} -- {{user_contact.address2 }}</p>
                           </div>
 
                       </div>
@@ -159,10 +159,12 @@
                              <!-- <a href="#"> Badge </a> -->
 
                      </div>
+                       {% for c in claim %}
                      <div class="uk-container mb-3 px-4">
-                       <progress class="uk-progress progress" id="pro1" max="1000"></progress>
+                       <progress class="uk-progress progress" value="{{ claim.points }}" max="1000"></progress>
 
                      </div>
+                       {% endfor %}
                    </div>
                  </div>
 

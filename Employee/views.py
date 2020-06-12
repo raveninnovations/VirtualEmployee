@@ -1331,23 +1331,32 @@ def tlProjectDetails(request,id):
 def tlProjectStudentDetails(request,id):
     if request.user.is_active and request.user.is_superuser and not request.user.is_staff:
         student=User.objects.get(id=id)
+        userdetails = UserDetails.objects.get(user_id_id=student.pk)
 
-        # user_contact = UserContact.objects.get(user_id_id=student.id)
-        # user_education = UserEducation.objects.get(user_id_id=student.id)
-        user_data = UserDetails.objects.get(user_id_id=student.id)
-        cfp_details = StudentCFP.objects.get(user_id_id=user_data.pk)
+        user_contact = UserContact.objects.get(user_id_id=userdetails.pk)
+        user_education = UserEducation.objects.get(user_id_id=userdetails.pk)
+
+
+        cfp_details = StudentCFP.objects.get(user_id_id=userdetails.pk)
 
         # For Displaying Progress Bar
-        claim = Claim.objects.all()
+        # claim = Claim.objects.all()
         lists = Course.objects.filter(category=cfp_details.category_one, role=cfp_details.role_one)
         lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
 
+        try:
+            claim = Claim.objects.filter(user_id = userdetails.pk)
+
+        except:
+            claim =None
+
+
 
         context={
-            # 'user_contact':user_contact,
-            # 'user_education':user_education,
+            'user_contact':user_contact,
+            'user_education':user_education,
             'student':student,
-            'user_data':user_data,
+            'user_data':userdetails,
             'cfp_details':cfp_details,
             'claim':claim,
             'lists':lists,
