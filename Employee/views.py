@@ -1314,6 +1314,41 @@ def tlProjectDetails(request,id):
         messages.error(request,"Wrong URL")
         return redirect('login')
 
+
+
+@login_required
+def tlProjectStudentDetails(request,id):
+    if request.user.is_active and request.user.is_superuser and not request.user.is_staff:
+        student=User.objects.get(id=id)
+
+        # user_contact = UserContact.objects.get(user_id_id=student.id)
+        # user_education = UserEducation.objects.get(user_id_id=student.id)
+        user_data = UserDetails.objects.get(user_id_id=student.id)
+        cfp_details = StudentCFP.objects.get(user_id_id=user_data.pk)
+
+        # For Displaying Progress Bar
+        claim = Claim.objects.all()
+        lists = Course.objects.filter(category=cfp_details.category_one, role=cfp_details.role_one)
+        lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
+
+
+        context={
+            # 'user_contact':user_contact,
+            # 'user_education':user_education,
+            'student':student,
+            'user_data':user_data,
+            'cfp_details':cfp_details,
+            'claim':claim,
+            'lists':lists,
+            'lists2':lists2
+        }
+        return render(request,'TL_Pages/tl_project_student_details.html',context)
+    else:
+        messages.error(request,"Wrong URL")
+        return redirect('login')
+
+
+
 @login_required
 def tlSettings(request):
     if request.user.is_active and request.user.is_superuser and not request.user.is_staff:
