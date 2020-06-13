@@ -76,15 +76,11 @@
                 </div>
                  <div class="card">
 
+                    <h3 class="uk-margin-large-left uk-margin-medium-top mb-0 my-3 text-center">Team List</h3>
 
-
-                    <h5 class="uk-margin-large-left uk-margin-medium-top ">Team List</h5>
-
-
-                    <br>
-                     {% for i in students %}
+                     <!-- {% for i in students %}
                     <div class="uk-flex uk-flex-between  uk-flex-wrap uk-flex-wrap-around">
-                        <!-- row1 -->
+
                         <div>
                             <p class="uk-padding-small uk-margin-medium-left">1.</p>
                         </div>
@@ -106,7 +102,32 @@
                             <a class="btn btn-default mb-3 message-btn text-white uk-margin-medium-right" href="{% url 'tlProjectStudentDetails' i.user_id %}"> Info </a>
                         </div>
                     </div>
-                    {% endfor %}
+                    {% endfor %} -->
+
+
+
+                    <table class="uk-table uk-width-expand uk-table-divider uk-table-small mx-3">
+                        <thead>
+                            <tr>
+                                <th>Profile Pic </th>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                          {% for i in students %}
+                            <tr>
+                              <td><p>Image Here</p></td>
+                                <td>User ID Here</td>
+                                <td>{{i.user.first_name}} {{i.user.last_name}}</td>
+                                <td><a class="btn btn-default mb-3 message-btn text-white uk-margin-medium-right" href="{% url 'tlProjectStudentDetails' i.user_id %}"> Info </a></td>
+                            </tr>
+                          {% endfor %}
+
+                        </tbody>
+                    </table>
 
                 </div>
           <!-- footer
