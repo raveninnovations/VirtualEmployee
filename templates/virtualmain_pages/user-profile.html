@@ -222,13 +222,7 @@
 
                                 <div class="uk-grid-small uk-flex-middle" uk-grid>
 
-                                    <div class="uk-width-auto">
-                                        <button type="button" class="btn btn-danger btn-icon-only">
-                                            <span class="d-flex justify-content-center">
-                                       <i class="icon-brand-angular icon-small"></i>
-                                            </span>
-                                          </button>
-                                    </div>
+
                                     <div class="uk-width-expand">
                                         {% for tag in tag %}
 
@@ -237,7 +231,13 @@
                                             <progress class="course-progressbar" value="{{ tag.points }}" max="1000"></progress>
                                             {% endif %}
                                             {% endfor %}
+                                    <br>
+
+
                                     </div>
+
+
+
 
                                 {% for list in lists %}
                                     <!-- <div class="mx-4" style="height:60px; width:60px;">
@@ -274,8 +274,25 @@
                                     </div> -->
                                 {% endfor %}
 
+
                                 </div>
 
+                                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                    <div class="uk-width-auto">
+                                        <button type="button" class="btn btn-danger btn-icon-only">
+                                            <span class="d-flex justify-content-center">
+                                       <i class="icon-brand-angular icon-small"></i>
+                                            </span>
+                                          </button>
+                                    </div>
+                                     <div class="uk-width-expand">
+
+                                             <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
+
+                                             <progress class="course-progressbar-filler" value="500" max="1000" style="width: 100%"></progress>
+
+                                    </div>
+                                    </div>
 
                             {% else %}
                                     <p>Currently no courses under this category</p>
@@ -327,7 +344,7 @@
                                         <h5 class="mb-2"> {{ tag.course_tag }}</h5>
                                             <progress class="course-progressbar" value="{{ tag.points }}" max="1000"></progress>
                                             {% endif %}
-                                            {% endfor %}
+                                        {% endfor %}
                                     </div>
                                 {% for list2 in lists2 %}
 
