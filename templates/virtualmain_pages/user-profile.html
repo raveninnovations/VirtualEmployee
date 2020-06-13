@@ -98,7 +98,7 @@
                                 </div>
                                 {% endif %}
                                 <div class="uk-card-body p-3">
-                                    <h6 >{{ list.course }}</h6>
+                                    <h6 >{{ list.title }}</h6>
                                 </div>
                             </div>
                             {% endfor %}
@@ -116,7 +116,7 @@
                                 </div>
                                 {% endif %}
                                 <div class="uk-card-body p-3">
-                                    <h6 >{{ list2.course }}</h6>
+                                    <h6 >{{ list2.title }}</h6>
                                 </div>
                             </div>
                             {% endfor %}
@@ -218,7 +218,8 @@
                             <hr class="m-0">
                             <div class="p-3">
                                 {% if lists %}
-                                    {% for list in lists %}
+
+
                                 <div class="uk-grid-small uk-flex-middle" uk-grid>
 
                                     <div class="uk-width-auto">
@@ -229,16 +230,16 @@
                                           </button>
                                     </div>
                                     <div class="uk-width-expand">
-                                        <h5 class="mb-2"> {{ list.title }} </h5>
-                                        <div class="course-progressbar">
-                                            {% for claim in claims %}
-                                                {% if claim.claim_id_id == list.pk %}
-                                            <div class="course-progressbar-filler" style="width:{{ list.course_points }}%"></div>
-                                                {% endif %}
-                                                {% endfor %}
-                                        </div>
+                                        {% for tag in tag %}
+
+                                            {% if tag.course_role == cfp_details.role_one %}
+                                        <h5 class="mb-2"> {{ tag.course_tag }}</h5>
+                                            <progress class="course-progressbar" value="{{ tag.points }}" max="1000"></progress>
+                                            {% endif %}
+                                            {% endfor %}
                                     </div>
 
+                                {% for list in lists %}
                                     <!-- <div class="mx-4" style="height:60px; width:60px;">
                                       {% if list.course_points >= 0 and list.course_points <= 9 %}
                                         <img src="{% static 'images/badges/class1.png' %}" alt="">
@@ -271,13 +272,14 @@
                                         <img src="{% static 'images/badges/class10.png' %}" alt="">
                                       {% endif %}
                                     </div> -->
-
+                                {% endfor %}
 
                                 </div>
-                                    {% endfor %}
-                                    {% else %}
+
+
+                            {% else %}
                                     <p>Currently no courses under this category</p>
-                                    {% endif %}
+                            {% endif %}
 
 
 
@@ -307,7 +309,7 @@
                             <hr class="m-0">
                             <div class="p-3">
                                 {% if lists2 %}
-                                    {% for list2 in lists2 %}
+
                                 <div class="uk-grid-small uk-flex-middle" uk-grid>
 
 
@@ -318,16 +320,16 @@
                                             </span>
                                           </button>
                                     </div>
-                                    <div class="uk-width-expand">
-                                        <h5 class="mb-2"> {{ list2.title }} </h5>
-                                        <div class="course-progressbar">
-                                            {% for claim in claims %}
-                                                {% if claim.claim_id_id == list2.pk %}
-                                            <div class="course-progressbar-filler" style="width:{{ list2.course_points }}%"></div>
-                                                {% endif %}
-                                             {% endfor %}
-                                        </div>
+                                     <div class="uk-width-expand">
+                                        {% for tag in tag %}
+
+                                            {% if tag.course_role == cfp_details.role_two %}
+                                        <h5 class="mb-2"> {{ tag.course_tag }}</h5>
+                                            <progress class="course-progressbar" value="{{ tag.points }}" max="1000"></progress>
+                                            {% endif %}
+                                            {% endfor %}
                                     </div>
+                                {% for list2 in lists2 %}
 
                                     <!-- <div class="mx-4" style="height:60px; width:60px;">
                                       {% if list2.course_points >= 0 and list2.course_points <= 9 %}
@@ -361,9 +363,9 @@
                                         <img src="{% static 'images/badges/class10.png' %}" alt="">
                                       {% endif %}
                                     </div> -->
-
+                                        {% endfor %}
                                 </div>
-                                    {% endfor %}
+
 
                                 {% else %}
                                     <p>Currently no courses available under this category</p>

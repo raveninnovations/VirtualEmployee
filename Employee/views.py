@@ -24,7 +24,7 @@ from django.core.mail import send_mail, EmailMessage
 from datetime import datetime
 from .forms import (AddUserForm)
 
-from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim
+from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag
 
 
 # Create your views here.
@@ -570,13 +570,35 @@ def userLesson(request,id):
             if 'claim' in request.POST:
                 print("claim rewards")
                 try:
-                    if not Claim.objects.filter(claim_id_id = course_details.pk).exists():
+
+                    if not Claim.objects.filter(claim_id_id = course_details.pk,user_id=user_details.pk).exists():
+
                         claim = Claim(claim_id_id=course_details.pk,category=course_details.category,points=course_details.course_points,user_id=user_details.pk)
                         claim.save()
+
+                        if CourseTag.objects.filter(user_id_id=user_details.pk,
+                                                    course_tag=course_details.course).exists():
+                            points = CourseTag.objects.get(user_id_id=user_details.pk)
+                            c_points = course_details.course_points
+                            new_points = int(points.points) + int(c_points)
+                            points.points = new_points
+                            points.save()
+                        else:
+                            new_points = course_details.course_points
+                            tag = CourseTag(points=new_points,user_id_id=user_details.pk,course_tag=course_details.course,course_role=course_details.role)
+                            tag.save()
+
                         messages.success(request,"Rewards Credited")
                     else:
                         messages.error(request,"Claim already done")
                         print("claim done already")
+
+
+
+
+
+
+
                 except:
                     messages.error(request,"Claim failed")
         progress=None
@@ -621,6 +643,7 @@ def userprofile(request):
         user_details = UserDetails.objects.get(user_id_id=user.pk)
         courses = Course.objects.all()
         claim = Claim.objects.all()
+        tag = CourseTag.objects.filter(user_id_id=user_details.pk)
         if UserEducation.objects.filter(user_id_id=user_details.pk).exists():
             user_education = UserEducation.objects.get(user_id_id=user_details.pk)
             context = {
@@ -650,6 +673,7 @@ def userprofile(request):
                         'lists': lists,
                         'lists2': lists2,
                         'claims' :claim,
+                        'tag':tag,
 
                     }
                     return render(request, 'virtualmain_pages/user-profile.html', context)
@@ -1314,7 +1338,6 @@ def tlProjectDetails(request,id):
         data=ProjectManager.objects.get(id=id)
         students=EnrolledProject.objects.filter(project=data)
         info=UserDetails.objects.all()
-        print(students)
         context={
             'data':data,
             'students':students,
@@ -1335,6 +1358,7 @@ def tlProjectStudentDetails(request,id):
 
         user_contact = UserContact.objects.get(user_id_id=userdetails.pk)
         user_education = UserEducation.objects.get(user_id_id=userdetails.pk)
+
 
 
         cfp_details = StudentCFP.objects.get(user_id_id=userdetails.pk)
