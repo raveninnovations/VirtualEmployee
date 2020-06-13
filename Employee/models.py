@@ -257,8 +257,12 @@ class watched(models.Model):
 
 # claim rewards
 class Claim(models.Model):
-    claim_id = models.ForeignKey(Course,models.CASCADE,null=True)
+    claim_id = models.ForeignKey(Course,on_delete=models.CASCADE,null=True)
     user = models.ForeignKey(UserDetails,models.CASCADE,null=True)
     points = models.CharField(max_length=50,null=True)
     category = models.CharField(max_length=100)
-
+class CourseTag(models.Model):
+    user_id = models.ForeignKey(UserDetails,on_delete=models.CASCADE,null=True)
+    course_tag = models.CharField(max_length=100,null=True)
+    course_role = models.CharField(max_length=100,null=True)
+    points = models.CharField(max_length=50,null=True)

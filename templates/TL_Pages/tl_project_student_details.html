@@ -176,12 +176,11 @@
                              <!-- <a href="#"> Badge </a> -->
 
                      </div>
-                       {% for c in claim %}
-                     <div class="uk-container mb-3 px-4">
-                       <progress class="uk-progress progress" value="{{ claim.points }}" max="1000"></progress>
+                       <div class="uk-container mb-3 px-4">
+                       <progress class="uk-progress progress" id="pro1" max="1000" ></progress>
 
                      </div>
-                       {% endfor %}
+
                    </div>
                  </div>
 
@@ -202,7 +201,7 @@
           var total=0;
           var tota2=0;
 
-          {% for claim in claims %}
+          {% for claim in claim %}
               {% if claim.user_id == user_data.pk %}
                   {% for list in lists %}
                       {% if claim.claim_id_id == list.pk %}
