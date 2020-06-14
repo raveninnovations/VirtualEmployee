@@ -56,13 +56,16 @@
 
                     <div class="uk-width-2-5@m uk-flex-first uk-width-expand">
                         {% include 'partials/_alerts.html' %}
-                       <div class="uk-card-default rounded p-4 mt-5">
+                       <div class="uk-card-default rounded  mt-5">
+                         <div class="p-3">
+                             <h4 class="mb-0"> Basic info </h4>
+                         </div>
+                         <hr class="m-0">
 
 
+                          <!-- <h3 class="text-center">Choose Your Career Path</h3> -->
 
-                          <h3 class="text-center">Choose Your Career Path</h3>
-
-                            <div class="uk-position-relative my-4">
+                            <div class="uk-position-relative px-4 my-4">
 
 
 
@@ -220,7 +223,7 @@
                                   <form name="confirm-course" method="POST">
                                        {% csrf_token %}
                                   <div class=" container pt-0 px-4  uk-width-expand">
-                                    
+
                                       <h4 class="text-center">First Choice</h4>
                                       <div class="form-group row mb-0">
                                           <label class="col-md-3 col-form-label">Category<span

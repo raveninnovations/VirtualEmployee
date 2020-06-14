@@ -4,6 +4,7 @@
     progress[value]::-webkit-progress-value {
     transition: width 0.5s;
     background: orange;
+
 }
 </style>
 {% block content %}
@@ -85,6 +86,7 @@
                             <h6 class="py-3"><span class="uk-label bg-primary rounded" >CFP RELATED COURSE</span>  </h6>
                           </div>
 
+                          <div class="" style="height:570px; overflow:auto;">
                             {% if lists %}
                             {% for list in lists %}
                             <div class="uk-card uk-card-default mx-5 my-4 rounded">
@@ -121,6 +123,9 @@
                             </div>
                             {% endfor %}
                         {% endif %}
+                          </div>
+
+
 
 
 
@@ -167,7 +172,7 @@
                         </div>
                         <div class="uk-card-default rounded mt-4">
                             <div class="uk-flex uk-flex-between uk-flex-middle py-3 px-4">
-                                <h5 class="mb-0"> Educational Details </h5>
+                                <h4 class="mb-0"> Educational Details </h4>
                                 <a href="#" uk-tooltip="title: Edit Educational details; pos: left"> <i
                                         class="icon-feather-settings"></i> </a>
                             </div>

@@ -48,8 +48,11 @@ Project Manager
 
                 <div class="uk-width-expand mb-5 mt-3">
                     <div class="card rounded">
-
-                      <legend class="uk-legend my-4 text-center">Set CFP Eligibility</legend>
+                      <div class=" py-2 px-4">
+                          <h4 class="mb-0">Set CFP Eligibility</h4>
+                      </div>
+                      <hr class="m-0">
+                      <!-- <legend class="uk-legend my-4 text-center">Set CFP Eligibility</legend> -->
 
                       <div class=" container pt-3 pb-0 px-5 uk-width-expand">
 
@@ -127,10 +130,10 @@ Project Manager
 
 
                 <div class="uk-card-default rounded">
-                    <div class="p-3">
-                        <h5 class="mb-0"> Create Project </h5>
-                    </div>
-                    <hr class="m-0">
+                  <div class=" py-2 px-4">
+                      <h4 class="mb-0">Create Project</h4>
+                  </div>
+                  <hr class="m-0">
                     <form class="uk-width-expand uk-form-horizontal uk-grid-small p-4" method="POST"  uk-grid enctype="multipart/form-data" >
                         {% csrf_token %}
                       <div class="uk-width-3-5@m px-2">
