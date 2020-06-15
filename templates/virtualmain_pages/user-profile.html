@@ -286,10 +286,15 @@
                                           </button>
                                     </div>
                                      <div class="uk-width-expand">
-
+                                            {% if proj %}
                                              <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
 
-                                             <progress class="course-progressbar-filler" value="500" max="1000" style="width: 100%"></progress>
+                                             <progress class="course-progressbar-filler" value="{{ proj.proj_points }}" max="1000" style="width: 100%"></progress>
+                                            {% else %}
+                                             <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
+
+                                             <progress class="course-progressbar-filler" value="0" max="1000" style="width: 100%"></progress>
+                                            {% endif %}
 
                                     </div>
                                     </div>
@@ -383,7 +388,23 @@
                                         {% endfor %}
                                 </div>
 
+                                                {#      Project category                              #}
+                                <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                    <div class="uk-width-auto">
+                                        <button type="button" class="btn btn-danger btn-icon-only">
+                                            <span class="d-flex justify-content-center">
+                                       <i class="icon-brand-angular icon-small"></i>
+                                            </span>
+                                          </button>
+                                    </div>
+                                     <div class="uk-width-expand">
 
+                                             <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
+
+                                             <progress class="course-progressbar-filler" value="500" max="1000" style="width: 100%"></progress>
+
+                                    </div>
+                                    </div>
                                 {% else %}
                                     <p>Currently no courses available under this category</p>
                                  {% endif %}
@@ -418,7 +439,7 @@
                 {% endfor %}
             {% endif %}
         {% endfor %}
-        document.getElementById("pro1").value = total;
+        document.getElementById("pro1").value = total + {{ proj.proj_points }};
 
         // Badge Immplementation in CFP1
         if(total>=0 && total<100)

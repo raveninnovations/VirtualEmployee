@@ -266,3 +266,7 @@ class CourseTag(models.Model):
     course_tag = models.CharField(max_length=100,null=True)
     course_role = models.CharField(max_length=100,null=True)
     points = models.CharField(max_length=50,null=True)
+
+class ProjectPoint(models.Model):
+    user_id = models.ForeignKey(UserDetails,on_delete=models.CASCADE,null=True)
+    proj_points = models.CharField(max_length=50,null=True)

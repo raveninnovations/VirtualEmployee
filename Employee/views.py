@@ -24,7 +24,7 @@ from django.core.mail import send_mail, EmailMessage
 from datetime import datetime
 from .forms import (AddUserForm)
 
-from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag
+from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint
 
 
 # Create your views here.
@@ -644,6 +644,10 @@ def userprofile(request):
         courses = Course.objects.all()
         claim = Claim.objects.all()
         tag = CourseTag.objects.filter(user_id_id=user_details.pk)
+        if ProjectPoint.objects.filter(user_id_id=user_details.pk).exists():
+            proj_point = ProjectPoint.objects.get(user_id_id=user_details.pk)
+        else:
+            proj_point = None
         if UserEducation.objects.filter(user_id_id=user_details.pk).exists():
             user_education = UserEducation.objects.get(user_id_id=user_details.pk)
             context = {
@@ -674,6 +678,7 @@ def userprofile(request):
                         'lists2': lists2,
                         'claims' :claim,
                         'tag':tag,
+                        'proj':proj_point,
 
                     }
                     return render(request, 'virtualmain_pages/user-profile.html', context)
@@ -1359,8 +1364,22 @@ def tlProjectStudentDetails(request,id):
         user_contact = UserContact.objects.get(user_id_id=userdetails.pk)
         user_education = UserEducation.objects.get(user_id_id=userdetails.pk)
 
-
-
+        if request.method == 'POST':
+            if 'reward' in request.POST:
+                points = request.POST['points']
+                if ProjectPoint.objects.filter(user_id_id=userdetails.pk).exists():
+                    data = ProjectPoint.objects.get(user_id_id=userdetails.pk)
+                    point = int(data.proj_points) + int(points)
+                    if point >999:
+                        messages.error(request,"User reached maximum points")
+                        return redirect('tlProjectStudentDetails',id)
+                    data.proj_points = point
+                    data.save()
+                    messages.success(request,"Rewards added")
+                else:
+                    data = ProjectPoint(proj_points=points,user_id_id=userdetails.pk)
+                    data.save()
+                    messages.success(request,"First reward added")
         cfp_details = StudentCFP.objects.get(user_id_id=userdetails.pk)
 
         # For Displaying Progress Bar
