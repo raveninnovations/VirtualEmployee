@@ -645,7 +645,7 @@ def userprofile(request):
         claim = Claim.objects.all()
         tag = CourseTag.objects.filter(user_id_id=user_details.pk)
         if ProjectPoint.objects.filter(user_id_id=user_details.pk).exists():
-            proj_point = ProjectPoint.objects.get(user_id_id=user_details.pk)
+            proj_point = ProjectPoint.objects.filter(user_id_id=user_details.pk)
         else:
             proj_point = None
         if UserEducation.objects.filter(user_id_id=user_details.pk).exists():
@@ -1346,7 +1346,7 @@ def tlProjectDetails(request,id):
         context={
             'data':data,
             'students':students,
-            'info':info
+            'info' : info,
         }
         return render(request,'TL_Pages/tl_project_details.html',context)
     else:
@@ -1356,36 +1356,53 @@ def tlProjectDetails(request,id):
 
 
 @login_required
-def tlProjectStudentDetails(request,id):
+def tlProjectStudentDetails(request,pid,id):
     if request.user.is_active and request.user.is_superuser and not request.user.is_staff:
+        print("hai",request.user.pk)
+
         student=User.objects.get(id=id)
         userdetails = UserDetails.objects.get(user_id_id=student.pk)
 
         user_contact = UserContact.objects.get(user_id_id=userdetails.pk)
         user_education = UserEducation.objects.get(user_id_id=userdetails.pk)
-
+        pdata = ProjectManager.objects.get(id = pid)
         if request.method == 'POST':
             if 'reward' in request.POST:
                 points = request.POST['points']
-                if ProjectPoint.objects.filter(user_id_id=userdetails.pk).exists():
+                role = request.POST['role']
+                if ProjectPoint.objects.filter(user_id_id=userdetails.pk,proj_role=role).exists():
                     data = ProjectPoint.objects.get(user_id_id=userdetails.pk)
                     point = int(data.proj_points) + int(points)
                     if point >999:
                         messages.error(request,"User reached maximum points")
-                        return redirect('tlProjectStudentDetails',id)
+                        return redirect('tlProjectStudentDetails',pid,id)
                     data.proj_points = point
                     data.save()
                     messages.success(request,"Rewards added")
                 else:
-                    data = ProjectPoint(proj_points=points,user_id_id=userdetails.pk)
+                    data = ProjectPoint(proj_points=points,user_id_id=userdetails.pk,proj_role=role)
                     data.save()
                     messages.success(request,"First reward added")
-        cfp_details = StudentCFP.objects.get(user_id_id=userdetails.pk)
+
+        try:
+            cfp_details = StudentCFP.objects.get(user_id_id=userdetails.pk)
+            if StudentCFP.objects.filter(user_id_id=userdetails.pk,role_one=pdata.project_cfp).exists():
+                cfp_details = cfp_details.role_one
+            elif StudentCFP.objects.filter(user_id_id=userdetails.pk,role_two=pdata.project_cfp).exists():
+                cfp_details = cfp_details.role_two
+            else:
+                cfp_details=None
+
+        except:
+            cfp_details = None
+
+        tags = CourseTag.objects.filter(user_id_id=userdetails.pk,course_role=cfp_details)
+
+
 
         # For Displaying Progress Bar
         # claim = Claim.objects.all()
-        lists = Course.objects.filter(category=cfp_details.category_one, role=cfp_details.role_one)
-        lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
+
 
         try:
             claim = Claim.objects.filter(user_id = userdetails.pk)
@@ -1402,8 +1419,7 @@ def tlProjectStudentDetails(request,id):
             'user_data':userdetails,
             'cfp_details':cfp_details,
             'claim':claim,
-            'lists':lists,
-            'lists2':lists2
+            'tags':tags,
         }
         return render(request,'TL_Pages/tl_project_student_details.html',context)
     else:

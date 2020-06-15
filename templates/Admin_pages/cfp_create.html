@@ -27,17 +27,19 @@ CFP Creation
                     <div class="uk-width-4-4@m my-3">
                       {% include 'partials/_alerts.html' %}
                         <div class="card rounded">
+                          <div class=" py-2 px-4">
+                              <h4 class="mb-0">Create Career Category </h4>
+
+                          </div>
+                          <hr class="m-0">
                           <div class=" container py-3 uk-width-expand">
                             <form name="categorycreate" method="POST">
                               {% csrf_token %}
                                 <fieldset class="uk-fieldset">
 
-                                    <legend class="uk-legend text-center">Create Career Category</legend>
+                                    <!-- <legend class="uk-legend text-center">Create Career Category</legend> -->
 
-
-
-
-                                    <div class="uk-margin">
+                                    <div class="uk-margin mt-2">
                                         <input class="uk-input bg-secondary" name="cagname" type="text" placeholder="Type Category Here" required>
                                     </div>
 
@@ -57,12 +59,17 @@ CFP Creation
 
                     <div class="uk-width-expand my-5">
                         <div class="card rounded">
-                          <div class=" container py-3 px-5 uk-width-expand">
+                          <div class=" py-2 px-4">
+                              <h4 class="mb-0"> Create CFP </h4>
+
+                          </div>
+                          <hr class="m-0">
+                          <div class=" container mt-2 py-3 px-5 uk-width-expand">
                             <form name="cfpcreate" method="POST">
                               {% csrf_token %}
                                 <fieldset class="uk-fieldset">
 
-                                    <legend class="uk-legend mt-4 text-center">Create CFP</legend>
+                                    <!-- <legend class="uk-legend mt-4 text-center">Create CFP</legend> -->
 
 
                                     <div class="uk-margin uk-width-1-2">
@@ -120,15 +127,20 @@ CFP Creation
 
                     <div class="uk-width-expand">
                         <div class="card rounded">
+                          <div class=" py-2 px-4">
+                              <h4 class="mb-0">List of CFP Category </h4>
+
+                          </div>
+                          <hr class="m-0">
                           <div class=" container py-4 uk-width-expand">
 
 
-                                  <div class=" my-auto text-center uk-width-expand">
+                                  <!-- <div class=" my-auto text-center uk-width-expand">
                                       <legend class="uk-legend ">List Of CFP Category</legend>
-                                  </div>
+                                  </div> -->
+<!-- 
 
-
-                                <hr style="width:70% mx-auto mt-0">
+                                <hr style="width:70% mx-auto mt-0"> -->
 
                                 <table class="uk-table uk-table-small uk-table-hover uk-table-striped" uk-table-divider" >
                                   <thead>

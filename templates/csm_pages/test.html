@@ -65,10 +65,13 @@ Create Course
                   <div class="uk-width-3-5@m" style="width: 100%">
                     <div class="uk-width-expand mb-5 mt-3">
                         <div class="card rounded">
+                          <div class=" py-2 px-4">
+                              <h4 class="mb-0">Choose Career Category </h4>
+                          </div>
+                          <hr class="m-0">
+                          <!-- <legend class="uk-legend mt-4 text-center">Choose Career Category </legend> -->
 
-                          <legend class="uk-legend mt-4 text-center">Choose Career Category </legend>
-
-                          <div class=" container py-3 px-5 uk-width-expand">
+                          <div class=" container py-3 px-5 mt-2 uk-width-expand">
 
                                     <form name="course-cag" method="POST">
                                       {% csrf_token %}
@@ -103,10 +106,13 @@ Create Course
                     <div class="uk-width-3-5@m" style="width: 100%">
                       <div class="uk-width-expand mb-5">
                           <div class="card rounded">
+                            <div class=" py-2 px-4">
+                                <h4 class="mb-0">Choose Career Role </h4>
+                            </div>
+                            <hr class="m-0">
+                            <!-- <legend class="uk-legend mt-4 text-center">Choose Career Role </legend> -->
 
-                            <legend class="uk-legend mt-4 text-center">Choose Career Role </legend>
-
-                            <div class=" container py-3 px-5 uk-width-expand">
+                            <div class=" container py-3 px-5 mt-2 uk-width-expand">
 
                                         <form name="cfp-role" method="POST">
                                           {% csrf_token %}
@@ -185,10 +191,13 @@ Create Course
                     <div class="uk-width-expand ">
                       {% include 'partials/_alerts.html' %}
                         <div class="card rounded">
+                          <div class=" py-2 px-4">
+                              <h4 class="mb-0">Create CFP Course </h4>
+                          </div>
+                          <hr class="m-0">
+                          <!-- <legend class="uk-legend mt-4 text-center">Create CFP Course</legend> -->
 
-                          <legend class="uk-legend mt-4 text-center">Create CFP Course</legend>
-
-                            <div class=" container py-3 px-5 uk-width-expand">
+                            <div class=" container py-3 px-5 mt-2 uk-width-expand">
                                     <form name="cfp-course" method="POST">
                                         {% csrf_token %}
                                       <div class="form-group row mb-3">

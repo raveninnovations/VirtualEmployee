@@ -52,14 +52,19 @@ Project Manager
 
                 <div class="uk-width-expand mb-5 mt-3">
                     <div class="card rounded">
+                      <div class=" py-2 px-4">
+                          <h4 class="mb-0"> Set CFP Eligibility </h4>
 
-                      <legend class="uk-legend my-4 text-center">Set CFP Eligibility</legend>
+                      </div>
+                      <hr class="m-0">
+
+                      <!-- <legend class="uk-legend my-4 text-center">Set CFP Eligibility</legend> -->
 
                       <div class=" container pt-3 pb-0 px-5 uk-width-expand">
 
                                 <form name="course-cag" method="POST">
                                   {% csrf_token %}
-                                  <div class="form-group row mb-3">
+                                  <div class="form-group row mb-2">
                                       <label class="col-md-3 col-form-label"> Category <span
                                               class="required">*</span></label>
                                       <div class="col-md-9">
@@ -131,8 +136,8 @@ Project Manager
 
 
                 <div class="uk-card-default rounded">
-                    <div class="p-3">
-                        <h5 class="mb-0"> Create Project </h5>
+                    <div class=" py-2 px-4">
+                        <h4 class="mb-0"> Create Project </h4>
                     </div>
                     <hr class="m-0">
                     <form class="uk-width-expand uk-form-horizontal uk-grid-small p-4" method="POST"  uk-grid enctype="multipart/form-data" >
@@ -339,10 +344,13 @@ Project Manager
 
                   <div class="uk-width-expand mb-5 mt-3">
                       <div class="card rounded">
+                        <div class=" py-2 px-4">
+                            <h4 class="mb-0">Assign Technical Lead </h4>
+                        </div>
+                        <hr class="m-0">
+                        <!-- <legend class="uk-legend my-4 text-center">Assign Technical Lead</legend> -->
 
-                        <legend class="uk-legend my-4 text-center">Assign Technical Lead</legend>
-
-                        <div class=" container pt-3 pb-0 px-5 uk-width-expand">
+                        <div class=" container pt-3 pb-0 px-5 mt-2 uk-width-expand">
 
                                   <form name="project_tl" method="POST">
                                     {% csrf_token %}

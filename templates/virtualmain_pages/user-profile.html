@@ -4,6 +4,7 @@
     progress[value]::-webkit-progress-value {
     transition: width 0.5s;
     background: orange;
+
 }
 </style>
 {% block content %}
@@ -85,6 +86,7 @@
                             <h6 class="py-3"><span class="uk-label bg-primary rounded" >CFP RELATED COURSE</span>  </h6>
                           </div>
 
+                          <div class="" style="height:570px; overflow:auto;">
                             {% if lists %}
                             {% for list in lists %}
                             <div class="uk-card uk-card-default mx-5 my-4 rounded">
@@ -121,6 +123,9 @@
                             </div>
                             {% endfor %}
                         {% endif %}
+                          </div>
+
+
 
 
 
@@ -167,7 +172,7 @@
                         </div>
                         <div class="uk-card-default rounded mt-4">
                             <div class="uk-flex uk-flex-between uk-flex-middle py-3 px-4">
-                                <h5 class="mb-0"> Educational Details </h5>
+                                <h4 class="mb-0"> Educational Details </h4>
                                 <a href="#" uk-tooltip="title: Edit Educational details; pos: left"> <i
                                         class="icon-feather-settings"></i> </a>
                             </div>
@@ -287,13 +292,17 @@
                                     </div>
                                      <div class="uk-width-expand">
                                             {% if proj %}
+                                                {% for pro in proj %}
+                                                {% if pro.proj_role == cfp_details.role_one %}
                                              <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
 
-                                             <progress class="course-progressbar-filler" value="{{ proj.proj_points }}" max="1000" style="width: 100%"></progress>
+                                             <progress class="course-progressbar-filler" id="live1" value="{{ pro.proj_points }}" max="1000" style="width: 100%"></progress>
+                                                {% endif %}
+                                                {% endfor %}
                                             {% else %}
                                              <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
 
-                                             <progress class="course-progressbar-filler" value="0" max="1000" style="width: 100%"></progress>
+                                             <progress class="course-progressbar-filler" id="live1" value="0" max="1000" style="width: 100%"></progress>
                                             {% endif %}
 
                                     </div>
@@ -398,10 +407,19 @@
                                           </button>
                                     </div>
                                      <div class="uk-width-expand">
-
+                                         {% if proj %}
+                                                {% for pro in proj %}
+                                                {% if pro.proj_role == cfp_details.role_two %}
                                              <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
 
-                                             <progress class="course-progressbar-filler" value="500" max="1000" style="width: 100%"></progress>
+                                             <progress class="course-progressbar-filler" id="live2" value="{{ pro.proj_points }}" max="1000" style="width: 100%"></progress>
+                                                {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                             <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
+
+                                             <progress class="course-progressbar-filler" id="live2" value="0" max="1000" style="width: 100%"></progress>
+                                        {% endif %}
 
                                     </div>
                                     </div>
@@ -428,6 +446,11 @@
         var total=0;
         var tota2=0;
 
+        var proj = document.getElementById('live1').value ;
+
+        var proj2 = document.getElementById('live2').value ;
+
+
         {% for claim in claims %}
             {% if claim.user_id == user_data.pk %}
                 {% for list in lists %}
@@ -439,7 +462,22 @@
                 {% endfor %}
             {% endif %}
         {% endfor %}
-        document.getElementById("pro1").value = total + {{ proj.proj_points }};
+
+        document.getElementById("pro1").value = total ;
+
+
+        {% for claim in claims %}
+            {% if claim.user_id == user_data.pk %}
+                {% for list2 in lists2 %}
+                    {% if claim.claim_id_id == list2.pk %}
+                        tota2 += {{ claim.points }};
+
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+
+        document.getElementById("pro2").value = tota2 +proj2;
 
         // Badge Immplementation in CFP1
         if(total>=0 && total<100)
@@ -484,18 +522,6 @@
         }
 
 
- {% for claim in claims %}
-            {% if claim.user_id == user_data.pk %}
-                {% for list2 in lists %}
-                    {% if claim.claim_id_id == list.pk %}
-                        tota2 += {{ claim.points }};
-
-
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-        {% endfor %}
-        document.getElementById("pro2").value = tota2;
 
 
         // Badge Immplementation in CFP2

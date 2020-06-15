@@ -23,12 +23,20 @@ Role Creation
                     <div class="uk-width-3-5@m">
                         {% include 'partials/_alerts.html' %}
                         <div class="card rounded">
-                          <div class=" container py-3 uk-width-expand">
+                          <div class=" py-2 ">
+                              <h4 class="mb-0 mx-3">Create Role</h4>
+                          </div>
+                          <hr class="m-0">
+                          <div class="container py-3 uk-width-expand">
                             <form name="pgenerate" method="POST">
                               {% csrf_token %}
                                 <fieldset class="uk-fieldset">
 
-                                    <legend class="uk-legend">Create Role</legend>
+                                    <!-- <div class="">
+                                     <h5 class=" mb-0  text-muted text-left"> Create Role </h5>
+
+                                    </div>
+                                    <hr class="m-0"> -->
 
                                     <div class="uk-margin uk-width-1-5">
                                         <select class="uk-select" name="role" required>

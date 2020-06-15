@@ -63,9 +63,14 @@
 
                   </div>
 
-                  <div class="uk-card-default rounded text-center p-4 my-3">
-                    <h3>Send Message</h3>
-                    <button class="btn btn-default uk-margin-small-right" type="button" uk-toggle="target: #modal-close-default">Message</button>
+                  <div class="uk-card-default rounded text-center my-3 pb-2">
+                    <div class="uk-flex uk-flex-between uk-flex-middle py-2 px-4">
+                        <h4 class="mb-0">Send Message</h4>
+                    </div>
+                    <hr class="m-0">
+                    <div class="my-3">
+                      <button class="btn btn-default uk-margin-small-right px-5" type="button" uk-toggle="target: #modal-close-default">Message</button>
+                    </div>
 
                     <!-- This is the modal with the default close button -->
                     <div id="modal-close-default" uk-modal>
@@ -87,7 +92,9 @@
                       <form method="post">{% csrf_token %}
                     <h3>Reward Points</h3>
                     <div class="uk-margin">
+
                         <div class="uk-form-controls">
+                            <input class="uk-input"  type="text" name="role" value="{{ cfp_details }}" hidden>
                             <input class="uk-input"  type="number" name="points" placeholder="Give Project Points">
                         </div>
                     </div>
@@ -137,7 +144,7 @@
 
                   <div class="uk-card-default rounded mt-4">
                       <div class="uk-flex uk-flex-between uk-flex-middle py-3 px-4">
-                          <h5 class="mb-0"> Educational Details </h5>
+                          <h4 class="mb-0"> Educational Details </h4>
 
                       </div>
                       <hr class="m-0">
@@ -174,7 +181,7 @@
                    <div class="">
                      <div class="uk-flex uk-flex-between uk-flex-middle pt-1 pb-3 px-4">
 
-                         <h4 class="mb-0">{{cfp_details.role_one}}</h4>
+                         <h4 class="mb-0">{{cfp_details}}</h4>
                              <!-- <a href="#"> Badge </a> -->
 
                      </div>
@@ -182,23 +189,34 @@
                        <progress class="uk-progress progress" id="pro1" max="1000" ></progress>
 
                      </div>
+                       <hr class="m-0">
+                            <div class="p-3">
+
+
+                                <div class="uk-grid-small uk-flex-middle" uk-grid>
+
+                                    {% if tags %}
+                                    {% for tag in tags %}
+                                    <div class="uk-width-auto">
+                                        <button type="button" class="btn btn-danger btn-icon-only">
+                                            <span class="d-flex justify-content-center">
+                                       <i class="icon-brand-angular icon-small"></i>
+                                            </span>
+                                          </button>
+                                    </div>
+                                     <div class="uk-width-expand">
+
+                                        <h5 class="mb-2"> {{ tag.course_tag }}</h5>
+                                            <progress class="course-progressbar" value="{{ tag.points }}" max="1000"></progress>
+
+                                    </div>
+                                    {% endfor %}
+                                {% endif %}
+
                    </div>
 
-                   <div class="">
-                     <div class="uk-flex uk-flex-between uk-flex-middle pt-1 pb-3 px-4">
-
-                         <h4 class="mb-0">{{cfp_details.role_two}}</h4>
-                             <!-- <a href="#"> Badge </a> -->
-
-                     </div>
-
-                       <div class="uk-container mb-3 px-4">
-                       <progress class="uk-progress progress" id="pro1" max="1000" ></progress>
-
-                     </div>
 
 
-                   </div>
                  </div>
 
               </div>
@@ -212,28 +230,19 @@
                 {% include 'partials/_footer.html' %}
         </div>
 </div>
+            <script>
+                var total=0;
+
+                {% for tag in tags %}
+                    total += {{ tag.points }}
+                {% endfor %}
+            document.getElementById("pro1").value = total;
+            </script>
+
         <!-- For Night mode -->
+
+
         <script>
-
-          var total=0;
-          var tota2=0;
-
-          {% for claim in claim %}
-              {% if claim.user_id == user_data.pk %}
-                  {% for list in lists %}
-                      {% if claim.claim_id_id == list.pk %}
-                          total += {{ claim.points }};
-
-
-                      {% endif %}
-                  {% endfor %}
-              {% endif %}
-          {% endfor %}
-
-          document.getElementById("pro1").value = total;
-
-
-
 
 
 
