@@ -6,10 +6,16 @@
     background: orange;
 
 }
+
+
 </style>
 {% block content %}
 
  <div id="wrapper">
+
+
+               {% include 'partials/user_partials/_header.html' %}
+
 
         <div id="searchbox">
 
@@ -41,401 +47,577 @@
                 href="#"></a>
         </div>
 
-        {#     MENU   #}
-        {% include 'partials/user_partials/_menu.html' %}
-
-        <div class="page-content">
+        <!-- side nav-->
+        <div class="side-nav uk-animation-slide-left-medium">
 
 
-            {% include 'partials/user_partials/_header.html' %}
+            <div class="side-nav-bg"></div>
 
+            <!-- logo -->
+            <div class="logo uk-visible@s">
+                <a href="dashboard.html">
+                   <img src="{% static 'images/VES.png' %}">
+                </a>
+            </div>
+
+            <ul>
+
+
+                <li>
+                    <!-- My Profile -->
+                    <a href="{% url 'userprofile' %}"> <i class="icon-brand-earlybirds"></i> <span class="tooltips"> My Profile</span></a>
+                </li>
+                  <li>
+                    <!-- My courses -->
+                    <a href="{% url 'userprofile' %}"> <i class="uil-book-open"></i> <span class="tooltips"> All Courses</span></a>
+                </li>
+                <li>
+                    <!-- Projects-->
+                    <a href="{% url 'userproject' %}"> <i class="uil-cube"></i> <span class="tooltips">
+                            Projects</span></a>
+                </li>
+                <li>
+                    <!-- News-->
+                    <a href="blog-1.html"> <i class="uil-file-alt"></i> <span class="tooltips"> News</span></a>
+                </li>
+
+                <li>
+                    <a href="#" uk-toggle="target: #searchbox; cls: is-active"><i class="uil-search-alt"></i></a>
+                </li>
+
+            </ul>
+            <ul class="uk-position-bottom">
+                <li>
+
+                    <!-- Lunch information box -->
+
+                    <div uk-drop="pos: right-bottom ;mode:click ; offset: 10;animation: uk-animation-slide-right-small">
+                        <div class="uk-card-default rounded p-0">
+                            <h5 class="mb-0 p-3 px-4  bg-light"> Night mode</h5>
+                            <div class="p-3 px-4">
+                                <p>Turns the light surfaces of the page dark, creating an experience ideal for night.
+                                </p>
+                                <div class="uk-flex">
+                                    <p class="uk-text-small text-muted">DARK THEME </p>
+                                    <!-- night mode button -->
+                                    <span href="#" id="night-mode" class="btn-night-mode">
+                                        <label class="btn-night-mode-switch">
+                                            <span class="uk-switch-button"></span>
+                                        </label>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </li>
+
+            </ul>
+        </div>
+
+
+
+
+        <div class="page-content  ">
 
             <br>
-            <div class="page-content-inner">
+            <div class="page-content-inner  uk-width-expand">
+<!--
+                <h2>My Profile</h2> -->
 
-                <h2>My Profile</h2>
-
-                <nav class="responsive-tab mb-4">
+                <!-- <nav class="responsive-tab mb-4">
                     <li class="#"><a class="uk-active"  href="user-profile.html"></a></li>
                     <li><a href="user-project.html"></a></li>
                     <li><a href="user-profile-edit.html"></a></li>
-                </nav>
-                <div uk-grid>
-                    <div class="uk-width-2-5@m">
+                </nav> -->
 
-                        <div class="uk-card-default rounded text-center p-4">
-                            {% if user.is_authenticated %}
-                            {% if user_contact.user_pic %}
-                            <div class="user-profile-photo  m-auto">
-                                <img src="{{ user_contact.user_pic.url }}" alt="">
-                            </div>
-                             {% else %}
-                                <div class="user-profile-photo  m-auto">
-                                <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
-                            </div>
-                              {% endif %}
 
-                            <h4 class="mb-2 mt-3"> {{ user.first_name }} {{ user.last_name }} </h4>
-                            <h5 class="my-2"> Employee ID : {{ user_data.user_unique }} </h5>
-                            <p class="m-0"> Member since {{ user_data.user_date }} </p>
-                            {% endif %}
+            <div class="uk-card-default rounded py-4 my-4 mx-0">
+                  {% if user.is_authenticated %}
+                  <div class="uk-grid px-5  ">
 
+
+                    <div class="uk-width-2-5@m p-4">
+                      <div class="m-auto" >
+                        {% if user_contact.user_pic %}
+                        <div class="user-profile-photo  m-auto " style="height:250px; width:250px;">
+                            <img src="{{ user_contact.user_pic.url }}" alt="">
                         </div>
-                        <div class="uk-card-default rounded text-center mt-5 pb-3">
-                            <div class="mx-auto">
-                            <h6 class="py-3"><span class="uk-label bg-primary rounded" >CFP RELATED COURSE</span>  </h6>
+                         {% else %}
+                            <div class="user-profile-photo  m-auto" style="height:250px; width:250px;">
+                            <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
                           </div>
-
-                          <div class="" style="height:570px; overflow:auto;">
-                            {% if lists %}
-                            {% for list in lists %}
-                            <div class="uk-card uk-card-default mx-5 my-4 rounded">
-                            {% if list.course_image %}
-                                <div class="uk-card-media-top rounded" >
-                                    <img src="{{ list.course_image.url }} " class="rounded"  alt="">
-                                </div>
-                             {% else %}
-                                <div class="uk-card-media-top rounded" >
-                                    <img src="{% static 'images/course/1.png' %}" class="rounded"  alt="">
-                                </div>
-                                {% endif %}
-                                <div class="uk-card-body p-3">
-                                    <h6 >{{ list.title }}</h6>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        {% endif %}
-                        {% if lists2 %}
-                            {% for list2 in lists2 %}
-                            <div class="uk-card uk-card-default mx-5 my-4 rounded">
-                            {% if list2.course_image %}
-                                <div class="uk-card-media-top rounded" >
-                                    <img src="{{ list2.course_image.url }} " class="rounded"  alt="">
-                                </div>
-                             {% else %}
-                                <div class="uk-card-media-top rounded" >
-                                    <img src="{% static 'images/course/1.png' %}" class="rounded"  alt="">
-                                </div>
-                                {% endif %}
-                                <div class="uk-card-body p-3">
-                                    <h6 >{{ list2.title }}</h6>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        {% endif %}
-                          </div>
-
-
-
-
-
-
-                        </div>
-
-
+                          {% endif %}
+                      </div>
                     </div>
 
-                    <div class="uk-width-expand@m">
-                        <div class="uk-card-default rounded">
-                            <div class="uk-flex uk-flex-between uk-flex-middle py-3 px-4">
-                                <h4 class="mb-0"> Personal Details </h4>
-                                    <a href="{% url 'userprofileEdit' %}" uk-tooltip="title:Edit Account; pos: left"> <i
-                                            class="icon-feather-settings"></i> </a>
-                            </div>
-                            <hr class="m-0">
-                            <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid>
-                                <div>
-                                    <h5 class="uk-text-bold"> First Name </h5>
-                                        <p> {{ user.first_name }} </p>
-                                </div>
-                                <div>
-                                    <h5 class="uk-text-bold"> Second Name </h5>
-                                        <p> {{ user.last_name }} </p>
-                                </div>
 
+                    <div class="uk-width-expand p-4">
+                      <h3 class="mb-1" style="font-family:impact regular;"> {{ user.first_name }} {{ user.last_name }}</h3>
+                      <h5 class="my-0"> Employee ID : {{ user_data.user_unique }} </h5>
+                      <p class="m-0"> Member since {{ user_data.user_date }} </p>
+                      <div class="uk-flex">
+                        <p class="mx-1"><span class="badge badge-pill " style="background:#ffd76b;"> &bull; {{cfp_details.role_one}}</span></p>
+                        <p class="mx-1"><span class="badge badge-pill " style="background:#ffd76b;"> &bull; {{cfp_details.role_two}}</span></p>
+                      </div>
 
-                                <div>
-                                    <h5 class="uk-text-bold"> Your email address </h5>
-                                        <p> {{ user.email }} </p>
-                                </div>
-                                <div>
-                                    <h5 class="uk-text-bold"> Phone </h5>
-                                        <p> {{ user_data.user_phone }} </p>
-                                </div>
-
-                                 <div>
-                                    <h5 class="uk-text-bold">Residential Address</h5>
-                                        <p> {{ user_contact.address1 }} -- {{ user_contact.address2 }}</p>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="uk-card-default rounded mt-4">
-                            <div class="uk-flex uk-flex-between uk-flex-middle py-3 px-4">
-                                <h4 class="mb-0"> Educational Details </h4>
-                                <a href="#" uk-tooltip="title: Edit Educational details; pos: left"> <i
-                                        class="icon-feather-settings"></i> </a>
-                            </div>
-                            <hr class="m-0">
-                            <div class="uk-child-width-1-3@s uk-grid-small p-4" uk-grid>
-                                <div>
-                                    <h6 class="uk-text-bold"> Degree</h6>
-                                        <p> {{ user_education.degree }}</p>
-                                </div>
-                                <div>
-                                    <h5 class="uk-text-bold"> Specialisation</h5>
-                                        <p>{{ user_education.specialization }}</p>
-                                </div>
-                                <div>
-                                    <h5 class="uk-text-bold"> Current year</h5>
-                                        <p>{{ user_education.year }} </p>
-                                </div>
-                            </div>
-                            <div class="uk-child-width-1@s uk-grid-small p-3" uk-grid>
-                                <div>
-                                    <h5 class="uk-text-bold"> Institution Name </h5>
-                                        <p> {{ user_education.institution }}</p>
-                                </div>
-                                <div>
-                                    <h5 class="uk-text-bold"> Institution Address </h5>
-                                        <p> {{ user_education.address }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    {% comment %}   CFP details    {% endcomment %}
-                    {% if cfp_details %}
-                         <div class="uk-card-default rounded my-4">
-                          <h6 class="pt-3 pl-4"><span class="uk-label bg-primary rounded" >Career FOCUS PATH</span>  </h6>
-                            <div class="uk-flex uk-flex-between uk-flex-middle pt-1 pb-3 px-4">
-
-                                <h4 class="mb-0">{{ cfp_details.role_one }}</h4>
-                                    <!-- <a href="#"> Badge </a> -->
-                                    <div class="mx-4 my-2" style="height:60px; width:60px;">
-                                      <img src="" id="b1" alt="">
-                                    </div>
-
-                            </div>
-                            <div class="uk-container mb-3 px-4">
-                              <progress class="uk-progress progress" id="pro1" max="1000"></progress>
-
-                            </div>
-
-                            <hr class="m-0">
-                            <div class="p-3">
-                                {% if lists %}
-
-
-                                <div class="uk-grid-small uk-flex-middle" uk-grid>
-
-
-                                    <div class="uk-width-expand">
-                                        {% for tag in tag %}
-
-                                            {% if tag.course_role == cfp_details.role_one %}
-                                        <h5 class="mb-2"> {{ tag.course_tag }}</h5>
-                                            <progress class="course-progressbar" value="{{ tag.points }}" max="1000"></progress>
-                                            {% endif %}
-                                            {% endfor %}
-                                    <br>
-
-
-                                    </div>
-
-
-
-
-                                {% for list in lists %}
-                                    <!-- <div class="mx-4" style="height:60px; width:60px;">
-                                      {% if list.course_points >= 0 and list.course_points <= 9 %}
-                                        <img src="{% static 'images/badges/class1.png' %}" alt="">
-                                      {% endif %}
-                                      {% if list.course_points >= 10 and list.course_points <= 19 %}
-                                        <img src="{% static 'images/badges/class2.png' %}" alt="">
-                                      {% endif %}
-                                      {% if list.course_points >= 20 and list.course_points <= 29 %}
-                                        <img src="{% static 'images/badges/class3.png' %}" alt="">
-                                      {% endif %}
-                                      {% if list.course_points >= 30 and list.course_points <= 39 %}
-                                        <img src="{% static 'images/badges/class4.png' %}" alt="">
-                                      {% endif %}
-                                      {% if list.course_points >= 40 and list.course_points <= 49 %}
-                                        <img src="{% static 'images/badges/class5.png' %}" alt="">
-                                      {% endif %}
-                                      {% if list.course_points >= 50 and list.course_points <= 59 %}
-                                        <img src="{% static 'images/badges/class6.png' %}" alt="">
-                                      {% endif %}
-                                      {% if list.course_points >= 60 and list.course_points <= 69 %}
-                                        <img src="{% static 'images/badges/class7.png' %}" alt="">
-                                      {% endif %}
-                                      {% if list.course_points >= 70 and list.course_points <= 79 %}
-                                        <img src="{% static 'images/badges/class8.png' %}" alt="">
-                                      {% endif %}
-                                      {% if list.course_points >= 80 and list.course_points <= 89 %}
-                                        <img src="{% static 'images/badges/class9.png' %}" alt="">
-                                      {% endif %}
-                                      {% if list.course_points >= 90 and list.course_points <= 100 %}
-                                        <img src="{% static 'images/badges/class10.png' %}" alt="">
-                                      {% endif %}
-                                    </div> -->
-                                {% endfor %}
-
-
-                                </div>
-
-                                    <div class="uk-grid-small uk-flex-middle" uk-grid>
-                                    <div class="uk-width-auto">
-                                        <button type="button" class="btn btn-danger btn-icon-only">
-                                            <span class="d-flex justify-content-center">
-                                       <i class="icon-brand-angular icon-small"></i>
-                                            </span>
-                                          </button>
-                                    </div>
-                                     <div class="uk-width-expand">
-                                            {% if proj %}
-                                                {% for pro in proj %}
-                                                {% if pro.proj_role == cfp_details.role_one %}
-                                             <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
-
-                                             <progress class="course-progressbar-filler" id="live1" value="{{ pro.proj_points }}" max="1000" style="width: 100%"></progress>
-                                                {% endif %}
-                                                {% endfor %}
-                                            {% else %}
-                                             <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
-
-                                             <progress class="course-progressbar-filler" id="live1" value="0" max="1000" style="width: 100%"></progress>
-                                            {% endif %}
-
-                                    </div>
-                                    </div>
-
-                            {% else %}
-                                    <p>Currently no courses under this category</p>
-                            {% endif %}
-
-
-
-
-                            </div>
-                        </div>
-                {% endif %}
-                    {% if cfp_details %}
-
-                        <div class="uk-card-default rounded my-4">
-                          <h6 class="pt-3 pl-4"><span class="uk-label bg-primary rounded" >Career FOCUS PATH</span>  </h6>
-                            <div class="uk-flex uk-flex-between uk-flex-middle pt-1 pb-3 px-4">
-
-                                <h4 class="mb-0">{{ cfp_details.role_two }}</h4>
-
-                                <div class="mx-4 my-2" style="height:60px; width:60px;">
-                                  <img src="" id="b2" alt="">
-                                </div>
-
-
-                            </div>
-                            <div class="uk-container mb-3 px-4">
-                              <progress class="uk-progress" id="pro2" max="1000"></progress>
-
-                            </div>
-
-                            <hr class="m-0">
-                            <div class="p-3">
-                                {% if lists2 %}
-
-                                <div class="uk-grid-small uk-flex-middle" uk-grid>
-
-
-                                    <div class="uk-width-auto">
-                                        <button type="button" class="btn btn-danger btn-icon-only">
-                                            <span class="d-flex justify-content-center">
-                                       <i class="icon-brand-angular icon-small"></i>
-                                            </span>
-                                          </button>
-                                    </div>
-                                     <div class="uk-width-expand">
-                                        {% for tag in tag %}
-
-                                            {% if tag.course_role == cfp_details.role_two %}
-                                        <h5 class="mb-2"> {{ tag.course_tag }}</h5>
-                                            <progress class="course-progressbar" value="{{ tag.points }}" max="1000"></progress>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                {% for list2 in lists2 %}
-
-                                    <!-- <div class="mx-4" style="height:60px; width:60px;">
-                                      {% if list2.course_points >= 0 and list2.course_points <= 9 %}
-                                        <img src="{% static 'images/badges/class1.png' %}" alt="">
-                                      {% endif %}
-                                      {% if list2.course_points >= 10 and list2.course_points <= 19 %}
-                                        <img src="{% static 'images/badges/class2.png' %}" alt="">
-                                      {% endif %}
-                                      {% if list2.course_points >= 20 and list2.course_points <= 29 %}
-                                        <img src="{% static 'images/badges/class3.png' %}" alt="">
-                                      {% endif %}
-                                      {% if list2.course_points >= 30 and list2.course_points <= 39 %}
-                                        <img src="{% static 'images/badges/class4.png' %}" alt="">
-                                      {% endif %}
-                                      {% if list2.course_points >= 40 and list2.course_points <= 49 %}
-                                        <img src="{% static 'images/badges/class5.png' %}" alt="">
-                                      {% endif %}
-                                      {% if list2.course_points >= 50 and list2.course_points <= 59 %}
-                                        <img src="{% static 'images/badges/class6.png' %}" alt="">
-                                      {% endif %}
-                                      {% if list2.course_points >= 60 and list2.course_points <= 69 %}
-                                        <img src="{% static 'images/badges/class7.png' %}" alt="">
-                                      {% endif %}
-                                      {% if list2.course_points >= 70 and list2.course_points <= 79 %}
-                                        <img src="{% static 'images/badges/class8.png' %}" alt="">
-                                      {% endif %}
-                                      {% if list2.course_points >= 80 and list2.course_points <= 89 %}
-                                        <img src="{% static 'images/badges/class9.png' %}" alt="">
-                                      {% endif %}
-                                      {% if list2.course_points >= 90 and list2.course_points <= 100 %}
-                                        <img src="{% static 'images/badges/class10.png' %}" alt="">
-                                      {% endif %}
-                                    </div> -->
-                                        {% endfor %}
-                                </div>
-
-                                                {#      Project category                              #}
-                                <div class="uk-grid-small uk-flex-middle" uk-grid>
-                                    <div class="uk-width-auto">
-                                        <button type="button" class="btn btn-danger btn-icon-only">
-                                            <span class="d-flex justify-content-center">
-                                       <i class="icon-brand-angular icon-small"></i>
-                                            </span>
-                                          </button>
-                                    </div>
-                                     <div class="uk-width-expand">
-                                         {% if proj %}
-                                                {% for pro in proj %}
-                                                {% if pro.proj_role == cfp_details.role_two %}
-                                             <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
-
-                                             <progress class="course-progressbar-filler" id="live2" value="{{ pro.proj_points }}" max="1000" style="width: 100%"></progress>
-                                                {% endif %}
-                                                {% endfor %}
-                                            {% else %}
-                                             <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
-
-                                             <progress class="course-progressbar-filler" id="live2" value="0" max="1000" style="width: 100%"></progress>
-                                        {% endif %}
-
-                                    </div>
-                                    </div>
-                                {% else %}
-                                    <p>Currently no courses available under this category</p>
-                                 {% endif %}
-
-
-                            </div>
-                        </div>
-                    {% endif %}
-
+                      <div class="my-2">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                      </div>
                     </div>
 
+
+                  </div>
+
+                  {% endif %}
+            </div>
+
+
+            <div class="uk-card-default rounded text-center p-5 my-2 ">
+              <div class="uk-grid uk-child-width-1-4@s">
+                <div class="">
+                  <h1 class="display-4" style="font-family:impact regular;">5</h1>
+                  <h4>Projects Completed</h4>
+                </div>
+                <div class="">
+                  <h1 class="display-4" style="font-family:impact regular;">5</h1>
+                  <h4>Projects Certification</h4>
+                </div>
+                <div class="">
+                  <h1 class="display-4" style="font-family:impact regular;">4</h1>
+                  <h4>Total Achievements</h4>
+                </div>
+                <div class="">
+                  <h1 class="display-4" style="font-family:impact regular;">10</h1>
+                  <h4>Course Completed</h4>
+                </div>
+              </div>
+            </div>
+
+
+
+
+            <div class="cfp-cards my-0 py-1">
+              <div class="uk-grid uk-child-width-1-2@m">
+                <div class="">
+                  {% if cfp_details %}
+                       <div class="uk-card-default rounded my-4">
+                        <!-- <h6 class="pt-3 pl-4"><span class="uk-label bg-primary rounded" >Career FOCUS PATH</span>  </h6> -->
+                          <div class="uk-flex uk-flex-between uk-flex-middle pt-1 pb-2 px-4">
+
+                            <div class="uk-width-expand">
+                              <div class="my-3">
+                                <h3 class="mb-0" ><span class=" badge badge-pill text-white" style="background:#005c82" >{{ cfp_details.role_one }}</span></h3>
+                              </div>
+                              <div class="uk-container mb-3 px-0">
+                                <progress class="uk-progress progress " id="pro1" max="1000" ></progress>
+
+                              </div>
+                            </div>
+
+
+                            <div class="mx-4 my-2" style="height:50px; width:50px;">
+                              <img src="" id="b1" alt="">
+                            </div>
+
+                          </div>
+                          <!-- <div class="uk-container mb-3 px-4">
+                            <progress class="uk-progress progress" id="pro1" max="1000"></progress>
+
+                          </div> -->
+
+                          <hr class="mt-0">
+                          <div class=" pt-0 px-5 py-4 ">
+                              {% if lists %}
+
+
+                              <div class="" >
+<!--
+                                <div class="uk-width-auto">
+                                    <button type="button" class="btn btn-danger btn-icon-only">
+                                        <span class="d-flex justify-content-center">
+                                   <i class="icon-brand-angular icon-small"></i>
+                                        </span>
+                                      </button>
+                                </div> -->
+
+                                  <div class="uk-width-expand my-2 uk-grid-small uk-flex-middle  " uk-grid>
+                                      {% for tag in tag %}
+
+                                          {% if tag.course_role == cfp_details.role_one %}
+
+                                      <div class="uk-width-auto">
+                                          <button type="button" class="btn btn-danger btn-icon-only">
+                                              <span class="d-flex justify-content-center">
+                                         <i class="icon-brand-angular icon-small"></i>
+                                              </span>
+                                            </button>
+                                      </div>
+                                      <div class="uk-width-expand">
+                                        <h5 class="mb-2"> {{ tag.course_tag }}</h5>
+                                            <progress class="course-progressbar-filler"  value="{{ tag.points }}" max="1000" style="width: 100%"></progress>
+                                      </div>
+                                          {% endif %}
+                                          {% endfor %}
+
+
+
+                                  </div>
+
+
+
+
+                              {% for list in lists %}
+                                  <!-- <div class="mx-4" style="height:60px; width:60px;">
+                                    {% if list.course_points >= 0 and list.course_points <= 9 %}
+                                      <img src="{% static 'images/badges/class1.png' %}" alt="">
+                                    {% endif %}
+                                    {% if list.course_points >= 10 and list.course_points <= 19 %}
+                                      <img src="{% static 'images/badges/class2.png' %}" alt="">
+                                    {% endif %}
+                                    {% if list.course_points >= 20 and list.course_points <= 29 %}
+                                      <img src="{% static 'images/badges/class3.png' %}" alt="">
+                                    {% endif %}
+                                    {% if list.course_points >= 30 and list.course_points <= 39 %}
+                                      <img src="{% static 'images/badges/class4.png' %}" alt="">
+                                    {% endif %}
+                                    {% if list.course_points >= 40 and list.course_points <= 49 %}
+                                      <img src="{% static 'images/badges/class5.png' %}" alt="">
+                                    {% endif %}
+                                    {% if list.course_points >= 50 and list.course_points <= 59 %}
+                                      <img src="{% static 'images/badges/class6.png' %}" alt="">
+                                    {% endif %}
+                                    {% if list.course_points >= 60 and list.course_points <= 69 %}
+                                      <img src="{% static 'images/badges/class7.png' %}" alt="">
+                                    {% endif %}
+                                    {% if list.course_points >= 70 and list.course_points <= 79 %}
+                                      <img src="{% static 'images/badges/class8.png' %}" alt="">
+                                    {% endif %}
+                                    {% if list.course_points >= 80 and list.course_points <= 89 %}
+                                      <img src="{% static 'images/badges/class9.png' %}" alt="">
+                                    {% endif %}
+                                    {% if list.course_points >= 90 and list.course_points <= 100 %}
+                                      <img src="{% static 'images/badges/class10.png' %}" alt="">
+                                    {% endif %}
+                                  </div> -->
+                              {% endfor %}
+
+
+                              </div>
+
+                                  <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                  <div class="uk-width-auto">
+                                      <button type="button" class="btn btn-danger btn-icon-only">
+                                          <span class="d-flex justify-content-center">
+                                     <i class="icon-brand-angular icon-small"></i>
+                                          </span>
+                                        </button>
+                                  </div>
+                                   <div class="uk-width-expand">
+                                          {% if proj %}
+                                              {% for pro in proj %}
+                                              {% if pro.proj_role == cfp_details.role_one %}
+                                           <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
+
+                                           <progress class="course-progressbar-filler" id="live1" value="{{ pro.proj_points }}" max="1000" style="width: 100%"></progress>
+                                              {% endif %}
+                                              {% endfor %}
+                                          {% else %}
+                                           <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
+
+                                           <progress class="course-progressbar-filler" id="live1" value="0" max="1000" style="width: 100%"></progress>
+                                          {% endif %}
+
+                                  </div>
+                                  </div>
+
+                          {% else %}
+                                  <p>Currently no courses under this category</p>
+                          {% endif %}
+
+
+
+
+                          </div>
+                      </div>
+              {% endif %}
+                </div>
+
+
+                <div class="">
+                  {% if cfp_details %}
+
+                      <div class="uk-card-default rounded my-4">
+                        <!-- <h6 class="pt-3 pl-4"><span class="uk-label bg-primary rounded" >Career FOCUS PATH</span>  </h6> -->
+                          <div class="uk-flex uk-flex-between uk-flex-middle pt-1 pb-2 px-4">
+
+                              <!-- <h4 class="mb-0">{{ cfp_details.role_two }}</h4> -->
+
+                              <div class="uk-width-expand">
+                                <div class="my-3">
+                                  <h3 class="mb-0" ><span class=" badge badge-pill text-white"  style="background:#ff8f70;" >{{ cfp_details.role_two }}</span></h3>
+                                </div>
+                                <div class="uk-container mb-3 px-0">
+                                  <progress class="uk-progress progress" id="pro2" max="1000"></progress>
+
+                                </div>
+                              </div>
+
+                              <div class="mx-4 my-2" style="height:50px; width:50px;">
+                                <img src="" id="b2" alt="">
+                              </div>
+
+
+                          </div>
+                          <!-- <div class="uk-container mb-3 px-4">
+                            <progress class="uk-progress" id="pro2" max="1000"></progress>
+
+                          </div> -->
+
+                          <hr class="mt-0">
+                          <div class=" pt-0 px-5 py-4">
+                              {% if lists2 %}
+
+                              <div class="" >
+
+
+                                  <!-- <div class="uk-width-auto">
+                                      <button type="button" class="btn btn-danger btn-icon-only">
+                                          <span class="d-flex justify-content-center">
+                                     <i class="icon-brand-angular icon-small"></i>
+                                          </span>
+                                        </button>
+                                  </div> -->
+                                   <div class="uk-width-expand my-2 uk-grid-small uk-flex-middle" uk-grid>
+                                      {% for tag in tag %}
+
+                                          {% if tag.course_role == cfp_details.role_two %}
+                                          <div class="uk-width-auto">
+                                              <button type="button" class="btn btn-danger btn-icon-only">
+                                                  <span class="d-flex justify-content-center">
+                                             <i class="icon-brand-angular icon-small"></i>
+                                                  </span>
+                                                </button>
+                                          </div>
+                                          <div class="uk-width-expand">
+                                            <h5 class="mb-2"> {{ tag.course_tag }}</h5>
+                                                <progress class="course-progressbar-filler" value="{{ tag.points }}" max="1000" style="width: 100%"></progress>
+                                          </div>
+
+                                          {% endif %}
+                                      {% endfor %}
+                                  </div>
+                              {% for list2 in lists2 %}
+
+                                  <!-- <div class="mx-4" style="height:60px; width:60px;">
+                                    {% if list2.course_points >= 0 and list2.course_points <= 9 %}
+                                      <img src="{% static 'images/badges/class1.png' %}" alt="">
+                                    {% endif %}
+                                    {% if list2.course_points >= 10 and list2.course_points <= 19 %}
+                                      <img src="{% static 'images/badges/class2.png' %}" alt="">
+                                    {% endif %}
+                                    {% if list2.course_points >= 20 and list2.course_points <= 29 %}
+                                      <img src="{% static 'images/badges/class3.png' %}" alt="">
+                                    {% endif %}
+                                    {% if list2.course_points >= 30 and list2.course_points <= 39 %}
+                                      <img src="{% static 'images/badges/class4.png' %}" alt="">
+                                    {% endif %}
+                                    {% if list2.course_points >= 40 and list2.course_points <= 49 %}
+                                      <img src="{% static 'images/badges/class5.png' %}" alt="">
+                                    {% endif %}
+                                    {% if list2.course_points >= 50 and list2.course_points <= 59 %}
+                                      <img src="{% static 'images/badges/class6.png' %}" alt="">
+                                    {% endif %}
+                                    {% if list2.course_points >= 60 and list2.course_points <= 69 %}
+                                      <img src="{% static 'images/badges/class7.png' %}" alt="">
+                                    {% endif %}
+                                    {% if list2.course_points >= 70 and list2.course_points <= 79 %}
+                                      <img src="{% static 'images/badges/class8.png' %}" alt="">
+                                    {% endif %}
+                                    {% if list2.course_points >= 80 and list2.course_points <= 89 %}
+                                      <img src="{% static 'images/badges/class9.png' %}" alt="">
+                                    {% endif %}
+                                    {% if list2.course_points >= 90 and list2.course_points <= 100 %}
+                                      <img src="{% static 'images/badges/class10.png' %}" alt="">
+                                    {% endif %}
+                                  </div> -->
+                                      {% endfor %}
+                              </div>
+
+
+                              <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                  <div class="uk-width-auto">
+                                      <button type="button" class="btn btn-danger btn-icon-only">
+                                          <span class="d-flex justify-content-center">
+                                     <i class="icon-brand-angular icon-small"></i>
+                                          </span>
+                                        </button>
+                                  </div>
+                                   <div class="uk-width-expand">
+                                       {% if proj %}
+                                              {% for pro in proj %}
+                                              {% if pro.proj_role == cfp_details.role_two %}
+                                           <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
+
+                                           <progress class="course-progressbar-filler" id="live2" value="{{ pro.proj_points }}" max="1000" style="width: 100%"></progress>
+                                              {% endif %}
+                                              {% endfor %}
+                                          {% else %}
+                                           <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
+
+                                           <progress class="course-progressbar-filler" id="live2" value="0" max="1000" style="width: 100%"></progress>
+                                      {% endif %}
+
+                                  </div>
+                                  </div>
+                              {% else %}
+                                  <p>Currently no courses available under this category</p>
+                               {% endif %}
+
+
+                          </div>
+                      </div>
+                  {% endif %}
+                </div>
+
+
+              </div>
+            </div>
+
+
+            <div class="user-details my-0">
+              <div class="uk-grid uk-child-width-1-2@m">
+
+                <div class="mt-0">
+                  <div class="uk-card-default rounded">
+                      <div class="uk-flex uk-flex-between uk-flex-middle py-3 px-4">
+                          <h4 class="mb-0"> Personal Details </h4>
+                              <a href="{% url 'userprofileEdit' %}" uk-tooltip="title:Edit Account; pos: left"> <i
+                                      class="icon-feather-settings"></i> </a>
+                      </div>
+                      <hr class="m-0">
+                      <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid>
+                          <div>
+                              <h5 class="uk-text-bold"> First Name </h5>
+                                  <p> {{ user.first_name }} </p>
+                          </div>
+                          <div>
+                              <h5 class="uk-text-bold"> Second Name </h5>
+                                  <p> {{ user.last_name }} </p>
+                          </div>
+
+
+                          <div>
+                              <h5 class="uk-text-bold"> Your email address </h5>
+                                  <p> {{ user.email }} </p>
+                          </div>
+                          <div>
+                              <h5 class="uk-text-bold"> Phone </h5>
+                                  <p> {{ user_data.user_phone }} </p>
+                          </div>
+
+                           <div>
+                              <h5 class="uk-text-bold">Residential Address</h5>
+                                  <p> {{ user_contact.address1 }} -- {{ user_contact.address2 }}</p>
+                          </div>
+
+                      </div>
+                  </div>
 
                 </div>
+
+                <div class="mt-0">
+                  <div class="uk-card-default rounded mt-0">
+                      <div class="uk-flex uk-flex-between uk-flex-middle py-3 px-4">
+                          <h4 class="mb-0"> Educational Details </h4>
+                          <a href="#" uk-tooltip="title: Edit Educational details; pos: left"> <i
+                                  class="icon-feather-settings"></i> </a>
+                      </div>
+                      <hr class="m-0">
+                      <div class="uk-child-width-1-3@s uk-grid-small p-4 pb-0" uk-grid>
+                          <div>
+                              <h6 class="uk-text-bold"> Degree</h6>
+                                  <p> {{ user_education.degree }}</p>
+                          </div>
+                          <div>
+                              <h5 class="uk-text-bold"> Specialisation</h5>
+                                  <p>{{ user_education.specialization }}</p>
+                          </div>
+                          <div>
+                              <h5 class="uk-text-bold"> Current year</h5>
+                                  <p>{{ user_education.year }} </p>
+                          </div>
+                      </div>
+                      <div class="uk-child-width-1@s uk-grid-small p-3 pt-0" uk-grid>
+                          <div>
+                              <h5 class="uk-text-bold"> Institution Name </h5>
+                                  <p> {{ user_education.institution }}</p>
+                          </div>
+                          <div>
+                              <h5 class="uk-text-bold"> Institution Address </h5>
+                                  <p> {{ user_education.address }}</p>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+
+<!--
+
+
+
+            <div class="uk-card-default rounded text-center mt-5 pb-3">
+                <div class="mx-auto">
+                <h6 class="py-3"><span class="uk-label bg-primary rounded" >CFP RELATED COURSE</span>  </h6>
+              </div>
+
+              <div class="" style="height:570px; overflow:auto;">
+                {% if lists %}
+                {% for list in lists %}
+                <div class="uk-card uk-card-default mx-5 my-4 rounded">
+                {% if list.course_image %}
+                    <div class="uk-card-media-top rounded" >
+                        <img src="{{ list.course_image.url }} " class="rounded"  alt="">
+                    </div>
+                 {% else %}
+                    <div class="uk-card-media-top rounded" >
+                        <img src="{% static 'images/course/1.png' %}" class="rounded"  alt="">
+                    </div>
+                    {% endif %}
+                    <div class="uk-card-body p-3">
+                        <h6 >{{ list.title }}</h6>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+            {% if lists2 %}
+                {% for list2 in lists2 %}
+                <div class="uk-card uk-card-default mx-5 my-4 rounded">
+                {% if list2.course_image %}
+                    <div class="uk-card-media-top rounded" >
+                        <img src="{{ list2.course_image.url }} " class="rounded"  alt="">
+                    </div>
+                 {% else %}
+                    <div class="uk-card-media-top rounded" >
+                        <img src="{% static 'images/course/1.png' %}" class="rounded"  alt="">
+                    </div>
+                    {% endif %}
+                    <div class="uk-card-body p-3">
+                        <h6 >{{ list2.title }}</h6>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+              </div>
+
+            </div> -->
+
+
                 {% include 'partials/_footer.html' %}
             </div>
         </div>
