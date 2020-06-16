@@ -883,22 +883,36 @@ def userProjectDetails(request,id):
         user = request.user
         p_id=id
         project=ProjectManager.objects.get(id=p_id)
+        check=EnrolledProject.objects.filter(project=project).count()
+        vacancy=project.candidates_required - check
+        print(project.candidates_required)
         if request.method == 'POST':
-            try:
-                check=EnrolledProject.objects.filter(user=user,project=project).exists()
-                if check == True:
-                    messages.error(request,"You have already enrolled in this course")
-                    return redirect(request.path_info)
-                else:
-                    data=EnrolledProject(user=user,project=project)
-                    data.save()
-                    messages.success(request,"You have sucessfully enrolled in this course")
-                    return redirect(request.path_info)
-            except:
-                print("Error")
+            count=EnrolledProject.objects.filter(project=project).count()
+            print(count)
+            if count < project.candidates_required:
+                try:
+                    check=EnrolledProject.objects.filter(user=user,project=project).exists()
+                    if check == True:
+                        messages.error(request,"You have already enrolled in this course")
+                        return redirect(request.path_info)
+                    else:
+                        data=EnrolledProject(user=user,project=project)
+                        data.save()
+                        messages.success(request,"You have sucessfully enrolled in this course")
+                        return redirect(request.path_info)
+
+                except:
+                    print("Error")
+
+                return redirect(request.path_info)
+
+            else:
+                messages.error(request,"There is no vacancy for this project")
+                return redirect(request.path_info)
 
         context={
-            'project':project
+            'project':project,
+            'vacancy':vacancy
         }
 
     else:

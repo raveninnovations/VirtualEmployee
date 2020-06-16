@@ -135,7 +135,10 @@
 
             <div class="uk-card-default rounded py-4 my-4 mx-0">
                   {% if user.is_authenticated %}
-                  <div class="uk-grid px-5  ">
+                  <div class=" text-right mx-3">
+                    <p class="m-0"> Member since {{ user_data.user_date |date   }} </p>
+                  </div>
+                  <div class="uk-grid px-5 ">
 
 
                     <div class="uk-width-2-5@m p-4">
@@ -156,7 +159,7 @@
                     <div class="uk-width-expand p-4">
                       <h3 class="mb-1" style="font-family:impact regular;"> {{ user.first_name }} {{ user.last_name }}</h3>
                       <h5 class="my-0"> Employee ID : {{ user_data.user_unique }} </h5>
-                      <p class="m-0"> Member since {{ user_data.user_date }} </p>
+                      <!-- <p class="m-0"> Member since {{ user_data.user_date }} </p> -->
                       <div class="uk-flex">
                         <p class="mx-1"><span class="badge badge-pill " style="background:#ffd76b;"> &bull; {{cfp_details.role_one}}</span></p>
                         <p class="mx-1"><span class="badge badge-pill " style="background:#ffd76b;"> &bull; {{cfp_details.role_two}}</span></p>
@@ -242,22 +245,25 @@
                                       </button>
                                 </div> -->
 
-                                  <div class="uk-width-expand my-2 uk-grid-small uk-flex-middle  " uk-grid>
+                                  <div class="uk-width-expand my-2 uk-grid-small uk-flex-middle  ">
                                       {% for tag in tag %}
 
                                           {% if tag.course_role == cfp_details.role_one %}
 
-                                      <div class="uk-width-auto">
-                                          <button type="button" class="btn btn-danger btn-icon-only">
-                                              <span class="d-flex justify-content-center">
-                                         <i class="icon-brand-angular icon-small"></i>
-                                              </span>
-                                            </button>
-                                      </div>
-                                      <div class="uk-width-expand">
-                                        <h5 class="mb-2"> {{ tag.course_tag }}</h5>
-                                            <progress class="course-progressbar-filler"  value="{{ tag.points }}" max="1000" style="width: 100%"></progress>
-                                      </div>
+                                        <div class="uk-grid-small uk-flex-middle " uk-grid>
+                                          <div class="uk-width-auto">
+                                              <button type="button" class="btn btn-danger btn-icon-only">
+                                                  <span class="d-flex justify-content-center">
+                                             <i class="icon-brand-angular icon-small"></i>
+                                                  </span>
+                                                </button>
+                                          </div>
+                                          <div class="uk-width-expand">
+                                            <h5 class="mb-2"> {{ tag.course_tag }}</h5>
+                                                <progress class="course-progressbar-filler"  value="{{ tag.points }}" max="1000" style="width: 100%"></progress>
+                                          </div>
+                                        </div>
+
                                           {% endif %}
                                           {% endfor %}
 
@@ -268,40 +274,6 @@
 
 
 
-                              {% for list in lists %}
-                                  <!-- <div class="mx-4" style="height:60px; width:60px;">
-                                    {% if list.course_points >= 0 and list.course_points <= 9 %}
-                                      <img src="{% static 'images/badges/class1.png' %}" alt="">
-                                    {% endif %}
-                                    {% if list.course_points >= 10 and list.course_points <= 19 %}
-                                      <img src="{% static 'images/badges/class2.png' %}" alt="">
-                                    {% endif %}
-                                    {% if list.course_points >= 20 and list.course_points <= 29 %}
-                                      <img src="{% static 'images/badges/class3.png' %}" alt="">
-                                    {% endif %}
-                                    {% if list.course_points >= 30 and list.course_points <= 39 %}
-                                      <img src="{% static 'images/badges/class4.png' %}" alt="">
-                                    {% endif %}
-                                    {% if list.course_points >= 40 and list.course_points <= 49 %}
-                                      <img src="{% static 'images/badges/class5.png' %}" alt="">
-                                    {% endif %}
-                                    {% if list.course_points >= 50 and list.course_points <= 59 %}
-                                      <img src="{% static 'images/badges/class6.png' %}" alt="">
-                                    {% endif %}
-                                    {% if list.course_points >= 60 and list.course_points <= 69 %}
-                                      <img src="{% static 'images/badges/class7.png' %}" alt="">
-                                    {% endif %}
-                                    {% if list.course_points >= 70 and list.course_points <= 79 %}
-                                      <img src="{% static 'images/badges/class8.png' %}" alt="">
-                                    {% endif %}
-                                    {% if list.course_points >= 80 and list.course_points <= 89 %}
-                                      <img src="{% static 'images/badges/class9.png' %}" alt="">
-                                    {% endif %}
-                                    {% if list.course_points >= 90 and list.course_points <= 100 %}
-                                      <img src="{% static 'images/badges/class10.png' %}" alt="">
-                                    {% endif %}
-                                  </div> -->
-                              {% endfor %}
 
 
                               </div>
@@ -389,60 +361,29 @@
                                           </span>
                                         </button>
                                   </div> -->
-                                   <div class="uk-width-expand my-2 uk-grid-small uk-flex-middle" uk-grid>
+                                   <div class="uk-width-expand my-2 uk-grid-small uk-flex-middle">
                                       {% for tag in tag %}
 
                                           {% if tag.course_role == cfp_details.role_two %}
-                                          <div class="uk-width-auto">
-                                              <button type="button" class="btn btn-danger btn-icon-only">
-                                                  <span class="d-flex justify-content-center">
-                                             <i class="icon-brand-angular icon-small"></i>
-                                                  </span>
-                                                </button>
+                                          <div class="uk-grid-small uk-flex-middle " uk-grid>
+                                            <div class="uk-width-auto">
+                                                <button type="button" class="btn btn-danger btn-icon-only">
+                                                    <span class="d-flex justify-content-center">
+                                               <i class="icon-brand-angular icon-small"></i>
+                                                    </span>
+                                                  </button>
+                                            </div>
+                                            <div class="uk-width-expand">
+                                              <h5 class="mb-2"> {{ tag.course_tag }}</h5>
+                                                  <progress class="course-progressbar-filler" value="{{ tag.points }}" max="1000" style="width: 100%"></progress>
+                                            </div>
                                           </div>
-                                          <div class="uk-width-expand">
-                                            <h5 class="mb-2"> {{ tag.course_tag }}</h5>
-                                                <progress class="course-progressbar-filler" value="{{ tag.points }}" max="1000" style="width: 100%"></progress>
-                                          </div>
+
 
                                           {% endif %}
                                       {% endfor %}
                                   </div>
-                              {% for list2 in lists2 %}
-
-                                  <!-- <div class="mx-4" style="height:60px; width:60px;">
-                                    {% if list2.course_points >= 0 and list2.course_points <= 9 %}
-                                      <img src="{% static 'images/badges/class1.png' %}" alt="">
-                                    {% endif %}
-                                    {% if list2.course_points >= 10 and list2.course_points <= 19 %}
-                                      <img src="{% static 'images/badges/class2.png' %}" alt="">
-                                    {% endif %}
-                                    {% if list2.course_points >= 20 and list2.course_points <= 29 %}
-                                      <img src="{% static 'images/badges/class3.png' %}" alt="">
-                                    {% endif %}
-                                    {% if list2.course_points >= 30 and list2.course_points <= 39 %}
-                                      <img src="{% static 'images/badges/class4.png' %}" alt="">
-                                    {% endif %}
-                                    {% if list2.course_points >= 40 and list2.course_points <= 49 %}
-                                      <img src="{% static 'images/badges/class5.png' %}" alt="">
-                                    {% endif %}
-                                    {% if list2.course_points >= 50 and list2.course_points <= 59 %}
-                                      <img src="{% static 'images/badges/class6.png' %}" alt="">
-                                    {% endif %}
-                                    {% if list2.course_points >= 60 and list2.course_points <= 69 %}
-                                      <img src="{% static 'images/badges/class7.png' %}" alt="">
-                                    {% endif %}
-                                    {% if list2.course_points >= 70 and list2.course_points <= 79 %}
-                                      <img src="{% static 'images/badges/class8.png' %}" alt="">
-                                    {% endif %}
-                                    {% if list2.course_points >= 80 and list2.course_points <= 89 %}
-                                      <img src="{% static 'images/badges/class9.png' %}" alt="">
-                                    {% endif %}
-                                    {% if list2.course_points >= 90 and list2.course_points <= 100 %}
-                                      <img src="{% static 'images/badges/class10.png' %}" alt="">
-                                    {% endif %}
-                                  </div> -->
-                                      {% endfor %}
+                              
                               </div>
 
 
