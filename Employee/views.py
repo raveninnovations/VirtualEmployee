@@ -839,7 +839,7 @@ def userEdit(request):
                     work=[]
 
                 users = UserContact.objects.order_by("gender")
-                education = UserEducation.objects.all()
+                education = UserEducation.objects.filter(user_id_id=user_detail.pk)
                 context = {
                     'user_detail': user_detail,
                     'users': users,
