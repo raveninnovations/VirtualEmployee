@@ -56,11 +56,15 @@ class UserContact(models.Model):
 
 class UserEducation(models.Model):
     user_id = models.ForeignKey(UserDetails,on_delete=models.CASCADE)
-    degree = models.CharField(max_length=100)
-    specialization = models.CharField(max_length=100)
-    year = models.IntegerField()
+    start_month=models.CharField(max_length=100,blank=True)
+    start_year=models.IntegerField(blank=True,default=0)
+    end_month=models.CharField(max_length=100,blank=True)
+    end_year=models.IntegerField( blank=True,default=0)
     institution = models.CharField(max_length=100)
-    address = models.CharField(max_length=200)
+    state = models.CharField(max_length=200)
+    degree = models.CharField(max_length=100)
+    specialization = models.CharField(max_length=100,blank=True)
+    gpa=models.DecimalField( blank=False,default=0,max_digits=4, decimal_places=2)
 
     def __str__(self):
         return self.degree

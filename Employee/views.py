@@ -649,7 +649,7 @@ def userprofile(request):
         else:
             proj_point = None
         if UserEducation.objects.filter(user_id_id=user_details.pk).exists():
-            user_education = UserEducation.objects.get(user_id_id=user_details.pk)
+            user_education = UserEducation.objects.filter(user_id_id=user_details.pk)
             context = {
                 'user_education':user_education,
                 'user_data': user_details
@@ -745,34 +745,48 @@ def userEdit(request):
                     messages.error(request,"Complete your contact info to change Pic")
                     return redirect("userprofileEdit")
             if 'education' in request.POST:
-                if UserEducation.objects.filter(user_id_id=user_detail.pk).exists():
-                    print("exists")
-                    course = request.POST['course']
-                    special = request.POST['special']
-                    year = request.POST['in_year']
-                    inst_name = request.POST['in_name']
-                    inst_address = request.POST['in_address']
-                    edu = UserEducation.objects.get(user_id_id=user_detail.pk)
-                    edu.degree = course
-                    edu.specialization = special
-                    edu.year = year
-                    edu.institution = inst_name
-                    edu.address =inst_address
-                    edu.save()
+                institution=request.POST['institution']
+                start_month=request.POST['start-month']
+                start_year=request.POST['start-year']
+                end_month=request.POST['end-month']
+                end_year=request.POST['end-year']
+                degree=request.POST['degree']
+                special=request.POST['special']
+                gpa=request.POST['gpa']
+                state=request.POST['state']
 
-                    messages.success(request, "Updated Education Info")
-                    return redirect('userprofileEdit')
-
-
-                else:
-                    course = request.POST['course']
-                    special = request.POST['special']
-                    year = request.POST['in_year']
-                    inst_name = request.POST['in_name']
-                    inst_address = request.POST['in_address']
-                    edu = UserEducation(degree=course,specialization=special,year=year,institution=inst_name,address=inst_address,user_id_id=user_detail.pk)
-                    edu.save()
-                    messages.success(request,"Education details added")
+                edu=UserEducation(user_id_id=user_detail.pk,institution=institution,start_month=start_month,start_year=start_year,end_month=end_month,end_year=end_year,state=state,degree=degree,specialization=special,gpa=gpa)
+                edu.save()
+                messages.success(request, "Updated Education Info")
+                return redirect(request.path_info)
+                # if UserEducation.objects.filter(user_id_id=user_detail.pk).exists():
+                #     print("exists")
+                #     course = request.POST['course']
+                #     special = request.POST['special']
+                #     year = request.POST['in_year']
+                #     inst_name = request.POST['in_name']
+                #     inst_address = request.POST['in_address']
+                #     edu = UserEducation.objects.get(user_id_id=user_detail.pk)
+                #     edu.degree = course
+                #     edu.specialization = special
+                #     edu.year = year
+                #     edu.institution = inst_name
+                #     edu.address =inst_address
+                #     edu.save()
+                #
+                #     messages.success(request, "Updated Education Info")
+                #     return redirect('userprofileEdit')
+                #
+                #
+                # else:
+                #     course = request.POST['course']
+                #     special = request.POST['special']
+                #     year = request.POST['in_year']
+                #     inst_name = request.POST['in_name']
+                #     inst_address = request.POST['in_address']
+                #     edu = UserEducation(degree=course,specialization=special,year=year,institution=inst_name,address=inst_address,user_id_id=user_detail.pk)
+                #     edu.save()
+                #     messages.success(request,"Education details added")
 
 
 
@@ -789,7 +803,7 @@ def userEdit(request):
             if UserEducation.objects.filter(user_id_id=user_detail.pk).exists():
 
                 users = UserContact.objects.order_by("gender")
-                education = UserEducation.objects.order_by("degree")
+                education = UserEducation.objects.all()
                 context = {
                     'user_detail': user_detail,
                     'users': users,
