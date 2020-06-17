@@ -24,7 +24,7 @@ from django.core.mail import send_mail, EmailMessage
 from datetime import datetime
 from .forms import (AddUserForm)
 
-from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint
+from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience
 
 
 # Create your views here.
@@ -650,17 +650,28 @@ def userprofile(request):
             proj_point = None
         if UserEducation.objects.filter(user_id_id=user_details.pk).exists():
             user_education = UserEducation.objects.filter(user_id_id=user_details.pk)
+            try:
+                work = UserWorkExperience.objects.filter(user_id_id=user_details.pk).order_by("-start_year")
+            except:
+                work=[]
+
             context = {
                 'user_education':user_education,
-                'user_data': user_details
+                'user_data': user_details,
+                'work':work
             }
             if UserContact.objects.filter(user_id_id=user_details.pk).exists():
                 user_contact = UserContact.objects.get(user_id_id=user_details.pk)
+                try:
+                    work = UserWorkExperience.objects.filter(user_id_id=user_details.pk).order_by("-start_year")
+                except:
+                    work=[]
 
                 context={
                     'user_contact':user_contact,
                     'user_education': user_education,
-                    'user_data': user_details
+                    'user_data': user_details,
+                    'work':work
                 }
                 # CFP
                 if StudentCFP.objects.filter(user_id_id=user_details.pk).exists():
@@ -668,6 +679,12 @@ def userprofile(request):
                     # CFP  COURSES
                     lists = Course.objects.filter(category=cfp_details.category_one, role=cfp_details.role_one)
                     lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
+                    try:
+                        work = UserWorkExperience.objects.filter(user_id_id=user_details.pk).order_by("-start_year")
+                    except:
+                        work=[]
+
+                    # print('work:', work)
 
                     context = {
                         'cfp_details': cfp_details,
@@ -679,6 +696,7 @@ def userprofile(request):
                         'claims' :claim,
                         'tag':tag,
                         'proj':proj_point,
+                        'work':work
 
                     }
                     return render(request, 'virtualmain_pages/user-profile.html', context)
@@ -788,6 +806,19 @@ def userEdit(request):
                 #     edu.save()
                 #     messages.success(request,"Education details added")
 
+            if 'work' in request.POST:
+                role=request.POST['role']
+                start_month=request.POST['start-month']
+                start_year=request.POST['start-year']
+                end_month=request.POST['end-month']
+                end_year=request.POST['end-year']
+                company=request.POST['company']
+                state=request.POST['state']
+
+                work=UserWorkExperience(user_id_id=user_detail.pk,job_role=role,start_month=start_month,start_year=start_year,end_month=end_month,end_year=end_year,state=state,company=company)
+                work.save()
+                messages.success(request, "Work Experience Added")
+                return redirect(request.path_info)
 
 
         if UserContact.objects.filter(user_id_id=user_detail.pk).exists():
@@ -802,12 +833,18 @@ def userEdit(request):
             }
             if UserEducation.objects.filter(user_id_id=user_detail.pk).exists():
 
+                try:
+                    work=UserWorkExperience.objects.filter(user_id_id=user_detail.pk).order_by("-start_year")
+                except:
+                    work=[]
+
                 users = UserContact.objects.order_by("gender")
                 education = UserEducation.objects.all()
                 context = {
                     'user_detail': user_detail,
                     'users': users,
                     'education': education,
+                    'work':work
 
                 }
 

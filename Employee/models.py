@@ -70,6 +70,20 @@ class UserEducation(models.Model):
         return self.degree
 
 
+class UserWorkExperience(models.Model):
+    user_id = models.ForeignKey(UserDetails,on_delete=models.CASCADE)
+    start_month=models.CharField(max_length=100,blank=True)
+    start_year=models.IntegerField(blank=True,default=0)
+    end_month=models.CharField(max_length=100,blank=True)
+    end_year=models.IntegerField( blank=True,default=0)
+    job_role = models.CharField(max_length=100)
+    company = models.CharField(max_length=100)
+    state = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.job_role
+
+
 
 class RoleDetail(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=True)

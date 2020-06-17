@@ -437,7 +437,7 @@
                   <div class="uk-card-default rounded mt-0 ">
                       <div class="uk-flex uk-flex-between uk-flex-middle py-3  px-4">
                           <h4 class="mb-0"> Educational Details </h4>
-                          <a href="#" uk-tooltip="title: Edit Educational details; pos: left"> <i
+                          <a href="{% url 'userprofileEdit' %}" uk-tooltip="title:Edit Educational Details; pos: left"> <i
                                   class="icon-feather-settings"></i> </a>
                       </div>
                        <hr class="m-0">
@@ -497,7 +497,7 @@
 
 
 
-                <div class="">
+                <!-- <div class="">
                   <div class="uk-card-default rounded">
                       <div class="uk-flex uk-flex-between uk-flex-middle py-3 px-4">
                           <h4 class="mb-0"> Personal Details </h4>
@@ -533,8 +533,69 @@
                       </div>
                   </div>
 
-                </div>
+                </div> -->
 
+
+                <div class="mt-0">
+                  <div class="uk-card-default rounded mt-0 ">
+                      <div class="uk-flex uk-flex-between uk-flex-middle py-3  px-4">
+                          <h4 class="mb-0"> Work Experience </h4>
+                          <a href="{% url 'userprofileEdit' %}" uk-tooltip="title:Edit Experience Details; pos: left"> <i
+                                  class="icon-feather-settings"></i> </a>
+                      </div>
+                       <hr class="m-0">
+
+
+ <style media="screen">
+        * {
+        box-sizing: border-box;
+      }
+
+
+      .first1 {
+        border-right: 2px solid #EA7219;
+        position: relative;
+
+      }
+
+      .first1::after {
+            content: '';
+          position: absolute;
+          bottom: 70px;
+          right: -11px;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          border: 2px solid #EA7219;
+          background: #FAF12B;
+      }
+ </style>
+
+                    <div class="py-3">
+                        {% for i in work %}
+
+                         <div class="my-0 ">
+                          <div class="uk-grid uk-child-width-1-2" uk-grid>
+
+                            <div class="text-right first1 p-4">
+                              <h5 style="font-family:impact regular;">{{i.start_month}} {{i.start_year}} - {{i.end_month}} {{i.end_year}}</h5>
+                            </div>
+
+                            <div class="text-left line p-4 second1" id='line' >
+                              <h5  class="my-0" style="font-family:impact regular;">{{i.job_role}}</h5>
+                              <h6  class="my-0"><strong>{{i.company}}</strong></h6>
+                              <h6  class="my-0"><strong>{{i.state}}</strong></h6>
+                            </div>
+
+
+                          </div>
+                        </div>
+
+                      {% endfor %}
+                    </div>
+
+                  </div>
+                </div>
 
 
 
