@@ -821,6 +821,30 @@ def userEdit(request):
                 return redirect(request.path_info)
 
 
+            if 'edu_del' in request.POST:
+                deg=request.POST['deg']
+                spec=request.POST['spec']
+                ins=request.POST['ins']
+
+                find=UserEducation.objects.get(user_id_id=user_detail.pk,degree=deg,specialization=spec,institution=ins)
+                find.delete()
+
+                messages.success(request,"Educational Details Deleted")
+                return redirect(request.path_info)
+
+            if 'work_del' in request.POST:
+                role=request.POST['role']
+                com=request.POST['com']
+                sm=request.POST['sm']
+                sy=request.POST['sy']
+
+                find=UserWorkExperience.objects.get(user_id_id=user_detail.pk,job_role=role,company=com,start_month=sm,start_year=sy)
+                find.delete()
+
+                messages.success(request,"Work Experience Deleted")
+                return redirect(request.path_info)
+
+
         if UserContact.objects.filter(user_id_id=user_detail.pk).exists():
 
             users = UserContact.objects.order_by("gender")
