@@ -158,12 +158,12 @@
 
 
                     <div class="uk-width-expand p-4">
-                      <h3 class="mb-1" style="font-family:impact regular;"> {{ user.first_name }} {{ user.last_name }}</h3>
+                      <h3 class="mb-1" style="font-family:impact;"> {{ user.first_name }} {{ user.last_name }}</h3>
                       <h5 class="my-0"> Employee ID : {{ user_data.user_unique }} </h5>
                       <!-- <p class="m-0"> Member since {{ user_data.user_date }} </p> -->
                       <div class="uk-flex">
-                        <p class="mx-1"><span class="badge badge-pill " style="background:#ffd76b;"> &bull; {{cfp_details.role_one}}</span></p>
-                        <p class="mx-1"><span class="badge badge-pill " style="background:#ffd76b;"> &bull; {{cfp_details.role_two}}</span></p>
+                        <p class="mx-1" style="margin-top: 0.50rem;"><span class="badge badge-pill " style="background:#ffd76b; color:black"> &bull; {{cfp_details.role_one}}</span></p>
+                        <p class="mx-1" style="margin-top: 0.50rem;"><span class="badge badge-pill " style="background:#ffd76b; color:black"> &bull; {{cfp_details.role_two}}</span></p>
                       </div>
 
                       <div class="my-2">
@@ -181,19 +181,19 @@
             <div class="uk-card-default rounded text-center p-5 mt-2 mb-0 ">
               <div class="uk-grid uk-child-width-1-4@s">
                 <div class="">
-                  <h1 class="display-4" style="font-family:impact regular;">5</h1>
+                  <h1 class="display-4" style="font-family:impact;">5</h1>
                   <h4>Projects Completed</h4>
                 </div>
                 <div class="">
-                  <h1 class="display-4" style="font-family:impact regular;">5</h1>
+                  <h1 class="display-4" style="font-family:impact;">5</h1>
                   <h4>Projects Certification</h4>
                 </div>
                 <div class="">
-                  <h1 class="display-4" style="font-family:impact regular;">4</h1>
+                  <h1 class="display-4" style="font-family:impact;">4</h1>
                   <h4>Total Achievements</h4>
                 </div>
                 <div class="">
-                  <h1 class="display-4" style="font-family:impact regular;">10</h1>
+                  <h1 class="display-4" style="font-family:impact;">10</h1>
                   <h4>Course Completed</h4>
                 </div>
               </div>
@@ -459,7 +459,7 @@
 
 
       .first {
-        border-right: 2px solid #EA7219;
+        border-right: 2px solid #d86b6b;
         position: relative;
 
       }
@@ -472,8 +472,8 @@
           width: 20px;
           height: 20px;
           border-radius: 50%;
-          border: 2px solid #EA7219;
-          background: #FAF12B;
+          border: 2px solid #d86b6b;
+          background: #ffd76b;
       }
  </style>
 
@@ -484,12 +484,12 @@
                           <div class="uk-grid uk-child-width-1-2" uk-grid>
 
                             <div class="text-right first p-4">
-                              <h5 style="font-family:impact regular;">{{i.start_month}} {{i.start_year}} - {{i.end_month}} {{i.end_year}}</h5>
+                              <h5 style="font-family:impact;">{{i.start_month}} {{i.start_year}} - {{i.end_month}} {{i.end_year}}</h5>
                             </div>
 
                             <div class="text-left line p-4 second" id='line' >
-                              <h5  class="my-0" style="font-family:impact regular;">{{i.degree}} , {{i.specialization}}</h5>
-                              <h5  class="my-0" style="color: #D32525;"><strong>CGPA : {{i.gpa}}</strong></h5>
+                              <h5  class="my-0" style="font-family:impact;">{{i.degree}} , {{i.specialization}}</h5>
+                              <h5  class="my-0" style="color: #c53131; font-family:impact; font-size:15px"><strong>CGPA : {{i.gpa}}</strong></h5>
                               <h6  class="my-0"><strong>{{i.institution}}</strong></h6>
                               <h6  class="my-0"><strong>{{i.state}}</strong></h6>
                             </div>
@@ -539,8 +539,8 @@
           width: 20px;
           height: 20px;
           border-radius: 50%;
-          border: 2px solid #EA7219;
-          background: #FAF12B;
+          border: 2px solid #d86b6b;
+          background: #ffd76b;
       }
  </style>
 
@@ -551,11 +551,11 @@
                           <div class="uk-grid uk-child-width-1-2" uk-grid>
 
                             <div class="text-right first1 p-4">
-                              <h5 style="font-family:impact regular;">{{i.start_month}} {{i.start_year}} - {{i.end_month}} {{i.end_year}}</h5>
+                              <h5 style="font-family:impact;">{{i.start_month}} {{i.start_year}} - {{i.end_month}} {{i.end_year}}</h5>
                             </div>
 
                             <div class="text-left line p-4 second1" id='line' >
-                              <h5  class="my-0" style="font-family:impact regular;">{{i.job_role}}</h5>
+                              <h5  class="my-0" style="font-family:impact; color: #357cc6;">{{i.job_role}}</h5>
                               <h6  class="my-0"><strong>{{i.company}}</strong></h6>
                               <h6  class="my-0"><strong>{{i.state}}</strong></h6>
                             </div>
@@ -584,7 +584,7 @@
 
                 <div class="">
                   <div class="">
-                      <h4 class="mx-1"><span class="badge badge-pill px-5" style="background:#ffd76b;">  Technical Skills</span></h4>
+                      <h4 class="mx-1" style="margin-top: 2rem;"><span class="badge badge-pill px-5" style="background: #ff8745;">  Technical Skills</span></h4>
                   </div>
                   <div class="text-justify pl-5 uk-width-2-3 mx-auto ">
                   {% for i in tech_skills %}
@@ -595,7 +595,7 @@
 
                 <div class="">
                   <div class="">
-                      <h4 class="mx-1"><span class="badge badge-pill px-4" style="background:#ffd76b;">  Management/Office Skills</span></h4>
+                      <h4 class="mx-1" style="margin-top: 2rem;"><span class="badge badge-pill px-4" style="background:#ff8745;">  Management/Office Skills</span></h4>
                   </div>
                   <div class="text-justify pl-5 uk-width-2-3 mx-auto ">
                     {% for i in man_skills %}
@@ -606,7 +606,7 @@
 
                 <div class="">
                   <div class="">
-                      <h4 class="mx-1"><span class="badge badge-pill px-5" style="background:#ffd76b;">  Languages</span></h4>
+                      <h4 class="mx-1" style="margin-top: 2rem;"><span class="badge badge-pill px-5" style="background:#ff8745;">  Languages</span></h4>
                   </div>
                   <div class="text-justify pl-5 uk-width-2-3 mx-auto ">
                     {% for i in lan_skills %}
