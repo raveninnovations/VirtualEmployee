@@ -142,7 +142,7 @@
 
 
 
-                  <div class="uk-card-default rounded mt-4">
+                  <!-- <div class="uk-card-default rounded mt-4">
                       <div class="uk-flex uk-flex-between uk-flex-middle py-3 px-4">
                           <h4 class="mb-0"> Educational Details </h4>
 
@@ -172,11 +172,73 @@
                                   <p> {{ user_education.address }}</p>
                           </div>
                       </div>
+                  </div> -->
+
+                  <div class="mt-2">
+                    <div class="uk-card-default rounded mt-0 ">
+                        <div class="uk-flex uk-flex-between uk-flex-middle py-3  px-4">
+                            <h4 class="mb-0"> Educational Details </h4>
+                            <a href="{% url 'userprofileEdit' %}" uk-tooltip="title:Edit Educational Details; pos: left"> <i
+                                    class="icon-feather-settings"></i> </a>
+                        </div>
+                         <hr class="m-0">
+
+
+   <style media="screen">
+          * {
+          box-sizing: border-box;
+        }
+
+
+        .first {
+          border-right: 2px solid #EA7219;
+          position: relative;
+
+        }
+
+        .first::after {
+              content: '';
+            position: absolute;
+            bottom: 95px;
+            right: -11px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #EA7219;
+            background: #FAF12B;
+        }
+   </style>
+
+                      <div class="py-3">
+                          {% for i in user_education %}
+
+                           <div class="my-0 ">
+                            <div class="uk-grid uk-child-width-1-2" uk-grid>
+
+                              <div class="text-right first p-4">
+                                <h5 style="font-family:impact regular;">{{i.start_month}} {{i.start_year}} - {{i.end_month}} {{i.end_year}}</h5>
+                              </div>
+
+                              <div class="text-left line p-4 second" id='line' >
+                                <h5  class="my-0" style="font-family:impact regular;">{{i.degree}} , {{i.specialization}}</h5>
+                                <h5  class="my-0" style="color: #D32525;"><strong>CGPA : {{i.gpa}}</strong></h5>
+                                <h6  class="my-0"><strong>{{i.institution}}</strong></h6>
+                                <h6  class="my-0"><strong>{{i.state}}</strong></h6>
+                              </div>
+
+
+                            </div>
+                          </div>
+
+                        {% endfor %}
+                      </div>
+
+                    </div>
                   </div>
 
 
 
-                  <div class="uk-card-default rounded my-4 pb-4">
+                  <div class="uk-card-default rounded my-2 pb-4">
                    <h6 class="pt-3 pl-4"><span class="uk-label bg-primary rounded" >Career FOCUS PATH</span>  </h6>
                    <div class="">
                      <div class="uk-flex uk-flex-between uk-flex-middle pt-1 pb-3 px-4">
@@ -213,23 +275,26 @@
                                     {% endfor %}
                                 {% endif %}
 
-                   </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
 
 
-                 </div>
+                      </div>
+                    </div>
 
-              </div>
 
-
-        </div>
 
 
           <!-- footer
                 ================================================== -->
                 {% include 'partials/_footer.html' %}
-        </div>
+
+    </div>
 </div>
+
             <script>
                 var total=0;
 
@@ -280,6 +345,6 @@
 
             })(window, document);
         </script>
-     </div>
+
 
 {% endblock %}

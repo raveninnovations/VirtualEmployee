@@ -410,11 +410,27 @@
                               {% for i in education %}
                               <li class="">
                                 <div class=" mx-3">
-                                  <h4 class="my-0">{{i.degree}} , {{i.specialization}}</h4>
-                                  <p class="my-0">{{i.institution}} - {{i.state}}</p>
-                                  <p class="my-0">{{i.start_month}} {{i.start_year}} - {{i.end_month}} {{i.end_year}}</p>
+                                    <div class="uk-flex uk-flex-between px-3">
+                                      <div class="">
+                                        <h4 class="my-0">{{i.degree}} , {{i.specialization}}</h4>
+                                        <p class="my-0">{{i.institution}} , {{i.state}}</p>
+                                        <p class="my-0">{{i.start_month}} {{i.start_year}} - {{i.end_month}} {{i.end_year}}</p>
+                                        <p>CGPA : {{i.gpa}}</p>
+                                      </div>
 
-                                  <p>{{i.gpa}}</p>
+                                          <div class="">
+                                            <form class="del_edu" method="POST">
+                                              {% csrf_token %}
+                                            <div class="">
+                                              <input type="text" name="deg" value="{{i.degree}}" hidden >
+                                              <input type="text" name="spec" value="{{i.specialization}}" hidden>
+                                              <input type="text" name="ins" value="{{i.institution}}" hidden>
+                                            </div>
+                                          <button type="submit"  class="btn btn-default" name="edu_del"><i class="uil-times"></i></button>
+                                          </form>
+                                          </div>
+
+                                    </div>
                                 </div>
                               </li>
                               {% endfor %}
@@ -580,9 +596,27 @@
                               {% for i in work %}
                               <li class="">
                                 <div class=" mx-3">
-                                  <h4 class="my-0">{{i.job_role}}</h4>
-                                  <p class="my-0">{{i.company}}</p>
-                                  <p class="my-0">{{i.start_month}} {{i.start_year}} - {{i.end_month}} {{i.end_year}}</p>
+                                  <div class="uk-flex uk-flex-between px-3">
+                                    <div class="">
+                                      <h4 class="my-0">{{i.job_role}}</h4>
+                                      <p class="my-0">{{i.company}}</p>
+                                      <p class="my-0">{{i.start_month}} {{i.start_year}} - {{i.end_month}} {{i.end_year}}</p>
+                                    </div>
+
+                                    <div class="">
+                                      <form class="del_work" method="POST">
+                                        {% csrf_token %}
+                                        <div class="">
+                                          <input type="text" name="role" value="{{i.job_role}}" hidden>
+                                          <input type="text" name="com" value="{{i.company}}" hidden>
+                                          <input type="text" name="sm" value="{{i.start_month}}" hidden>
+                                          <input type="number" name="sy" value="{{i.start_year}}" hidden>
+                                        </div>
+                                          <button type="submit"  class="btn btn-default" name="work_del"><i class="uil-times"></i></button>
+                                      </form>
+                                    </div>
+
+                                  </div>
                                 </div>
                               </li>
                               {% endfor %}
