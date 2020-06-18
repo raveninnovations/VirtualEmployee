@@ -1429,14 +1429,14 @@ def tlProjectStudentDetails(request,pid,id):
         userdetails = UserDetails.objects.get(user_id_id=student.pk)
 
         user_contact = UserContact.objects.get(user_id_id=userdetails.pk)
-        user_education = UserEducation.objects.get(user_id_id=userdetails.pk)
+        user_education = UserEducation.objects.filter(user_id_id=userdetails.pk)
         pdata = ProjectManager.objects.get(id = pid)
         if request.method == 'POST':
             if 'reward' in request.POST:
                 points = request.POST['points']
                 role = request.POST['role']
                 if ProjectPoint.objects.filter(user_id_id=userdetails.pk,proj_role=role).exists():
-                    data = ProjectPoint.objects.get(user_id_id=userdetails.pk)
+                    data = ProjectPoint.objects.get(user_id_id=userdetails.pk,proj_role=role)
                     point = int(data.proj_points) + int(points)
                     if point >999:
                         messages.error(request,"User reached maximum points")
