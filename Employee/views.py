@@ -24,7 +24,7 @@ from django.core.mail import send_mail, EmailMessage
 from datetime import datetime
 from .forms import (AddUserForm)
 
-from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience
+from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill
 
 
 # Create your views here.
@@ -655,10 +655,30 @@ def userprofile(request):
             except:
                 work=[]
 
+            try:
+                tech_skills=UserSkill.objects.filter(user_id_id=user_details.pk,category='Technical')
+            except:
+                tech_skills=[]
+
+            try:
+                man_skills=UserSkill.objects.filter(user_id_id=user_details.pk,category='Management')
+            except:
+                man_skills=[]
+
+            try:
+                lan_skills=UserSkill.objects.filter(user_id_id=user_details.pk,category='Languages')
+            except:
+                lan_skills=[]
+
+
             context = {
                 'user_education':user_education,
                 'user_data': user_details,
-                'work':work
+                'work':work,
+                'tech_skills':tech_skills,
+                'man_skills':man_skills,
+                'lan_skills':lan_skills
+
             }
             if UserContact.objects.filter(user_id_id=user_details.pk).exists():
                 user_contact = UserContact.objects.get(user_id_id=user_details.pk)
@@ -667,11 +687,31 @@ def userprofile(request):
                 except:
                     work=[]
 
+
+                try:
+                    tech_skills=UserSkill.objects.filter(user_id_id=user_details.pk,category='Technical')
+                except:
+                    tech_skills=[]
+
+                try:
+                    man_skills=UserSkill.objects.filter(user_id_id=user_details.pk,category='Management')
+                except:
+                    man_skills=[]
+
+                try:
+                    lan_skills=UserSkill.objects.filter(user_id_id=user_details.pk,category='Languages')
+                except:
+                    lan_skills=[]
+
                 context={
                     'user_contact':user_contact,
                     'user_education': user_education,
                     'user_data': user_details,
-                    'work':work
+                    'work':work,
+                    'tech_skills':tech_skills,
+                    'man_skills':man_skills,
+                    'lan_skills':lan_skills
+
                 }
                 # CFP
                 if StudentCFP.objects.filter(user_id_id=user_details.pk).exists():
@@ -683,6 +723,22 @@ def userprofile(request):
                         work = UserWorkExperience.objects.filter(user_id_id=user_details.pk).order_by("-start_year")
                     except:
                         work=[]
+
+                    try:
+                        tech_skills=UserSkill.objects.filter(user_id_id=user_details.pk,category='Technical')
+                    except:
+                        tech_skills=[]
+
+                    try:
+                        man_skills=UserSkill.objects.filter(user_id_id=user_details.pk,category='Management')
+                    except:
+                        man_skills=[]
+
+                    try:
+                        lan_skills=UserSkill.objects.filter(user_id_id=user_details.pk,category='Languages')
+                    except:
+                        lan_skills=[]
+
 
                     # print('work:', work)
 
@@ -696,7 +752,11 @@ def userprofile(request):
                         'claims' :claim,
                         'tag':tag,
                         'proj':proj_point,
-                        'work':work
+                        'work':work,
+                        'tech_skills':tech_skills,
+                        'man_skills':man_skills,
+                        'lan_skills':lan_skills
+
 
                     }
                     return render(request, 'virtualmain_pages/user-profile.html', context)
@@ -762,6 +822,47 @@ def userEdit(request):
                 except:
                     messages.error(request,"Complete your contact info to change Pic")
                     return redirect("userprofileEdit")
+
+
+            if 'skill' in request.POST:
+                type=request.POST['type']
+                skills=request.POST['skills']
+
+                create=UserSkill(user_id_id=user_detail.pk,category=type,skill=skills)
+                create.save()
+                messages.success(request, "Skills Added")
+
+                return redirect(request.path_info)
+
+            if 'tech_del' in request.POST:
+                type=request.POST['type']
+                skill=request.POST['skill1']
+
+                find=UserSkill.objects.get(user_id_id=user_detail.pk,category=type,skill=skill)
+                find.delete()
+                messages.success(request,"Technical Skill Deleted")
+                return redirect(request.path_info)
+
+            if 'man_del' in request.POST:
+                type=request.POST['type']
+                skill=request.POST['skill2']
+
+                find=UserSkill.objects.get(user_id_id=user_detail.pk,category=type,skill=skill)
+                find.delete()
+                messages.success(request,"Management Skill Deleted")
+                return redirect(request.path_info)
+
+            if 'lan_del' in request.POST:
+                type=request.POST['type']
+                skill=request.POST['skill3']
+
+                find=UserSkill.objects.get(user_id_id=user_detail.pk,category=type,skill=skill)
+                find.delete()
+                messages.success(request,"Language Deleted")
+                return redirect(request.path_info)
+
+
+
             if 'education' in request.POST:
                 institution=request.POST['institution']
                 start_month=request.POST['start-month']
@@ -862,13 +963,31 @@ def userEdit(request):
                 except:
                     work=[]
 
+                try:
+                    tech_skills=UserSkill.objects.filter(user_id_id=user_detail.pk,category='Technical')
+                except:
+                    tech_skills=[]
+
+                try:
+                    man_skills=UserSkill.objects.filter(user_id_id=user_detail.pk,category='Management')
+                except:
+                    man_skills=[]
+
+                try:
+                    lan_skills=UserSkill.objects.filter(user_id_id=user_detail.pk,category='Languages')
+                except:
+                    lan_skills=[]
+
                 users = UserContact.objects.order_by("gender")
                 education = UserEducation.objects.filter(user_id_id=user_detail.pk)
                 context = {
                     'user_detail': user_detail,
                     'users': users,
                     'education': education,
-                    'work':work
+                    'work':work,
+                    'tech_skills':tech_skills,
+                    'man_skills':man_skills,
+                    'lan_skills':lan_skills
 
                 }
 

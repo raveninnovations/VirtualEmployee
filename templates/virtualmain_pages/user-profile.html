@@ -615,11 +615,9 @@
                       <h4 class="mx-1"><span class="badge badge-pill px-5" style="background:#ffd76b;">  Technical Skills</span></h4>
                   </div>
                   <div class="text-justify pl-5 uk-width-2-3 mx-auto ">
-                    <h5 class="my-1"><strong>&bull; &nbsp; R-Language</strong></h5>
-                    <h5 class="my-1"><strong>&bull; &nbsp; Python</strong></h5>
-                    <h5 class="my-1"><strong>&bull; &nbsp; Hadoop Platform</strong></h5>
-                    <h5 class="my-1"><strong>&bull; &nbsp; SQL Database Coding</strong></h5>
-                    <h5 class="my-1"><strong>&bull; &nbsp; Apache spark</strong></h5>
+                  {% for i in tech_skills %}
+                    <h5 class="my-1"><strong>&bull; &nbsp; {{i.skill}}</strong></h5>
+                  {% endfor %}
                   </div>
                 </div>
 
@@ -628,9 +626,9 @@
                       <h4 class="mx-1"><span class="badge badge-pill px-4" style="background:#ffd76b;">  Management/Office Skills</span></h4>
                   </div>
                   <div class="text-justify pl-5 uk-width-2-3 mx-auto ">
-                    <h5 class="my-1"><strong>&bull; &nbsp; MS-Office </strong></h5>
-                    <h5 class="my-1"><strong>&bull; &nbsp; Lorem</strong></h5>
-                    <h5 class="my-1"><strong>&bull; &nbsp; E-Mail Writing</strong></h5>
+                    {% for i in man_skills %}
+                      <h5 class="my-1"><strong>&bull; &nbsp; {{i.skill}}</strong></h5>
+                    {% endfor %}
                   </div>
                 </div>
 
@@ -639,9 +637,9 @@
                       <h4 class="mx-1"><span class="badge badge-pill px-5" style="background:#ffd76b;">  Languages</span></h4>
                   </div>
                   <div class="text-justify pl-5 uk-width-2-3 mx-auto ">
-                    <h5 class="my-1"><strong>&bull; &nbsp; English</strong></h5>
-                    <h5 class="my-1"><strong>&bull; &nbsp; Hindi</strong></h5>
-                    <h5 class="my-1"><strong>&bull; &nbsp; German</strong></h5>
+                    {% for i in lan_skills %}
+                      <h5 class="my-1"><strong>&bull; &nbsp; {{i.skill}}</strong></h5>
+                    {% endfor %}
                   </div>
                 </div>
 

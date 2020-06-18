@@ -101,6 +101,122 @@
                         </form>
 
 
+                        <div class="uk-card-default rounded " style="margin-top:85px;">
+                          <div class="p-3 uk-flex uk-flex-between">
+                              <h4 class="my-auto"> Skills </h4>
+                              <button class="btn btn-default uk-margin-small-right" type="button" uk-toggle="target: #modal-close-default-skill"> + Add</button>
+                          </div>
+
+                          <div id="modal-close-default-skill" uk-modal>
+                              <div class="uk-modal-dialog uk-modal-body">
+                                  <button class="uk-modal-close-default" type="button" uk-close></button>
+                                  <h2 class="uk-modal-title text-center">Add Your Skills</h2>
+
+                                  <form class="skil"  method="POST">
+                                    {% csrf_token %}
+
+                                   <div class="uk-margin">
+                                       <label class="uk-form-label" for="form-horizontal-select">Skill Type</label>
+                                       <div class="uk-form-controls">
+                                           <select class="uk-select" name="type" required>
+                                             <option selected disabled>Choose From Here</option>
+                                             <option value="Technical">Technical Skills</option>
+                                             <option value="Management">Management/Office Skills</option>
+                                             <option value="Languages">Language Known</option>
+                                           </select>
+                                       </div>
+                                   </div>
+
+
+                                   <div class="uk-margin mt-0">
+                                      <label class="uk-form-label" for="form-horizontal-text">Skill Name</label>
+                                      <div class="uk-form-controls">
+                                          <input class="uk-input" id="form-horizontal-text" type="text" name="skills" placeholder="Type Here (Max Length : 30 characters)" maxlength="30" required>
+                                      </div>
+                                  </div>
+
+
+                                   <div class="text-center mt-2">
+                                     <button type="submit" class="btn btn-default" name="skill">Submit</button>
+                                   </div>
+
+                                  </form>
+                              </div>
+                          </div>
+
+                            <hr class="m-0">
+                            <div class="">
+
+                              <div class="my-2 mb-4">
+                                <h5 class="text-center"><strong>Technical Skills</strong></h5>
+                                <div class="mx-5">
+                                  {% if tech_skills %}
+                                    {% for i in tech_skills %}
+                                    <div class="uk-flex uk-flex-between ">
+                                      <p class="my-1 ">&bull; &nbsp; {{i.skill}}</p>
+                                      <form class="tech" name="tech" method="POST">
+                                        {% csrf_token %}
+                                        <input type="text" name="type" value="{{i.category}}" hidden>
+                                        <input type="text" name="skill1" value="{{i.skill}}" hidden>
+                                        <button class="btn btn-default bg-white text-dark" name="tech_del" uk-tooltip="title:Remove; pos: left"><i class="uil-times-circle"></i></button>
+                                      </form>
+                                    </div>
+                                    {% endfor %}
+                                  {% else %}
+                                    <p class="my-1 ">No Technical Skills Added</p>
+                                  {% endif %}
+                                </div>
+                              </div>
+
+                              <div class="my-2 mb-4">
+                                <h5 class="text-center"><strong>Management/Office Skills</strong></h5>
+                                <div class="mx-5">
+                                  {% if man_skills %}
+                                    {% for i in man_skills %}
+                                    <div class="uk-flex uk-flex-between ">
+                                      <p class="my-1 ">&bull; &nbsp; {{i.skill}}</p>
+                                      <form class="man" name="mang" method="POST">
+                                        {% csrf_token %}
+                                        <input type="text" name="type" value="{{i.category}}" hidden>
+                                        <input type="text" name="skill2" value="{{i.skill}}" hidden>
+                                        <button class="btn btn-default bg-white text-dark" name="man_del" uk-tooltip="title:Remove; pos: left"><i class="uil-times-circle"></i></button>
+                                      </form>
+                                    </div>
+                                    {% endfor %}
+                                  {% else %}
+                                    <p class="my-1 ">No Management Skills Added</p>
+                                  {% endif %}
+                                </div>
+                              </div>
+
+                              <div class="my-2">
+                                <h5 class="text-center"><strong>Languages Known</strong></h5>
+                                <div class="mx-5">
+                                  {% if lan_skills %}
+                                    {% for i in lan_skills %}
+                                    <div  class="uk-flex uk-flex-between ">
+                                      <p class="my-1 ">&bull; &nbsp; {{i.skill}}</p>
+
+                                      <form class="lan" name="lan" method="POST">
+                                        {% csrf_token %}
+                                        <input type="text" name="type" value="{{i.category}}" hidden>
+                                        <input type="text" name="skill3" value="{{i.skill}}" hidden>
+                                        <button class="btn btn-default bg-white text-dark" name="lan_del" uk-tooltip="title:Remove; pos: left"><i class="uil-times-circle"></i></button>
+                                      </form>
+
+                                    </div>
+                                    {% endfor %}
+                                  {% else %}
+                                    <p class="my-1 ">No languages Added</p>
+                                  {% endif %}
+                                </div>
+                              </div>
+
+                            </div>
+
+                           <br>
+                        </div>
+
 
 
 

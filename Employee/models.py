@@ -84,6 +84,15 @@ class UserWorkExperience(models.Model):
         return self.job_role
 
 
+class UserSkill(models.Model):
+    user_id = models.ForeignKey(UserDetails,on_delete=models.CASCADE)
+    category=models.CharField(max_length=100)
+    skill=models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.skill
+
+
 
 class RoleDetail(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
