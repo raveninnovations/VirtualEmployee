@@ -1579,7 +1579,7 @@ def tlProjectStudentDetails(request,pid,id):
                 points = request.POST['points']
                 role = request.POST['role']
                 if ProjectPoint.objects.filter(user_id_id=userdetails.pk,proj_role=role).exists():
-                    data = ProjectPoint.objects.get(user_id_id=userdetails.pk)
+                    data = ProjectPoint.objects.get(user_id_id=userdetails.pk,proj_role=role)
                     point = int(data.proj_points) + int(points)
                     if point >999:
                         messages.error(request,"User reached maximum points")

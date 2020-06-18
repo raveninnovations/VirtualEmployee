@@ -289,6 +289,7 @@
                                   </div>
                                    <div class="uk-width-expand">
                                           {% if proj %}
+
                                               {% for pro in proj %}
                                               {% if pro.proj_role == cfp_details.role_one %}
                                            <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
@@ -319,7 +320,9 @@
 
 
                 <div class="">
+
                   {% if cfp_details %}
+
 
                       <div class="uk-card-default rounded my-4">
                         <!-- <h6 class="pt-3 pl-4"><span class="uk-label bg-primary rounded" >Career FOCUS PATH</span>  </h6> -->
@@ -398,14 +401,19 @@
                                   </div>
                                    <div class="uk-width-expand">
                                        {% if proj %}
+
+
                                               {% for pro in proj %}
+
                                               {% if pro.proj_role == cfp_details.role_two %}
+
                                            <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
 
                                            <progress class="course-progressbar-filler" id="live2" value="{{ pro.proj_points }}" max="1000" style="width: 84%"></progress>
                                               {% endif %}
                                               {% endfor %}
                                           {% else %}
+
                                            <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
 
                                            <progress class="course-progressbar-filler" id="live2" value="0" max="1000" style="width: 84%"></progress>
@@ -498,43 +506,7 @@
 
 
 
-                <!-- <div class="">
-                  <div class="uk-card-default rounded">
-                      <div class="uk-flex uk-flex-between uk-flex-middle py-3 px-4">
-                          <h4 class="mb-0"> Personal Details </h4>
-                              <a href="{% url 'userprofileEdit' %}" uk-tooltip="title:Edit Account; pos: left"> <i
-                                      class="icon-feather-settings"></i> </a>
-                      </div>
-                      <hr class="m-0">
-                      <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid>
-                          <div>
-                              <h5 class="uk-text-bold"> First Name </h5>
-                                  <p> {{ user.first_name }} </p>
-                          </div>
-                          <div>
-                              <h5 class="uk-text-bold"> Second Name </h5>
-                                  <p> {{ user.last_name }} </p>
-                          </div>
 
-
-                          <div>
-                              <h5 class="uk-text-bold"> Your email address </h5>
-                                  <p> {{ user.email }} </p>
-                          </div>
-                          <div>
-                              <h5 class="uk-text-bold"> Phone </h5>
-                                  <p> {{ user_data.user_phone }} </p>
-                          </div>
-
-                           <div>
-                              <h5 class="uk-text-bold">Residential Address</h5>
-                                  <p> {{ user_contact.address1 }} -- {{ user_contact.address2 }}</p>
-                          </div>
-
-                      </div>
-                  </div>
-
-                </div> -->
 
 
                 <div class="mt-0">
@@ -702,55 +674,55 @@
             </div>
 
 
-<!--
-
-
-
-            <div class="uk-card-default rounded text-center mt-5 pb-3">
-                <div class="mx-auto">
-                <h6 class="py-3"><span class="uk-label bg-primary rounded" >CFP RELATED COURSE</span>  </h6>
-              </div>
-
-              <div class="" style="height:570px; overflow:auto;">
-                {% if lists %}
-                {% for list in lists %}
-                <div class="uk-card uk-card-default mx-5 my-4 rounded">
-                {% if list.course_image %}
-                    <div class="uk-card-media-top rounded" >
-                        <img src="{{ list.course_image.url }} " class="rounded"  alt="">
-                    </div>
-                 {% else %}
-                    <div class="uk-card-media-top rounded" >
-                        <img src="{% static 'images/course/1.png' %}" class="rounded"  alt="">
-                    </div>
-                    {% endif %}
-                    <div class="uk-card-body p-3">
-                        <h6 >{{ list.title }}</h6>
-                    </div>
-                </div>
-                {% endfor %}
-            {% endif %}
-            {% if lists2 %}
-                {% for list2 in lists2 %}
-                <div class="uk-card uk-card-default mx-5 my-4 rounded">
-                {% if list2.course_image %}
-                    <div class="uk-card-media-top rounded" >
-                        <img src="{{ list2.course_image.url }} " class="rounded"  alt="">
-                    </div>
-                 {% else %}
-                    <div class="uk-card-media-top rounded" >
-                        <img src="{% static 'images/course/1.png' %}" class="rounded"  alt="">
-                    </div>
-                    {% endif %}
-                    <div class="uk-card-body p-3">
-                        <h6 >{{ list2.title }}</h6>
-                    </div>
-                </div>
-                {% endfor %}
-            {% endif %}
-              </div>
-
-            </div> -->
+{#<!--#}
+{##}
+{##}
+{##}
+{#            <div class="uk-card-default rounded text-center mt-5 pb-3">#}
+{#                <div class="mx-auto">#}
+{#                <h6 class="py-3"><span class="uk-label bg-primary rounded" >CFP RELATED COURSE</span>  </h6>#}
+{#              </div>#}
+{##}
+{#              <div class="" style="height:570px; overflow:auto;">#}
+{#                {% if lists %}#}
+{#                {% for list in lists %}#}
+{#                <div class="uk-card uk-card-default mx-5 my-4 rounded">#}
+{#                {% if list.course_image %}#}
+{#                    <div class="uk-card-media-top rounded" >#}
+{#                        <img src="{{ list.course_image.url }} " class="rounded"  alt="">#}
+{#                    </div>#}
+{#                 {% else %}#}
+{#                    <div class="uk-card-media-top rounded" >#}
+{#                        <img src="{% static 'images/course/1.png' %}" class="rounded"  alt="">#}
+{#                    </div>#}
+{#                    {% endif %}#}
+{#                    <div class="uk-card-body p-3">#}
+{#                        <h6 >{{ list.title }}</h6>#}
+{#                    </div>#}
+{#                </div>#}
+{#                {% endfor %}#}
+{#            {% endif %}#}
+{#            {% if lists2 %}#}
+{#                {% for list2 in lists2 %}#}
+{#                <div class="uk-card uk-card-default mx-5 my-4 rounded">#}
+{#                {% if list2.course_image %}#}
+{#                    <div class="uk-card-media-top rounded" >#}
+{#                        <img src="{{ list2.course_image.url }} " class="rounded"  alt="">#}
+{#                    </div>#}
+{#                 {% else %}#}
+{#                    <div class="uk-card-media-top rounded" >#}
+{#                        <img src="{% static 'images/course/1.png' %}" class="rounded"  alt="">#}
+{#                    </div>#}
+{#                    {% endif %}#}
+{#                    <div class="uk-card-body p-3">#}
+{#                        <h6 >{{ list2.title }}</h6>#}
+{#                    </div>#}
+{#                </div>#}
+{#                {% endfor %}#}
+{#            {% endif %}#}
+{#              </div>#}
+{##}
+{#            </div> -->#}
 
 
                 {% include 'partials/_footer.html' %}
@@ -762,10 +734,28 @@
     <script>
         var total=0;
         var tota2=0;
+        var proj2 =0;
+        var proj = 0;
 
-        var proj = document.getElementById('live1').value ;
+        {% if proj %}
+         {% for pro in proj %}
+          {% if pro.proj_role == cfp_details.role_one %}
+             proj = document.getElementById('live1').value ;
+        {% endif %}
+        {% endfor %}
+        {% endif %}
 
-        var proj2 = document.getElementById('live2').value ;
+
+         {% if proj %}
+         {% for pro in proj %}
+          {% if pro.proj_role == cfp_details.role_two %}
+             proj2 = document.getElementById('live2').value ;
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+
+
+
 
 
         {% for claim in claims %}
@@ -780,7 +770,9 @@
             {% endif %}
         {% endfor %}
 
-        document.getElementById("pro1").value = total ;
+
+
+        document.getElementById("pro1").value = total + proj;
 
 
         {% for claim in claims %}
