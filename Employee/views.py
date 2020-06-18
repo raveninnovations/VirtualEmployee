@@ -838,7 +838,7 @@ def userEdit(request):
                 type=request.POST['type']
                 skill=request.POST['skill1']
 
-                find=UserSkill.objects.get(user_id_id=user_detail.pk,category=type,skill=skill)
+                find=UserSkill.objects.filter(user_id_id=user_detail.pk,category=type,skill=skill) #previously get()
                 find.delete()
                 messages.success(request,"Technical Skill Deleted")
                 return redirect(request.path_info)
@@ -847,7 +847,7 @@ def userEdit(request):
                 type=request.POST['type']
                 skill=request.POST['skill2']
 
-                find=UserSkill.objects.get(user_id_id=user_detail.pk,category=type,skill=skill)
+                find=UserSkill.objects.filter(user_id_id=user_detail.pk,category=type,skill=skill)
                 find.delete()
                 messages.success(request,"Management Skill Deleted")
                 return redirect(request.path_info)
@@ -856,7 +856,7 @@ def userEdit(request):
                 type=request.POST['type']
                 skill=request.POST['skill3']
 
-                find=UserSkill.objects.get(user_id_id=user_detail.pk,category=type,skill=skill)
+                find=UserSkill.objects.filter(user_id_id=user_detail.pk,category=type,skill=skill)
                 find.delete()
                 messages.success(request,"Language Deleted")
                 return redirect(request.path_info)
