@@ -1429,7 +1429,7 @@ def tlProjectStudentDetails(request,pid,id):
         userdetails = UserDetails.objects.get(user_id_id=student.pk)
 
         user_contact = UserContact.objects.get(user_id_id=userdetails.pk)
-        user_education = UserEducation.objects.get(user_id_id=userdetails.pk)
+        user_education = UserEducation.objects.filter(user_id_id=userdetails.pk)
         pdata = ProjectManager.objects.get(id = pid)
         if request.method == 'POST':
             if 'reward' in request.POST:
