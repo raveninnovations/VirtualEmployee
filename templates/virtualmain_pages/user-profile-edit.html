@@ -524,8 +524,8 @@
 
                             <ol class="my-2">
                               {% for i in education %}
-                              <li class="">
-                                <div class=" mx-3">
+                              <li class="mx-4">
+                                <div class=" mx-2">
                                     <div class="uk-flex uk-flex-between px-3">
                                       <div class="">
                                         <h4 class="my-0">{{i.degree}} , {{i.specialization}}</h4>
@@ -542,7 +542,7 @@
                                               <input type="text" name="spec" value="{{i.specialization}}" hidden>
                                               <input type="text" name="ins" value="{{i.institution}}" hidden>
                                             </div>
-                                          <button type="submit"  class="btn btn-default" name="edu_del"><i class="uil-times"></i></button>
+                                          <button type="submit"  class="btn btn-default bg-white text-dark" name="edu_del" uk-tooltip="title:Remove; pos: left"><i class="uil-times-circle"></i></button>
                                           </form>
                                           </div>
 
@@ -710,8 +710,8 @@
 
                             <ol class="my-2">
                               {% for i in work %}
-                              <li class="">
-                                <div class=" mx-3">
+                              <li class=" mx-4">
+                                <div class=" mx-2">
                                   <div class="uk-flex uk-flex-between px-3">
                                     <div class="">
                                       <h4 class="my-0">{{i.job_role}}</h4>
@@ -728,7 +728,7 @@
                                           <input type="text" name="sm" value="{{i.start_month}}" hidden>
                                           <input type="number" name="sy" value="{{i.start_year}}" hidden>
                                         </div>
-                                          <button type="submit"  class="btn btn-default" name="work_del"><i class="uil-times"></i></button>
+                                          <button type="submit"  class="btn btn-default bg-white text-dark" name="work_del" uk-tooltip="title:Remove; pos: left"><i class="uil-times-circle"></i></button>
                                       </form>
                                     </div>
 
