@@ -49,6 +49,7 @@ class UserContact(models.Model):
     address1 = models.CharField(max_length=100)
     address2 = models.CharField(max_length=100)
     user_pic = models.ImageField(upload_to='user_profile/', null=True, blank=True)
+    user_bio=models.TextField(blank=False,null=True)
 
 
     def __str__(self):

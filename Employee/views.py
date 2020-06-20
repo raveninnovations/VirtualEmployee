@@ -804,10 +804,12 @@ def userEdit(request):
                     address1 = request.POST['address1']
                     address2 = request.POST['address2']
                     gender = request.POST['gender']
+                    bio=request.POST['bio']
                     data = UserContact.objects.get(user_id_id=user_detail.pk)
                     data.address1 = address1
                     data.address2 = address2
                     data.gender = gender
+                    data.user_bio=bio
                     data.save()
                     messages.success(request,"Updated Contact Info")
                     return redirect('userprofileEdit')
@@ -816,8 +818,9 @@ def userEdit(request):
                     address1 = request.POST['address1']
                     address2 = request.POST['address2']
                     gender = request.POST['gender']
+                    bio=request.POST['bio']
 
-                    data = UserContact(address1=address1,address2=address2,gender=gender,user_id_id=user_detail.pk)
+                    data = UserContact(address1=address1,address2=address2,gender=gender,user_bio=bio,user_id_id=user_detail.pk)
                     data.save()
                     messages.success(request,"Contact Info added")
                     return redirect(userEdit)
