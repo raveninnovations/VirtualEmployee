@@ -573,8 +573,20 @@ def userLesson(request,id):
 
                     if not Claim.objects.filter(claim_id_id = course_details.pk,user_id=user_details.pk).exists():
 
-                        claim = Claim(claim_id_id=course_details.pk,category=course_details.category,points=course_details.course_points,user_id=user_details.pk)
+                        claim = Claim(claim_id_id=course_details.pk,category=course_details.category,course_tag=course_details.course,points=course_details.course_points,user_id=user_details.pk)
                         claim.save()
+                        points = Claim.objects.filter(course_tag=course_details.course, user_id=user_details.pk)
+                        if points:
+                            total = 0
+                            for point in points:
+                                print("hlo")
+                                print(point.points)
+                                total += int(point.points)
+                            if total > 300:
+                                course_del = Claim.objects.filter(user_id=user_details.pk,claim_id_id=course_details.pk)
+                                course_del.delete()
+                                messages.error(request,"Rewards reached maximum")
+                                return redirect('userlesson',id)
 
                         if CourseTag.objects.filter(user_id_id=user_details.pk,
                                                     course_tag=course_details.course).exists():

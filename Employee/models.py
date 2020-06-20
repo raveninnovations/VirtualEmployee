@@ -288,6 +288,7 @@ class Claim(models.Model):
     user = models.ForeignKey(UserDetails,models.CASCADE,null=True)
     points = models.CharField(max_length=50,null=True)
     category = models.CharField(max_length=100)
+    course_tag = models.CharField(max_length=100,null=True)
 class CourseTag(models.Model):
     user_id = models.ForeignKey(UserDetails,on_delete=models.CASCADE,null=True)
     course_tag = models.CharField(max_length=100,null=True)
