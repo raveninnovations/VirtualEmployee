@@ -101,6 +101,7 @@
                         </form>
 
 
+
                         <div class="uk-card-default rounded " style="margin-top:85px;">
                           <div class="p-3 uk-flex uk-flex-between">
                               <h4 class="my-auto"> Skills </h4>
@@ -264,7 +265,38 @@
                             <form method="POST">
                               {% csrf_token %}
 
-                              <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid>
+                              <div class="uk-width-1-1  p-4 pb-0">
+                                {% if users %}
+                              {% for user in users %}
+                              {% if user.user_id_id == user_detail.pk %}
+
+                                {% if user.user_bio %}
+                                <div class="uk-margin">
+                                    <h5 class="uk-form-label uk-text-bold" for="form-stacked-text">Write About Yourself</h5>
+                                        <div class="uk-form-controls">
+                                            <!-- <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text..."> -->
+                                            <textarea class="uk-textarea" name="bio" rows="4"  required>{{user.user_bio}}</textarea>
+                                        </div>
+                                    </div>
+                                  {% else %}
+                                  <div class="uk-margin">
+                                      <h5 class="uk-form-label uk-text-bold" for="form-stacked-text">Write About Yourself</h5>
+                                          <div class="uk-form-controls">
+                                              <!-- <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text..."> -->
+                                              <textarea class="uk-textarea" name="bio" rows="4"  placeholder="Enter Bio Here" required></textarea>
+                                          </div>
+                                      </div>
+                                  {% endif %}
+
+
+                                    {% else %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% endif %}
+                              </div>
+
+
+                              <div class="uk-child-width-1-2@s uk-grid-small p-4 pt-0" uk-grid>
                                   {% if users %}
                                 {% for user in users %}
                                 {% if user.user_id_id == user_detail.pk %}
