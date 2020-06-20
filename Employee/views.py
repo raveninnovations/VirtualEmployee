@@ -578,9 +578,12 @@ def userLesson(request,id):
 
                         if CourseTag.objects.filter(user_id_id=user_details.pk,
                                                     course_tag=course_details.course).exists():
-                            points = CourseTag.objects.get(user_id_id=user_details.pk)
+
+                            points = CourseTag.objects.get(user_id_id=user_details.pk,course_tag=course_details.course)
+
                             c_points = course_details.course_points
                             new_points = int(points.points) + int(c_points)
+
                             points.points = new_points
                             points.save()
                         else:
