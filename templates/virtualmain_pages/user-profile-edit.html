@@ -359,7 +359,16 @@
                             {% endif %}
 
                               {% if idd %}
+                                  <div class="uk-margin">
+                                    <h5 class="uk-form-label uk-text-bold" for="form-stacked-text">Write About Yourself</h5>
+                                        <div class="uk-form-controls">
+                                            <!-- <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text..."> -->
+                                            <textarea class="uk-textarea" name="bio" rows="4"  required>{{user.user_bio}}</textarea>
+                                        </div>
+                                    </div>
+
                                   <div>
+
                                     <h5 class="uk-text-bold mb-2"> Address 1 </h5>
                                     <input type="text" name='address1' class="uk-input" placeholder="Address Line 1">
                                     </div>
