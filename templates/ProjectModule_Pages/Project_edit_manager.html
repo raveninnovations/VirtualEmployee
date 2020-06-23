@@ -208,6 +208,35 @@ Project Manager
                       <div class="uk-width-2-5@m px-2">
 
                         <div class="m-3">
+
+
+                          <div class="uk-margin  mt-0">
+                              <label class="uk-form-label" for="form-horizontal-text"><strong>Project Status</strong></label>
+                              <div class="uk-form-controls">
+                                <select  name="progress" required ">
+                                  {% if project.project_status == 'To Do' %}
+                                    <option value="To Do" selected>To Do</option>
+                                  {% else %}
+                                    <option value="To Do">To Do</option>
+                                  {% endif %}
+
+                                  {% if project.project_status == 'In Progress' %}
+                                    <option value="In Progress" selected>In Progress</option>
+                                  {% else %}
+                                    <option value="In Progress">In Progress</option>
+                                  {% endif %}
+
+                                  {% if project.project_status == 'Completed' %}
+                                    <option value="Completed" selected>Completed</option>
+                                  {% else %}
+                                    <option value="Completed">Completed</option>
+                                  {% endif %}
+                                </select>
+                              </div>
+                          </div>
+
+
+
                           <h4 class="uk-text-bold mb-2"> CFP Eligibility </h4>
                           <div class="uk-margin">
                               <label class="uk-form-label" for="form-horizontal-text">Category</label>

@@ -76,7 +76,7 @@ TL Dashboard
                                 <div>
                                     <div class="uk-card uk-card-default">
                                         <div class="uk-card-media-top">
-
+                                          <span class="uk-card-badge uk-label uk-position-top-right bg-primary">{{project.project_status}}</span>
                                             {% if project.project_thumbnail %}
                                                   <img src="{{project.project_thumbnail.url}}" alt="">
                                             {% else %}
@@ -90,6 +90,7 @@ TL Dashboard
                                             <p><strong>Project Category: </strong>{{project.project_category}}</p>
                                             <p><strong>Project Role: </strong>{{project.project_cfp}}</p>
                                             <p><strong>Team Count: </strong>{{project.candidates_required}}</p>
+
                                         </div>
                                     </div>
 

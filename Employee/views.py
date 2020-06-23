@@ -1736,6 +1736,7 @@ def projectManager(request):
                 project_docs=request.FILES.get("project_docs")
                 project_category=request.POST.get("project_category")
                 project_cfp=request.POST.get("project_role")
+                project_status=request.POST["progress"]
 
 
                 proj=ProjectManager.objects.create(
@@ -1747,7 +1748,8 @@ def projectManager(request):
                     candidates_required=candidates_required,
                     project_docs=project_docs,
                     project_category=project_category,
-                    project_cfp=project_cfp
+                    project_cfp=project_cfp,
+                    project_status=project_status
                 )
                 # proj.project_cfp.set(cfp_list)
                 proj.save()
@@ -1842,6 +1844,7 @@ def projectEditManager(request,id):
                 project_docs=request.FILES.get("project_docs")
                 project_category=request.POST.get("project_category")
                 project_cfp=request.POST.get("project_role")
+                project_status=request.POST["progress"]
 
 
                 project.project_title=project_title
@@ -1852,6 +1855,8 @@ def projectEditManager(request,id):
                 project.project_docs=project_docs
                 project.project_category=project_category
                 project.project_cfp=project_cfp
+                project.project_status=project_status
+
 
                 project.save()
 
