@@ -441,6 +441,23 @@ def logout(request):
     auth.logout(request)
     return render(request,'Admin_pages/logout.html')
 
+
+def forgot_password(request):
+    if request.method == 'POST':
+        email=request.POST['email']
+        mail_subject = "[Reset Password] VE - Virtual Employee"
+        current_site = get_current_site(request)
+        message = render_to_string('virtualmain_pages/forget-password.html', {
+            'user': email,
+
+        })
+        email = EmailMessage(mail_subject, message, from_email=EMAIL_HOST_USER, to=[email])
+        email.send()
+        return redirect(request.path_info)
+
+    return render(request,'virtualmain_pages/forget-password.html')
+
+
 # USER SECTION
 
 @login_required
