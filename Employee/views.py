@@ -428,9 +428,19 @@ def userlogin(request):
                     except:
                         messages.error(request,"Dont have permission to login")
                         return redirect('login')
+                    try:
+                        user_cfp = UserDetails.objects.get(user_id_id=user.pk)
+                        if user_cfp.user_cfp == False:
+                            user_cfp.user_cfp = True
+                            user_cfp.save()
+                            messages.success(request,"Choose your career focus path ! Enjoy")
+                            return redirect('usercfp')
+                        else:
+                            return redirect(userdashboard)
+                    except:
+                        user_cfp = UserDetails.objects.get(user_id_id=user.pk)
+                        user_cfp.user_cfp = True
                     return redirect(userdashboard)
-
-
         messages.error(request, "Login failed")
         return redirect('login')
     return render(request, 'virtualmain_pages/login.html')
