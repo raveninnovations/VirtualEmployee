@@ -2370,6 +2370,7 @@ def UserCfp(request):
             confirm_second_role=request.POST['confirm_second_role']
             data=StudentCFP(category_one=confirm_first_category,role_one=confirm_first_role,category_two=confirm_second_category,role_two=confirm_second_role,user_id_id=details.pk)
             data.save()
+            find=CareerChoice.objects.all().delete()
             messages.success(request,"CFP Created")
             return redirect('userprofileEdit')
     cag_list = CareerCategory.objects.all()
