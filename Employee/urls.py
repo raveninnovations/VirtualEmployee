@@ -1,12 +1,12 @@
-from django.urls import path
+from django.urls import path,include
 from django.contrib.auth import views as auth_views
 
 from . import views
 
 urlpatterns = [
+    path('', include('django.contrib.auth.urls')),
     path('register/',views.adduser,name='register'),
     path('',views.userlogin,name='login'),
-    path('forgot_password/', views.forgot_password, name='forgot_password'),
     path('logout/', views.logout, name='logout'),
     path('admindashboard/',views.adminDashboard,name="admindashboard"),
     path('admindashboard/courses/',views.adminCourses,name='admincourse'),
@@ -52,5 +52,25 @@ urlpatterns = [
     path('testEdit/<int:id>',views.testEdit,name='testEdit'),
     # path('careerchoice/',views.careerchoice,name='careerchoice'),
     path('usercfp/', views.UserCfp, name='usercfp'),
-    path('pricing/',views.pricing,name='pricing')
+    path('pricing/',views.pricing,name='pricing'),
+
+
+
+    path('reset_password/',
+     auth_views.PasswordResetView.as_view(template_name='virtualmain_pages/password_reset.html'),
+     name="reset_password"),
+
+    path('reset_password_sent/',
+        auth_views.PasswordResetDoneView.as_view(template_name='virtualmain_pages/password_reset_sent.html'),
+        name="password_reset_done"),
+
+    path('reset/<uidb64>/<token>/',
+     auth_views.PasswordResetConfirmView.as_view(template_name='virtualmain_pages/password_reset_form.html'),
+     name="password_reset_confirm"),
+
+    path('reset_password_complete/',
+        auth_views.PasswordResetCompleteView.as_view(template_name='virtualmain_pages/password_reset_done.html'),
+        name="password_reset_complete"),
+
+
     ]
