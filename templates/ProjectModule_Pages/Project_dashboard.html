@@ -16,11 +16,14 @@ Projects
 
             <!-- logo -->
             <div class="logo uk-visible@s">
-                <a href="dashboard.html"> <i class=" uil-graduation-hat"></i> <span> Courseplus</span> </a>
+                <a href="{% url 'projectDashboard' %}" class="logo">
+                            <img src="{% static 'images/VES.png' %}" alt="">
+
+                        </a>
             </div>
             <div class="page-menu-inner" data-simplebar>
                 <ul class="mt-0">
-                    <li><a href="dashboard.html"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
+                    <li><a href="{% url 'projectDashboard' %}"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
                     <li><a href="{% url 'projectManager' %}"><i class="uil-youtube-alt"></i> <span> Project Manager</span></a> </li>
 
                 </ul>
