@@ -1571,9 +1571,10 @@ def tlDashboard(request):
         print(user)
         data=RoleDetail.objects.get(role_user_email=user.email)
         projects=ProjectManager.objects.filter(project_tl=data.role_user_id)
-
+        completed_projects=ProjectManager.objects.filter(project_tl=data.role_user_id,project_status='Completed')
         context={
             'projects':projects,
+            'completed_projects':completed_projects
         }
         return render(request,'TL_Pages/tl_dashboard.html',context)
     else:
