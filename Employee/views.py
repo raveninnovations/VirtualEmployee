@@ -197,7 +197,11 @@ def adminRolecreation(request):
 
             if 'roleSort' in request.POST:
                 role = request.POST['roleSort']
-                roled = RoleDetail.objects.filter(user_role=role)
+                if role == 'ALL':
+                    roled=RoleDetail.objects.all()
+                else:
+                    roled = RoleDetail.objects.filter(user_role=role)
+
                 context ={
                     'roles':roled
                 }
@@ -2070,7 +2074,7 @@ def category_edit(request,id):
             datas.save()
 
             CFP_role.objects.filter(cfp_category=name).update(cfp_category=category)
-            return redirect('/cfp_create/')
+            return redirect('cfp_create')
 
     context={
         'datas':datas,

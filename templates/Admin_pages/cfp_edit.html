@@ -60,6 +60,8 @@ Edit CFP
                                                 <a class="btn btn-default text-white  mb-3" type="button" id="addSkillRow" onclick="addSkillRow()"><i
                                                         class='uil-plus'></i>CFP Course</a>
 
+                                                <a class="btn btn-default text-white  mb-3" type="button" id="delSkillRow" onclick="delSkillRow()"><i
+                                                        class='uil-times'></i>Delete </a>
 
 
                                                 <table id="SkillsTable" class="uk-width-expand">
@@ -191,10 +193,23 @@ Edit CFP
                   td = tr.insertCell(c);
                       var ele = document.createElement('input');
                       ele.setAttribute('type', 'text');
-                      ele.setAttribute('placeholder', 'Add Skills');
+                      ele.setAttribute('placeholder', 'Add Course Tag');
                       td.appendChild(ele);
 
               }
+          }
+
+          //To delete skills in the table
+          function delSkillRow() {
+              var empTab = document.getElementById('SkillsTable');
+
+              var rowCnt = empTab.rows.length;   // table row count.
+              var tr ; // the table row.
+              tr = empTab.deleteRow(rowCnt-1);
+              rowCnt = empTab.rows.length;
+              tr = empTab.deleteRow(rowCnt-1);
+
+
           }
 
 
@@ -217,8 +232,17 @@ Edit CFP
               var str="";
               for(i=0;i<arrValues.length;i++)
               {
-                str=str.concat(arrValues[i])
-                str=str+'_';
+                  len=arrValues[i].trim().length
+                  if (len==0)
+                  {
+                    continue;
+                  }
+                  else{
+                    str=str.concat(arrValues[i]);
+                    str=str+'_';
+
+                  }
+
               }
 
               req_str=str.substring(0,str.length-1)
