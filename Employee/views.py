@@ -1882,6 +1882,12 @@ def projectEditManager(request,id):
                 return redirect("/projectdashboard/")
 
 
+            if 'del-project' in request.POST:
+                find=ProjectManager.objects.get(id=pid)
+                find.delete()
+                # messages.success(request,'Project Successfully Deleted')
+                return redirect('projectDashboard')
+
         cag_data=CareerCategory.objects.all()
         if ProjectCFPStore.objects.count()!=0:
             obj=ProjectCFPStore.objects.get(create_id=0)
