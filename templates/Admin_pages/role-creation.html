@@ -94,7 +94,7 @@ Role Creation
 
 
 
-                    <div class="uk-width-3-4@m my-5">
+                    <div class="uk-width-3-6@m">
                         <div class="card rounded">
                           <div class=" container py-4 uk-width-expand">
                              <form method="POST">
@@ -105,10 +105,11 @@ Role Creation
                                   <div class="col-md-4 uk-margin my-auto">
                                       <select class="uk-select uk-width-auto" name="roleSort" onchange="submit()">
                                           <option >Sort Role</option>
+                                          <option value="ALL">All</option>
                                           <option value="CSM">CSM</option>
                                           <option value="PCM">PCM</option>
                                           <option value="TL">TL</option>
-                                          <option value="Intructor">Instructor</option>
+                                          <option value="Instructor">Instructor</option>
                                       </select>
                                   </div>
                                   <div class="col-md-8 my-suto">
@@ -138,7 +139,11 @@ Role Creation
                                       <tr>
                                           <td>{{role.role_user_id}}</td>
                                           <td>{{role.user_role}}</td>
+<<<<<<< HEAD
                                           <td>{{role.role_user_name}}</td>
+=======
+                                          <td>{{role.user_id.first_name}} {{ role.user_id.last_name }}</td>
+>>>>>>> 9f75cd19a23271fe116c45c67fc69250fabb1951
                                           <td>{{role.role_user_email}}</td>
                                           <td>{{role.role_create_date | date}}</td>
                                           <!-- <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove" >Remove</button></td> -->

@@ -3,6 +3,7 @@
 Project Manager
 {% endblock %}
 {% load static %}
+
 {% block content %}
     <div id="wrapper" class="admin-panel">
 
@@ -15,11 +16,14 @@ Project Manager
 
             <!-- logo -->
             <div class="logo uk-visible@s">
-                <a href="dashboard.html"> <i class=" uil-graduation-hat"></i> <span> Courseplus</span> </a>
+                <a href="{% url 'projectDashboard' %}" class="logo">
+                            <img src="{% static 'images/VES.png' %}" alt="">
+
+                        </a>
             </div>
             <div class="page-menu-inner" data-simplebar>
                 <ul class="mt-0">
-                    <li><a href="dashboard.html"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
+                    <li><a href="{% url 'projectDashboard' %}"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
                     <li><a href="project_manager.html"><i class="uil-youtube-alt"></i> <span> Project Manager</span></a> </li>
 
                 </ul>
@@ -118,7 +122,8 @@ Project Manager
 
 
                                         <div class="form-group uk-text-center">
-                                          <button  class="btn btn-default px-5" name="role">Save</button>
+                                          <button  class="btn btn-default px-5 role" name="role" style="float: right; margin-top: -75px;
+                                             margin-right: 31px;" >Save</button>
                                         </div>
 
                                        </fieldset>

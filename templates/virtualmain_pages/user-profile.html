@@ -162,8 +162,12 @@
                       <h5 class="my-0"> Employee ID : {{ user_data.user_unique }} </h5>
                       <!-- <p class="m-0"> Member since {{ user_data.user_date }} </p> -->
                       <div class="uk-flex">
+                        {% if cfp_details.role_one %}
                         <p class="mx-1" style="margin-top: 0.50rem;"><span class="badge badge-pill " style="background:#ffd76b; color:black"> &bull; {{cfp_details.role_one}}</span></p>
+                        {% endif %}
+                        {% if cfp_details.role_two %}
                         <p class="mx-1" style="margin-top: 0.50rem;"><span class="badge badge-pill " style="background:#ffd76b; color:black"> &bull; {{cfp_details.role_two}}</span></p>
+                        {% endif %}
                       </div>
 
                       <div class="my-2">

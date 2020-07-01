@@ -89,7 +89,9 @@ CFP Creation
                                         <div class="uk-width-expand my-3">
 
                                                 <a class="btn btn-default text-white  mb-3" type="button" id="addSkillRow" onclick="addSkillRow()"><i
-                                                        class='uil-plus'></i>CFP Course</a>
+                                                        class='uil-plus'></i>Add </a>
+                                                <a class="btn btn-default text-white  mb-3" type="button" id="delSkillRow" onclick="delSkillRow()"><i
+                                                        class='uil-times'></i>Delete </a>
 
 
 
@@ -97,7 +99,7 @@ CFP Creation
                                                   <thead>
                                                     <tr>
                                                       <td><input type='text' class='uk-input1'
-                                                          placeholder="Add Skills"></td>
+                                                          placeholder="Add Course Tag"></td>
                                                     </tr>
                                                   </thead>
                                                 </table>
@@ -113,6 +115,14 @@ CFP Creation
 
                                 </fieldset>
                             </form>
+                            <div class="my-2">
+                              <h4>Note:</h4>
+                              <ul>
+                                <li>If you want to delete the last course tag or cells click on "Delete" button</li>
+                                <li>If you want to delete the course tag that is placed in between other course tag leave that cell empty</li>
+                              </ul>
+                            </div>
+
                             </div>
                         </div>
                     </div>
@@ -138,7 +148,7 @@ CFP Creation
                                   <!-- <div class=" my-auto text-center uk-width-expand">
                                       <legend class="uk-legend ">List Of CFP Category</legend>
                                   </div> -->
-<!-- 
+<!--
 
                                 <hr style="width:70% mx-auto mt-0"> -->
 
@@ -324,10 +334,24 @@ CFP Creation
                   td = tr.insertCell(c);
                       var ele = document.createElement('input');
                       ele.setAttribute('type', 'text');
-                      ele.setAttribute('placeholder', 'Add Skills');
+                      ele.setAttribute('placeholder', 'Add Course Tag');
                       td.appendChild(ele);
 
               }
+          }
+
+
+          //To delete skills in the table
+          function delSkillRow() {
+              var empTab = document.getElementById('SkillsTable');
+
+              var rowCnt = empTab.rows.length;   // table row count.
+              var tr ; // the table row.
+              tr = empTab.deleteRow(rowCnt-1);
+              rowCnt = empTab.rows.length;
+              tr = empTab.deleteRow(rowCnt-1);
+
+
           }
 
 
@@ -350,8 +374,17 @@ CFP Creation
               var str="";
               for(i=0;i<arrValues.length;i++)
               {
-                str=str.concat(arrValues[i])
-                str=str+'_';
+                  len=arrValues[i].trim().length
+                  if (len==0)
+                  {
+                    continue;
+                  }
+                  else{
+                    str=str.concat(arrValues[i]);
+                    str=str+'_';
+
+                  }
+
               }
 
               req_str=str.substring(0,str.length-1)

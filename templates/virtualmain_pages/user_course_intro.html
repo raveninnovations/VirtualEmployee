@@ -132,19 +132,7 @@ Course Details
                                       {% endfor %}
                                     </ul>
 
-                                    <h4> <strong>Here is exactly what we cover in this course: </strong></h4>
-                                    <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
-                                        nibh
-                                       </p>
 
-                                    <p> consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                                        laoreet
-                                        dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
-                                        nostrud
-                                        exerci</p>
-
-                                    <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
-                                        .</p>
 
 
                             </li>
@@ -608,35 +596,13 @@ Course Details
                            {% if course_details.course_image %}
                             <div class="course-thumbnail">
                                 <img src="{{ course_details.course_image.url }}" alt="">
-                                <a class="play-button-trigger show" href="#trailer-modal" uk-toggle> </a>
+                                <a class="play-button-trigger show" href="{% url 'userlesson' course_details.pk %}" uk-toggle> </a>
                             </div>
                             {% else %}
                             {% endif %}
 
-                            <!-- video demo model -->
-                            <div id="trailer-modal" uk-modal>
-                                <div class="uk-modal-dialog">
-                                    <button class="uk-modal-close-default mt-2  mr-1" type="button" uk-close></button>
-                                    <div class="uk-modal-header">
-                                        <h4> Trailer video </h4>
-                                    </div>
-                                    <div class="video-responsive">
-                                        <iframe src="https://www.youtube.com/embed/nOCXXHGMezU"
-                                            class="uk-padding-remove" uk-video="automute: true" frameborder="0"
-                                            allowfullscreen uk-responsive></iframe>
-                                    </div>
 
-                                    <div class="uk-modal-body">
-                                        <h3>Build Responsive Websites </h3>
-                                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                                            dolore
-                                            eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                                            proident,
-                                            sunt
-                                            in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                    </div>
-                                </div>
-                            </div>
+
 
                             <div class="p-3">
 
