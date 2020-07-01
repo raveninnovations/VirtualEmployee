@@ -406,7 +406,7 @@ def userlogin(request):
             else:
                 try:
                     print("user role")
-                    if RoleDetail.objects.filter(role_user_email=email, role_user_password=password).exists():
+                    if RoleDetail.objects.filter(role_user_email=email).exists():
                         print("user role")
                         role = RoleDetail.objects.get(role_user_email=email)
                         if role.user_role == "CSM":
@@ -451,8 +451,10 @@ def userlogin(request):
 
 
 
-def logout(request):
+def user_logout(request):
+    print("hello")
     auth.logout(request)
+    print("hai")
     return render(request,'Admin_pages/logout.html')
 
 
@@ -1039,6 +1041,7 @@ def userEdit(request):
             context={
                 "idd":1,
                 "edd":1,
+                'user_detail':user_detail,
 
 
             }
@@ -1436,8 +1439,10 @@ def csmAddCurriculam(request,id):
             if 'create' in request.POST:
                 lesson_name = request.POST['lesson']
                 print(lesson_name)
+                if Lesson.objects.filter(lesson_id_id=c_id,lesson_name=lesson_name).exists():
+                    messages.error(request,"Lesson name already exists")
+                    return redirect('csmAddCurriculam',id)
                 less_private = random.randint(112,1000)*100
-
                 Less = Lesson(lesson_name=lesson_name,lesson_private=less_private,lesson_id_id=c_id)
                 Less.save()
                 messages.success(request,"Lesson Added")
@@ -1447,19 +1452,16 @@ def csmAddCurriculam(request,id):
                 topic_caption = request.POST['topic_descrip']
                 topic_video = request.POST['topic_video']
                 lesson = request.POST['les_id']
-                # Video duration
 
-                # video = VideoFileClip(topic_video.temporary_file_path())
-                # print("Duration")
-                # video_sec = video.duration
-                # video_hr = str(dt.timedelta(seconds=video_sec))
-                # print(video_hr)
-                # video_dur = video_hr[:video_hr.index('.')]
+
 
                 try:
                     lesson_private = Lesson.objects.get(lesson_private=lesson)
                     if lesson_private:
                         print("enter")
+                        if Lesson_Topic.objects.filter(topic_id_id=lesson_private.pk,topic_caption=topic_caption).exists():
+                            messages.error(request,"Topic name already exists")
+                            return redirect('csmAddCurriculam',id)
                         topic = Lesson_Topic(topic_id_id=lesson_private.pk, topic_caption=topic_caption, topic_video= topic_video)
                         topic.save()
                         messages.success(request,"Topic added to lesson")
