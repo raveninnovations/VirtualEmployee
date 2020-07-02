@@ -415,6 +415,8 @@ def userlogin(request):
                             return redirect('tlDashboard')
                         elif role.user_role == "PCM":
                             return redirect('projectDashboard')
+                        elif role.user_role == "Instructor":
+                            return redirect('insDashboard')
                         else:
                             messages.error(request, "Error occured in Role")
                 except:
@@ -1964,15 +1966,27 @@ def pcmSettings(request):
 
 
 def insDashboard(request):
-    
-    user=request.user
-    assign_courses=Course.objects.filter(instructor=user.email)
+    if request.user.is_active:
+        user=request.user
+        try:
+            role = RoleDetail.objects.get(user_id_id=user.pk)
+            if role.user_role == "Instructor":
+                assign_courses=Course.objects.filter(instructor=user.email)
 
-    context={
-        'assign_courses':assign_courses
-    }
-    return render(request,'Instructor_pages/Instructor_dashboard.html',context)
+                context={
+                    'assign_courses':assign_courses
+                }
+                return render(request,'Instructor_pages/Instructor_dashboard.html',context)
+            else:
+                messages.error(request,"Wrong credentials")
+                return redirect('login')
+        except:
+            messages.error(request,"Wrong credentials")
+            return redirect('login')
 
+    else:
+        messages.error(request,"Wrong")
+        return redirect('login')
 
 
 @login_required

@@ -24,7 +24,7 @@ Projects
             <div class="page-menu-inner" data-simplebar>
                 <ul class="mt-0">
                     <li><a href="{% url 'insDashboard' %}"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
-                    <li><a href=""><i class="uil-youtube-alt"></i> <span> Project Manager</span></a> </li>
+
 
                 </ul>
 
@@ -35,7 +35,7 @@ Projects
 
         <!-- Header Container
         ================================================== -->
-     {% include 'partials/pcm_partials/_pcm_header.html' %}
+     {% include 'partials/instructor_partials/_instructor_header.html' %}
 
         <!-- content -->
         <div class="page-content">
@@ -45,7 +45,7 @@ Projects
                     <nav id="breadcrumbs" class="mb-3">
                         <ul>
                             <li><a href="#"> <i class="uil-home-alt"></i> </a></li>
-                            <li><a href="#"> Dashboard </a></li>
+                            <li><a href="{% url 'insDashboard' %}"> Dashboard </a></li>
                         </ul>
                     </nav>
                 </div>
@@ -95,11 +95,7 @@ Projects
                             </div>
                         </div>
                     </div>
-
-
-
-
-                <!-- footer
+              <!-- footer
                 ================================================== -->
                 {% include 'partials/_footer.html' %}
 
