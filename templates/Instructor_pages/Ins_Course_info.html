@@ -1,0 +1,193 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% block title %}
+Projects
+{% endblock %}
+{% block content %}
+
+ <div id="wrapper" class="admin-panel">
+
+        <!-- menu -->
+        <div class="page-menu">
+            <!-- btn close on small devices -->
+            <span class="btn-menu-close" uk-toggle="target: #wrapper ; cls: mobile-active"></span>
+            <!-- traiger btn -->
+            <span class="btn-menu-trigger" uk-toggle="target: .page-menu ; cls: menu-large"></span>
+
+            <!-- logo -->
+            <div class="logo uk-visible@s">
+                <a href="{% url 'insDashboard' %}" class="logo">
+                            <img src="{% static 'images/VES.png' %}" alt="">
+
+                        </a>
+            </div>
+            <div class="page-menu-inner" data-simplebar>
+                <ul class="mt-0">
+                    <li><a href="{% url 'insDashboard' %}"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
+
+
+                </ul>
+
+
+
+            </div>
+        </div>
+
+        <!-- Header Container
+        ================================================== -->
+     {% include 'partials/instructor_partials/_instructor_header.html' %}
+
+        <!-- content -->
+        <div class="page-content">
+            <div class="page-content-inner">
+
+                <div class="d-flex">
+                    <nav id="breadcrumbs" class="mb-3">
+                        <ul>
+                            <li><a href="#"> <i class="uil-home-alt"></i> </a></li>
+                            <li><a href="{% url 'insDashboard' %}"> Course Info </a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+
+
+
+
+                                    <div class="uk-width-expand  my-5 ">
+                                      <div class="uk-width-3-5 mx-auto  " >
+                                      {% include 'partials/_alerts.html' %}
+                                            <div class="uk-card uk-card-default rounded">
+                                                <div class="uk-card-media-top img-fluid uk-height-1-2 ">
+                                                  {% if info.course_image %}
+                                                    <img src="{{info.course_image.url}}" class="rounded"  alt="">
+                                                  {% else %}
+                                                    <img src="" alt="">
+                                                  {% endif %}
+                                                </div>
+                                                <div class="uk-card-body ">
+                                                    <h1 class="uk-card-title text-center mt-0">{{info.title}}</h1>
+                                                    <div class="uk-child-width-1-2@s" uk-grid>
+                                                      <div class="">
+                                                        <h4 class="mb-0">Course Tagline:</h4>
+                                                      </div>
+                                                      <div class="">
+                                                          <p class="mt-0"><strong>{{info.tagline}}</strong></p>
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="uk-child-width-1-2@s" uk-grid>
+                                                      <div class="">
+                                                        <h4 class="mb-0">Course Description:</h4>
+                                                      </div>
+                                                      <div class="">
+                                                          <p class="mt-0"><strong>{{info.short_description}}</strong></p>
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="uk-child-width-1-2@s" uk-grid>
+                                                      <div class="">
+                                                        <h4 class="mb-0">Course Category</h4>
+                                                      </div>
+                                                      <div class="">
+                                                          <p class="mt-0"><strong>{{info.category}}</strong></p>
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="uk-child-width-1-2@s" uk-grid>
+                                                      <div class="">
+                                                        <h4 class="mb-0">Course Role</h4>
+                                                      </div>
+                                                      <div class="">
+                                                          <p class="mt-0"><strong>{{info.role}}</strong></p>
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="uk-child-width-1-2@s" uk-grid>
+                                                      <div class="">
+                                                        <h4 class="mb-0">Course Tag</h4>
+                                                      </div>
+                                                      <div class="">
+                                                          <p class="mt-0"><strong>{{info.course}}</strong></p>
+                                                      </div>
+                                                    </div>
+
+                                                    <div class="uk-child-width-1-2@s" uk-grid>
+                                                      <div class="">
+                                                        <h4 class="mb-0">Course Points</h4>
+                                                      </div>
+                                                      <div class="">
+                                                          <p class="mt-0"><strong>{{info.course_points}}</strong></p>
+                                                      </div>
+                                                    </div>
+
+                                                    <!-- <div class="uk-child-width-1-2@s" uk-grid>
+                                                      <div class="">
+                                                        <h4 class="mb-0">Created By:</h4>
+                                                      </div>
+                                                      <div class="">
+                                                          <p class="mt-0"><strong>{{i.user}}</strong></p>
+                                                      </div>
+                                                    </div> -->
+
+
+                                                </div>
+                                            </div>
+
+
+                                      </div>
+
+                                    </div>
+
+
+
+              <!-- footer
+                ================================================== -->
+                {% include 'partials/_footer.html' %}
+
+            </div>
+
+        </div>
+
+
+
+
+        <!-- For Night mode -->
+        <script>
+            (function (window, document, undefined) {
+                'use strict';
+                if (!('localStorage' in window)) return;
+                var nightMode = localStorage.getItem('gmtNightMode');
+                if (nightMode) {
+                    document.documentElement.className += ' night-mode';
+                }
+            })(window, document);
+
+
+            (function (window, document, undefined) {
+
+                'use strict';
+
+                // Feature test
+                if (!('localStorage' in window)) return;
+
+                // Get our newly insert toggle
+                var nightMode = document.querySelector('#night-mode');
+                if (!nightMode) return;
+
+                // When clicked, toggle night mode on or off
+                nightMode.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    document.documentElement.classList.toggle('night-mode');
+                    if (document.documentElement.classList.contains('night-mode')) {
+                        localStorage.setItem('gmtNightMode', true);
+                        return;
+                    }
+                    localStorage.removeItem('gmtNightMode');
+                }, false);
+
+            })(window, document);
+        </script>
+ </div>
+
+{% endblock %}

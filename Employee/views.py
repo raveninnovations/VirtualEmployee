@@ -957,7 +957,7 @@ def userEdit(request):
 
                 work=UserWorkExperience(user_id_id=user_detail.pk,job_role=role,start_month=start_month,start_year=start_year,end_month=end_month,end_year=end_year,state=state,company=company)
                 work.save()
-                
+
                 messages.success(request, "Work Experience Added")
                 return redirect(request.path_info)
 
@@ -1987,6 +1987,26 @@ def insDashboard(request):
     else:
         messages.error(request,"Wrong")
         return redirect('login')
+
+
+@login_required
+def insCourseInfo(request,id):
+    if request.user.is_active:
+        cid=id
+        info=Course.objects.get(id=cid)
+        context={
+            'info':info
+        }
+        return render(request,"Instructor_pages/Ins_Course_info.html",context)
+
+    else:
+        messages.error(request,'Wrong URL')
+        return redirect('login')
+
+    return render(request,"Instructor_pages/Ins_Course_info.html",context)
+
+
+
 
 
 @login_required
