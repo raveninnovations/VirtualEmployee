@@ -411,7 +411,7 @@
                                     <button class="uk-modal-close-default" type="button" uk-close></button>
                                     <h2 class="uk-modal-title  text-center">Add Educational Details</h2>
 
-                                    <form class="education"  method="POST">
+                                    <form class="education"  method="POST" name="myEduForm" onsubmit="validateForm()" required>
                                       {% csrf_token %}
 
                                       <div class="uk-margin">
@@ -427,6 +427,7 @@
                                            <label class="uk-form-label" for="form-horizontal-select">Start Month</label>
                                            <div class="uk-form-controls">
                                                <select class="uk-select" name="start-month" required>
+                                                <option disabled selected>Choose Month</option>
                                                  <option value="Jan">January</option>
                                                  <option value="Feb">February</option>
                                                  <option value="Mar">March</option>
@@ -447,6 +448,7 @@
                                            <label class="uk-form-label" for="form-horizontal-select">Start Year</label>
                                            <div class="uk-form-controls">
                                                <select class="uk-select" name="start-year" id="ddlYears" required>
+                                                <option disabled selected>Choose Year</option>
                                                </select>
                                            </div>
                                        </div>
@@ -459,7 +461,7 @@
 
                                        <div class="uk-margin">
                                            <label class="uk-form-label" for="form-horizontal-select">End Month</label>
-                                           <div class="uk-form-controls">
+                                           <div class="uk-form-controls" >
                                                <select class="uk-select" name="end-month" required>
                                                  <option value="Jan">January</option>
                                                  <option value="Feb">February</option>
@@ -562,7 +564,25 @@
                                     </form>
                                 </div>
                             </div>
-
+                            <script>
+                              function validateForm(){
+                                // var a = document.forms["myEduForm"]["institution"].value;
+                                var b = document.forms["myEduForm"]["start-month"].value;
+                                var c = document.forms["myEduForm"]["start-year"].value;
+                                var d = document.forms["myEduForm"]["end-month"].value;
+                                var f = document.forms["myEduForm"]["end-year"].value;
+                                
+                                if (b == "" || b == null) {
+                                  alert("Choose the start month");
+                                  return false;
+                                }
+                                if (c == "" || c == null) {
+                                  alert("Choose the start year");
+                                  return false;
+                                }
+                              }
+                              
+                            </script>
                             <ol class="my-2">
                               {% for i in education %}
                               <li class="mx-4">
@@ -841,13 +861,14 @@
     <script type="text/javascript">
         window.onload = function () {
             //Reference the DropDownList.
+            $("input").prop('required',true);
             var ddlYears = document.getElementById("ddlYears");
 
             //Determine the Current Year.
             var currentYear = (new Date()).getFullYear();
-
+            // var next5years= currentYears+10;
             //Loop and add the Year values to DropDownList.
-            for (var i = currentYear; i >= 1950; i--) {
+            for (var i = currentYear; i >= 1985; i--) {
                 var option = document.createElement("OPTION");
                 option.innerHTML = i;
                 option.value = i;
@@ -859,9 +880,9 @@
 
             //Determine the Current Year.
             var currentYears = (new Date()).getFullYear();
-
+            var next5years= currentYears+10;
             //Loop and add the Year values to DropDownList.
-            for (var i = currentYears; i >= 1950; i--) {
+            for (var i = next5years; i >= 1980; i--) {
                 var option = document.createElement("OPTION");
                 option.innerHTML = i;
                 option.value = i;
@@ -874,9 +895,9 @@
 
             //Determine the Current Year.
             var currentYears = (new Date()).getFullYear();
-
+            var next5years= currentYears+5;
             //Loop and add the Year values to DropDownList.
-            for (var i = currentYears; i >= 1950; i--) {
+            for (var i = next5years; i >= 1980; i--) {
                 var option = document.createElement("OPTION");
                 option.innerHTML = i;
                 option.value = i;
@@ -888,9 +909,9 @@
 
             //Determine the Current Year.
             var currentYears = (new Date()).getFullYear();
-
+            var next5years= currentYears+10;
             //Loop and add the Year values to DropDownList.
-            for (var i = currentYears; i >= 1950; i--) {
+            for (var i = next5years; i >= 1980; i--) {
                 var option = document.createElement("OPTION");
                 option.innerHTML = i;
                 option.value = i;

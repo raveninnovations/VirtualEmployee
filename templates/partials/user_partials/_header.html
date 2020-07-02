@@ -15,7 +15,7 @@
 
 
                         <!-- logo -->
-                        <a href="dashboard.html" class="logo">
+                        <a href="{% url 'dashboard' %}" class="logo">
                             <img src="{% static 'images/VES.png' %}" alt="">
                             <span> Virtual Empleado</span>
                         </a>
@@ -23,7 +23,7 @@
                         <!-- breadcrumbs -->
                         <nav id="breadcrumbs">
                             <ul>
-                                <!-- <li><a href="dashboard.html"> My Dashboard </a></li> -->
+                                <li><a href="/userdashboard/" style="color: black;font-weight: bold;font-size: 20px;"> My Dashboard </a></li>
 
                             </ul>
                         </nav>
@@ -36,13 +36,13 @@
 
                     <div class="uk-navbar-right">
 
-                        <div class="header-widget">
+                        <div class="header-widget" >
                             <!-- User icons close mobile-->
                             <span class="icon-feather-x icon-small uk-hidden@s"
                                 uk-toggle="target: .header-widget ; cls: is-active"> </span>
 
 
-                            <a href="#" class="header-widget-icon"
+                            <a href="#" class="header-widget-icon" 
                                 uk-tooltip="title: My Courses ; pos: bottom ;offset:21">
                                 <i class="uil-youtube-alt"></i>
                             </a>
@@ -405,7 +405,7 @@
 
                             <a href="#" class="header-widget-icon profile-icon">
 {#                                <img src="{% static 'images/avatars/avatar-2.jpg' %}" alt="" class="header-profile-icon">#}
-                            <p style="color: black;font-size: 16px;text-transform: uppercase;">{{ user.first_name }} {{ user.last_name }}</p>
+                            <p style="color: black;font-size: 16px;text-transform: uppercase;font-weight: bold;padding-top: 5px;">{{ user.first_name }} {{ user.last_name }}</p>
                             </a>
                         {% endif %}
 
@@ -419,7 +419,7 @@
 {#                                            <img src="{% static 'images/avatars/avatar-2.jpg' %}" alt="">#}
 {#                                        </div>#}
                                         {% if user.is_authenticated %}
-                                        <div class="dropdown-user-name">
+                                        <div class="dropdown-user-name" style="font-weight: bold;">
                                             {{ user.first_name }} {{ user.last_name }}<span>Students</span>
                                         </div>
                                         {% endif %}

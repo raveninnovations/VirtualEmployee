@@ -121,7 +121,7 @@ def adminRolecreation(request):
 
                 user_firstname = request.POST['fname']
                 user_lastname = request.POST['lname']
-                role_user_name=request.POST['email']
+                role_user_name=request.POST['fname']
                 role_user_email=request.POST['email']
                 regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
                 if User.objects.filter(email=role_user_email).exists():
@@ -955,6 +955,7 @@ def userEdit(request):
 
                 work=UserWorkExperience(user_id_id=user_detail.pk,job_role=role,start_month=start_month,start_year=start_year,end_month=end_month,end_year=end_year,state=state,company=company)
                 work.save()
+                
                 messages.success(request, "Work Experience Added")
                 return redirect(request.path_info)
 
