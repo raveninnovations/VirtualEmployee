@@ -40,6 +40,9 @@ urlpatterns = [
     path('tl-projectstudentdetails/<int:pid>/<int:id>',views.tlProjectStudentDetails,name='tlProjectStudentDetails'),
     path('tl-settings/',views.tlSettings,name='tlSettings'),
 
+    #Instructor Section
+    path('instructordashboard/',views.insDashboard,name='insDashboard'),
+
     # PROJECT Section
     path('projectmanager/',views.projectManager,name='projectManager'),
     path('projecteditmanager/<int:id>',views.projectEditManager,name='projectEditManager'),

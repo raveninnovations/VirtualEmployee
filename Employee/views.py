@@ -1960,6 +1960,20 @@ def pcmSettings(request):
     }
     return render(request, "ProjectModule_Pages/pcm_settings.html", context)
 
+
+
+def insDashboard(request):
+    
+    user=request.user
+    assign_courses=Course.objects.filter(instructor=user.email)
+
+    context={
+        'assign_courses':assign_courses
+    }
+    return render(request,'Instructor_pages/Instructor_dashboard.html',context)
+
+
+
 @login_required
 def cfp_create(request):
     if request.method=='POST':

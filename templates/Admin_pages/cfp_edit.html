@@ -58,20 +58,22 @@ Edit CFP
                                         <div class="uk-width-expand my-3">
 
                                                 <a class="btn btn-default text-white  mb-3" type="button" id="addSkillRow" onclick="addSkillRow()"><i
-                                                        class='uil-plus'></i>CFP Course</a>
+                                                        class='uil-plus'></i>Add Course Tag</a>
 
                                                 <a class="btn btn-default text-white  mb-3" type="button" id="delSkillRow" onclick="delSkillRow()"><i
-                                                        class='uil-times'></i>Delete </a>
+                                                        class='uil-times'></i>Delete Course Tag</a>
 
 
                                                 <table id="SkillsTable" class="uk-width-expand">
                                                   <thead>
+
                                                     {% for i in role_list %}
                                                     <tr>
                                                       <td><input type='text' class='uk-input1'
-                                                          value="{{i}}"></td>
+                                                          value="{{i}}" placeholder="Add Course Tag"></td>
                                                     </tr>
                                                     {% endfor %}
+
                                                   </thead>
                                                 </table>
 
@@ -88,6 +90,14 @@ Edit CFP
 
                                       <input type="hidden" name="delete_id" value="{{datas.cfp_id}}">
                                       <button class="btn btn-default px-4 " name="cfp_delete">Delete</button>
+
+                                      <div class="my-2 text-left">
+                                        <h4>Note:</h4>
+                                        <ul>
+                                          <li>If you want to delete the last course tag or cells click on "Delete" button</li>
+                                          <li>If you want to delete the course tag that is placed in between other course tag leave that cell empty</li>
+                                        </ul>
+                                      </div>
 
                                     </div>
                                 </fieldset>
@@ -186,7 +196,7 @@ Edit CFP
 
               var rowCnt = empTab.rows.length;   // table row count.
               var tr = empTab.insertRow(rowCnt); // the table row.
-              tr = empTab.insertRow(rowCnt);
+              // tr = empTab.insertRow(rowCnt);
 
               for (var c = 0; c < 1; c++) {
                   var td = document.createElement('td'); // table definition.
@@ -206,8 +216,8 @@ Edit CFP
               var rowCnt = empTab.rows.length;   // table row count.
               var tr ; // the table row.
               tr = empTab.deleteRow(rowCnt-1);
-              rowCnt = empTab.rows.length;
-              tr = empTab.deleteRow(rowCnt-1);
+              // rowCnt = empTab.rows.length;
+              // tr = empTab.deleteRow(rowCnt-1);
 
 
           }
