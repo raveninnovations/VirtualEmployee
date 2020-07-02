@@ -1538,7 +1538,6 @@ def csmEditLesson(request,id):
 @login_required
 def csmSettings(request):
     if request.user.is_active and request.user.is_staff and not request.user.is_superuser:
-
         user = request.user
         details = RoleDetail.objects.get(user_id_id=user.pk)
         form = PasswordChangeForm(user=request.user)
