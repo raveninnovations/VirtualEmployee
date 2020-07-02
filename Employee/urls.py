@@ -42,6 +42,7 @@ urlpatterns = [
 
     #Instructor Section
     path('instructordashboard/',views.insDashboard,name='insDashboard'),
+    path('instructor_course_info/<int:id>',views.insCourseInfo,name='insCourseInfo'),
 
     # PROJECT Section
     path('projectmanager/',views.projectManager,name='projectManager'),
