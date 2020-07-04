@@ -18,7 +18,7 @@ color: black;
                 <!-- column one -->
                 <div class="uk-margin-auto-vertical uk-text-center uk-animation-scale-up p-3 uk-light">
                     <div class="logo uk-visible@s">
-                <a href="" class="logo">
+                <a href="" class="logo" tabindex="-1">
                            <img src="{% static 'images/VES.png' %}" alt="">
 
                         </a>
@@ -38,7 +38,7 @@ color: black;
                                 <span class="uk-form-icon">
                                     <i class="icon-feather-mail"></i>
                                 </span>
-                                <input class="uk-input" type="email" name="email" placeholder="name@example.com">
+                                <input class="uk-input" type="email" name="email" placeholder="name@example.com" tabindex="1">
                             </div>
 
                         </div>
@@ -51,7 +51,7 @@ color: black;
                                     <i class="icon-feather-lock"></i>
                                 </span>
                                 <button type="button" class="uk-form-icon uk-form-icon-flip" onclick="toggle(this);" style="background: transparent;border:none;outline: none;"><i class="icon-feather-eye"></i></button>
-                                    <input class="uk-input" type="password" name="password" id="password" placeholder="●●●●●●●●●●">
+                                    <input class="uk-input" type="password" name="password" id="password" placeholder="●●●●●●●●●●" tabindex="2">
 
                                 </div>
 
@@ -70,7 +70,7 @@ color: black;
                         }
                         </script>
                         <div class="  text-left">
-                          <h6>Forgot Password? <span><a href="{% url 'reset_password' %}" class="create">Click Here</a></span></h6>
+                          <h6>Forgot Password? <span><a href="{% url 'reset_password' %}" class="create" tabindex="3">Click Here</a></span></h6>
                         </div>
 
 
@@ -78,7 +78,7 @@ color: black;
                         <div class="mt-4 ml-4">
 
                             <div class="text-center">
-                                <button id="bb" class="uk-width-expand" type="submit"><span></span><span></span><span></span><span></span>Login</button>
+                                <button id="bb" class="uk-width-expand" type="submit" tabindex="4"><span></span><span></span><span></span><span></span>Login</button>
                             </div>
                         </div>
 
@@ -87,7 +87,7 @@ color: black;
                         <hr>
                         <!-- <hr class="text-primary uk-divider-icon"> -->
                         <div class=" mt-4 text-center">
-                          <h6>Don't You have an account ? <span><a href="{% url 'register' %}" class="create">Create Now</a></span></h6>
+                          <h6>Don't You have an account ? <span><a href="{% url 'register' %}" class="create" tabindex="5">Create Now</a></span></h6>
                         </div>
 
 
