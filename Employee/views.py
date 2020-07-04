@@ -1658,8 +1658,6 @@ def tlProjectStudentDetails(request,pid,id):
         except:
             claim =None
 
-
-
         context={
             'user_contact':user_contact,
             'user_education':user_education,
