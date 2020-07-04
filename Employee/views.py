@@ -1681,7 +1681,6 @@ def tlProjectStudentDetails(request,pid,id):
 @login_required
 def tlSettings(request):
     if request.user.is_active and request.user.is_superuser and not request.user.is_staff:
-
         user = request.user
         details = RoleDetail.objects.get(user_id_id=user.pk)
         form = PasswordChangeForm(user=request.user)
@@ -1705,7 +1704,7 @@ def tlSettings(request):
         context = {
             'form': form,
         }
-        return render(request, "TL_pages/tl_settings.html", context)
+        return render(request, "TL_Pages/tl_settings.html", context)
     else:
         messages.error(request,"Wrong URL")
         return redirect('login')

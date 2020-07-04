@@ -20,24 +20,24 @@
         </div>
 
         <!-- search overlay-->
-        <div id="searchbox">
-
-            <div class="search-overlay"></div>
-
-            <div class="search-input-wrapper">
-                <div class="search-input-container">
-                    <div class="search-input-control">
-                        <span class="icon-feather-x btn-close uk-animation-scale-up"
-                            uk-toggle="target: #searchbox; cls: is-active"></span>
-                        <div class=" uk-animation-slide-bottom">
-                            <input type="text" name="search" autofocus required>
-                            <p class="search-help">Type the name of the Course you are looking for</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+{#        <div id="searchbox">#}
+{##}
+{#            <div class="search-overlay"></div>#}
+{##}
+{#            <div class="search-input-wrapper">#}
+{#                <div class="search-input-container">#}
+{#                    <div class="search-input-control">#}
+{#                        <span class="icon-feather-x btn-close uk-animation-scale-up"#}
+{#                            uk-toggle="target: #searchbox; cls: is-active"></span>#}
+{#                        <div class=" uk-animation-slide-bottom">#}
+{#                            <input type="text" name="search" autofocus required>#}
+{#                            <p class="search-help">Type the name of the Course you are looking for</p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#        </div>#}
 
         <!-- side nav-->
         <div class="side-nav uk-animation-slide-left-medium">
@@ -47,7 +47,7 @@
 
             <!-- logo -->
             <div class="logo uk-visible@s">
-                <a href="dashboard.html">
+                <a href="{% url 'dashboard' %}">
                    <img src="{% static 'images/VES.png' %}">
                 </a>
             </div>
@@ -73,9 +73,9 @@
                     <a href="blog-1.html"> <i class="uil-file-alt"></i> <span class="tooltips"> News</span></a>
                 </li>
 
-                <li>
-                    <a href="#" uk-toggle="target: #searchbox; cls: is-active"><i class="uil-search-alt"></i></a>
-                </li>
+{#                <li>#}
+{#                    <a href="#" uk-toggle="target: #searchbox; cls: is-active"><i class="uil-search-alt"></i></a>#}
+{#                </li>#}
 
             </ul>
             <ul class="uk-position-bottom">
