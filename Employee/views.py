@@ -30,6 +30,10 @@ from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, Caree
 # Create your views here.
 # ADMIN SECTION
 
+def landing(request):
+    return render(request,'virtualmain_pages/landing.html')
+
+
 @login_required
 def adminDashboard(request):
     user=request.user
