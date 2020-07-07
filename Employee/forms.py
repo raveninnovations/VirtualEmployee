@@ -10,22 +10,3 @@ class AddUserForm(ModelForm):
         model = UserDetails
         fields=['user_phone']
 
-
-# class EditUserProfileForm(ModelForm):
-#
-# 	class Meta:
-# 		model = UserProfile
-#
-# 		fields = [
-# 		'user_profile',
-# 		'gender',
-# 		'address',
-# 		'degree',
-# 		'specialisation',
-# 		'current_year',
-# 		'institution_name',
-# 		'institution_address',
-# 		'career_category',
-# 		'career_specification'
-#
-# 		]
