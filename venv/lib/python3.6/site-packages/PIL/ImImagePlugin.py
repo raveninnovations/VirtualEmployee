@@ -26,11 +26,11 @@
 #
 
 
-__version__ = "0.7"
-
 import re
 from PIL import Image, ImageFile, ImagePalette
 from PIL._binary import i8
+
+__version__ = "0.7"
 
 
 # --------------------------------------------------------------------
@@ -349,7 +349,7 @@ def _save(im, fp, filename, check=0):
 # --------------------------------------------------------------------
 # Registry
 
-Image.register_open("IM", ImImageFile)
-Image.register_save("IM", _save)
+Image.register_open(ImImageFile.format, ImImageFile)
+Image.register_save(ImImageFile.format, _save)
 
-Image.register_extension("IM", ".im")
+Image.register_extension(ImImageFile.format, ".im")

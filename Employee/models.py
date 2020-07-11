@@ -302,3 +302,16 @@ class ProjectPoint(models.Model):
     user_id = models.ForeignKey(UserDetails,on_delete=models.CASCADE,null=True)
     proj_points = models.CharField(max_length=50,null=True)
     proj_role = models.CharField(max_length=100,null=True)
+
+
+#  Certificate
+
+class Certificate(models.Model):
+    name = models.CharField(max_length=100)
+    certi_topic = models.CharField(max_length=100)
+    email = models.CharField(max_length=100,null=True)
+    serial_key = models.CharField(max_length=100)
+    issue_date = models.DateField()
+
+    def __str__(self):
+        return self.certi_topic

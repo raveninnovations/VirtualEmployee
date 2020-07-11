@@ -32,7 +32,7 @@ def _isconstant(v):
 
 
 class _Operand(object):
-    # wraps an image operand, providing standard operators
+    """Wraps an image operand, providing standard operators"""
 
     def __init__(self, im):
         self.im = im

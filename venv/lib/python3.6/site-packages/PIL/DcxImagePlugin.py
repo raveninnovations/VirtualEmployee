@@ -21,11 +21,10 @@
 # See the README file for information on usage and redistribution.
 #
 
-__version__ = "0.2"
-
 from PIL import Image, _binary
-
 from PIL.PcxImagePlugin import PcxImageFile
+
+__version__ = "0.2"
 
 MAGIC = 0x3ADE68B1  # QUIZ: what's this value, then?
 
@@ -82,6 +81,6 @@ class DcxImageFile(PcxImageFile):
         return self.frame
 
 
-Image.register_open("DCX", DcxImageFile, _accept)
+Image.register_open(DcxImageFile.format, DcxImageFile, _accept)
 
-Image.register_extension("DCX", ".dcx")
+Image.register_extension(DcxImageFile.format, ".dcx")
