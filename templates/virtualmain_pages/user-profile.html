@@ -222,6 +222,13 @@
                                 <progress class="uk-progress progress " id="pro1" max="1000" ></progress>
 
                               </div>
+                              <div class=" mt-4" id="cfp1points300">
+                                <h4>Congratulations!!! You have reached a milestone</h4>
+                                <form class="cfp1_mile"  method="POST">
+                                  {% csrf_token %}
+                                    <button type="submit" class="btn btn-default" name="cfp1_m1">Check Your Certificate Here</button>
+                                </form>
+                              </div>
                             </div>
 
 
@@ -336,6 +343,13 @@
                                 <div class="uk-container mb-3 px-0">
                                   <progress class="uk-progress progress" id="pro2" max="1000"></progress>
 
+                                </div>
+                                <div class=" mt-4" id="cfp2points300">
+                                  <h4>Congratulations!!! You have reached a milestone</h4>
+                                  <form class="cfp2_mile"  method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-default" name="cfp2_m1">Check Your Certificate Here</button>
+                                  </form>
                                 </div>
                               </div>
 
@@ -673,55 +687,6 @@
             </div>
 
 
-{#<!--#}
-{##}
-{##}
-{##}
-{#            <div class="uk-card-default rounded text-center mt-5 pb-3">#}
-{#                <div class="mx-auto">#}
-{#                <h6 class="py-3"><span class="uk-label bg-primary rounded" >CFP RELATED COURSE</span>  </h6>#}
-{#              </div>#}
-{##}
-{#              <div class="" style="height:570px; overflow:auto;">#}
-{#                {% if lists %}#}
-{#                {% for list in lists %}#}
-{#                <div class="uk-card uk-card-default mx-5 my-4 rounded">#}
-{#                {% if list.course_image %}#}
-{#                    <div class="uk-card-media-top rounded" >#}
-{#                        <img src="{{ list.course_image.url }} " class="rounded"  alt="">#}
-{#                    </div>#}
-{#                 {% else %}#}
-{#                    <div class="uk-card-media-top rounded" >#}
-{#                        <img src="{% static 'images/course/1.png' %}" class="rounded"  alt="">#}
-{#                    </div>#}
-{#                    {% endif %}#}
-{#                    <div class="uk-card-body p-3">#}
-{#                        <h6 >{{ list.title }}</h6>#}
-{#                    </div>#}
-{#                </div>#}
-{#                {% endfor %}#}
-{#            {% endif %}#}
-{#            {% if lists2 %}#}
-{#                {% for list2 in lists2 %}#}
-{#                <div class="uk-card uk-card-default mx-5 my-4 rounded">#}
-{#                {% if list2.course_image %}#}
-{#                    <div class="uk-card-media-top rounded" >#}
-{#                        <img src="{{ list2.course_image.url }} " class="rounded"  alt="">#}
-{#                    </div>#}
-{#                 {% else %}#}
-{#                    <div class="uk-card-media-top rounded" >#}
-{#                        <img src="{% static 'images/course/1.png' %}" class="rounded"  alt="">#}
-{#                    </div>#}
-{#                    {% endif %}#}
-{#                    <div class="uk-card-body p-3">#}
-{#                        <h6 >{{ list2.title }}</h6>#}
-{#                    </div>#}
-{#                </div>#}
-{#                {% endfor %}#}
-{#            {% endif %}#}
-{#              </div>#}
-{##}
-{#            </div> -->#}
 
 
                 {% include 'partials/_footer.html' %}
@@ -771,6 +736,7 @@
 
         document.getElementById("pro1").value = total + proj;
         var cfp1 = total + proj;
+        var milestone1=cfp1;
 
         {% for claim in claims %}
             {% if claim.user_id == user_data.pk %}
@@ -785,6 +751,21 @@
 
         document.getElementById("pro2").value = tota2 +proj2;
         var cfp2 = tota2 + proj2;
+        var milestone2=cfp2;
+
+
+        // Testing whether the milestone is displaying or not
+        // milestone1=500;
+        // milestone2=500;
+
+
+        if(milestone1>=300)
+        {
+          document.getElementById("cfp1points300").style.display = "block";
+        }
+        else{
+          document.getElementById("cfp1points300").style.display = "none";
+        }
 
         // Badge Immplementation in CFP1
         if(cfp1>=0 && cfp1<100)
@@ -828,7 +809,13 @@
           document.getElementById("b1").src = "{% static 'images/badges/class10.png' %}";
         }
 
-
+        if(milestone2>=300)
+        {
+          document.getElementById("cfp2points300").style.display = "block";
+        }
+        else{
+          document.getElementById("cfp2points300").style.display = "none";
+        }
 
 
         // Badge Immplementation in CFP2

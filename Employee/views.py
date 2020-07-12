@@ -678,6 +678,14 @@ def userLesson(request,id):
 @login_required
 def userprofile(request):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        if request.method=="POST":
+            if 'cfp1_m1' in request.POST:
+                return redirect(request.path_info)
+
+        if 'cfp2_m1' in request.POST:
+                return redirect(request.path_info)
+
+
         user = request.user
         print(user.id)
         user_details = UserDetails.objects.get(user_id_id=user.pk)
