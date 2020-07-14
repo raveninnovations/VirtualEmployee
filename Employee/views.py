@@ -1,7 +1,12 @@
+import cv2 as cv
+from PIL import Image
+import openpyxl
+import datetime as dt
+import datetime
 import re
 import random, math
 import uuid
-import datetime as dt
+
 from datetime import datetime
 from django.contrib import messages
 from email_validator import validate_email, EmailNotValidError
@@ -24,7 +29,7 @@ from django.core.mail import send_mail, EmailMessage
 from datetime import datetime
 from .forms import (AddUserForm)
 
-from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill
+from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill,Certificate
 
 
 # Create your views here.
@@ -678,12 +683,6 @@ def userLesson(request,id):
 @login_required
 def userprofile(request):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
-        if request.method=="POST":
-            if 'cfp1_m1' in request.POST:
-                return redirect(request.path_info)
-
-        if 'cfp2_m1' in request.POST:
-                return redirect(request.path_info)
 
 
         user = request.user
@@ -722,7 +721,7 @@ def userprofile(request):
             context = {
                 'user_education':user_education,
                 'user_data': user_details,
-                'work':work,
+                'work': work,
                 'tech_skills':tech_skills,
                 'man_skills':man_skills,
                 'lan_skills':lan_skills
@@ -807,6 +806,82 @@ def userprofile(request):
 
 
                     }
+                    if request.method == "POST":
+                        if 'cfp1_m1' in request.POST:
+                            template_path = 'static/images/ceritficate.png'
+                            output_path ='static/images/'
+                            print(template_path)
+                            font_size = 3
+                            font_color = (1, 0, 4)
+                            coordinate_y_adjustment = 14
+                            coordinate_x_adjustment = -800
+
+                            topic_y = -290
+                            topic_x = -800
+
+                            date_y = -730
+                            date_x = -620
+
+                            certi_name = user.first_name +" " +user.last_name
+                            certi_name = certi_name.upper()
+                            certi_topic = cfp_details.role_one
+                            certi_topic = certi_topic.upper()
+                            certi_date = datetime.today()
+
+                            certi_date = certi_date.strftime('%m/%d/%Y')
+                            # read the certificate template
+                            img = cv.imread(template_path)
+
+                            # choose the font from opencv
+                            font = cv.FONT_ITALIC
+
+                            # get the size of the name to be
+                            # printed
+                            text_size = cv.getTextSize(certi_name, font, font_size, 10)[0]
+                            text_x = (img.shape[1] - text_size[0]) / 2 + coordinate_x_adjustment
+                            text_y = (img.shape[0] + text_size[1]) / 2 - coordinate_y_adjustment
+                            text_x = int(text_x)
+                            text_y = int(text_y)
+                            cv.putText(img, certi_name,
+                                       (text_x, text_y),
+                                       font,
+                                       font_size,
+                                       font_color, 10)
+                            # for topic
+                            text_x = (img.shape[1] - text_size[0]) / 2 + topic_x
+                            text_y = (img.shape[0] + text_size[1]) / 2 - topic_y
+                            text_x = int(text_x)
+                            text_y = int(text_y)
+                            cv.putText(img, certi_topic,
+                                       (text_x, text_y),
+                                       font,
+                                       2,
+                                       font_color, 10)
+
+                            text_x = (img.shape[1] - text_size[0]) / 2 + date_x
+                            text_y = (img.shape[0] + text_size[1]) / 2 - date_y
+                            text_x = int(text_x)
+                            text_y = int(text_y)
+                            cv.putText(img, certi_date,
+                                       (text_x, text_y),
+                                       font,
+                                       2,
+                                       font_color, 10)
+                            certi_path = 'certi' + '.png'
+                            cv.imwrite(certi_path, img)
+
+                            certificate = certi_path
+
+                            print(certificate)
+                            data = Certificate(name=certi_name,certi_topic=certi_topic,issue_date=certi_date,email=user.email,certi_img=certificate)
+                            data.save()
+                            messages.success(request,"Certificate Generated")
+                            return redirect(request.path_info)
+
+                        if 'cfp2_m1' in request.POST:
+                            course_name2 = cfp_details.role_two
+                            return redirect(request.path_info)
+
                     return render(request, 'virtualmain_pages/user-profile.html', context)
 
                 return render(request, "virtualmain_pages/user-profile.html", context)

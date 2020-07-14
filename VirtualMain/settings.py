@@ -169,3 +169,6 @@ EMAIL_USE_TLS=True
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+os.path.join(BASE_DIR, "static/images/ceritficate.png")
+os.path.join(BASE_DIR, "static/images/")

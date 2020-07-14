@@ -4,3 +4,4 @@ email_validator
 django-crispy-forms==1.8.1
 Pillow==2.9.0
 moviepy
+opencv-python
