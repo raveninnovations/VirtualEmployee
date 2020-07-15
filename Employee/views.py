@@ -808,6 +808,10 @@ def userprofile(request):
                     }
                     if request.method == "POST":
                         if 'cfp1_m1' in request.POST:
+                            ff = request.FILES.get('sss')
+                            data = Certificate(user_id_id=user_contact.pk, certi_img1=ff)
+                            data.save()
+
                             template_path = 'static/images/ceritficate.png'
                             output_path ='media/certificates/'
                             print(template_path)
@@ -815,7 +819,6 @@ def userprofile(request):
                             font_color = (1, 0, 4)
                             coordinate_y_adjustment = 14
                             coordinate_x_adjustment = -800
-
                             topic_y = -290
                             topic_x = -800
 
@@ -874,9 +877,9 @@ def userprofile(request):
                             certificate = certi_path
 
                             print(certificate)
-                            ff = request.FILES.get('sss')
-                            print(ff)
-                            data = Certificate.objects.create(user_id_id=user_contact.pk,name=certi_name,certi_topic=certi_topic,issue_date=certi_date,email=user.email,certi_img=rough)
+                            data = Certificate.objects.get(user_id_id=user_contact.pk)
+                            data.delete()
+                            data = Certificate(user_id_id=user_contact.pk,name=certi_name,certi_topic=certi_topic,issue_date=certi_date,email=user.email,certi_img=rough)
                             data.save()
 
                             messages.success(request,"Certificate Generated")
