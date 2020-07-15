@@ -809,7 +809,7 @@ def userprofile(request):
                     if request.method == "POST":
                         if 'cfp1_m1' in request.POST:
                             template_path = 'static/images/ceritficate.png'
-                            output_path ='static/images/'
+                            output_path ='media/certificates/'
                             print(template_path)
                             font_size = 3
                             font_color = (1, 0, 4)
@@ -867,14 +867,18 @@ def userprofile(request):
                                        font,
                                        2,
                                        font_color, 10)
-                            certi_path = 'certi' + '.png'
+                            certi_path = output_path+user_contact.user_id.user_id.first_name + '.png'
+                            rough = 'certificates/'+user_contact.user_id.user_id.first_name + '.png'
                             cv.imwrite(certi_path, img)
 
                             certificate = certi_path
 
                             print(certificate)
-                            data = Certificate(name=certi_name,certi_topic=certi_topic,issue_date=certi_date,email=user.email,certi_img=certificate)
+                            ff = request.FILES.get('sss')
+                            print(ff)
+                            data = Certificate.objects.create(user_id_id=user_contact.pk,name=certi_name,certi_topic=certi_topic,issue_date=certi_date,email=user.email,certi_img=rough)
                             data.save()
+
                             messages.success(request,"Certificate Generated")
                             return redirect(request.path_info)
 
@@ -937,6 +941,8 @@ def userEdit(request):
                     data = UserContact.objects.get(user_id_id=user_detail.pk)
                     if data.user_pic:
                         pic = request.FILES.get('user-profile-photo')
+                        print(pic)
+                        print("hai")
                         data.user_pic = pic
                         data.save()
                         messages.success(request,"Profile pic updated")

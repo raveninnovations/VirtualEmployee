@@ -307,12 +307,13 @@ class ProjectPoint(models.Model):
 #  Certificate
 
 class Certificate(models.Model):
+    user_id = models.ForeignKey(UserContact,on_delete=models.CASCADE,null=True)
     name = models.CharField(max_length=100)
     certi_topic = models.CharField(max_length=100)
     email = models.CharField(max_length=100,null=True)
     serial_key = models.CharField(max_length=100,null=True)
     issue_date = models.CharField(max_length=50,null=True)
-    certi_img = models.ImageField(upload_to='certificates/', null=True)
+    certi_img = models.ImageField(upload_to='certificates/')
 
     def __str__(self):
         return self.certi_topic
