@@ -651,8 +651,15 @@
                        <hr class="m-0">
 
                        <div class="text-justify uk-width-2-3 mx-auto my-2">
-                         <h5 class="my-3"><strong>&bull; &nbsp; Python For Data Science <a class="mx-2"> <i class="uil-notebooks"></i> </a></strong> </h5>
-                         <h5 class="my-3"><strong>&bull; &nbsp; Statistics For Data Science <a class="mx-2"> <i class="uil-notebooks"></i> </a> </strong></h5>
+                         {% if certificate %}
+                          {% for i in certificate %}
+                              <h5 class="my-3"><strong>&bull; &nbsp; {{i.certi_topic}} <a class="mx-2" href="{{i.certi_img.url}}" download> <i class="uil-notebooks"></i> </a></strong> </h5>
+                          {% endfor %}
+
+                          {% else %}
+                              <h5 class="my-3"><strong>No Certificate Yet</strong> </h5>
+                          {% endif %}
+
 
                        </div>
 

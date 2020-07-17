@@ -716,13 +716,19 @@ def userprofile(request):
                 lan_skills=[]
 
 
+            # Certificate Retrieval
+            #
+            # certificate=Certificate.objects.filter(user_id_id=user_contact.pk)
+
+
             context = {
                 'user_education':user_education,
                 'user_data': user_details,
                 'work': work,
                 'tech_skills':tech_skills,
                 'man_skills':man_skills,
-                'lan_skills':lan_skills
+                'lan_skills':lan_skills,
+                # 'certificate':certificate
 
             }
             if UserContact.objects.filter(user_id_id=user_details.pk).exists():
@@ -748,6 +754,11 @@ def userprofile(request):
                 except:
                     lan_skills=[]
 
+                # Certificate Retrieval
+
+                certificate=Certificate.objects.filter(user_id_id=user_contact.pk)
+
+
                 context={
                     'user_contact':user_contact,
                     'user_education': user_education,
@@ -755,7 +766,8 @@ def userprofile(request):
                     'work':work,
                     'tech_skills':tech_skills,
                     'man_skills':man_skills,
-                    'lan_skills':lan_skills
+                    'lan_skills':lan_skills,
+                    'certificate':certificate
 
                 }
                 # CFP
@@ -785,6 +797,11 @@ def userprofile(request):
                         lan_skills=[]
 
 
+                    # Certificate Retrieval
+
+                    certificate=Certificate.objects.filter(user_id_id=user_contact.pk)
+
+
                     # print('work:', work)
 
                     context = {
@@ -800,7 +817,8 @@ def userprofile(request):
                         'work':work,
                         'tech_skills':tech_skills,
                         'man_skills':man_skills,
-                        'lan_skills':lan_skills
+                        'lan_skills':lan_skills,
+                        'certificate':certificate
 
 
                     }
@@ -899,6 +917,7 @@ def userprofile(request):
 
 
         context = {
+            'certificate':certificate,
             'user_data' : user_details
         }
         return render(request,'virtualmain_pages/user-profile.html',context)
