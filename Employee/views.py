@@ -917,7 +917,6 @@ def userprofile(request):
 
 
         context = {
-            'certificate':certificate,
             'user_data' : user_details
         }
         return render(request,'virtualmain_pages/user-profile.html',context)
