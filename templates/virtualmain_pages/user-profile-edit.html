@@ -93,6 +93,7 @@
                                         <input type="file" name="user-profile-photo">
                                         <span class="uk-link icon-feather-camera icon-medium text-white"> </span>
                                     </div>
+                                    <input type="text" name="certi_create" value="certificate_folder_create" hidden>
 
                                 </div>
                             </div>
@@ -571,7 +572,7 @@
                                 var c = document.forms["myEduForm"]["start-year"].value;
                                 var d = document.forms["myEduForm"]["end-month"].value;
                                 var f = document.forms["myEduForm"]["end-year"].value;
-                                
+
                                 if (b == "" || b == null) {
                                   alert("Choose the start month");
                                   return false;
@@ -581,7 +582,7 @@
                                   return false;
                                 }
                               }
-                              
+
                             </script>
                             <ol class="my-2">
                               {% for i in education %}

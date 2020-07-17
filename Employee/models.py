@@ -313,8 +313,8 @@ class Certificate(models.Model):
     email = models.CharField(max_length=100,null=True)
     serial_key = models.CharField(max_length=100,null=True)
     issue_date = models.CharField(max_length=50,null=True)
-    certi_img = models.ImageField(upload_to='certificates/')
-    certi_img1 = models.ImageField(upload_to='certificates/',null=True)
+    certi_img = models.ImageField(upload_to='certificates/',null=True)
+    # certi_img1 = models.ImageField(upload_to='certificates/',null=True)
 
     def __str__(self):
         return self.certi_topic

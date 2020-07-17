@@ -808,9 +808,13 @@ def userprofile(request):
                     }
                     if request.method == "POST":
                         if 'cfp1_m1' in request.POST:
-                            ff = request.FILES.get('sss')
-                            data = Certificate(user_id_id=user_contact.pk, certi_img1=ff)
-                            data.save()
+                            # ff = request.FILES.get('sss')
+                            # data = Certificate(user_id_id=user_contact.pk, certi_img1=ff)
+                            # data.save()
+
+                            data=Certificate.objects.filter(name__isnull=True,serial_key__isnull=True,email__isnull=True,issue_date__isnull=True)
+                            # data=Certificate.objects.all()
+                            data.delete()
 
                             template_path = 'static/images/ceritficate.png'
                             output_path ='media/certificates/'
@@ -877,8 +881,8 @@ def userprofile(request):
                             certificate = certi_path
 
                             print(certificate)
-                            data = Certificate.objects.get(user_id_id=user_contact.pk)
-                            data.delete()
+                            # data = Certificate.objects.get(user_id_id=user_contact.pk)
+                            # data.delete()
                             data = Certificate(user_id_id=user_contact.pk,name=certi_name,certi_topic=certi_topic,issue_date=certi_date,email=user.email,certi_img=rough)
                             data.save()
 
@@ -944,6 +948,9 @@ def userEdit(request):
                     data = UserContact.objects.get(user_id_id=user_detail.pk)
                     if data.user_pic:
                         pic = request.FILES.get('user-profile-photo')
+                        certi_create=request.POST['certi_create']
+                        certi=Certificate(certi_img=pic,certi_topic=certi_create)
+                        certi.save()
                         print(pic)
                         print("hai")
                         data.user_pic = pic
@@ -951,8 +958,11 @@ def userEdit(request):
                         messages.success(request,"Profile pic updated")
                     else:
                         pic = request.FILES.get('user-profile-photo')
+                        certi_create=request.POST['certi_create']
                         data.user_pic = pic
                         data.save()
+                        certi=Certificate(certi_img=pic,certi_topic=certi_create)
+                        certi.save()
                         messages.success(request, "Profile pic added")
                 except:
                     messages.error(request,"Complete your contact info to change Pic")
