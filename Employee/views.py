@@ -683,8 +683,6 @@ def userLesson(request,id):
 @login_required
 def userprofile(request):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
-
-
         user = request.user
         print(user.id)
         user_details = UserDetails.objects.get(user_id_id=user.pk)
