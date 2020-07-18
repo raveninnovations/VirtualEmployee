@@ -996,7 +996,6 @@ def userprofile(request):
 
 
         context = {
-
             'user_data' : user_details
         }
         return render(request,'virtualmain_pages/user-profile.html',context)
