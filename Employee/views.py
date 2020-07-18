@@ -684,7 +684,6 @@ def userLesson(request,id):
 def userprofile(request):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
         user = request.user
-        print(user.id)
         user_details = UserDetails.objects.get(user_id_id=user.pk)
         courses = Course.objects.all()
         claim = Claim.objects.all()
@@ -801,6 +800,9 @@ def userprofile(request):
 
                     certificate=Certificate.objects.filter(user_id_id=user_contact.pk)
 
+                    certi1 = Certificate.objects.filter(user_id_id=user_contact.pk , certi_choose= 1)
+                    certi2 = Certificate.objects.filter(user_id_id=user_contact.pk , certi_choose= 2)
+
 
                     # print('work:', work)
 
@@ -818,16 +820,14 @@ def userprofile(request):
                         'tech_skills':tech_skills,
                         'man_skills':man_skills,
                         'lan_skills':lan_skills,
-                        'certificate':certificate
+                        'certificate':certificate,
+                        'certi1' : certi1,
+                        'certi2' : certi2,
 
 
                     }
                     if request.method == "POST":
                         if 'cfp1_m1' in request.POST:
-                            # ff = request.FILES.get('sss')
-                            # data = Certificate(user_id_id=user_contact.pk, certi_img1=ff)
-                            # data.save()
-
                             data=Certificate.objects.filter(name__isnull=True,serial_key__isnull=True,email__isnull=True,issue_date__isnull=True)
                             # data=Certificate.objects.all()
                             data.delete()
@@ -899,14 +899,93 @@ def userprofile(request):
                             print(certificate)
                             # data = Certificate.objects.get(user_id_id=user_contact.pk)
                             # data.delete()
-                            data = Certificate(user_id_id=user_contact.pk,name=certi_name,certi_topic=certi_topic,issue_date=certi_date,email=user.email,certi_img=rough)
+                            credential = random.randint(125,955842)*10
+                            data = Certificate(user_id_id=user_contact.pk,name=certi_name,certi_topic=certi_topic,issue_date=certi_date,email=user.email,certi_img=rough,serial_key=credential,certi_choose=1)
                             data.save()
 
                             messages.success(request,"Certificate Generated")
                             return redirect(request.path_info)
 
                         if 'cfp2_m1' in request.POST:
-                            course_name2 = cfp_details.role_two
+                            data = Certificate.objects.filter(name__isnull=True, serial_key__isnull=True,
+                                                              email__isnull=True, issue_date__isnull=True)
+                            # data=Certificate.objects.all()
+                            data.delete()
+
+                            template_path = 'static/images/ceritficate.png'
+                            output_path = 'media/certificates/'
+                            print(template_path)
+                            font_size = 3
+                            font_color = (1, 0, 4)
+                            coordinate_y_adjustment = 14
+                            coordinate_x_adjustment = -800
+                            topic_y = -290
+                            topic_x = -800
+
+                            date_y = -730
+                            date_x = -620
+
+                            certi_name = user.first_name + " " + user.last_name
+                            certi_name = certi_name.upper()
+                            certi_topic = cfp_details.role_two
+                            certi_topic = certi_topic.upper()
+                            certi_date = datetime.today()
+
+                            certi_date = certi_date.strftime('%m/%d/%Y')
+                            # read the certificate template
+                            img = cv.imread(template_path)
+
+                            # choose the font from opencv
+                            font = cv.FONT_ITALIC
+
+                            # get the size of the name to be
+                            # printed
+                            text_size = cv.getTextSize(certi_name, font, font_size, 10)[0]
+                            text_x = (img.shape[1] - text_size[0]) / 2 + coordinate_x_adjustment
+                            text_y = (img.shape[0] + text_size[1]) / 2 - coordinate_y_adjustment
+                            text_x = int(text_x)
+                            text_y = int(text_y)
+                            cv.putText(img, certi_name,
+                                       (text_x, text_y),
+                                       font,
+                                       font_size,
+                                       font_color, 10)
+                            # for topic
+                            text_x = (img.shape[1] - text_size[0]) / 2 + topic_x
+                            text_y = (img.shape[0] + text_size[1]) / 2 - topic_y
+                            text_x = int(text_x)
+                            text_y = int(text_y)
+                            cv.putText(img, certi_topic,
+                                       (text_x, text_y),
+                                       font,
+                                       2,
+                                       font_color, 10)
+
+                            text_x = (img.shape[1] - text_size[0]) / 2 + date_x
+                            text_y = (img.shape[0] + text_size[1]) / 2 - date_y
+                            text_x = int(text_x)
+                            text_y = int(text_y)
+                            cv.putText(img, certi_date,
+                                       (text_x, text_y),
+                                       font,
+                                       2,
+                                       font_color, 10)
+                            certi_path = output_path + user_contact.user_id.user_id.first_name + '.png'
+                            rough = 'certificates/' + user_contact.user_id.user_id.first_name + '.png'
+                            cv.imwrite(certi_path, img)
+
+                            certificate = certi_path
+
+                            print(certificate)
+                            # data = Certificate.objects.get(user_id_id=user_contact.pk)
+                            # data.delete()
+                            credential = random.randint(125, 955842) * 10
+                            data = Certificate(user_id_id=user_contact.pk, name=certi_name, certi_topic=certi_topic,
+                                               issue_date=certi_date, email=user.email, certi_img=rough,
+                                               serial_key=credential,certi_choose=2)
+                            data.save()
+
+                            messages.success(request, "Certificate Generated")
                             return redirect(request.path_info)
 
                     return render(request, 'virtualmain_pages/user-profile.html', context)
@@ -917,7 +996,7 @@ def userprofile(request):
 
 
         context = {
-            'certificate':certificate,
+
             'user_data' : user_details
         }
         return render(request,'virtualmain_pages/user-profile.html',context)
