@@ -224,6 +224,8 @@
 
                               </div>
                               <div class=" mt-4" id="cfp1points300">
+                                {% if certi1 %}
+                                 {% else %}
                                 <h4>Congratulations!!! You have reached a milestone</h4>
                                 <form class="cfp1_mile"  method="POST" enctype="multipart/form-data">
                                   {% csrf_token %}
@@ -231,6 +233,7 @@
                                     <button type="submit" class="btn btn-default" name="cfp1_m1">Check Your Certificate Here</button>
 
                                 </form>
+                                  {% endif %}
                               </div>
                             </div>
 
@@ -348,11 +351,15 @@
 
                                 </div>
                                 <div class=" mt-4" id="cfp2points300">
+                                {% if certi2 %}
+
+                                {% else %}
                                   <h4>Congratulations!!! You have reached a milestone</h4>
                                   <form class="cfp2_mile"  method="POST">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-default" name="cfp2_m1">Check Your Certificate Here</button>
                                   </form>
+                                 {% endif %}
                                 </div>
                               </div>
 
