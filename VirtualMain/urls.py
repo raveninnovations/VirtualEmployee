@@ -24,6 +24,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     # path('', include('Admin.urls')),
+    # path('', include('django.contrib.auth.urls')),
     path('', include('Employee.urls')),
     path('admin_log/', admin.site.urls),
 

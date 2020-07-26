@@ -688,6 +688,14 @@ def userprofile(request):
         courses = Course.objects.all()
         claim = Claim.objects.all()
         tag = CourseTag.objects.filter(user_id_id=user_details.pk)
+        # For courses completed
+        com_courses = None
+        tot_achiev = 0
+        if Claim.objects.filter(user_id=user_details.pk).exists():
+            com_courses = Claim.objects.filter(user_id = user_details.pk).count()
+            tot_achiev += int(com_courses)
+            print(com_courses)
+
         if ProjectPoint.objects.filter(user_id_id=user_details.pk).exists():
             proj_point = ProjectPoint.objects.filter(user_id_id=user_details.pk)
         else:
@@ -727,6 +735,8 @@ def userprofile(request):
                 'tech_skills':tech_skills,
                 'man_skills':man_skills,
                 'lan_skills':lan_skills,
+                'com_courses':com_courses,
+                'tot_achiev':tot_achiev,
                 # 'certificate':certificate
 
             }
@@ -766,7 +776,9 @@ def userprofile(request):
                     'tech_skills':tech_skills,
                     'man_skills':man_skills,
                     'lan_skills':lan_skills,
-                    'certificate':certificate
+                    'certificate':certificate,
+                    'com_courses': com_courses,
+                    'tot_achiev': tot_achiev,
 
                 }
                 # CFP
@@ -823,6 +835,8 @@ def userprofile(request):
                         'certificate':certificate,
                         'certi1' : certi1,
                         'certi2' : certi2,
+                        'com_courses': com_courses,
+                        'tot_achiev': tot_achiev,
 
 
                     }
