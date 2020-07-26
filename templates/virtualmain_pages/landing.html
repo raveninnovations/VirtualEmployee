@@ -4,24 +4,14 @@
 <style>
 
   html, body {
-    /* height: 100%; */
+
     font-family : 'impact';
-    overflow:hidden;
+    overflow-x:hidden;
   }
 
-.outer, .flexdiv{
-    height:100%;
-}
-
-h1{
-  font-weight:600;
-}
 
 .div1{
-  /* padding-left:200px; */
   background: #fff1d5;
-
-
 }
 
 .div2{
@@ -29,39 +19,15 @@ h1{
 
 }
 
-.head1{
-  margin-left:50px;
-  font-size:80px;
-}
-
-.head2{
-  margin-left:100px;
-  font-size:68px;
-}
-
-.img-arrow1{
-  height: 120px;
-  margin-top:30px;
-  margin-left:-30px;
-  position:absolute;
-
-}
 
 .img-arrow1:hover{
-  -webkit-transform: scale(1.2);
-  -ms-transform: scale(1.2);
-  transform: scale(1.1);
-  transition: 1s ease;
+   -webkit-transform: scale(1.2);
+   -ms-transform: scale(1.2);
+   transform: scale(1.1);
+   transition: 1s ease;
 
 }
 
-.img-arrow2{
-  height: 150px;
-  margin-top:10px;
-  margin-left:-30px;
-  position:absolute;
-
-}
 
 .img-arrow2:hover{
   -webkit-transform: scale(1.2);
@@ -81,7 +47,7 @@ h1{
 
 .img-ve{
   margin-top:180px;
-  margin-left:-455px;
+  margin-left:-227px;
   position:relative;
 }
 
@@ -94,12 +60,9 @@ h1{
     font-size:50px;
   }
 
-  .head2{
-    margin-left:30px;
-    font-size:50px;
-  }
 
-  .img-arrow1{
+
+  /* .img-arrow1{
     height: 80px;
     margin-top:15px;
     margin-left:1px;
@@ -112,21 +75,31 @@ h1{
     margin-left:-100px;
     position:absolute;
 
-  }
+  } */
 
   .img-ve{
     margin-top:80px;
-    margin-left:-170px;
+    /* margin-left:-150px; */
   }
 
-  .img-ve{
-    margin-top:110px;
-    margin-left:-170px;
-  }
+
 
 
 }
 
+@media only screen and (min-width:300px) and (max-width: 640px){
+  .img-ve{
+    visibility:hidden;
+  }
+
+  .head2{
+    margin-left:150px;
+    font-size:80px;
+    margin-top:-200px;
+    /* text-align:center; */
+  }
+
+}
 
 
 @media only screen and (min-width:601px) and (max-width: 900px) {
@@ -137,25 +110,12 @@ h1{
   }
 
   .head2{
-    margin-left:50px;
-    font-size:50px;
-  }
+     margin-left:50px;
+     font-size:50px;
+   }
 
 
 
-    .img-arrow1{
-      height: 100px;
-      margin-top:10px;
-      position:absolute;
-
-    }
-    .img-arrow2{
-      height: 100px;
-      margin-top:70px;
-      margin-left:-100px;
-      position:absolute;
-
-    }
 
 
     .img-idea{
@@ -163,6 +123,10 @@ h1{
       height:520px;
     }
 
+    .img-ve{
+      margin-top:110px;
+      margin-left:-550px;
+    }
 
 
 }
@@ -182,22 +146,6 @@ h1{
 
 
 
-    .img-arrow1{
-      height: 100px;
-      margin-top:10px;
-      margin-left:-20px;
-      position:absolute;
-
-    }
-    .img-arrow2{
-      height: 100px;
-      margin-top:20px;
-      margin-left:-20px;
-      position:absolute;
-
-    }
-
-
         .img-idea{
           margin-top: -50px;
           height:510px;
@@ -210,14 +158,14 @@ h1{
 @media only screen and (min-width:600px) and (max-width: 650px) {
   .img-ve{
     margin-top:80px;
-    margin-left:-150px;
+    margin-left:-107px;
   }
 }
 
 @media only screen and (min-width:650px) and (max-width: 750px) {
   .img-ve{
     margin-top:180px;
-    margin-left:-200px;
+    margin-left:-110px;
   }
 }
 
@@ -225,14 +173,14 @@ h1{
 @media only screen and (min-width:750px) and (max-width: 800px) {
   .img-ve{
     margin-top:180px;
-    margin-left:-230px;
+    margin-left:-121px;
   }
 }
 
 @media only screen and (min-width:800px) and (max-width: 900px) {
   .img-ve{
     margin-top:180px;
-    margin-left:-250px;
+    margin-left:-130px;
   }
 }
 
@@ -240,30 +188,49 @@ h1{
 @media only screen and (min-width:900px) and (max-width: 1000px) {
   .img-ve{
     margin-top:180px;
-    margin-left:-280px;
+    margin-left:-142px;
   }
 }
 
 @media only screen and (min-width:1000px) and (max-width: 1100px) {
   .img-ve{
     margin-top:180px;
-    margin-left:-310px;
+    margin-left:-154px;
   }
 }
 
 @media only screen and (min-width:1100px) and (max-width: 1200px) {
   .img-ve{
     margin-top:180px;
-    margin-left:-340px;
+    margin-left:-168px;
   }
 }
 
 @media only screen and (min-width:1200px) and (max-width: 1300px) {
   .img-ve{
     margin-top:180px;
-    margin-left:-370px;
+    margin-left:-184px;
   }
 }
+
+
+@media only screen and (min-width:1300px) and (max-width: 1400px) {
+
+  /* .head{
+    margin-left:150px;
+  } */
+
+  .img-ve{
+    margin-top:180px;
+    margin-left:-200px;
+  }
+}
+/* @media only screen and (min-width:1300px)  {
+  .img-ve{
+    margin-top:180px;
+    margin-left:-450px;
+  }
+} */
 </style>
 
 
@@ -273,28 +240,32 @@ h1{
   <div class="outer " >
 
       <div class="flexdiv  uk-flex" >
+        <div class="uk-grid">
 
-         <div class="div1 container uk-width-2-3 py-5 ">
-           <div class="mx-auto">
-             <h1 class=" head1 text-left"  style= "font-family:impact; color:#263238;"> Wanna Know More <br> About VE <a href="#"><img class="img-arrow1" src="{%static 'images/login copy.png' %}" alt=""></a></h1>
+          <div class="div1 container uk-width-2-3@s py-5 ">
+            <div class="mx-auto px-5">
+              <h1 class="display-2 head1 text-left "  style= "font-family:impact; color:#263238;"> Wanna Know More <br> About VE <a href="#"><img class="img-arrow1" style="height:100px;" src="{%static 'images/login copy.png' %}" alt=""></a></h1>
 
-           </div>
-           <div class=" text-center mt-5 ">
-             <img class="img-idea  " src="{%static 'images/Sharing Ideas-pana.svg' %}" alt="">
-           </div>
-         </div>
+            </div>
+            <div class=" text-center mt-5 ">
+              <img class="img-idea  " src="{%static 'images/Sharing Ideas-pana.svg' %}" alt="">
+            </div>
+          </div>
 
 
-         <div class="div2 container uk-width-1-3 py-3">
-           <div class="text-center">
-             <img class="img-ve text-center " src="{% static 'images/VEland.png'%}" alt="">
-           </div>
+          <div class="div2 container uk-width-1-3@s  py-5 ">
+            <div class="text-left">
+              <img class="img-ve text-center " src="{% static 'images/VEland.png'%}" alt="">
+            </div>
 
-           <div class="mx-auto py-5">
-             <h1 class=" head2 text-left" style="font-family :impact; color:#263238;">Go To <br>Login <a href="{% url 'login' %}"><img class="img-arrow2" src="{% static 'images/loginpng2.png'%}" alt=""></a></h1>
-           </div>
+            <div class="mx-auto py-5 px-2">
+              <h1 class=" display-2 head2 text-left" style="font-family :impact; color:#263238;">Go To <br>Login <a href="{% url 'login' %}"><img class="img-arrow2" style="height:100px;" src="{% static 'images/loginpng2.png'%}" alt=""></a></h1>
+            </div>
 
-         </div>
+          </div>
+
+        </div>
+
 
 
 
