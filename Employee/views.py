@@ -1184,6 +1184,28 @@ def userEdit(request):
 
 
             }
+
+            try:
+                work=UserWorkExperience.objects.filter(user_id_id=user_detail.pk).order_by("-start_year")
+            except:
+                work=[]
+
+            try:
+                tech_skills=UserSkill.objects.filter(user_id_id=user_detail.pk,category='Technical')
+            except:
+                tech_skills=[]
+
+            try:
+                man_skills=UserSkill.objects.filter(user_id_id=user_detail.pk,category='Management')
+            except:
+                man_skills=[]
+
+            try:
+                lan_skills=UserSkill.objects.filter(user_id_id=user_detail.pk,category='Languages')
+            except:
+                lan_skills=[]
+
+
             if UserEducation.objects.filter(user_id_id=user_detail.pk).exists():
 
                 try:
@@ -1222,6 +1244,10 @@ def userEdit(request):
                 return render(request, 'virtualmain_pages/user-profile-edit.html', context)
             else:
                 context ={
+                    'work':work,
+                    'tech_skills':tech_skills,
+                    'man_skills':man_skills,
+                    'lan_skills':lan_skills,
                     'user_detail': user_detail,
                     'users': users,
                     "edd":1
