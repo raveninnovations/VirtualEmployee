@@ -39,7 +39,7 @@ Edit CFP
 
 
                                     <div class="uk-margin uk-width-1-2">
-                                        <select name="cfp_cag" class="uk-select" required>
+                                        <select name="cfp_cag" class="uk-select">
                                             {% for item in category_list%}
                                               {% if item.category == datas.cfp_category %}
                                               <option value="{{item.category}}" selected>{{item.category}}</option>

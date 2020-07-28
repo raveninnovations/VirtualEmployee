@@ -1132,34 +1132,7 @@ def userEdit(request):
                 edu.save()
                 messages.success(request, "Updated Education Info")
                 return redirect(request.path_info)
-                # if UserEducation.objects.filter(user_id_id=user_detail.pk).exists():
-                #     print("exists")
-                #     course = request.POST['course']
-                #     special = request.POST['special']
-                #     year = request.POST['in_year']
-                #     inst_name = request.POST['in_name']
-                #     inst_address = request.POST['in_address']
-                #     edu = UserEducation.objects.get(user_id_id=user_detail.pk)
-                #     edu.degree = course
-                #     edu.specialization = special
-                #     edu.year = year
-                #     edu.institution = inst_name
-                #     edu.address =inst_address
-                #     edu.save()
-                #
-                #     messages.success(request, "Updated Education Info")
-                #     return redirect('userprofileEdit')
-                #
-                #
-                # else:
-                #     course = request.POST['course']
-                #     special = request.POST['special']
-                #     year = request.POST['in_year']
-                #     inst_name = request.POST['in_name']
-                #     inst_address = request.POST['in_address']
-                #     edu = UserEducation(degree=course,specialization=special,year=year,institution=inst_name,address=inst_address,user_id_id=user_detail.pk)
-                #     edu.save()
-                #     messages.success(request,"Education details added")
+                
 
             if 'work' in request.POST:
                 role=request.POST['role']
