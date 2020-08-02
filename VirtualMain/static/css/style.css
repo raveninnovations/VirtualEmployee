@@ -6347,8 +6347,8 @@ span.blog-post-info-tag {
 }
 
 .user-profile-photo img {
-  height: 100%;
-  width: 100%;
+  height: 400px;
+width: 400px;
   /*object-fit: cover;*/
   position: absolute;
   top: 0;

@@ -319,3 +319,7 @@ class Certificate(models.Model):
 
     def __str__(self):
         return self.certi_topic
+
+class Reference(models.Model):
+    user_id = models.ForeignKey(User,on_delete=models.CASCADE)
+    ref_id = models.CharField(max_length=200)
