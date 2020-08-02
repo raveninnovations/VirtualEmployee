@@ -58,7 +58,7 @@ urlpatterns = [
     # path('careerchoice/',views.careerchoice,name='careerchoice'),
     path('usercfp/', views.UserCfp, name='usercfp'),
     path('pricing/',views.pricing,name='pricing'),
-
     path('payment/',views.payment,name='payment')
+
 
     ]

@@ -90,15 +90,38 @@
 
                                 <div class="uk-position-center">
                                     <div uk-form-custom>
-                                        <input type="file" name="user-profile-photo">
+                                        <input type="file" name="user-profile-photo" id="real-file">
                                         <span class="uk-link icon-feather-camera icon-medium text-white"> </span>
+
                                     </div>
                                     <input type="text" name="certi_create" value="certificate_folder_create" hidden>
 
                                 </div>
                             </div>
+                        <span id="custom-text">No file choosen</span>
                             <button class="btn btn-default m-auto mb-3" type="submit" name="photo">Edit/Save photo</button>
                         </div>
+                        <p>For best results use an image at least 128px*128px in .jpg format </p>
+                                        <script type="text/javascript">
+                                const realFileBtn = document.getElementById("real-file");
+                                const CustomBtn = document.getElementById("real-file");
+                                const customTxt = document.getElementById("custom-text");
+                                                CustomBtn.addEventListener ("click", function() {
+                                                realFileBtn.click()
+
+                                                });
+
+                                                realFileBtn.addEventListener("change", function() {
+                                              if (realFileBtn.value) {
+                                                customTxt.innerHTML = realFileBtn.value.match(
+                                                  /[\/\\]([\w\d\s\.\-\(\)]+)$/
+                                                )[1];
+                                              } else {
+                                                customTxt.innerHTML = "No file chosen, yet.";
+                                              }
+                                            });
+
+                                                </script>
                         </form>
 
 
