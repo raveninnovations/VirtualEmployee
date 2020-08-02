@@ -1132,7 +1132,7 @@ def userEdit(request):
                 edu.save()
                 messages.success(request, "Updated Education Info")
                 return redirect(request.path_info)
-                
+
 
             if 'work' in request.POST:
                 role=request.POST['role']
@@ -2661,8 +2661,11 @@ def UserCfp(request):
 
 
 def pricing(request):
-
     return render(request,"virtualmain_pages/pricing.html")
+
+
+def payment(request):
+    return render(request,'payment/payment_page.html')
 
 
 def error_404_view(request, exception):
