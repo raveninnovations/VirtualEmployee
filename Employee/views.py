@@ -2662,6 +2662,19 @@ def UserCfp(request):
     return render(request,'virtualmain_pages/user-cfp.html',context)
 
 
+#Blog user
+def blogManager(request):
+    return render(request,'blog_pages/blog_manager.html')
+
+
+def blogEditManager(request):
+    return render(request,'blog_pages/blog_edit_manager.html')
+
+def blogDashboard(request):
+    return render(request,'blog_pages/blog_dashboard.html')
+
+
+
 
 def pricing(request):
     return render(request,"virtualmain_pages/pricing.html")

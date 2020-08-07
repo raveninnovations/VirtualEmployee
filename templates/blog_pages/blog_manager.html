@@ -1,0 +1,201 @@
+{% extends 'base1.html' %}
+{% block title %}
+Blog Manager
+{% endblock %}
+{% load static %}
+
+{% block content %}
+    <div id="wrapper" class="admin-panel">
+
+        <!-- menu -->
+        <div class="page-menu">
+            <!-- btn close on small devices -->
+            <span class="btn-menu-close" uk-toggle="target: #wrapper ; cls: mobile-active"></span>
+            <!-- traiger btn -->
+            <span class="btn-menu-trigger" uk-toggle="target: .page-menu ; cls: menu-large"></span>
+
+            <!-- logo -->
+            <div class="logo uk-visible@s">
+                <a href="{% url 'projectDashboard' %}" class="logo">
+                            <img src="{% static 'images/VES.png' %}" alt="">
+
+                        </a>
+            </div>
+            <div class="page-menu-inner" data-simplebar>
+                <ul class="mt-0">
+                    <li><a href="{% url 'blogDashboard' %}"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
+                    <li><a href="{% url 'blogManager' %}"><i class="uil-youtube-alt"></i> <span> Blog Manager</span></a> </li>
+
+                </ul>
+
+            </div>
+        </div>
+
+        <!-- Header Container
+        ================================================== -->
+        {% include 'partials/pcm_partials/_pcm_header.html' %}
+
+        <!-- content -->
+        <div class="page-content">
+            <div class="page-content-inner">
+
+                <div class="d-flex">
+                    <nav id="breadcrumbs" class="mb-3">
+                        <ul>
+                            <li><a href="#"> <i class="uil-home-alt"></i> </a></li>
+                            <li><a href="#"> Blog Manager </a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+
+                <div class="uk-card-default rounded">
+                  <div class=" py-2 px-4">
+                      <h4 class="mb-0">Create Blog</h4>
+                  </div>
+                  <hr class="m-0">
+
+
+                    <form class="uk-width-expand uk-form-horizontal uk-grid-small p-4" method="POST"  uk-grid enctype="multipart/form-data" >
+                        {% csrf_token %}
+
+
+                      <div class="uk-width-3-4@m px-2 mx-auto">
+
+
+                        <div class="m-3">
+                          <div class="form-group row mb-3">
+                              <label class="col-md-3 uk-form-label"> Category <span
+                                      class="required">*</span></label>
+                              <div class="col-md-9 ">
+                                  <select  name="category" required onchange="submit()">
+                                    <option selected disabled>Choose Category</option>
+                                    {% for i in cag_data %}
+                                      {% if i.category == obj.create_category %}
+                                      <option value="{{i.category}}" selected> {{i.category}} </option>
+                                      {% else %}
+                                      <option value="{{i.category}}"> {{i.category}} </option>
+                                      {% endif %}
+                                    {% endfor %}
+                                  </select>
+                              </div>
+                          </div>
+                        </div>
+
+
+                        <div class="m-3">
+                          <div class="uk-margin">
+                              <label class="uk-form-label" for="form-horizontal-text">Blog Title</label>
+                              <div class="uk-form-controls">
+                                  <input class="uk-input" id="form-horizontal-text" type="text" name="blog_title" placeholder="Some text..." required>
+                              </div>
+                          </div>
+
+                          <div class="form-group uk-margin my-4">
+                            <label class="uk-form-label" for="form-horizontal-text">Blog Thumbnail</label>
+                            <div uk-form-custom class="ml-3" >
+                                <input type="file" name="blog_thumbnail" id="real-file">
+                                <a class="btn btn-default" type="button" onclick="" id="Upload-button" tabindex="-1">Select File</a>
+                                <span id="custom-text">No file choosen</span>
+                            </div>
+                            <script type="text/javascript">
+                                  const realFileBtn = document.getElementById("real-file");
+                                  const CustomBtn = document.getElementById("Upload-button");
+                                  const customTxt = document.getElementById("custom-text");
+                                                  CustomBtn.addEventListener ("click", function() {
+                                                  realFileBtn.click()
+
+                                                  });
+
+                                                  realFileBtn.addEventListener("change", function() {
+                                                if (realFileBtn.value) {
+                                                  customTxt.innerHTML = realFileBtn.value.match(
+                                                    /[\/\\]([\w\d\s\.\-\(\)]+)$/
+                                                  )[1];
+                                                } else {
+                                                  customTxt.innerHTML = "No file chosen, yet.";
+                                                }
+                                              });
+
+                            </script>
+                          </div>
+
+
+
+                          <div class="uk-margin">
+                            <label class="uk-form-label" for="form-horizontal-text">Write Blog Here</label>
+                            <div class="uk-form-controls">
+                             <textarea class="uk-textarea" rows="5" name="blog_body" placeholder="Write Here" required></textarea>
+                            </div>
+                          </div>
+
+
+                        </div>
+
+
+                        <div class="text-center">
+                          <button type="button" class="btn btn-default px-5" name="button">Create Blog</button>
+                        </div>
+
+                      </div>
+
+
+                    </form>
+
+                </div>
+
+
+
+
+                <!-- footer
+                ================================================== -->
+                {% include 'partials/_footer.html' %}
+
+            </div>
+
+        </div>
+
+
+
+
+        <!-- For Night mode -->
+        <script>
+            (function (window, document, undefined) {
+                'use strict';
+                if (!('localStorage' in window)) return;
+                var nightMode = localStorage.getItem('gmtNightMode');
+                if (nightMode) {
+                    document.documentElement.className += ' night-mode';
+                }
+            })(window, document);
+
+
+            (function (window, document, undefined) {
+
+                'use strict';
+
+                // Feature test
+                if (!('localStorage' in window)) return;
+
+                // Get our newly insert toggle
+                var nightMode = document.querySelector('#night-mode');
+                if (!nightMode) return;
+
+                // When clicked, toggle night mode on or off
+                nightMode.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    document.documentElement.classList.toggle('night-mode');
+                    if (document.documentElement.classList.contains('night-mode')) {
+                        localStorage.setItem('gmtNightMode', true);
+                        return;
+                    }
+                    localStorage.removeItem('gmtNightMode');
+                }, false);
+
+            })(window, document);
+        </script>
+
+
+</div>
+
+{% endblock %}

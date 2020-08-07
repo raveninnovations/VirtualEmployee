@@ -59,7 +59,11 @@ urlpatterns = [
     # path('careerchoice/',views.careerchoice,name='careerchoice'),
     path('usercfp/', views.UserCfp, name='usercfp'),
     path('pricing/',views.pricing,name='pricing'),
-    path('payment/',views.payment,name='payment')
+    path('payment/',views.payment,name='payment'),
 
+    #blog
+    path('blogmanager/',views.blogManager,name='blogManager'),
+    path('blogeditmanager/<int:id>',views.projectEditManager,name='blogEditManager'),
+    path('blogdashboard/',views.blogDashboard,name='blogDashboard'),
 
     ]
