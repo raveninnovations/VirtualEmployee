@@ -470,6 +470,9 @@ def user_logout(request):
 
 
 
+def activatecode(request):
+    return render(request,'virtualmain_pages/activationcode.html')
+
 
 # USER SECTION
 
