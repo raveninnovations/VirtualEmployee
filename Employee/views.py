@@ -2664,6 +2664,29 @@ def UserCfp(request):
 
 #Blog user
 def blogManager(request):
+
+    if request.method=='POST':
+        if 'project_submit' in request.POST:
+            blog_title=request.POST["blog_title"]
+            blog_description=request.POST["blog_description"]
+            blog_thumbnail=request.FILES.get("blog_thumbnail")
+            blog_category=request.POST.get("blog_category")
+
+
+            blog=BlogManager.objects.create(
+                user_id= user.pk,
+                blog_title=blog_title,
+                blog_description=blog_description,
+                blog_thumbnail=blog_thumbnail,
+                blog_category=blog_category,
+            )
+            # proj.project_cfp.set(cfp_list)
+            proj.save()
+
+            obj=ProjectCFPStore.objects.all().delete()
+            return redirect("/projectdashboard/")
+
+
     return render(request,'blog_pages/blog_manager.html')
 
 
