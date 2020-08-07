@@ -478,6 +478,9 @@ def user_logout(request):
 
 
 
+def activatecode(request):
+    return render(request,'virtualmain_pages/activationcode.html')
+
 
 # USER SECTION
 
@@ -2675,6 +2678,42 @@ def UserCfp(request):
         'role_list_two': role_list_two
     }
     return render(request,'virtualmain_pages/user-cfp.html',context)
+
+
+#Blog user
+def blogManager(request):
+
+    if request.method=='POST':
+        if 'project_submit' in request.POST:
+            blog_title=request.POST["blog_title"]
+            blog_description=request.POST["blog_description"]
+            blog_thumbnail=request.FILES.get("blog_thumbnail")
+            blog_category=request.POST.get("blog_category")
+
+
+            blog=BlogManager.objects.create(
+                user_id= user.pk,
+                blog_title=blog_title,
+                blog_description=blog_description,
+                blog_thumbnail=blog_thumbnail,
+                blog_category=blog_category,
+            )
+            # proj.project_cfp.set(cfp_list)
+            proj.save()
+
+            obj=ProjectCFPStore.objects.all().delete()
+            return redirect("/projectdashboard/")
+
+
+    return render(request,'blog_pages/blog_manager.html')
+
+
+def blogEditManager(request):
+    return render(request,'blog_pages/blog_edit_manager.html')
+
+def blogDashboard(request):
+    return render(request,'blog_pages/blog_dashboard.html')
+
 
 
 

@@ -323,3 +323,13 @@ class Certificate(models.Model):
 class Reference(models.Model):
     user_id = models.ForeignKey(User,on_delete=models.CASCADE)
     ref_id = models.CharField(max_length=200)
+
+class BlogManager(models.Model):
+    # user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    blog_title=models.CharField(max_length=100)
+    blog_body=models.TextField(blank=True)
+    blog_thumbnail=models.ImageField(upload_to='blog_images/',null=True,blank=True)
+    blog_category=models.CharField(max_length=200,null=True, blank=True)
+
+    def __str__(self):
+        return self.blog_title

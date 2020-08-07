@@ -8,6 +8,7 @@ urlpatterns = [
     path('',views.landing,name='landing'),
     path('register/',views.adduser,name='register'),
     path('Login/',views.userlogin,name='login'),
+    path('activatecode/',views.activatecode,name='activatecode'),
     path('logout/', views.user_logout, name='logout'),
     path('admindashboard/',views.adminDashboard,name="admindashboard"),
     path('admindashboard/courses/',views.adminCourses,name='admincourse'),
@@ -58,5 +59,12 @@ urlpatterns = [
     # path('careerchoice/',views.careerchoice,name='careerchoice'),
     path('usercfp/', views.UserCfp, name='usercfp'),
     path('pricing/',views.pricing,name='pricing'),
-    path('payment/',views.payment,name='payment')
+
+    path('payment/',views.payment,name='payment'),
+
+    #blog
+    path('blogmanager/',views.blogManager,name='blogManager'),
+    path('blogeditmanager/<int:id>',views.projectEditManager,name='blogEditManager'),
+    path('blogdashboard/',views.blogDashboard,name='blogDashboard'),
+
     ]
