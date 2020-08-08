@@ -29,7 +29,7 @@ from django.core.mail import send_mail, EmailMessage
 from datetime import datetime
 from .forms import (AddUserForm)
 
-from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill,Certificate
+from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill,Certificate,BlogManager
 
 
 # Create your views here.
@@ -2664,37 +2664,48 @@ def UserCfp(request):
 
 #Blog user
 def blogManager(request):
-
     if request.method=='POST':
-        if 'project_submit' in request.POST:
+        if 'blog_submit' in request.POST:
             blog_title=request.POST["blog_title"]
-            blog_description=request.POST["blog_description"]
+            blog_body=request.POST["blog_body"]
             blog_thumbnail=request.FILES.get("blog_thumbnail")
-            blog_category=request.POST.get("blog_category")
+            blog_category=request.POST["category"]
 
 
             blog=BlogManager.objects.create(
-                user_id= user.pk,
+                # user_id= user.pk,
                 blog_title=blog_title,
-                blog_description=blog_description,
+                blog_body=blog_body,
                 blog_thumbnail=blog_thumbnail,
                 blog_category=blog_category,
             )
             # proj.project_cfp.set(cfp_list)
-            proj.save()
+            blog.save()
+            return redirect("/blogdashboard/")
+    cag_data=CareerCategory.objects.all()
+    context={
+        'cag_data':cag_data,
+    }
 
-            obj=ProjectCFPStore.objects.all().delete()
-            return redirect("/projectdashboard/")
+    return render(request,'blog_pages/blog_manager.html',context)
 
 
-    return render(request,'blog_pages/blog_manager.html')
+def blogEditManager(request,id):
+    pid=id
+    data=BlogManager.objects.get(id=pid)
+    context={
+        'data':data
+    }
+    return render(request,'blog_pages/blog_edit_manager.html',context)
 
 
-def blogEditManager(request):
-    return render(request,'blog_pages/blog_edit_manager.html')
 
 def blogDashboard(request):
-    return render(request,'blog_pages/blog_dashboard.html')
+    blogs=BlogManager.objects.all()
+    context={
+        'blogs':blogs,
+    }
+    return render(request,'blog_pages/blog_dashboard.html',context)
 
 
 

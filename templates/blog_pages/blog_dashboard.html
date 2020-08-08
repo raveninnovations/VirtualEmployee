@@ -16,7 +16,7 @@ Blogs
 
             <!-- logo -->
             <div class="logo uk-visible@s">
-                <a href="{% url 'projectDashboard' %}" class="logo">
+                <a href="{% url 'blogDashboard' %}" class="logo">
                             <img src="{% static 'images/VES.png' %}" alt="">
 
                         </a>
@@ -67,23 +67,23 @@ Blogs
                               <h4>Latest Blogs</h4>
 
                               <div class="uk-child-width-1-3@m" uk-grid>
-                                {% for project in projects %}
-                                <a href="{% url 'projectEditManager' project.pk %}">
+                                {% for blog in blogs %}
+                                <a href="{% url 'blogEditManager' blog.id %}">
                                  <div>
                                      <div class="uk-card uk-card-default">
                                          <div class="uk-card-media-top">
-                                              <span class="uk-card-badge uk-label uk-position-top-right bg-primary">{{project.project_category}}</span>
-                                              {% if project.project_thumbnail %}
-                                              <img src="{{project.project_thumbnail.url}}" alt="">
+                                              <span class="uk-card-badge uk-label uk-position-top-right bg-primary">{{blog.blog_category}}</span>
+                                              {% if blog.blog_thumbnail %}
+                                              <img src="{{blog.blog_thumbnail.url}}" alt="">
                                               {% else %}
                                               <img src="" alt="">
                                               {% endif %}
                                          </div>
                                          <div class="uk-card-body">
-                                           <p><strong>Project Name: </strong>{{project.project_title}}</p>
-                                           <p><strong>Project Category: </strong>{{project.project_category}}</p>
-                                           <p><strong>Project Role: </strong>{{project.project_cfp}}</p>
-                                           <p><strong>Team Count: </strong>{{project.candidates_required}}</p>
+                                           <p><strong>Blog Name: </strong>{{blog.blog_title}}</p>
+                                           <p><strong>Blog Category: </strong>{{blog.blog_category}}</p>
+                                           <!-- <p><strong>Project Role: </strong>{{blog.blog_cfp}}</p>
+                                           <p><strong>Team Count: </strong>{{blog.candidates_required}}</p> -->
                                          </div>
                                      </div>
                                  </div>

@@ -68,14 +68,14 @@ Blog Manager
                               <label class="col-md-3 uk-form-label"> Category <span
                                       class="required">*</span></label>
                               <div class="col-md-9 ">
-                                  <select  name="category" required onchange="submit()">
+                                  <select  name="category" required>
                                     <option selected disabled>Choose Category</option>
                                     {% for i in cag_data %}
-                                      {% if i.category == obj.create_category %}
+                                      <!-- {% if i.category == obj.create_category %}
                                       <option value="{{i.category}}" selected> {{i.category}} </option>
-                                      {% else %}
+                                      {% else %} -->
                                       <option value="{{i.category}}"> {{i.category}} </option>
-                                      {% endif %}
+                                      <!-- {% endif %} -->
                                     {% endfor %}
                                   </select>
                               </div>
@@ -134,7 +134,7 @@ Blog Manager
 
 
                         <div class="text-center">
-                          <button type="button" class="btn btn-default px-5" name="blog_submit">Create Blog</button>
+                          <button type="submit" class="btn btn-default px-5" name="blog_submit">Create Blog</button>
                         </div>
 
                       </div>
