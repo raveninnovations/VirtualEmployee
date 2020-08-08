@@ -29,7 +29,8 @@ from django.core.mail import send_mail, EmailMessage
 from datetime import datetime
 from .forms import (AddUserForm)
 
-from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill,Certificate,BlogManager
+
+from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill,Certificate,Reference,BlogManager
 
 
 # Create your views here.
@@ -356,6 +357,12 @@ def adduser(request):
         num = random.randint(10000000, 99999999)
         str1 = 'VE'
         unique_id = str1+str(num)
+        # Generating reference id
+        ref = random.randint(54866,9854721)
+        str2 =  firstname
+        reference_id = str2+str(ref)
+
+
         try:
             if license_key:
                 if AdminLicense.objects.filter(key=license_key).exists():
@@ -379,6 +386,8 @@ def adduser(request):
             u_id = User.objects.get(username=username)
             addusr = UserDetails(user_id=u_id,user_pass=password,user_phone=userphone,user_unique=unique_id,user_license=license_key)
             addusr.save()
+            ref_user = Reference(user_id=u_id,ref_id=reference_id)
+            ref_user.save()
             if license_key:
 
                 return redirect('login')
@@ -688,6 +697,12 @@ def userprofile(request):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
         user = request.user
         user_details = UserDetails.objects.get(user_id_id=user.pk)
+        if Reference.objects.filter(user_id=user.pk).exists():
+            reference = Reference.objects.get(user_id=user.pk)
+            reference = reference.ref_id
+        else:
+            reference = "Key not provided"
+
         courses = Course.objects.all()
         claim = Claim.objects.all()
         tag = CourseTag.objects.filter(user_id_id=user_details.pk)
@@ -740,6 +755,7 @@ def userprofile(request):
                 'lan_skills':lan_skills,
                 'com_courses':com_courses,
                 'tot_achiev':tot_achiev,
+                'reference':reference,
                 # 'certificate':certificate
 
             }
@@ -782,6 +798,7 @@ def userprofile(request):
                     'certificate':certificate,
                     'com_courses': com_courses,
                     'tot_achiev': tot_achiev,
+                    'reference': reference,
 
                 }
                 # CFP
@@ -840,6 +857,7 @@ def userprofile(request):
                         'certi2' : certi2,
                         'com_courses': com_courses,
                         'tot_achiev': tot_achiev,
+                        'reference': reference,
 
 
                     }
@@ -1013,7 +1031,8 @@ def userprofile(request):
 
 
         context = {
-            'user_data' : user_details
+            'user_data' : user_details,
+            'reference': reference,
         }
         return render(request,'virtualmain_pages/user-profile.html',context)
 
