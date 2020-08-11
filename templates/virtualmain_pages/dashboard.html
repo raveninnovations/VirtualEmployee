@@ -19,25 +19,7 @@
                 href="#"></a>
         </div>
 
-        <!-- search overlay-->
-{#        <div id="searchbox">#}
-{##}
-{#            <div class="search-overlay"></div>#}
-{##}
-{#            <div class="search-input-wrapper">#}
-{#                <div class="search-input-container">#}
-{#                    <div class="search-input-control">#}
-{#                        <span class="icon-feather-x btn-close uk-animation-scale-up"#}
-{#                            uk-toggle="target: #searchbox; cls: is-active"></span>#}
-{#                        <div class=" uk-animation-slide-bottom">#}
-{#                            <input type="text" name="search" autofocus required>#}
-{#                            <p class="search-help">Type the name of the Course you are looking for</p>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{##}
-{#        </div>#}
+
 
         <!-- side nav-->
         <div class="side-nav uk-animation-slide-left-medium">
@@ -73,10 +55,6 @@
                     <a href="blog-1.html"> <i class="uil-file-alt"></i> <span class="tooltips"> News</span></a>
                 </li>
 
-{#                <li>#}
-{#                    <a href="#" uk-toggle="target: #searchbox; cls: is-active"><i class="uil-search-alt"></i></a>#}
-{#                </li>#}
-
             </ul>
             <ul class="uk-position-bottom">
                 <li>
@@ -108,18 +86,69 @@
             </ul>
         </div>
 
+
+
         <div class="page-content">
 
 
-            <div class="home-hero" data-src="{% static 'images/home-hero.png' %}" uk-img>
-                <div class="uk-width-1-1">
-                    <div class="page-content-inner uk-position-z-index">
-                        <h1>Learn HTML , CSS , iOS <br> and many more</h1>
-                        <h4 class="my-lg-4"> Learn how to build websites & apps <br> write a code or start a business </h4>
-                        <a href="#" class="btn btn-default">Free trailer </a>
-                    </div>
+
+            <div class="container  mt-5 pt-5 ">
+              <div class="uk-position-relative uk-visible-toggle uk-light  " uk-slideshow="ratio: 6:2" tabindex="-1" uk-slideshow>
+                    <ul class="uk-slideshow-items rounded ">
+                      <li>
+                          <img src="{% static 'images/blog/img-1.jpg' %}"  alt="" uk-cover>
+                          <div class="uk-overlay  uk-text-center rounded">
+                              <h3 class="uk-margin-remove">Overlay Bottom</h3>
+                              <p class="uk-margin-remove">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                      </li>
+                      <li>
+                          <img src="{% static 'images/blog/img-1.jpg' %}" alt="" uk-cover>
+                          <div class="uk-overlay  uk-text-center">
+                              <h3 class="uk-margin-remove">Overlay Bottom</h3>
+                              <p class="uk-margin-remove">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                      </li>
+                      <li>
+                          <img src="{% static 'images/blog/img-1.jpg' %}" alt="" uk-cover>
+                          <div class="uk-overlay  uk-text-center">
+                              <h3 class="uk-margin-remove">Overlay Bottom</h3>
+                              <p class="uk-margin-remove">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                      </li>
+                    </ul>
+                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
                 </div>
             </div>
+
+            <div class="container text-right my-1">
+              <div class="uk-inline">
+                <button type="button" class="btn btn-default" style="border-radius: 60%; height:50px;" name="button"><i class="uil uil-plus"></i></button>
+    <!-- <button class="uk-button uk-button-default" type="button">Click</button> -->
+                  <div uk-dropdown="mode: click" class="pb-0">
+                    <div class="uk-margin text-left uk-child-width-auto">
+                                <label><input class="uk-checkbox px-3 py-1 my-1 mx-2" style="height:20px; width:20px;" type="checkbox" checked> Category 1</label>
+                                <label><input class="uk-checkbox px-3 py-1 my-1 mx-2" style="height:20px; width:20px;" type="checkbox" checked> Category 2 </label>
+                                <label><input class="uk-checkbox px-3 py-1 my-1 mx-2" style="height:20px; width:20px;" type="checkbox" checked> Category 3 </label>
+                                <label><input class="uk-checkbox px-3 py-1 my-1 mx-2" style="height:20px; width:20px;" type="checkbox" checked> Category 4 </label>
+                                <label><input class="uk-checkbox px-3 py-1 my-1 mx-2" style="height:20px; width:20px;" type="checkbox" checked> Category 5 </label>
+                                <label><input class="uk-checkbox px-3 py-1 my-1 mx-2" style="height:20px; width:20px;" type="checkbox" checked> Category 6 </label>
+                                <label><input class="uk-checkbox px-3 py-1 my-1 mx-2" style="height:20px; width:20px;" type="checkbox" checked> Category 6 </label>
+                                <button type="button" class="btn btn-default btn-sm ml-5 mt-2" name="button">Done</button>
+                            </div>
+
+
+
+                  </div>
+              </div>
+
+            </div>
+
+
+
+
+
 
             <div class="container">
 

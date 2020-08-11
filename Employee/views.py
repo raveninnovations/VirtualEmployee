@@ -2712,9 +2712,27 @@ def blogManager(request):
 def blogEditManager(request,id):
     pid=id
     data=BlogManager.objects.get(id=pid)
+    cag_data=CareerCategory.objects.all()
+
+    if request.method=='POST':
+        if 'blog_edit' in request.POST:
+            blog_title=request.POST["blog_title"]
+            blog_body=request.POST["blog_body"]
+            blog_thumbnail=request.FILES.get("blog_thumbnail")
+            blog_category=request.POST["category"]
+
+            data.blog_title=blog_title
+            data.blog_body=blog_body
+            data.blog_thumbnail=blog_thumbnail
+            data.blog_category=blog_category
+            data.save()
+            return redirect('/blogDashboard/')
+
     context={
-        'data':data
+        'data':data,
+        'cag_data':cag_data
     }
+
     return render(request,'blog_pages/blog_edit_manager.html',context)
 
 
@@ -2723,6 +2741,7 @@ def blogDashboard(request):
     blogs=BlogManager.objects.all()
     context={
         'blogs':blogs,
+
     }
     return render(request,'blog_pages/blog_dashboard.html',context)
 
