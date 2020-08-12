@@ -70,7 +70,7 @@ Project Manager
                                   <select  name="category" required onchange="submit()">
                                     <option selected disabled>Choose Category</option>
                                     {% for i in cag_data %}
-                                      {% if i.category == obj.create_category %}
+                                      {% if i.category == data.blog_category %}
                                       <option value="{{i.category}}" selected> {{i.category}} </option>
                                       {% else %}
                                       <option value="{{i.category}}"> {{i.category}} </option>
@@ -86,7 +86,7 @@ Project Manager
                           <div class="uk-margin">
                               <label class="uk-form-label" for="form-horizontal-text">Blog Title</label>
                               <div class="uk-form-controls">
-                                  <input class="uk-input" id="form-horizontal-text" type="text" name="blog_title" placeholder="Some text..." required>
+                                  <input class="uk-input" id="form-horizontal-text" type="text" name="blog_title" value={{data.blog_title}} required>
                               </div>
                           </div>
 
@@ -124,7 +124,7 @@ Project Manager
                           <div class="uk-margin">
                             <label class="uk-form-label" for="form-horizontal-text">Write Blog Here</label>
                             <div class="uk-form-controls">
-                             <textarea class="uk-textarea" rows="5" name="blog_body" placeholder="Write Here" required></textarea>
+                             <textarea class="uk-textarea" rows="5" name="blog_body" required>{{data.blog_body}}</textarea>
                             </div>
                           </div>
 
@@ -133,7 +133,7 @@ Project Manager
 
 
                         <div class="text-center">
-                          <button type="button" class="btn btn-default px-5" name="button">Create Blog</button>
+                          <button type="submit" class="btn btn-default px-5" name="blog_edit">Create Blog</button>
                         </div>
 
                       </div>

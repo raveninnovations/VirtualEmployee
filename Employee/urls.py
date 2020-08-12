@@ -64,7 +64,7 @@ urlpatterns = [
 
     #blog
     path('blogmanager/',views.blogManager,name='blogManager'),
-    path('blogeditmanager/<int:id>',views.projectEditManager,name='blogEditManager'),
+    path('blogeditmanager/<int:id>',views.blogEditManager,name='blogEditManager'),
     path('blogdashboard/',views.blogDashboard,name='blogDashboard'),
 
     ]
