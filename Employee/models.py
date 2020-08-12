@@ -323,6 +323,8 @@ class Certificate(models.Model):
 class Reference(models.Model):
     user_id = models.ForeignKey(User,on_delete=models.CASCADE)
     ref_id = models.CharField(max_length=200)
+    used_peoples = models.IntegerField(default=0,null=True)
+    used_id = models.CharField(max_length=10,null=True)
 
 class BlogManager(models.Model):
     # user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)

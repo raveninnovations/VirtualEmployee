@@ -312,7 +312,7 @@ def adminStudents(request):
 
 def adduser(request):
     form = AddUserForm
-    lisences = AdminLicense.objects.all()
+    # lisences = AdminLicense.objects.all()
     if request.method =='POST':
         firstname = request.POST['first']
         lastname = request.POST['last']
@@ -321,7 +321,6 @@ def adduser(request):
         username = request.POST['email']
         password = request.POST['password1']
         conform = request.POST['password2']
-        license_key = request.POST['license']
 
         regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
         if User.objects.filter(email=email).exists():
@@ -363,35 +362,36 @@ def adduser(request):
 
 
         try:
-            if license_key:
-                if AdminLicense.objects.filter(key=license_key).exists():
-                    key = AdminLicense.objects.get(key=license_key)
-                    if UsedLicense.objects.filter(u_key=key).exists():
-                        print("Key is Used")
-                        messages.error(request,"Key is already applied")
-                        return redirect('register')
-                    else:
-                        used_key = UsedLicense(u_key=key.key,u_years=key.years)
-                        used_key.save()
-                        key.delete()
-                        messages.success(request,"License Key applied ! You can login")
-
-                else:
-                    messages.error(request,'License Key Not Valid')
-                    return redirect('register')
-            else:
-                license_key =None
+            # if license_key:
+            #     if AdminLicense.objects.filter(key=license_key).exists():
+            #         key = AdminLicense.objects.get(key=license_key)
+            #         if UsedLicense.objects.filter(u_key=key).exists():
+            #             print("Key is Used")
+            #             messages.error(request,"Key is already applied")
+            #             return redirect('register')
+            #         else:
+            #             used_key = UsedLicense(u_key=key.key,u_years=key.years)
+            #             used_key.save()
+            #             key.delete()
+            #             messages.success(request,"License Key applied ! You can login")
+            #
+            #     else:
+            #         messages.error(request,'License Key Not Valid')
+            #         return redirect('register')
+            # else:
+            license_key =None
             User.objects.create_user(username=username,email=email,first_name=firstname,last_name=lastname,password=password)
             u_id = User.objects.get(username=username)
             addusr = UserDetails(user_id=u_id,user_pass=password,user_phone=userphone,user_unique=unique_id,user_license=license_key)
             addusr.save()
-            ref_user = Reference(user_id=u_id,ref_id=reference_id)
+            ref_user = Reference(user_id=u_id,ref_id=reference_id,used_peoples=None,used_id=None)
             ref_user.save()
-            if license_key:
 
-                return redirect('login')
-            else:
-                return redirect('pricing')
+            # if license_key:
+            #
+            #     return redirect('login')
+            # else:
+            #     return redirect('pricing')
 
         except:
             usr = User.objects.get(username=email)
@@ -446,8 +446,8 @@ def userlogin(request):
                             print("license key added")
                         else:
                             print("No license key")
-                            messages.error(request, "Dont have permission to login")
-                            return redirect('login')
+                            messages.success(request, "Apply License Key")
+                            return redirect('activatecode')
                     except:
                         messages.error(request,"Dont have permission to login")
                         return redirect('login')
@@ -479,6 +479,38 @@ def user_logout(request):
 
 
 def activatecode(request):
+    user_id = request.user.pk
+    license = AdminLicense.objects.all()
+    try:
+        user = UserDetails.objects.get(user_id = user_id)
+        print(user.user_license)
+    except:
+        print("Error")
+        messages.success(request,"Some error occured")
+    if request.method == "POST":
+        license_key = request.POST['license']
+        if license_key:
+            if AdminLicense.objects.filter(key=license_key).exists():
+                key = AdminLicense.objects.get(key=license_key)
+                if UsedLicense.objects.filter(u_key=key).exists():
+                    print("Key is Used")
+                    messages.error(request,"Key is already applied")
+                    return redirect('register')
+                else:
+                    used_key = UsedLicense(u_key=key.key,u_years=key.years)
+                    used_key.save()
+                    user.user_license = license_key
+                    user.save()
+                    key.delete()
+                    messages.success(request,"License Key applied !")
+                    return redirect('usercfp')
+
+            else:
+                messages.error(request,'License Key Not Valid')
+                return redirect('activatecode')
+        else:
+            license_key = None
+
     return render(request,'virtualmain_pages/activationcode.html')
 
 
@@ -2722,7 +2754,48 @@ def pricing(request):
 
 
 def payment(request):
-    return render(request,'payment/payment_page.html')
+    print("payment page")
+    user_id = request.user.pk
+    refernces = Reference.objects.all()
+    original_price = 15254
+    print(user_id)
+    if request.method == "POST":
+        if 'ref' in request.POST:
+            ref = request.POST['reference']
+            try:
+                if Reference.objects.filter(ref_id=ref).exists():
+                    print("hello")
+                    if not Reference.objects.filter(used_id=user_id).exists():
+                        ref_detail = Reference.objects.get(ref_id=ref)
+                        print("hai123")
+                        print(ref_detail.used_peoples)
+                        ref_detail.used_peoples = 1
+                        ref_detail.used_id = user_id
+                        ref_detail.save()
+                        messages.success(request, "Reference Applied")
+                    else:
+                        messages.error(request,"Reference Key Already Applied")
+                    off_amt = (original_price * 10 ) / 100
+                    base_amt = original_price - off_amt
+                    gst_amt = (base_amt * 18) /100
+                    total_amt = base_amt+gst_amt
+                    context ={
+                        'base_amt':base_amt,
+                        'total_amt':total_amt
+                    }
+
+                    return render(request,"payment/payment_page.html",context)
+                else:
+                    print("Not exists")
+                    messages.error(request,"Reference ID Invalid")
+            except:
+                messages.error(request,"Reference key error")
+    gst_amt2 = (original_price * 18 )/100
+    total_amt2 = original_price + gst_amt2
+    context={
+        'total_amt' :total_amt2
+    }
+    return render(request,'payment/payment_page.html',context)
 
 
 def error_404_view(request, exception):
