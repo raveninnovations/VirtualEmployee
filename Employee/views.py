@@ -2827,6 +2827,7 @@ def payment(request):
             total = request.POST['total']
             remain= float(total) - float(first)
             install_3 = (remain / 3) +99
+            install_3 = round(install_3)
             install_5 = (remain / 5) + 99
             install_5 = round(install_5)
             context = {
