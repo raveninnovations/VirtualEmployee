@@ -326,6 +326,11 @@ class Reference(models.Model):
     used_peoples = models.IntegerField(default=0,null=True)
     used_id = models.CharField(max_length=10,null=True)
 
+class EmiPlan(models.Model):
+    user_id = models.ForeignKey(User,on_delete=models.CASCADE)
+    first_emi = models.IntegerField()
+
+
 class BlogManager(models.Model):
     # user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     blog_title=models.CharField(max_length=100)

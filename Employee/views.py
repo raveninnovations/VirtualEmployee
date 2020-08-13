@@ -2789,16 +2789,16 @@ def payment(request):
     user_id = request.user.pk
     refernces = Reference.objects.all()
     original_price = 15254
+    first = 5900
     print(user_id)
     if request.method == "POST":
         if 'ref' in request.POST:
             ref = request.POST['reference']
             try:
                 if Reference.objects.filter(ref_id=ref).exists():
-                    print("hello")
+
                     if not Reference.objects.filter(used_id=user_id).exists():
                         ref_detail = Reference.objects.get(ref_id=ref)
-                        print("hai123")
                         print(ref_detail.used_peoples)
                         ref_detail.used_peoples = 1
                         ref_detail.used_id = user_id
@@ -2810,6 +2810,7 @@ def payment(request):
                     base_amt = original_price - off_amt
                     gst_amt = (base_amt * 18) /100
                     total_amt = base_amt+gst_amt
+
                     context ={
                         'base_amt':base_amt,
                         'total_amt':total_amt
@@ -2821,6 +2822,21 @@ def payment(request):
                     messages.error(request,"Reference ID Invalid")
             except:
                 messages.error(request,"Reference key error")
+        if 'emi' in request.POST:
+            print(first)
+            total = request.POST['total']
+            remain= float(total) - float(first)
+            install_3 = (remain / 3) +99
+            install_5 = (remain / 5) + 99
+            install_5 = round(install_5)
+            context = {
+                'total' : total,
+                'first' : first,
+                'install_3' : install_3,
+                'install_5' : install_5,
+            }
+
+            return render(request, 'payment/payment_page.html', context)
     gst_amt2 = (original_price * 18 )/100
     total_amt2 = original_price + gst_amt2
     context={
