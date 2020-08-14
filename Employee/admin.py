@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role, ProjectManager,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill,Certificate,BlogManager
+from .models import UserDetails,RoleDetail,Course,Lesson,Lesson_Topic,CareerCategory,CFP_role, ProjectManager,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill,Certificate,BlogManager,BlogCategory
 
 # Register your models here.
 
@@ -13,6 +13,7 @@ admin.site.register(CareerCategory)
 admin.site.register(CFP_role)
 admin.site.register(ProjectManager)
 admin.site.register(BlogManager)
+admin.site.register(BlogCategory)
 admin.site.register(UserContact)
 admin.site.register(UserEducation)
 admin.site.register(UserWorkExperience)

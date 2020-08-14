@@ -25,7 +25,7 @@ Blog Manager
                 <ul class="mt-0">
                     <li><a href="{% url 'blogDashboard' %}"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
                     <li><a href="{% url 'blogManager' %}"><i class="uil-youtube-alt"></i> <span> Blog Manager</span></a> </li>
-
+                    <!-- <li><a href="{% url 'blogcategorycreate' %}"><i class="uil-youtube-alt"></i> <span> Blog Category</span></a> </li> -->
                 </ul>
 
             </div>
@@ -48,101 +48,81 @@ Blog Manager
                     </nav>
                 </div>
 
+                <form class=""  method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
 
-                <div class="uk-card-default rounded">
-                  <div class=" py-2 px-4">
-                      <h4 class="mb-0">Create Blog</h4>
+                <div class="uk-grid">
+                  <div class="uk-width-3-4@m">
+                    <div class="uk-card uk-card-default rounded uk-card-body uk-width-expand my-2 pt-3 pb-0">
+
+                      <div class="form-group uk-margin ">
+                        <label class="uk-form-label" for="form-horizontal-text">Blog Thumbnail</label>
+                        <div uk-form-custom class="ml-3" >
+                            <input type="file" name="blog_thumbnail" id="real-file">
+                            <a class="btn btn-default" type="button" onclick="" id="Upload-button" tabindex="-1">Select File</a>
+                            <span id="custom-text">No file choosen</span>
+                        </div>
+                        <script type="text/javascript">
+                              const realFileBtn = document.getElementById("real-file");
+                              const CustomBtn = document.getElementById("Upload-button");
+                              const customTxt = document.getElementById("custom-text");
+                                              CustomBtn.addEventListener ("click", function() {
+                                              realFileBtn.click()
+
+                                              });
+
+                                              realFileBtn.addEventListener("change", function() {
+                                            if (realFileBtn.value) {
+                                              customTxt.innerHTML = realFileBtn.value.match(
+                                                /[\/\\]([\w\d\s\.\-\(\)]+)$/
+                                              )[1];
+                                            } else {
+                                              customTxt.innerHTML = "No file chosen, yet.";
+                                            }
+                                          });
+
+                        </script>
+                      </div>
+                      <div class="uk-margin">
+                       <input class="uk-input" name="blog_title"  type="text" placeholder="Enter Blog Title">
+                     </div>
+                    </div>
+
+                    <div class="uk-card rounded uk-card-default uk-card-body uk-width-expand my-2">
+                      <div class="uk-margin">
+                        <textarea class="uk-textarea" name="blog_body" rows="5" style="border:3px solid #e2e5ec; box-sizing: border-box;" placeholder="Textarea"></textarea>
+                    </div>
+                    </div>
                   </div>
-                  <hr class="m-0">
 
+                  <div class="uk-width-expand">
+                    <div class="uk-card uk-card-default uk-card-body uk-width-expand my-2 pt-3">
 
-                    <form class="uk-width-expand uk-form-horizontal uk-grid-small p-4" method="POST"  uk-grid enctype="multipart/form-data" >
-                        {% csrf_token %}
-
-
-                      <div class="uk-width-3-4@m px-2 mx-auto">
-
-
+                        <h4 class=" text-center mt-0">Choose Categories</h4>
                         <div class="m-3">
                           <div class="form-group row mb-3">
-                              <label class="col-md-3 uk-form-label"> Category <span
+                              <label class=" uk-form-label"> Category <span
                                       class="required">*</span></label>
-                              <div class="col-md-9 ">
-                                  <select  name="category" required>
+                              <div class=" ">
+                                  <select  name="category" required >
                                     <option selected disabled>Choose Category</option>
                                     {% for i in cag_data %}
-                                      <!-- {% if i.category == obj.create_category %}
-                                      <option value="{{i.category}}" selected> {{i.category}} </option>
-                                      {% else %} -->
-                                      <option value="{{i.category}}"> {{i.category}} </option>
-                                      <!-- {% endif %} -->
+                                      <option value="{{i.blog_category}}"> {{i.blog_category}} </option>
                                     {% endfor %}
                                   </select>
                               </div>
                           </div>
                         </div>
+                    </div>
 
-
-                        <div class="m-3">
-                          <div class="uk-margin">
-                              <label class="uk-form-label" for="form-horizontal-text">Blog Title</label>
-                              <div class="uk-form-controls">
-                                  <input class="uk-input" id="form-horizontal-text" type="text" name="blog_title" placeholder="Some text..." required>
-                              </div>
-                          </div>
-
-                          <div class="form-group uk-margin my-4">
-                            <label class="uk-form-label" for="form-horizontal-text">Blog Thumbnail</label>
-                            <div uk-form-custom class="ml-3" >
-                                <input type="file" name="blog_thumbnail" id="real-file">
-                                <a class="btn btn-default" type="button" onclick="" id="Upload-button" tabindex="-1">Select File</a>
-                                <span id="custom-text">No file choosen</span>
-                            </div>
-                            <script type="text/javascript">
-                                  const realFileBtn = document.getElementById("real-file");
-                                  const CustomBtn = document.getElementById("Upload-button");
-                                  const customTxt = document.getElementById("custom-text");
-                                                  CustomBtn.addEventListener ("click", function() {
-                                                  realFileBtn.click()
-
-                                                  });
-
-                                                  realFileBtn.addEventListener("change", function() {
-                                                if (realFileBtn.value) {
-                                                  customTxt.innerHTML = realFileBtn.value.match(
-                                                    /[\/\\]([\w\d\s\.\-\(\)]+)$/
-                                                  )[1];
-                                                } else {
-                                                  customTxt.innerHTML = "No file chosen, yet.";
-                                                }
-                                              });
-
-                            </script>
-                          </div>
-
-
-
-                          <div class="uk-margin">
-                            <label class="uk-form-label" for="form-horizontal-text">Write Blog Here</label>
-                            <div class="uk-form-controls">
-                             <textarea class="uk-textarea" rows="5" name="blog_body" placeholder="Write Here" required></textarea>
-                            </div>
-                          </div>
-
-
-                        </div>
-
-
-                        <div class="text-center">
-                          <button type="submit" class="btn btn-default px-5" name="blog_submit">Create Blog</button>
-                        </div>
-
-                      </div>
-
-
-                    </form>
-
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-default px-5" name="blog_submit">Create Blog</button>
+                    </div>
                 </div>
+
+              </div>
+
+              </form>
 
 
 
