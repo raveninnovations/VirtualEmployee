@@ -1,0 +1,287 @@
+{% extends 'base1.html' %}
+{% load static %}{% block title %}User-Dashboard{% endblock %}
+{% block content %}
+<body>
+
+
+  <div id="wrapper">
+
+     {% include 'partials/user_partials/_header.html' %}
+
+     <!-- overlay seach on mobile-->
+<div class="nav-overlay uk-navbar-left uk-position-relative uk-flex-1 bg-grey uk-light p-2" hidden
+   style="z-index: 10000;">
+   <div class="uk-navbar-item uk-width-expand" style="min-height: 60px;">
+       <form class="uk-search uk-search-navbar uk-width-1-1">
+           <input class="uk-search-input" type="search" placeholder="Search..." autofocus>
+       </form>
+   </div>
+   <a class="uk-navbar-toggle" uk-close uk-toggle="target: .nav-overlay; animation: uk-animation-fade"
+       href="#"></a>
+</div>
+
+
+
+<!-- side nav-->
+<div class="side-nav uk-animation-slide-left-medium">
+
+
+   <div class="side-nav-bg"></div>
+
+   <!-- logo -->
+   <div class="logo uk-visible@s">
+       <a href="{% url 'dashboard' %}">
+          <img src="{% static 'images/VES.png' %}">
+       </a>
+   </div>
+
+   <ul>
+
+
+       <li>
+           <!-- My Profile -->
+           <a href="{% url 'userprofile' %}"> <i class="icon-brand-earlybirds"></i> <span class="tooltips"> My Profile</span></a>
+       </li>
+         <li>
+           <!-- My courses -->
+           <a href="{% url 'dashboard' %}"> <i class="uil-book-open"></i> <span class="tooltips"> All Courses</span></a>
+       </li>
+       <li>
+           <!-- Projects-->
+           <a href="{% url 'userproject' %}"> <i class="uil-cube"></i> <span class="tooltips">
+                   Projects</span></a>
+       </li>
+       <li>
+           <!-- Projects-->
+           <a href="{% url 'userblogspage' %}"> <i class="uil-blogger-alt"></i> <span class="tooltips">
+                   Blogs</span></a>
+       </li>
+       <li>
+           <!-- News-->
+           <a href="blog-1.html"> <i class="uil-file-alt"></i> <span class="tooltips"> News</span></a>
+       </li>
+
+   </ul>
+   <ul class="uk-position-bottom">
+       <li>
+
+           <!-- Lunch information box -->
+
+           <div uk-drop="pos: right-bottom ;mode:click ; offset: 10;animation: uk-animation-slide-right-small">
+               <div class="uk-card-default rounded p-0">
+                   <h5 class="mb-0 p-3 px-4  bg-light"> Night mode</h5>
+                   <div class="p-3 px-4">
+                       <p>Turns the light surfaces of the page dark, creating an experience ideal for night.
+                       </p>
+                       <div class="uk-flex">
+                           <p class="uk-text-small text-muted">DARK THEME </p>
+                           <!-- night mode button -->
+                           <span href="#" id="night-mode" class="btn-night-mode">
+                               <label class="btn-night-mode-switch">
+                                   <span class="uk-switch-button"></span>
+                               </label>
+                           </span>
+                       </div>
+
+                   </div>
+               </div>
+           </div>
+
+       </li>
+
+   </ul>
+</div>
+
+
+<div class="page-content mt-5 pt-5">
+
+    <div class="container">
+
+        <div uk-grid>
+            <div class="uk-width-3-4@m">
+
+                <div class="blog-post single-post">
+
+                    <!-- Blog Post Thumbnail -->
+                    <div class="blog-post-thumbnail">
+                        <div class="blog-post-thumbnail-inner">
+                            {% if blog.blpg_thumbnail %}
+                              <img src="{{blog.blog_thumbnail.url}}" alt="">
+                            {% else %}
+                              <img src="" alt="">
+                            {% endif %}
+                        </div>
+                    </div>
+
+
+                    <!-- Blog Post Content -->
+                    <div class="blog-post-content">
+
+                        <h3> {{blog.blog_title}} </h3>
+                        <div class="mb-2">
+                            <a href="#" class="blog-post-info">{{blog.blog_date | date}}</a>
+                        </div>
+
+                        <p>{{blog.blog_body}}</p>
+
+
+                    </div>
+
+                </div>
+
+                <h4>Author </h4>
+
+                <div class="uk-card-default rounded px-3 pb-md-3"
+                    uk-toggle="cls: uk-flex uk-flex-between@m uk-flex-middle; mode: media; media: @m">
+                    <div class="user-details-card">
+                        <div class="user-details-card-avatar">
+                            <img src="../assets/images/avatars/avatar-2.jpg" alt="">
+                        </div>
+                        <div class="user-details-card-name">
+                            Stella Johnson <span> Developer <span> 1 year ago </span> </span>
+                        </div>
+                    </div>
+                    <div>
+                        <strong class="mx-3 uk-visible@s"> Share on </strong>
+
+                        <a href="#" class="btn btn-facebook  rounded-circle btn-icon-only transition-3d-hover">
+                            <span class="btn-inner--icon">
+                                <i class="icon-brand-facebook-f"></i>
+                            </span>
+                        </a>
+
+                        <a href="#" class="btn btn-twitter rounded-circle btn-icon-only transition-3d-hover">
+                            <span class="btn-inner--icon">
+                                <i class="icon-brand-twitter"></i>
+                            </span>
+                        </a>
+
+                        <a href="#"
+                            class="btn btn-google-plus rounded-circle btn-icon-only transition-3d-hover">
+                            <span class="btn-inner--icon">
+                                <i class="icon-brand-google-plus-g"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="uk-width-1-4@m">
+
+                <h4> Related Articles</h4>
+                <a href="#">
+                    <div class="uk-card-default mb-4 rounded animate-this uk-inline-clip">
+                        <img src="../assets/images/blog/img-1.jpg" alt="">
+                        <div class="p-3">
+                            <p class="mb-2"> 10 amazing web demos and experiments </p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#">
+                    <div class="uk-card-default mb-4 rounded animate-this uk-inline-clip">
+                        <img src="../assets/images/blog/img-2.jpg" alt="">
+                        <div class="p-3">
+                            <p class="mb-2"> Learn 10 Awesome Web Dev Tools And Resources </p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#">
+                    <div class="uk-card-default mb-4 rounded animate-this uk-inline-clip">
+                        <img src="../assets/images/blog/img-3.jpg" alt="">
+                        <div class="p-3">
+                            <p class="mb-2">10 Interesting JavaScript And CSS Libraries </p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#">
+                    <div class="uk-card-default mb-4 rounded animate-this uk-inline-clip">
+                        <img src="../assets/images/blog/img-4.jpg" alt="">
+                        <div class="p-3">
+                            <p class="mb-2"> Learn New 10 Interesting JavaScript And CSS Libraries </p>
+                        </div>
+                    </div>
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+
+
+        <!-- footer
+       ================================================== -->
+        <div class="footer">
+            <div class="uk-grid-collapse" uk-grid>
+                <div class="uk-width-expand@s uk-first-column">
+                    <p>© 2019 <strong>Courseplus</strong>. All Rights Reserved. </p>
+                </div>
+                <div class="uk-width-auto@s">
+                    <nav class="footer-nav-icon">
+                        <ul>
+                            <li><a href="#"><i class="icon-brand-facebook"></i></a></li>
+                            <li><a href="#"><i class="icon-brand-dribbble"></i></a></li>
+                            <li><a href="#"><i class="icon-brand-youtube"></i></a></li>
+                            <li><a href="#"><i class="icon-brand-twitter"></i></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+      </div>
+
+
+
+
+
+      <!-- For Night mode -->
+      <script>
+          (function (window, document, undefined) {
+              'use strict';
+              if (!('localStorage' in window)) return;
+              var nightMode = localStorage.getItem('gmtNightMode');
+              if (nightMode) {
+                  document.documentElement.className += ' night-mode';
+              }
+          })(window, document);
+
+
+          (function (window, document, undefined) {
+
+              'use strict';
+
+              // Feature test
+              if (!('localStorage' in window)) return;
+
+              // Get our newly insert toggle
+              var nightMode = document.querySelector('#night-mode');
+              if (!nightMode) return;
+
+              // When clicked, toggle night mode on or off
+              nightMode.addEventListener('click', function (event) {
+                  event.preventDefault();
+                  document.documentElement.classList.toggle('night-mode');
+                  if (document.documentElement.classList.contains('night-mode')) {
+                      localStorage.setItem('gmtNightMode', true);
+                      return;
+                  }
+                  localStorage.removeItem('gmtNightMode');
+              }, false);
+
+          })(window, document);
+      </script>
+
+  </body>
+  {% endblock %}

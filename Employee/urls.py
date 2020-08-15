@@ -28,6 +28,8 @@ urlpatterns = [
     path('user-project-details/<int:id>',views.userProjectDetails,name='userprojectdetails'),
     path('user-course/<int:id>', views.userCourse, name='usercourse'),
     path('user-lesson/<int:id>', views.userLesson, name='userlesson'),
+    path('userblogspage/',views.userblogspage,name='userblogspage'),
+    path('userblogsdetail/<int:id>',views.userblogsdetail,name='userblogsdetail'),
     path('user-change-password/',views.userchangepassword, name='userchangepassword'),
     # CSM Section
     path('csmdashboard/',views.csmDashboard,name='csmDashboard'),

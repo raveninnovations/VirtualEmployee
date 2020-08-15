@@ -337,6 +337,7 @@ class BlogManager(models.Model):
     blog_body=models.TextField(blank=True)
     blog_thumbnail=models.ImageField(upload_to='blog_images/',null=True,blank=True)
     blog_category=models.CharField(max_length=200,null=True, blank=True)
+    blog_date = models.DateTimeField(default=datetime.now,blank=True)
 
     def __str__(self):
         return self.blog_title

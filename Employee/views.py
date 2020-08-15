@@ -563,6 +563,7 @@ def userdashboard(request):
                     progress_course = None
 
                 blog_cag=BlogCategory.objects.all()
+                blogs=BlogManager.objects.all()
 
                 context = {
                     'cfp_details':cfp_details,
@@ -572,7 +573,8 @@ def userdashboard(request):
                     'progress_course':progress_course,
                     'cfp1_projects':cfp1_projects,
                     'cfp2_projects':cfp2_projects,
-                    'blog_cag':blog_cag
+                    'blog_cag':blog_cag,
+                    'blogs':blogs
 
                 }
                 return render(request, 'virtualmain_pages/dashboard.html', context)
@@ -1435,6 +1437,34 @@ def userProjectDetails(request,id):
 
     return render(request,'virtualmain_pages/user-project-details.html',context)
 
+
+
+def userblogspage(request):
+    if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        blogs=BlogManager.objects.all()
+        context={
+            'blogs':blogs
+        }
+
+    else:
+        messages.error(request,"Wrong URL")
+        return redirect('logout')
+
+    return render(request,'virtualmain_pages/user_blogs_page.html',context)
+
+def userblogsdetail(request,id):
+    if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        bid=id
+        blog=BlogManager.objects.get(id=bid)
+        context={
+            'blog':blog
+        }
+
+    else:
+        messages.error(request,"Wrong URL")
+        return redirect('logout')
+
+    return render(request,'virtualmain_pages/user_blog_detail.html',context)
 
 
 @login_required
