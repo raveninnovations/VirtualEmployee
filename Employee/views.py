@@ -30,7 +30,7 @@ from datetime import datetime
 from .forms import (AddUserForm)
 
 
-from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill,Certificate,Reference,BlogManager
+from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill,Certificate,Reference,BlogManager,BlogCategory
 
 
 # Create your views here.
@@ -2743,12 +2743,13 @@ def blogManager(request):
                 # proj.project_cfp.set(cfp_list)
                 blog.save()
                 return redirect("/blogdashboard/")
-        cag_data=CareerCategory.objects.all()
+        cag_data=BlogCategory.objects.all()
         context={
             'cag_data':cag_data,
         }
 
         return render(request,'blog_pages/blog_manager.html',context)
+
     else:
         messages.error(request,"Wrong url")
         return redirect('login')
@@ -2758,8 +2759,7 @@ def blogEditManager(request,id):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
         pid=id
         data=BlogManager.objects.get(id=pid)
-        cag_data=CareerCategory.objects.all()
-
+        cag_data=BlogCategory.objects.all()
         if request.method=='POST':
             if 'blog_edit' in request.POST:
                 blog_title=request.POST["blog_title"]
@@ -2797,6 +2797,38 @@ def blogDashboard(request):
     else:
         messages.error(request,"Wrong url")
         return redirect('login')
+
+
+def blogcategorycreate(request):
+    if request.method=='POST':
+        if 'category_submit' in request.POST:
+            cag_name=request.POST['cagname']
+
+            if BlogCategory.objects.filter(blog_category=cag_name).exists():
+                messages.error(request, 'The Category already exists')
+                return redirect('blogcategorycreate')
+
+            if BlogCategory.objects.filter(blog_category=cag_name.upper()).exists():
+                messages.error(request, 'The Category already exists')
+                return redirect('blogcategorycreate')
+
+            if BlogCategory.objects.filter(blog_category=cag_name.lower()).exists():
+                messages.error(request, 'The Category already exists')
+                return redirect('blogcategorycreate')
+
+            if BlogCategory.objects.filter(blog_category=cag_name.capitalize()).exists():
+                messages.error(request, 'The Category already exists')
+                return redirect('blogcategorycreate')
+
+
+            category_id=BlogCategory.objects.all().count()+1
+            cag_obj=BlogCategory(blog_category_id=category_id,blog_category=cag_name)
+            cag_obj.save()
+            messages.success(request, 'New Category created')
+
+            return redirect('blogcategorycreate')
+
+    return render(request,'blog_pages/blog_create_category.html')
 
 
 

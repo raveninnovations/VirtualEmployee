@@ -340,3 +340,10 @@ class BlogManager(models.Model):
 
     def __str__(self):
         return self.blog_title
+
+class BlogCategory(models.Model):
+    blog_category_id=models.IntegerField(default=0)
+    blog_category=models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.blog_category
