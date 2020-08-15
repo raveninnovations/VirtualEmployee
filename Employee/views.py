@@ -2807,7 +2807,7 @@ def blogEditManager(request,id):
                 data.blog_thumbnail=blog_thumbnail
                 data.blog_category=blog_category
                 data.save()
-                return redirect('/blogDashboard/')
+                return redirect('blogDashboard')
 
         context={
             'data':data,

@@ -97,38 +97,30 @@
 
 
 
-            <div class=" mt-1 ">
-              <div class="uk-position-relative uk-visible-toggle uk-light  " uk-slideshow="ratio: 6:2" tabindex="-1" uk-slideshow>
-                    <ul class="uk-slideshow-items rounded " uk-slideshow="autoplay: true">
+          <div class=" mt-1 ">
+            <div class="uk-position-relative uk-visible-toggle uk-light  " uk-slideshow="ratio: 6:2" tabindex="-1" uk-slideshow>
+                <ul class="uk-slideshow-items rounded " >
+                  {% for i in blogs %}
                       <li>
-                          <img src="{% static 'images/blog/img-1.jpg' %}"  alt="" uk-cover>
-                          <div class="uk-overlay  uk-text-center rounded">
-                              <h3 class="uk-margin-remove">Overlay Bottom</h3>
+                        {% if i.blog_thumbnail %}
+                         <img src="{{ i.blog_thumbnail.url }}"  alt="" uk-cover>
+                        {% else %}
+                        <img src=""  alt="" uk-cover>
+                        {% endif %}
+                          <!-- <div class="uk-overlay  uk-text-center rounded">
+                              <h3 class="uk-margin-remove">{{i.blog_title}}</h3>
                               <p class="uk-margin-remove">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                          </div>
+                          </div> -->
                       </li>
-                      <li>
-                          <img src="{% static 'images/blog/img-1.jpg' %}" alt="" uk-cover>
-                          <div class="uk-overlay  uk-text-center">
-                              <h3 class="uk-margin-remove">Overlay Bottom</h3>
-                              <p class="uk-margin-remove">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                          </div>
-                      </li>
-                      <li>
-                          <img src="{% static 'images/blog/img-1.jpg' %}" alt="" uk-cover>
-                          <div class="uk-overlay  uk-text-center">
-                              <h3 class="uk-margin-remove">Overlay Bottom</h3>
-                              <p class="uk-margin-remove">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                          </div>
-                      </li>
+                      {% endfor %}
                     </ul>
-                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
-                </div>
-            </div>
+                     <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                     <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+                 </div>
+             </div>
 
-            <div class=" mx-4 text-right my-1">
-              <div class="uk-inline">
+             <div class=" mx-4 text-right my-1">
+               <div class="uk-inline">
                 <style>
                   .plus {
   border-radius: 50%;
