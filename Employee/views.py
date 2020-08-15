@@ -564,6 +564,10 @@ def userdashboard(request):
 
                 blog_cag=BlogCategory.objects.all()
                 blogs=BlogManager.objects.all()
+                if request.method == 'POST':
+                    category = request.POST['d_blog']
+                    print(category)
+                    blogs = BlogManager.objects.filter(blog_category=category)
 
                 context = {
                     'cfp_details':cfp_details,
@@ -2807,7 +2811,7 @@ def blogEditManager(request,id):
                 data.blog_thumbnail=blog_thumbnail
                 data.blog_category=blog_category
                 data.save()
-                return redirect('/blogDashboard/')
+                return redirect('blogDashboard')
 
         context={
             'data':data,
