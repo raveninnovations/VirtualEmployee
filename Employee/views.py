@@ -562,6 +562,8 @@ def userdashboard(request):
                 else:
                     progress_course = None
 
+                blog_cag=BlogCategory.objects.all()
+
                 context = {
                     'cfp_details':cfp_details,
                     'lists':lists,
@@ -570,6 +572,7 @@ def userdashboard(request):
                     'progress_course':progress_course,
                     'cfp1_projects':cfp1_projects,
                     'cfp2_projects':cfp2_projects,
+                    'blog_cag':blog_cag
 
                 }
                 return render(request, 'virtualmain_pages/dashboard.html', context)
@@ -2725,6 +2728,7 @@ def UserCfp(request):
 @login_required
 def blogManager(request):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        user=request.user
         if request.method=='POST':
             if 'blog_submit' in request.POST:
                 blog_title=request.POST["blog_title"]
@@ -2734,7 +2738,7 @@ def blogManager(request):
 
 
                 blog=BlogManager.objects.create(
-                    # user_id= user.pk,
+                    user_id= user.id,
                     blog_title=blog_title,
                     blog_body=blog_body,
                     blog_thumbnail=blog_thumbnail,
@@ -2757,6 +2761,7 @@ def blogManager(request):
 @login_required
 def blogEditManager(request,id):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        user=request.user
         pid=id
         data=BlogManager.objects.get(id=pid)
         cag_data=BlogCategory.objects.all()
@@ -2788,7 +2793,8 @@ def blogEditManager(request,id):
 @login_required
 def blogDashboard(request):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
-        blogs=BlogManager.objects.all()
+        user=request.user
+        blogs=BlogManager.objects.filter(user=user.pk)
         context={
             'blogs':blogs,
 

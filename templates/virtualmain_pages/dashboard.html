@@ -142,13 +142,9 @@
      <!-- <button class="uk-button uk-button-default" type="button">Click</button> -->
                   <div uk-dropdown="mode: click" class="pb-0 px-2" style="border-radius:10px;">
                     <div class="uk-margin text-left uk-child-width-auto">
-                                <label><input class="uk-checkbox px-3 py-1 my-1 mx-2"  type="checkbox" checked> Category 1</label>
-                                <label><input class="uk-checkbox px-3 py-1 my-1 mx-2"  type="checkbox" checked> Category 2 </label>
-                                <label><input class="uk-checkbox px-3 py-1 my-1 mx-2"  type="checkbox" checked> Category 3 </label>
-                                <label><input class="uk-checkbox px-3 py-1 my-1 mx-2"  type="checkbox" checked> Category 4 </label>
-                                <label><input class="uk-checkbox px-3 py-1 my-1 mx-2"  type="checkbox" checked> Category 5 </label>
-                                <label><input class="uk-checkbox px-3 py-1 my-1 mx-2"  type="checkbox" checked> Category 6 </label>
-                                <label><input class="uk-checkbox px-3 py-1 my-1 mx-2"  type="checkbox" checked> Category 6 </label>
+                                {% for i in blog_cag %}
+                                  <label><input class="uk-checkbox px-3 py-1 my-1 mx-2"  type="checkbox" >{{i.blog_category}}</label>
+                                {% endfor %}
                                 <button type="button" class="btn btn-default btn-sm ml-5 mt-2" name="button">Done</button>
                             </div>
 
