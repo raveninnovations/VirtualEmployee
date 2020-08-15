@@ -126,6 +126,8 @@ def adminRolecreation(request):
                     role_user_id="TL"+str(300+(RoleDetail.objects.filter(user_role="TL").count()+1))
                 elif user_role=="Instructor":
                     role_user_id="IN"+str(400+(RoleDetail.objects.filter(user_role="Instructor").count()+1))
+                elif user_role == "Blogger":
+                    role_user_id  = "Blog"+str(500+(RoleDetail.objects.filter(user_role="Blogger").count()+1))
                 else:
                     role_user_id=000
 
@@ -174,6 +176,10 @@ def adminRolecreation(request):
                     elif user_role == "TL":
                         user.is_staff = False
                         user.is_superuser = True
+                    elif user_role == "Blogger":
+                        user.is_active =True
+                        user.is_staff = False
+                        user.is_superuser = False
                     elif user_role == "PCM":
                         user.is_superuser=True
                         user.is_staff = False
@@ -435,6 +441,8 @@ def userlogin(request):
                             return redirect('projectDashboard')
                         elif role.user_role == "Instructor":
                             return redirect('insDashboard')
+                        elif role.user_role == "Blogger":
+                            return redirect('blogManager')
                         else:
                             messages.error(request, "Error occured in Role")
                 except:
@@ -2714,68 +2722,81 @@ def UserCfp(request):
 
 
 #Blog user
+@login_required
 def blogManager(request):
-    if request.method=='POST':
-        if 'blog_submit' in request.POST:
-            blog_title=request.POST["blog_title"]
-            blog_body=request.POST["blog_body"]
-            blog_thumbnail=request.FILES.get("blog_thumbnail")
-            blog_category=request.POST["category"]
+    if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        if request.method=='POST':
+            if 'blog_submit' in request.POST:
+                blog_title=request.POST["blog_title"]
+                blog_body=request.POST["blog_body"]
+                blog_thumbnail=request.FILES.get("blog_thumbnail")
+                blog_category=request.POST["category"]
 
 
-            blog=BlogManager.objects.create(
-                # user_id= user.pk,
-                blog_title=blog_title,
-                blog_body=blog_body,
-                blog_thumbnail=blog_thumbnail,
-                blog_category=blog_category,
-            )
-            # proj.project_cfp.set(cfp_list)
-            blog.save()
-            return redirect("/blogdashboard/")
-    cag_data=CareerCategory.objects.all()
-    context={
-        'cag_data':cag_data,
-    }
+                blog=BlogManager.objects.create(
+                    # user_id= user.pk,
+                    blog_title=blog_title,
+                    blog_body=blog_body,
+                    blog_thumbnail=blog_thumbnail,
+                    blog_category=blog_category,
+                )
+                # proj.project_cfp.set(cfp_list)
+                blog.save()
+                return redirect("/blogdashboard/")
+        cag_data=CareerCategory.objects.all()
+        context={
+            'cag_data':cag_data,
+        }
 
-    return render(request,'blog_pages/blog_manager.html',context)
+        return render(request,'blog_pages/blog_manager.html',context)
+    else:
+        messages.error(request,"Wrong url")
+        return redirect('login')
 
-
+@login_required
 def blogEditManager(request,id):
-    pid=id
-    data=BlogManager.objects.get(id=pid)
-    cag_data=CareerCategory.objects.all()
+    if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        pid=id
+        data=BlogManager.objects.get(id=pid)
+        cag_data=CareerCategory.objects.all()
 
-    if request.method=='POST':
-        if 'blog_edit' in request.POST:
-            blog_title=request.POST["blog_title"]
-            blog_body=request.POST["blog_body"]
-            blog_thumbnail=request.FILES.get("blog_thumbnail")
-            blog_category=request.POST["category"]
+        if request.method=='POST':
+            if 'blog_edit' in request.POST:
+                blog_title=request.POST["blog_title"]
+                blog_body=request.POST["blog_body"]
+                blog_thumbnail=request.FILES.get("blog_thumbnail")
+                blog_category=request.POST["category"]
 
-            data.blog_title=blog_title
-            data.blog_body=blog_body
-            data.blog_thumbnail=blog_thumbnail
-            data.blog_category=blog_category
-            data.save()
-            return redirect('/blogDashboard/')
+                data.blog_title=blog_title
+                data.blog_body=blog_body
+                data.blog_thumbnail=blog_thumbnail
+                data.blog_category=blog_category
+                data.save()
+                return redirect('/blogDashboard/')
 
-    context={
-        'data':data,
-        'cag_data':cag_data
-    }
+        context={
+            'data':data,
+            'cag_data':cag_data
+        }
 
-    return render(request,'blog_pages/blog_edit_manager.html',context)
+        return render(request,'blog_pages/blog_edit_manager.html',context)
+    else:
+        messages.error(request,"Wrong url")
+        return redirect('login')
 
 
-
+@login_required
 def blogDashboard(request):
-    blogs=BlogManager.objects.all()
-    context={
-        'blogs':blogs,
+    if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        blogs=BlogManager.objects.all()
+        context={
+            'blogs':blogs,
 
-    }
-    return render(request,'blog_pages/blog_dashboard.html',context)
+        }
+        return render(request,'blog_pages/blog_dashboard.html',context)
+    else:
+        messages.error(request,"Wrong url")
+        return redirect('login')
 
 
 
