@@ -97,6 +97,7 @@
 
 
 
+
           <div class=" mt-1 ">
             <div class="uk-position-relative uk-visible-toggle uk-light  " uk-slideshow="ratio: 6:2; autoplay: true autoplay-interval: 200" tabindex="-1">
                 <ul class="uk-slideshow-items rounded " >
@@ -138,13 +139,14 @@
 
      <!-- <button class="uk-button uk-button-default" type="button">Click</button> -->
                   <div uk-dropdown="mode: click" class="pb-0 px-2" style="border-radius:10px;">
+                  <form method="post">{% csrf_token %}
                     <div class="uk-margin text-left uk-child-width-auto">
                                 {% for i in blog_cag %}
-                                  <label><input class="uk-checkbox px-3 py-1 my-1 mx-2"  type="checkbox" >{{i.blog_category}}</label>
+                                  <label><input class="uk-checkbox px-3 py-1 my-1 mx-2"  type="checkbox" name="d_blog" value="{{ i.blog_category }}">{{i.blog_category}}</label>
                                 {% endfor %}
-                                <button type="button" class="btn btn-default btn-sm ml-5 mt-2" name="button">Done</button>
+                                <button type="submit" class="btn btn-default btn-sm ml-5 mt-2" name="button1">Done</button>
                             </div>
-
+                    </form>
 
 
                   </div>
