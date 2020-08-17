@@ -90,7 +90,7 @@ Project Manager
 
                     <div class="uk-card rounded uk-card-default uk-card-body uk-width-expand my-2">
                       <div class="uk-margin">
-                        <textarea class="uk-textarea" name="blog_body" rows="5" style="border:3px solid #e2e5ec; box-sizing: border-box;" placeholder="Textarea">{{data.blog_body}}</textarea>
+                        <textarea class="uk-textarea" name="editor1" rows="5" style="border:3px solid #e2e5ec; box-sizing: border-box;" placeholder="Textarea">{{data.blog_body}}</textarea>
                     </div>
                     </div>
                   </div>
@@ -134,6 +134,7 @@ Project Manager
                 <!-- footer
                 ================================================== -->
                 {% include 'partials/_footer.html' %}
+                <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
 
             </div>
 
@@ -177,6 +178,8 @@ Project Manager
                 }, false);
 
             })(window, document);
+
+             CKEDITOR.replace( 'editor1' );
         </script>
 
 

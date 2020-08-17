@@ -2773,7 +2773,7 @@ def blogManager(request):
         if request.method=='POST':
             if 'blog_submit' in request.POST:
                 blog_title=request.POST["blog_title"]
-                blog_body=request.POST["blog_body"]
+                blog_body=request.POST["editor1"]
                 blog_thumbnail=request.FILES.get("blog_thumbnail")
                 blog_category=request.POST["category"]
                 if not blog_category:
@@ -2841,7 +2841,7 @@ def blogEditManager(request,id):
         if request.method=='POST':
             if 'blog_edit' in request.POST:
                 blog_title=request.POST["blog_title"]
-                blog_body=request.POST["blog_body"]
+                blog_body=request.POST["editor1"]
                 blog_thumbnail=request.FILES.get("blog_thumbnail")
                 blog_category=request.POST["category"]
 
