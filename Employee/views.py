@@ -30,7 +30,7 @@ from datetime import datetime
 from .forms import (AddUserForm)
 
 
-from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill,Certificate,Reference,BlogManager,BlogCategory
+from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill,Certificate,Reference,BlogManager,BlogCategory,BlogHeight,UsedBlogs
 
 
 # Create your views here.
@@ -563,17 +563,24 @@ def userdashboard(request):
                     progress_course = None
 
                 blog_cag=BlogCategory.objects.all()
-                blogs=BlogManager.objects.all()
+                print(user.pk)
+                blogs = UsedBlogs.objects.filter(user_id=user.pk)
+                blogs = BlogManager.objects.all()
+
+                if not blogs:
+                    blogs=BlogHeight.objects.all()
                 if request.method == 'POST':
                     category = request.POST['d_blog']
-                    print(category)
+                    b_d = request.POST['b_idd']
+                    print(b_d)
+                    data = UsedBlogs(user_id=user.pk,blog_cat=category,blog_id=b_d)
+                    data.save()
                     blogs = BlogManager.objects.filter(blog_category=category)
-
                 context = {
                     'cfp_details':cfp_details,
                     'lists':lists,
                     'lists2':lists2,
-                    'course_data': course_data,
+                    'course_data': course_data, 
                     'progress_course':progress_course,
                     'cfp1_projects':cfp1_projects,
                     'cfp2_projects':cfp2_projects,
@@ -2769,6 +2776,8 @@ def blogManager(request):
                 blog_body=request.POST["blog_body"]
                 blog_thumbnail=request.FILES.get("blog_thumbnail")
                 blog_category=request.POST["category"]
+                if not blog_category:
+                    print("no category")
 
 
                 blog=BlogManager.objects.create(
@@ -2792,6 +2801,36 @@ def blogManager(request):
         messages.error(request,"Wrong url")
         return redirect('login')
 
+@login_required
+def blogHighlight(request):
+    if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        user= request.user
+        if request.method == 'POST':
+            if 'blog_submit' in request.POST:
+                blog_title = request.POST["blog_title"]
+                blog_body = request.POST["blog_body"]
+                blog_thumbnail = request.FILES.get("blog_thumbnail")
+
+
+
+                blog = BlogHeight.objects.create(
+                    user_id=user.id,
+                    blog_title=blog_title,
+                    blog_body=blog_body,
+                    blog_thumbnail=blog_thumbnail,
+                )
+                # proj.project_cfp.set(cfp_list)
+                blog.save()
+                return redirect("/blogdashboard/")
+        cag_data = BlogHeight.objects.all()
+        context = {
+            'cag_data': cag_data,
+        }
+        return render(request, 'blog_pages/blog_highlight.html',context)
+
+    else:
+        messages.error(request,"Wrong url")
+        return redirect('login')
 @login_required
 def blogEditManager(request,id):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
