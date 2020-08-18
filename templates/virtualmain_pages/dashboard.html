@@ -109,10 +109,10 @@
                         {% else %}
                         <img src=""  alt="" uk-cover>
                         {% endif %}
-                          <!-- <div class="uk-overlay  uk-text-center rounded">
-                              <h3 class="uk-margin-remove">{{i.blog_title}}</h3>
-                              <p class="uk-margin-remove">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                          </div> -->
+                        <div class="uk-position-bottom uk-position-medium uk-text-center uk-light">
+                            <h3 class="uk-margin-remove">{{i.blog_title}}</h3>
+                            <p class="uk-margin-remove">{{i.blog_tagline | truncatewords:12}</p>
+                        </div>
                       </li>
                       {% endfor %}
                     </ul>
@@ -316,6 +316,64 @@
                     </div>
 
                 </div>
+
+
+
+
+                <div class="section-header my-4">
+                    <div class="section-header-left">
+                        <h1 class="text-center"><strong>Choose your Microcourse by categories</strong></h1>
+                        <h4 class="text-center">Choose  your favourite course categories, choose your favourite one start learning</h4>
+                    </div>
+
+                </div>
+
+                <div class="container mb-5">
+                  <div class="uk-child-width-1-4@s uk-grid">
+
+                    <div>
+                      <div class="uk-card uk-card-default uk-card-body">
+                          <i class="uil uil-palette text-success text"></i>
+                          <h4> Self Development</h4>
+                          <a href="" uk-icon="icon: heart"></a>
+                          <p> Communications, interviews, personality development</p>
+                      </div>
+                  </div>
+
+                  <div>
+                      <div class="uk-card uk-card-default uk-card-body">
+                          <h4> Business Intelligence</h4>
+                          <p>sales skills, negotiations, project management</p>
+                      </div>
+                  </div>
+
+                  <div>
+                      <div class="uk-card uk-card-default uk-card-body">
+                          <h4>Product Enhancers</h4>
+                          <p>Excel, Coreldraw, Photoshop, Wordpress</p>
+                      </div>
+                  </div>
+
+                  <div>
+                      <div class="uk-card uk-card-default uk-card-body">
+                          <h4>Knowledge Supplement</h4>
+                          <p>Personal Finance, reasoning, quantitative aptitude</p>
+                      </div>
+                  </div>
+
+
+                  </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
 
 
 

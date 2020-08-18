@@ -580,7 +580,7 @@ def userdashboard(request):
                     'cfp_details':cfp_details,
                     'lists':lists,
                     'lists2':lists2,
-                    'course_data': course_data, 
+                    'course_data': course_data,
                     'progress_course':progress_course,
                     'cfp1_projects':cfp1_projects,
                     'cfp2_projects':cfp2_projects,
@@ -2773,6 +2773,7 @@ def blogManager(request):
         if request.method=='POST':
             if 'blog_submit' in request.POST:
                 blog_title=request.POST["blog_title"]
+                blog_tagline=request.POST["blog_tagline"]
                 blog_body=request.POST["editor1"]
                 blog_thumbnail=request.FILES.get("blog_thumbnail")
                 blog_category=request.POST["category"]
@@ -2783,6 +2784,7 @@ def blogManager(request):
                 blog=BlogManager.objects.create(
                     user_id= user.id,
                     blog_title=blog_title,
+                    blog_tagline=blog_tagline,
                     blog_body=blog_body,
                     blog_thumbnail=blog_thumbnail,
                     blog_category=blog_category,
@@ -2841,11 +2843,14 @@ def blogEditManager(request,id):
         if request.method=='POST':
             if 'blog_edit' in request.POST:
                 blog_title=request.POST["blog_title"]
+                blog_tagline=request.POST["blog_tagline"]
                 blog_body=request.POST["editor1"]
                 blog_thumbnail=request.FILES.get("blog_thumbnail")
                 blog_category=request.POST["category"]
 
+                data=BlogManager.objects.get(id=pid)
                 data.blog_title=blog_title
+                data.blog_tagline=blog_tagline
                 data.blog_body=blog_body
                 data.blog_thumbnail=blog_thumbnail
                 data.blog_category=blog_category

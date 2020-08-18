@@ -334,6 +334,7 @@ class EmiPlan(models.Model):
 class BlogManager(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     blog_title=models.CharField(max_length=100)
+    blog_tagline=models.CharField(max_length=150,blank=True)
     blog_body=models.TextField(blank=True)
     blog_thumbnail=models.ImageField(upload_to='blog_images/',null=True,blank=True)
     blog_category=models.CharField(max_length=200,null=True, blank=True)
