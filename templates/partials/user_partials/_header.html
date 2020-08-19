@@ -2,7 +2,9 @@
 {% load static %}
 {#   Header starts  #}
 
-    <header class="header header-transparent uk-light" uk-sticky="top:20 ; cls-active:header-sticky ; cls-inactive: uk-light">
+    <header class="header header-transparent uk-light" uk-sticky="top:20 ; cls-active:header-sticky ; cls-inactive: header-sticky" style="position: fixed;
+    top: 0px;
+    width: 1499px;">
 
             <div class="container">
                 <nav uk-navbar>
@@ -49,7 +51,8 @@
 
                             <a href="#" class="header-widget-icon profile-icon">
 {#                                <img src="{% static 'images/avatars/avatar-2.jpg' %}" alt="" class="header-profile-icon">#}
-                            <p style="color: black;font-size: 16px;text-transform: uppercase;font-weight: bold;padding-top: 5px;">{{ user.first_name }} {{ user.last_name }}</p>
+
+                            <p style="color: black;font-size: 16px;text-transform: uppercase;font-weight: bold;padding-top: 5px;"><a class="uil uil-user mx-2"></a>{{ user.first_name }} {{ user.last_name }}</p>
                             </a>
                         {% endif %}
 

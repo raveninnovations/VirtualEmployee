@@ -90,7 +90,7 @@ body {
   font-size: 15px;
   font-weight: 300;
   line-height: 1.8;
-  color: #29303b; 
+  color: #29303b;
   background: #fff;
   -webkit-text-size-adjust: 100%;
   background: #edeff0;
@@ -1039,7 +1039,7 @@ fieldset {
 
 
 
-/* 
+/*
  ========================================================================
    Component: Container
  ========================================================================== */
@@ -1419,7 +1419,7 @@ fieldset {
 .header-sticky {
   -webkit-box-shadow: 0 .5rem .5rem -.5rem rgba(0, 0, 0, .2) !important;
   box-shadow: 0 .5rem .5rem -.5rem rgba(0, 0, 0, .2) !important;
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255);
   position: fixed;
   z-index: 1000;
 }
@@ -1718,7 +1718,7 @@ fieldset {
 }
 
 /* ---------------------------------- */
-/* Page Navigation  
+/* Page Navigation
 ------------------------------------- */
 .page-menu ul {
   list-style: none;
@@ -2044,7 +2044,7 @@ fieldset {
 
 
 /* ---------------------------------- */
-/* Side Nav 
+/* Side Nav
 ------------------------------------- */
 
 .side-nav .side-nav-bg {
@@ -2348,7 +2348,7 @@ fieldset {
 
 
 /* ---------------------------------- */
-/* header widget menu icon 
+/* header widget menu icon
 ------------------------------------- */
 
 
@@ -3204,7 +3204,7 @@ ul.dropdown-user-menu .menu-divider {
     display: none
   }
 }
- 
+
 /* ---------------------------------- */
 /* Course details
 ------------------------------------- */
@@ -3963,7 +3963,7 @@ ul.course-curriculum-list {
 
 
 /* ---------------------------------- */
-/* course card   
+/* course card
 ------------------------------------- */
 
 .course-card {
@@ -5221,7 +5221,7 @@ ul.course-video-list-2 li.uk-active a {
 }
 
 /* ---------------------------------- */
-/* course lesson  3  
+/* course lesson  3
 ------------------------------------- */
 .vidlist-3-content {
   height: calc(99vh - 90px) !important;
@@ -5598,7 +5598,7 @@ ul.vidlist-3 {
 .c-curriculum  .uk-accordion-title i{
   margin-left: 8px;
 }
-  
+
 ul.sec-list {
     margin: 0;
     padding: 0;
@@ -5613,7 +5613,7 @@ ul.sec-list {
    border-radius: 10px;
    justify-content: space-between;
 }
- 
+
 .sec-list-item * {
     display: flex;
     align-items: center;
@@ -5643,7 +5643,7 @@ ul.sec-list {
     color: #3e416d;
     font-size: 12px;
     border-radius: 3px;
-} 
+}
 .btn-act a:hover{
   background-color: #d0d3ff;
   color: #3e416d;
@@ -6263,7 +6263,7 @@ span.blog-post-info-tag {
 
 
 /* ---------------------------------- */
-/* profile 
+/* profile
 ------------------------------------- */
 
 .profile-container {
@@ -7091,8 +7091,8 @@ ul.dropdown-nav .menu-divider {
 /* ---------------------------------- */
 /* setting menu list in admin panel
 ------------------------------------- */
-.setting-menu { 
-  color: #474747; 
+.setting-menu {
+  color: #474747;
 }
 .setting-menu ul li { padding-right:0}
 .setting-menu ul li a , .setting-menu .uk-active.li a{
@@ -7109,7 +7109,7 @@ ul.dropdown-nav .menu-divider {
 @media (max-width:960px){
   .setting-menu ul li a {
     padding: 0px 15px;
-   } 
+   }
     .responsive-tab a i {
     margin-left: 5px;
    }
@@ -7423,7 +7423,7 @@ ul.dropdown-nav .menu-divider {
 
 
 /* ---------------------------------- */
-/*  embed video responsive 
+/*  embed video responsive
 ------------------------------------- */
 
 .embed-video {
@@ -7705,7 +7705,7 @@ span.duration {
 
 
 /* ---------------------------------- */
-/* animation   
+/* animation
 ------------------------------------- */
 
 .transition-3d-hover,
@@ -8232,7 +8232,7 @@ body #backtotop a {
 
 
 /* ---------------------------------- */
-/* Background   
+/* Background
 ------------------------------------- */
 .bg-primary {
   background-color: #377dff !important;
@@ -8280,7 +8280,7 @@ body #backtotop a {
 
 
 /* ---------------------------------- */
-/* gradient Backgrounds  
+/* gradient Backgrounds
 ------------------------------------- */
 .bg-transparent {
   background-color: transparent !important;
@@ -8355,7 +8355,7 @@ body #backtotop a {
 
 
 /* ---------------------------------- */
-/* topic- Backgrounds  
+/* topic- Backgrounds
 ------------------------------------- */
 
 .topic-1 {
@@ -8400,7 +8400,7 @@ body #backtotop a {
 
 
 /* ---------------------------------- */
-/* Background Soft Colors  
+/* Background Soft Colors
 ------------------------------------- */
 .bg-soft-primary {
   background-color: rgba(55, 125, 255, 0.1) !important;
@@ -8475,7 +8475,7 @@ body #backtotop a {
 
 
 /* ---------------------------------- */
-/* button  
+/* button
 ------------------------------------- */
 
 .button {
@@ -8558,7 +8558,7 @@ fieldset:disabled a.button {
 
 
 /* ---------------------------------- */
-/* Button size  
+/* Button size
 ------------------------------------- */
 .button.small {
   font-size: 13px;
@@ -8700,7 +8700,7 @@ fieldset:disabled a.button {
   top: 1px;
   margin-left: 1px;
 }
- 
+
 
 /* List */
 .chats-inbox ul {
@@ -8770,7 +8770,7 @@ fieldset:disabled a.button {
   background-color: #38b653;
 }
 
-.status-icon, 
+.status-icon,
 .user-avatar:after {
   position: absolute;
   content: "";
@@ -10249,7 +10249,7 @@ em.mm-counter+a.mm-fullsubopen+span {
 
 
 
- 
+
 /****************
 Simplebar  Styles
 ****************/

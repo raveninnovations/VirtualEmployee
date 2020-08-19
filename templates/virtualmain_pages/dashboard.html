@@ -6,7 +6,7 @@
 
   <style >
     .i1{
-      background:#6df0ff;
+      background:#d7f0fd;
       border-radius:5px;
       padding:10px;
       padding-bottom:5px;
@@ -15,7 +15,7 @@
     }
 
     .i2{
-      background:#F1A6C8;
+      background:#ffd6d6;
       border-radius:5px;
       padding:10px;
       padding-bottom:5px;
@@ -24,7 +24,7 @@
     }
 
     .i3{
-      background:#F4E98E;
+      background:#fff6d6;
       border-radius:5px;
       padding:10px;
       padding-bottom:5px;
@@ -76,7 +76,7 @@
 
 
     .i1-down:hover{
-      background:#6df0ff;
+      background:#d7f0fd;
       border-radius:50px;
       padding:5px;
       /* width:55px; */
@@ -84,7 +84,7 @@
     }
 
     .i2-down:hover{
-      background:#F1A6C8;
+      background:#ffd6d6;
       border-radius:50px;
       padding:5px;
       /* width:55px; */
@@ -92,7 +92,7 @@
     }
 
     .i3-down:hover{
-      background:#F4E98E;
+      background:#fff6d6;
       border-radius:50px;
       padding:5px;
       /* width:55px; */
@@ -203,7 +203,7 @@
 
 
 <form method="post">{% csrf_token %}
-          <div class=" mt-1 ">
+          <div class=" mt-5 pt-3 ">
             <div class="uk-position-relative uk-visible-toggle uk-light  " uk-slideshow="ratio: 6:2; autoplay: true autoplay-interval: 200" tabindex="-1">
                 <ul class="uk-slideshow-items rounded " >
                   {% for i in blogs %}
@@ -276,8 +276,8 @@
   <div class="uk-child-width-1-4@s uk-grid">
 
     <div>
-      <div class="uk-card uk-card-default uk-card-body">
-          <h1 class="i1 mt-0"><i class="icon-material-outline-brush "></i></h1>
+      <div class="uk-card uk-card-default uk-card-body rounded">
+          <h1 class=" mt-0"><i class=" i1 icon-material-outline-brush "></i></h1>
           <h4> Self Development</h4>
           <p> Communications, interviews, personality development</p>
           <h2 class=" mt-0 text-right"><span class=""><i class="i1-down icon-material-outline-arrow-forward "></i></span></h2>
@@ -285,8 +285,8 @@
   </div>
 
   <div>
-      <div class="uk-card uk-card-default uk-card-body">
-        <h1 class="i2 mt-0"><i class="icon-feather-book-open"></i></h1>
+      <div class="uk-card uk-card-default uk-card-body rounded">
+        <h1 class=" mt-0"><i class="i2 icon-feather-book-open"></i></h1>
           <h4> Business Intelligence</h4>
           <p>sales skills, negotiations, project management</p>
           <h2 class="text-right  mt-0"><span class=""><i class="i2-down icon-material-outline-arrow-forward "></i></span></h2>
@@ -295,8 +295,8 @@
 
 
   <div>
-      <div class="uk-card uk-card-default uk-card-body">
-        <h1 class="i3 mt-0"><i class="icon-feather-camera "></i></h1>
+      <div class="uk-card uk-card-default uk-card-body rounded">
+        <h1 class=" mt-0"><i class="i3 icon-feather-camera "></i></h1>
 
           <h4>Product Enhancers</h4>
           <p>Excel, Coreldraw, Photoshop, Wordpress</p>
@@ -305,8 +305,8 @@
   </div>
 
   <div>
-      <div class="uk-card uk-card-default uk-card-body">
-        <h1 class=" i4 mt-0"><i class="icon-feather-video "></i></h1>
+      <div class="uk-card uk-card-default uk-card-body rounded">
+        <h1 class="  mt-0"><i class="i4 icon-feather-video "></i></h1>
           <h4>Knowledge Supplement</h4>
           <p>Personal Finance, reasoning, quantitative aptitude</p>
           <h2 class="text-right mt-0"><span class=""><i class="   i4-down icon-material-outline-arrow-forward "></i></span></h2>
