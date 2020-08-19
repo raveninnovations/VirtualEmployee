@@ -3,6 +3,107 @@
 {% block content %}
 <body>
 
+
+  <style >
+    .i1{
+      background:#6df0ff;
+      border-radius:5px;
+      padding:10px;
+      width:55px;
+      color: #0FA6DF;
+    }
+
+    .i2{
+      background:#F1A6C8;
+      border-radius:5px;
+      padding:10px;
+      width:55px;
+      color: #DF420F;
+    }
+
+    .i3{
+      background:#F4E98E;
+      border-radius:5px;
+      padding:10px;
+      width:55px;
+      color: #FDB61F;
+    }
+
+    .i4{
+      background:#9ED2EB;
+      border-radius:5px;
+      padding:10px;
+      width:55px;
+      color: #0D478C;
+    }
+
+
+    .i1-down{
+      /* background:#6df0ff; */
+      border-radius:50%;
+      padding:12px;
+      /* width:55px; */
+      color: #0FA6DF;
+    }
+
+    .i2-down{
+      /* background:#F1A6C8; */
+      border-radius:50%;
+      padding:10px;
+      /* width:55px; */
+      color: #DF420F;
+    }
+
+    .i3-down{
+      /* background:#F4E98E; */
+      border-radius:50%;
+      padding:10px;
+      /* width:55px; */
+      color: #FDB61F;
+    }
+
+    .i4-down{
+      /* background:#9ED2EB; */
+      border-radius:50%;
+      padding:10px;
+      /* width:55px; */
+      color: #0D478C;
+    }
+
+
+    .i1-down:hover{
+      background:#6df0ff;
+      border-radius:50%;
+      padding:12px;
+      /* width:55px; */
+      color: #0FA6DF;
+    }
+
+    .i2-down:hover{
+      background:#F1A6C8;
+      border-radius:50%;
+      padding:10px;
+      /* width:55px; */
+      color: #DF420F;
+    }
+
+    .i3-down:hover{
+      background:#F4E98E;
+      border-radius:50%;
+      padding:10px;
+      /* width:55px; */
+      color: #FDB61F;
+    }
+
+    .i4-down:hover{
+      background:#9ED2EB;
+      border-radius:50%;
+      padding:10px;
+      /* width:55px; */
+      color: #0D478C;
+    }
+  </style>
+
     <div id="wrapper">
 
        {% include 'partials/user_partials/_header.html' %}
@@ -159,25 +260,6 @@
 
 
 
-<style >
-  .i1{
-    color: #0FA6DF;
-  }
-
-  .i2{
-    color: #DF420F;
-  }
-
-  .i3{
-    color: #FDB61F;
-  }
-
-  .i4{
-    color: #0D478C;
-  }
-</style>
-
-
 <div class="section-header my-4">
     <div class="section-header-left">
         <h1 class="text-center"><strong>Choose your Microcourse by categories</strong></h1>
@@ -194,7 +276,7 @@
           <h1 class="i1 mt-0"><i class="icon-material-outline-brush "></i></h1>
           <h4> Self Development</h4>
           <p> Communications, interviews, personality development</p>
-          <h2 class="i1 mt-0 text-right"><i class="icon-material-outline-arrow-forward "></i></h2>
+          <h2 class=" mt-0 text-right"><span class="i1-down"><i class="icon-material-outline-arrow-forward "></i></span></h2>
       </div>
   </div>
 
@@ -203,7 +285,7 @@
         <h1 class="i2 mt-0"><i class="icon-feather-book-open"></i></h1>
           <h4> Business Intelligence</h4>
           <p>sales skills, negotiations, project management</p>
-          <h2 class="text-right i2 mt-0"><i class="icon-material-outline-arrow-forward "></i></h2>
+          <h2 class="text-right  mt-0"><span class="i2-down"><i class="icon-material-outline-arrow-forward "></i></span></h2>
       </div>
   </div>
 
@@ -214,7 +296,7 @@
 
           <h4>Product Enhancers</h4>
           <p>Excel, Coreldraw, Photoshop, Wordpress</p>
-          <h2 class="text-right i3 mt-0"><i class="icon-material-outline-arrow-forward "></i></h2>
+          <h2 class="text-right  mt-0"><span class="i3-down"><i class="icon-material-outline-arrow-forward "></i></span></h2>
       </div>
   </div>
 
@@ -223,7 +305,7 @@
         <h1 class=" i4 mt-0"><i class="icon-feather-video "></i></h1>
           <h4>Knowledge Supplement</h4>
           <p>Personal Finance, reasoning, quantitative aptitude</p>
-          <h2 class=text-right "i4 mt-0"><i class="icon-material-outline-arrow-forward "></i></h2>
+          <h2 class="text-right mt-0"><span class=" i4-down"><i class="icon-material-outline-arrow-forward "></i></span></h2>
       </div>
   </div>
 
