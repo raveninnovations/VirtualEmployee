@@ -9,7 +9,7 @@
       background:#d7f0fd;
       border-radius:5px;
       padding:10px;
-      padding-bottom:5px;
+      /* padding-bottom:5px; */
       width:55px;
       color: #0FA6DF;
     }
@@ -18,7 +18,7 @@
       background:#ffd6d6;
       border-radius:5px;
       padding:10px;
-      padding-bottom:5px;
+      /* padding-bottom:5px; */
       width:55px;
       color: #DF420F;
     }
@@ -27,7 +27,7 @@
       background:#fff6d6;
       border-radius:5px;
       padding:10px;
-      padding-bottom:5px;
+      /* padding-bottom:5px; */
       width:55px;
       color: #FDB61F;
     }
@@ -36,7 +36,7 @@
       background:#9ED2EB;
       border-radius:5px;
       padding:10px;
-      padding-bottom:5px;
+      /* padding-bottom:5px; */
       width:55px;
       color: #0D478C;
     }
@@ -203,9 +203,9 @@
 
 
 <form method="post">{% csrf_token %}
-          <div class=" mt-5 pt-3 ">
+          <div class=" ">
             <div class="uk-position-relative uk-visible-toggle uk-light  " uk-slideshow="ratio: 6:2; autoplay: true autoplay-interval: 200" tabindex="-1">
-                <ul class="uk-slideshow-items rounded " >
+                <ul class="uk-slideshow-items " >
                   {% for i in blogs %}
                       <li>
                       <input type="text" hidden value="{{ i.user_id }}" name="b_idd">
@@ -286,7 +286,7 @@
 
   <div>
       <div class="uk-card uk-card-default uk-card-body rounded">
-        <h1 class=" mt-0"><i class="i2 icon-feather-book-open"></i></h1>
+        <h1 class=" mt-0"><i class="i2 icon-material-outline-assessment"></i></h1>
           <h4> Business Intelligence</h4>
           <p>sales skills, negotiations, project management</p>
           <h2 class="text-right  mt-0"><span class=""><i class="i2-down icon-material-outline-arrow-forward "></i></span></h2>
@@ -296,7 +296,7 @@
 
   <div>
       <div class="uk-card uk-card-default uk-card-body rounded">
-        <h1 class=" mt-0"><i class="i3 icon-feather-camera "></i></h1>
+        <h1 class=" mt-0"><i class="i3 icon-line-awesome-connectdevelop"></i></h1>
 
           <h4>Product Enhancers</h4>
           <p>Excel, Coreldraw, Photoshop, Wordpress</p>
@@ -306,7 +306,7 @@
 
   <div>
       <div class="uk-card uk-card-default uk-card-body rounded">
-        <h1 class="  mt-0"><i class="i4 icon-feather-video "></i></h1>
+        <h1 class="  mt-0"><i class="i4 icon-line-awesome-graduation-cap "></i></h1>
           <h4>Knowledge Supplement</h4>
           <p>Personal Finance, reasoning, quantitative aptitude</p>
           <h2 class="text-right mt-0"><span class=""><i class="   i4-down icon-material-outline-arrow-forward "></i></span></h2>
