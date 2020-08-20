@@ -2067,7 +2067,7 @@ fieldset {
 .side-nav .side-nav-bg {
   width: 70px;
   height: 100%;
-  background: #ffffff;
+  background: #235cb3;
   top: 0;
   left: 0;
   position: absolute;
@@ -2128,7 +2128,7 @@ fieldset {
   display: block;
   position: relative;
   z-index: 1000;
-  color: #3e416d;
+  color:  #fffff;
   padding: 10px 0px;
   font-size: 19px;
   margin: 17px 15px;
