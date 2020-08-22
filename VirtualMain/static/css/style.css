@@ -10156,6 +10156,7 @@ em.mm-counter+a.mm-fullsubopen+span {
   color: #666;
   border-radius: 6px;
   overflow: hidden;
+  height:100px;
 }
 
 .glyph.fs1:hover {
@@ -10198,7 +10199,7 @@ em.mm-counter+a.mm-fullsubopen+span {
   max-width: 80%;
   display: inline-block;
   overflow: hidden;
-  font-size: 13px;
+  /* font-size: 13px; */
   line-height: 20px;
   top: 0;
   vertical-align: middle;
