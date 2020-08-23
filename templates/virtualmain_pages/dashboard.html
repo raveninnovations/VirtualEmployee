@@ -97,13 +97,12 @@
 
 
 
-<form method="post">{% csrf_token %}
+
           <div class=" mt-1 ">
             <div class="uk-position-relative uk-visible-toggle uk-light  " uk-slideshow="ratio: 6:2; autoplay: true autoplay-interval: 200" tabindex="-1">
                 <ul class="uk-slideshow-items rounded " >
                   {% for i in blogs %}
                       <li>
-                      <input type="text" hidden value="{{ i.user_id }}" name="b_idd">
                         {% if i.blog_thumbnail %}
                          <img src="{{ i.blog_thumbnail.url }}"  alt="" uk-cover>
                         {% else %}
@@ -122,6 +121,7 @@
              </div>
 
              <div class=" mx-4 text-right my-1">
+             <form method="post">{% csrf_token %}
                <div class="uk-inline">
                 <style>
                   .plus {
@@ -152,9 +152,10 @@
 
                   </div>
               </div>
+             </form>
 
             </div>
-</form>
+
 
 
 

@@ -30,7 +30,7 @@ from datetime import datetime
 from .forms import (AddUserForm)
 
 
-from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill,Certificate,Reference,BlogManager,BlogCategory,BlogHeight,UsedBlogs
+from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill,Certificate,Reference,BlogManager,BlogCategory,BlogHeight
 
 
 # Create your views here.
@@ -564,17 +564,11 @@ def userdashboard(request):
 
                 blog_cag=BlogCategory.objects.all()
                 print(user.pk)
-                blogs = UsedBlogs.objects.filter(user_id=user.pk)
                 blogs = BlogManager.objects.all()
-
                 if not blogs:
                     blogs=BlogHeight.objects.all()
                 if request.method == 'POST':
                     category = request.POST['d_blog']
-                    b_d = request.POST['b_idd']
-                    print(b_d)
-                    data = UsedBlogs(user_id=user.pk,blog_cat=category,blog_id=b_d)
-                    data.save()
                     blogs = BlogManager.objects.filter(blog_category=category)
                 context = {
                     'cfp_details':cfp_details,
