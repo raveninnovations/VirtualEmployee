@@ -19,6 +19,8 @@ urlpatterns = [
     path('admindashboard/cfp_create/',views.cfp_create,name='cfp_create'),
     path('admindashboard/cfp_edit/<int:id>',views.cfp_edit,name='cfpEdit'),
     path('admindashboard/student_info/', views.adminStudents, name='adminStudents'),
+    path('admindashboard/microCourseCategory/', views.microCategory, name='microCategory'),
+    path('micro_edit/<int:id>', views.micro_edit, name='microEdit'),
     # path('delete_student/<int:student_id>/', views.delete_student,name='delete_student'),
     # User Section
     path('userdashboard/',views.userdashboard,name='dashboard'),
@@ -70,4 +72,7 @@ urlpatterns = [
     path('blogeditmanager/<int:id>',views.blogEditManager,name='blogEditManager'),
     path('blogdashboard/',views.blogDashboard,name='blogDashboard'),
     path('blogcategorycreate/',views.blogcategorycreate,name='blogcategorycreate'),
+
+    # Micro
+    path('microDash/', views.microDash, name='microDashboard'),
     ]

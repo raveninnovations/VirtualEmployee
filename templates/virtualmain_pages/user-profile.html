@@ -1,12 +1,189 @@
 {% extends 'base1.html' %}
 {% load static %}{% block title %}User-Profile{% endblock %}
 
-<style>
+<style media="screen">
     progress[value]::-webkit-progress-value {
     transition: width 0.5s;
     background: orange;
+}
+
+
+.progress-circle {
+   font-size: 20px;
+   margin: 20px;
+   position: relative; /* so that children can be absolutely positioned */
+   padding: 0;
+   width: 5em;
+   height: 5em;
+   background-color: #F2E9E1;
+   border-radius: 50%;
+   line-height: 5em;
+}
+
+.progress-circle:after{
+    border: none;
+    position: absolute;
+    top: 0.35em;
+    left: 0.35em;
+    text-align: center;
+    display: block;
+    border-radius: 50%;
+    width: 4.3em;
+    height: 4.3em;
+    background-color: white;
+    content: " ";
+}
+/* Text inside the control */
+.progress-circle span {
+    position: absolute;
+    line-height: 5em;
+    width: 5em;
+    text-align: center;
+    display: block;
+    color: #53777A;
+    z-index: 2;
+}
+.left-half-clipper {
+   /* a round circle */
+   border-radius: 50%;
+   width: 5em;
+   height: 5em;
+   position: absolute; /* needed for clipping */
+   clip: rect(0, 5em, 5em, 2.5em); /* clips the whole left half*/
+}
+/* when p>50, don't clip left half*/
+.progress-circle.over50 .left-half-clipper {
+   clip: rect(auto,auto,auto,auto);
+}
+.value-bar {
+   /*This is an overlayed square, that is made round with the border radius,
+   then it is cut to display only the left half, then rotated clockwise
+   to escape the outer clipping path.*/
+   position: absolute; /*needed for clipping*/
+   clip: rect(0, 2.5em, 5em, 0);
+   width: 5em;
+   height: 5em;
+   border-radius: 50%;
+   border: 0.45em solid #53777A; /*The border is 0.35 but making it larger removes visual artifacts */
+   /*background-color: #4D642D;*/ /* for debug */
+   box-sizing: border-box;
 
 }
+/* Progress bar filling the whole right half for values above 50% */
+.progress-circle.over50 .first50-bar {
+   /*Progress bar for the first 50%, filling the whole right half*/
+   position: absolute; /*needed for clipping*/
+   clip: rect(0, 5em, 5em, 2.5em);
+   background-color: #53777A;
+   border-radius: 50%;
+   width: 5em;
+   height: 5em;
+}
+.progress-circle:not(.over50) .first50-bar{ display: none; }
+
+
+/* Progress bar rotation position */
+.progress-circle.p0 .value-bar { display: none; }
+.progress-circle.p1 .value-bar { transform: rotate(4deg); }
+.progress-circle.p2 .value-bar { transform: rotate(7deg); }
+.progress-circle.p3 .value-bar { transform: rotate(11deg); }
+.progress-circle.p4 .value-bar { transform: rotate(14deg); }
+.progress-circle.p5 .value-bar { transform: rotate(18deg); }
+.progress-circle.p6 .value-bar { transform: rotate(22deg); }
+.progress-circle.p7 .value-bar { transform: rotate(25deg); }
+.progress-circle.p8 .value-bar { transform: rotate(29deg); }
+.progress-circle.p9 .value-bar { transform: rotate(32deg); }
+.progress-circle.p10 .value-bar { transform: rotate(36deg); }
+.progress-circle.p11 .value-bar { transform: rotate(40deg); }
+.progress-circle.p12 .value-bar { transform: rotate(43deg); }
+.progress-circle.p13 .value-bar { transform: rotate(47deg); }
+.progress-circle.p14 .value-bar { transform: rotate(50deg); }
+.progress-circle.p15 .value-bar { transform: rotate(54deg); }
+.progress-circle.p16 .value-bar { transform: rotate(58deg); }
+.progress-circle.p17 .value-bar { transform: rotate(61deg); }
+.progress-circle.p18 .value-bar { transform: rotate(65deg); }
+.progress-circle.p19 .value-bar { transform: rotate(68deg); }
+.progress-circle.p20 .value-bar { transform: rotate(72deg); }
+.progress-circle.p21 .value-bar { transform: rotate(76deg); }
+.progress-circle.p22 .value-bar { transform: rotate(79deg); }
+.progress-circle.p23 .value-bar { transform: rotate(83deg); }
+.progress-circle.p24 .value-bar { transform: rotate(86deg); }
+.progress-circle.p25 .value-bar { transform: rotate(90deg); }
+.progress-circle.p26 .value-bar { transform: rotate(94deg); }
+.progress-circle.p27 .value-bar { transform: rotate(97deg); }
+.progress-circle.p28 .value-bar { transform: rotate(101deg); }
+.progress-circle.p29 .value-bar { transform: rotate(104deg); }
+.progress-circle.p30 .value-bar { transform: rotate(108deg); }
+.progress-circle.p31 .value-bar { transform: rotate(112deg); }
+.progress-circle.p32 .value-bar { transform: rotate(115deg); }
+.progress-circle.p33 .value-bar { transform: rotate(119deg); }
+.progress-circle.p34 .value-bar { transform: rotate(122deg); }
+.progress-circle.p35 .value-bar { transform: rotate(126deg); }
+.progress-circle.p36 .value-bar { transform: rotate(130deg); }
+.progress-circle.p37 .value-bar { transform: rotate(133deg); }
+.progress-circle.p38 .value-bar { transform: rotate(137deg); }
+.progress-circle.p39 .value-bar { transform: rotate(140deg); }
+.progress-circle.p40 .value-bar { transform: rotate(144deg); }
+.progress-circle.p41 .value-bar { transform: rotate(148deg); }
+.progress-circle.p42 .value-bar { transform: rotate(151deg); }
+.progress-circle.p43 .value-bar { transform: rotate(155deg); }
+.progress-circle.p44 .value-bar { transform: rotate(158deg); }
+.progress-circle.p45 .value-bar { transform: rotate(162deg); }
+.progress-circle.p46 .value-bar { transform: rotate(166deg); }
+.progress-circle.p47 .value-bar { transform: rotate(169deg); }
+.progress-circle.p48 .value-bar { transform: rotate(173deg); }
+.progress-circle.p49 .value-bar { transform: rotate(176deg); }
+.progress-circle.p50 .value-bar { transform: rotate(180deg); }
+.progress-circle.p51 .value-bar { transform: rotate(184deg); }
+.progress-circle.p52 .value-bar { transform: rotate(187deg); }
+.progress-circle.p53 .value-bar { transform: rotate(191deg); }
+.progress-circle.p54 .value-bar { transform: rotate(194deg); }
+.progress-circle.p55 .value-bar { transform: rotate(198deg); }
+.progress-circle.p56 .value-bar { transform: rotate(202deg); }
+.progress-circle.p57 .value-bar { transform: rotate(205deg); }
+.progress-circle.p58 .value-bar { transform: rotate(209deg); }
+.progress-circle.p59 .value-bar { transform: rotate(212deg); }
+.progress-circle.p60 .value-bar { transform: rotate(216deg); }
+.progress-circle.p61 .value-bar { transform: rotate(220deg); }
+.progress-circle.p62 .value-bar { transform: rotate(223deg); }
+.progress-circle.p63 .value-bar { transform: rotate(227deg); }
+.progress-circle.p64 .value-bar { transform: rotate(230deg); }
+.progress-circle.p65 .value-bar { transform: rotate(234deg); }
+.progress-circle.p66 .value-bar { transform: rotate(238deg); }
+.progress-circle.p67 .value-bar { transform: rotate(241deg); }
+.progress-circle.p68 .value-bar { transform: rotate(245deg); }
+.progress-circle.p69 .value-bar { transform: rotate(248deg); }
+.progress-circle.p70 .value-bar { transform: rotate(252deg); }
+.progress-circle.p71 .value-bar { transform: rotate(256deg); }
+.progress-circle.p72 .value-bar { transform: rotate(259deg); }
+.progress-circle.p73 .value-bar { transform: rotate(263deg); }
+.progress-circle.p74 .value-bar { transform: rotate(266deg); }
+.progress-circle.p75 .value-bar { transform: rotate(270deg); }
+.progress-circle.p76 .value-bar { transform: rotate(274deg); }
+.progress-circle.p77 .value-bar { transform: rotate(277deg); }
+.progress-circle.p78 .value-bar { transform: rotate(281deg); }
+.progress-circle.p79 .value-bar { transform: rotate(284deg); }
+.progress-circle.p80 .value-bar { transform: rotate(288deg); }
+.progress-circle.p81 .value-bar { transform: rotate(292deg); }
+.progress-circle.p82 .value-bar { transform: rotate(295deg); }
+.progress-circle.p83 .value-bar { transform: rotate(299deg); }
+.progress-circle.p84 .value-bar { transform: rotate(302deg); }
+.progress-circle.p85 .value-bar { transform: rotate(306deg); }
+.progress-circle.p86 .value-bar { transform: rotate(310deg); }
+.progress-circle.p87 .value-bar { transform: rotate(313deg); }
+.progress-circle.p88 .value-bar { transform: rotate(317deg); }
+.progress-circle.p89 .value-bar { transform: rotate(320deg); }
+.progress-circle.p90 .value-bar { transform: rotate(324deg); }
+.progress-circle.p91 .value-bar { transform: rotate(328deg); }
+.progress-circle.p92 .value-bar { transform: rotate(331deg); }
+.progress-circle.p93 .value-bar { transform: rotate(335deg); }
+.progress-circle.p94 .value-bar { transform: rotate(338deg); }
+.progress-circle.p95 .value-bar { transform: rotate(342deg); }
+.progress-circle.p96 .value-bar { transform: rotate(346deg); }
+.progress-circle.p97 .value-bar { transform: rotate(349deg); }
+.progress-circle.p98 .value-bar { transform: rotate(353deg); }
+.progress-circle.p99 .value-bar { transform: rotate(356deg); }
+.progress-circle.p100 .value-bar { transform: rotate(360deg); }
 
 
 </style>
@@ -67,29 +244,29 @@
 
                 <li>
                     <!-- My Profile -->
-                    <a href="{% url 'userprofile' %}"> <i class="icon-brand-earlybirds"></i> <span class="tooltips"> My Profile</span></a>
+                    <a href="{% url 'userprofile' %}" style="color:white;"> <i class="icon-brand-earlybirds"></i> <span class="tooltips"> My Profile</span></a>
                 </li>
                   <li>
                     <!-- My courses -->
-                    <a href="{% url 'dashboard' %}"> <i class="uil-book-open"></i> <span class="tooltips"> All Courses</span></a>
+                    <a href="{% url 'dashboard' %}" style="color:white;"> <i class="uil-book-open"></i> <span class="tooltips"> All Courses</span></a>
                 </li>
                 <li>
                     <!-- Projects-->
-                    <a href="{% url 'userproject' %}"> <i class="uil-cube"></i> <span class="tooltips">
+                    <a href="{% url 'userproject' %}" style="color:white;"> <i class="uil-cube"></i> <span class="tooltips">
                             Projects</span></a>
                 </li>
                 <li>
                     <!-- Projects-->
-                    <a href="{% url 'userblogspage' %}"> <i class="uil-blogger-alt"></i> <span class="tooltips">
+                    <a href="{% url 'userblogspage' %}" style="color:white;"> <i class="uil-blogger-alt"></i> <span class="tooltips">
                             Blogs</span></a>
                 </li>
                 <li>
                     <!-- News-->
-                    <a href="blog-1.html"> <i class="uil-file-alt"></i> <span class="tooltips"> News</span></a>
+                    <a href="blog-1.html" style="color:white;"> <i class="uil-file-alt"></i> <span class="tooltips"> News</span></a>
                 </li>
 
                 <li>
-                    <a href="#" uk-toggle="target: #searchbox; cls: is-active"><i class="uil-search-alt"></i></a>
+                    <a href="#" uk-toggle="target: #searchbox; cls: is-active" style="color:white;"> <i class="uil-search-alt"></i></a>
                 </li>
 
             </ul>
@@ -129,7 +306,7 @@
         <div class="page-content  ">
 
             <br>
-            <div class="page-content-inner  uk-width-expand">
+            <div class="page-content-inner  uk-width-expand pt-0">
 <!--
                 <h2>My Profile</h2> -->
 
@@ -140,7 +317,7 @@
                 </nav> -->
 
 
-            <div class="uk-card-default rounded py-4 my-4 mx-0">
+            <div class="uk-card-default  py-4 mb-4 mx-0" style="border-radius : 10px ;" >
                   {% if user.is_authenticated %}
                   <div class=" text-right mx-3">
                     <p class="m-0"> Member since {{ user_data.user_date |date   }} </p>
@@ -151,7 +328,7 @@
                   <div class="uk-grid px-5 ">
 
 
-                    <div class="uk-width-2-5@m p-4">
+                    <div class="uk-width-2-5@m px-4">
                       <div class="m-auto" >
                         {% if user_contact.user_pic %}
                         <div class="user-profile-photo  m-auto " style="height:250px; width:250px;">
@@ -166,7 +343,7 @@
                     </div>
 
 
-                    <div class="uk-width-expand p-4">
+                    <div class="uk-width-expand px-4">
                       <h3 class="mb-1" style="font-family:impact;"> {{ user.first_name }} {{ user.last_name }}</h3>
                       <h5 class="my-0"> Employee ID : {{ user_data.user_unique }} </h5>
                       <!-- <p class="m-0"> Member since {{ user_data.user_date }} </p> -->
@@ -190,7 +367,7 @@
                   {% endif %}
             </div>
 
-
+<!--
             <div class="uk-card-default rounded text-center p-5 mt-2 mb-0 ">
               <div class="uk-grid uk-child-width-1-4@s">
                 <div class="">
@@ -210,7 +387,240 @@
                   <h4>Course Completed</h4>
                 </div>
               </div>
+            </div> -->
+
+
+           <div class="icon-set-container">
+                      <div class="glyph fs1 mr-0">
+                        <div class="clearfix bshadow0 pbs">
+                            <span class="icon-material-outline-dashboard">
+
+                            </span>
+                            <span class="mls"><strong> 0 </strong><br> Project Completed</span>
+                        </div>
+                    </div>
+                    <div class="glyph fs1 mr-0">
+                      <div class="clearfix bshadow0 pbs">
+                          <span class="icon-material-outline-dashboard">
+
+                          </span>
+                          <span class="mls"><strong>0</strong>  <br> Project Certification</span>
+                      </div>
+                  </div>
+
+                  <div class="glyph fs1 mr-0">
+                    <div class="clearfix bshadow0 pbs">
+                        <span class="icon-material-outline-dashboard">
+
+                        </span>
+                        <span class="mls"><strong>{{ tot_achiev }}</strong><br>Total Achievements</span>
+                    </div>
+                </div>
+
+                <div class="glyph fs1">
+                  <div class="clearfix bshadow0 pbs">
+                      <span class="icon-material-outline-dashboard">
+
+                      </span>
+                      <span class="mls"><strong>{{ com_courses }}</strong><br> Course Completed</span>
+                  </div>
+              </div>
             </div>
+
+
+            <style media="screen">
+                progress[value]::-webkit-progress-value {
+                transition: width 0.5s;
+                background: orange;
+            }
+
+
+            .progress-circle {
+               font-size: 20px;
+               margin: 20px;
+               position: relative; /* so that children can be absolutely positioned */
+               padding: 0;
+               width: 5em;
+               height: 5em;
+               background-color: #F2E9E1;
+               border-radius: 50%;
+               line-height: 5em;
+            }
+
+            .progress-circle:after{
+                border: none;
+                position: absolute;
+                top: 0.35em;
+                left: 0.35em;
+                text-align: center;
+                display: block;
+                border-radius: 50%;
+                width: 4.3em;
+                height: 4.3em;
+                background-color: white;
+                content: " ";
+            }
+            /* Text inside the control */
+            .progress-circle span {
+                position: absolute;
+                line-height: 5em;
+                width: 5em;
+                text-align: center;
+                display: block;
+                color: #53777A;
+                z-index: 2;
+            }
+            .left-half-clipper {
+               /* a round circle */
+               border-radius: 50%;
+               width: 5em;
+               height: 5em;
+               position: absolute; /* needed for clipping */
+               clip: rect(0, 5em, 5em, 2.5em); /* clips the whole left half*/
+            }
+            /* when p>50, don't clip left half*/
+            .progress-circle.over50 .left-half-clipper {
+               clip: rect(auto,auto,auto,auto);
+            }
+            .value-bar {
+               /*This is an overlayed square, that is made round with the border radius,
+               then it is cut to display only the left half, then rotated clockwise
+               to escape the outer clipping path.*/
+               position: absolute; /*needed for clipping*/
+               clip: rect(0, 2.5em, 5em, 0);
+               width: 5em;
+               height: 5em;
+               border-radius: 50%;
+               border: 0.45em solid #53777A; /*The border is 0.35 but making it larger removes visual artifacts */
+               /*background-color: #4D642D;*/ /* for debug */
+               box-sizing: border-box;
+
+            }
+            /* Progress bar filling the whole right half for values above 50% */
+            .progress-circle.over50 .first50-bar {
+               /*Progress bar for the first 50%, filling the whole right half*/
+               position: absolute; /*needed for clipping*/
+               clip: rect(0, 5em, 5em, 2.5em);
+               background-color: #53777A;
+               border-radius: 50%;
+               width: 5em;
+               height: 5em;
+            }
+            .progress-circle:not(.over50) .first50-bar{ display: none; }
+
+
+            /* Progress bar rotation position */
+            .progress-circle.p0 .value-bar { display: none; }
+            .progress-circle.p1 .value-bar { transform: rotate(4deg); }
+            .progress-circle.p2 .value-bar { transform: rotate(7deg); }
+            .progress-circle.p3 .value-bar { transform: rotate(11deg); }
+            .progress-circle.p4 .value-bar { transform: rotate(14deg); }
+            .progress-circle.p5 .value-bar { transform: rotate(18deg); }
+            .progress-circle.p6 .value-bar { transform: rotate(22deg); }
+            .progress-circle.p7 .value-bar { transform: rotate(25deg); }
+            .progress-circle.p8 .value-bar { transform: rotate(29deg); }
+            .progress-circle.p9 .value-bar { transform: rotate(32deg); }
+            .progress-circle.p10 .value-bar { transform: rotate(36deg); }
+            .progress-circle.p11 .value-bar { transform: rotate(40deg); }
+            .progress-circle.p12 .value-bar { transform: rotate(43deg); }
+            .progress-circle.p13 .value-bar { transform: rotate(47deg); }
+            .progress-circle.p14 .value-bar { transform: rotate(50deg); }
+            .progress-circle.p15 .value-bar { transform: rotate(54deg); }
+            .progress-circle.p16 .value-bar { transform: rotate(58deg); }
+            .progress-circle.p17 .value-bar { transform: rotate(61deg); }
+            .progress-circle.p18 .value-bar { transform: rotate(65deg); }
+            .progress-circle.p19 .value-bar { transform: rotate(68deg); }
+            .progress-circle.p20 .value-bar { transform: rotate(72deg); }
+            .progress-circle.p21 .value-bar { transform: rotate(76deg); }
+            .progress-circle.p22 .value-bar { transform: rotate(79deg); }
+            .progress-circle.p23 .value-bar { transform: rotate(83deg); }
+            .progress-circle.p24 .value-bar { transform: rotate(86deg); }
+            .progress-circle.p25 .value-bar { transform: rotate(90deg); }
+            .progress-circle.p26 .value-bar { transform: rotate(94deg); }
+            .progress-circle.p27 .value-bar { transform: rotate(97deg); }
+            .progress-circle.p28 .value-bar { transform: rotate(101deg); }
+            .progress-circle.p29 .value-bar { transform: rotate(104deg); }
+            .progress-circle.p30 .value-bar { transform: rotate(108deg); }
+            .progress-circle.p31 .value-bar { transform: rotate(112deg); }
+            .progress-circle.p32 .value-bar { transform: rotate(115deg); }
+            .progress-circle.p33 .value-bar { transform: rotate(119deg); }
+            .progress-circle.p34 .value-bar { transform: rotate(122deg); }
+            .progress-circle.p35 .value-bar { transform: rotate(126deg); }
+            .progress-circle.p36 .value-bar { transform: rotate(130deg); }
+            .progress-circle.p37 .value-bar { transform: rotate(133deg); }
+            .progress-circle.p38 .value-bar { transform: rotate(137deg); }
+            .progress-circle.p39 .value-bar { transform: rotate(140deg); }
+            .progress-circle.p40 .value-bar { transform: rotate(144deg); }
+            .progress-circle.p41 .value-bar { transform: rotate(148deg); }
+            .progress-circle.p42 .value-bar { transform: rotate(151deg); }
+            .progress-circle.p43 .value-bar { transform: rotate(155deg); }
+            .progress-circle.p44 .value-bar { transform: rotate(158deg); }
+            .progress-circle.p45 .value-bar { transform: rotate(162deg); }
+            .progress-circle.p46 .value-bar { transform: rotate(166deg); }
+            .progress-circle.p47 .value-bar { transform: rotate(169deg); }
+            .progress-circle.p48 .value-bar { transform: rotate(173deg); }
+            .progress-circle.p49 .value-bar { transform: rotate(176deg); }
+            .progress-circle.p50 .value-bar { transform: rotate(180deg); }
+            .progress-circle.p51 .value-bar { transform: rotate(184deg); }
+            .progress-circle.p52 .value-bar { transform: rotate(187deg); }
+            .progress-circle.p53 .value-bar { transform: rotate(191deg); }
+            .progress-circle.p54 .value-bar { transform: rotate(194deg); }
+            .progress-circle.p55 .value-bar { transform: rotate(198deg); }
+            .progress-circle.p56 .value-bar { transform: rotate(202deg); }
+            .progress-circle.p57 .value-bar { transform: rotate(205deg); }
+            .progress-circle.p58 .value-bar { transform: rotate(209deg); }
+            .progress-circle.p59 .value-bar { transform: rotate(212deg); }
+            .progress-circle.p60 .value-bar { transform: rotate(216deg); }
+            .progress-circle.p61 .value-bar { transform: rotate(220deg); }
+            .progress-circle.p62 .value-bar { transform: rotate(223deg); }
+            .progress-circle.p63 .value-bar { transform: rotate(227deg); }
+            .progress-circle.p64 .value-bar { transform: rotate(230deg); }
+            .progress-circle.p65 .value-bar { transform: rotate(234deg); }
+            .progress-circle.p66 .value-bar { transform: rotate(238deg); }
+            .progress-circle.p67 .value-bar { transform: rotate(241deg); }
+            .progress-circle.p68 .value-bar { transform: rotate(245deg); }
+            .progress-circle.p69 .value-bar { transform: rotate(248deg); }
+            .progress-circle.p70 .value-bar { transform: rotate(252deg); }
+            .progress-circle.p71 .value-bar { transform: rotate(256deg); }
+            .progress-circle.p72 .value-bar { transform: rotate(259deg); }
+            .progress-circle.p73 .value-bar { transform: rotate(263deg); }
+            .progress-circle.p74 .value-bar { transform: rotate(266deg); }
+            .progress-circle.p75 .value-bar { transform: rotate(270deg); }
+            .progress-circle.p76 .value-bar { transform: rotate(274deg); }
+            .progress-circle.p77 .value-bar { transform: rotate(277deg); }
+            .progress-circle.p78 .value-bar { transform: rotate(281deg); }
+            .progress-circle.p79 .value-bar { transform: rotate(284deg); }
+            .progress-circle.p80 .value-bar { transform: rotate(288deg); }
+            .progress-circle.p81 .value-bar { transform: rotate(292deg); }
+            .progress-circle.p82 .value-bar { transform: rotate(295deg); }
+            .progress-circle.p83 .value-bar { transform: rotate(299deg); }
+            .progress-circle.p84 .value-bar { transform: rotate(302deg); }
+            .progress-circle.p85 .value-bar { transform: rotate(306deg); }
+            .progress-circle.p86 .value-bar { transform: rotate(310deg); }
+            .progress-circle.p87 .value-bar { transform: rotate(313deg); }
+            .progress-circle.p88 .value-bar { transform: rotate(317deg); }
+            .progress-circle.p89 .value-bar { transform: rotate(320deg); }
+            .progress-circle.p90 .value-bar { transform: rotate(324deg); }
+            .progress-circle.p91 .value-bar { transform: rotate(328deg); }
+            .progress-circle.p92 .value-bar { transform: rotate(331deg); }
+            .progress-circle.p93 .value-bar { transform: rotate(335deg); }
+            .progress-circle.p94 .value-bar { transform: rotate(338deg); }
+            .progress-circle.p95 .value-bar { transform: rotate(342deg); }
+            .progress-circle.p96 .value-bar { transform: rotate(346deg); }
+            .progress-circle.p97 .value-bar { transform: rotate(349deg); }
+            .progress-circle.p98 .value-bar { transform: rotate(353deg); }
+            .progress-circle.p99 .value-bar { transform: rotate(356deg); }
+            .progress-circle.p100 .value-bar { transform: rotate(360deg); }
+
+
+            </style>
+
+
+
+
+
+
+
 
 
 
@@ -219,16 +629,45 @@
               <div class="uk-grid uk-child-width-1-2@m">
                 <div class="">
                   {% if cfp_details %}
-                       <div class="uk-card-default rounded my-4">
-                        <!-- <h6 class="pt-3 pl-4"><span class="uk-label bg-primary rounded" >Career FOCUS PATH</span>  </h6> -->
+
+
+                       <div class="uk-card-default  my-4" style="border-radius:10px; ">
+                        <div class=" py-2  px-4" style="background:red; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                            <h4 class="mb-0 text-center"><strong>{{ cfp_details.role_one }}</strong> </h4>
+
+                        </div>
+                        <hr class="m-0">
+
+
+
+
                           <div class="uk-flex uk-flex-between uk-flex-middle pt-1 pb-2 px-4">
 
                             <div class="uk-width-expand">
-                              <div class="my-3">
+                              <!-- <div class="my-3">
                                 <h3 class="mb-0" ><span class=" badge badge-pill text-white" style="background:#005c82" >{{ cfp_details.role_one }}</span></h3>
-                              </div>
+                              </div> -->
                               <div class="uk-container mb-3 px-0">
-                                <progress class="uk-progress progress " id="pro1" max="1000" ></progress>
+
+
+                                <!-- Newly Added -->
+                                <div class="mx-auto px-auto">
+                                  <div id="progress1" class="">
+                                     <span id="value1">{{pro1}}</span>
+                                     <div class="left-half-clipper ">
+                                        <div class="first50-bar"></div>
+                                        <div class="value-bar"></div>
+                                     </div>
+                                  </div>
+                                </div>
+
+
+                                <!-- End -->
+
+
+
+
+                                <progress class="uk-progress progress " id="pro1" max="1000" hidden ></progress>
 
                               </div>
                               <div class=" mt-4" id="cfp1points300">
@@ -251,10 +690,7 @@
                             </div>
 
                           </div>
-                          <!-- <div class="uk-container mb-3 px-4">
-                            <progress class="uk-progress progress" id="pro1" max="1000"></progress>
 
-                          </div> -->
 
                           <hr class="mt-0">
                           <div class=" pt-0 px-5 py-4 ">
@@ -262,14 +698,7 @@
 
 
                               <div class="" >
-<!--
-                                <div class="uk-width-auto">
-                                    <button type="button" class="btn btn-danger btn-icon-only">
-                                        <span class="d-flex justify-content-center">
-                                   <i class="icon-brand-angular icon-small"></i>
-                                        </span>
-                                      </button>
-                                </div> -->
+
 
                                   <div class="uk-width-expand my-2 uk-grid-small uk-flex-middle  ">
                                       {% for tag in tag %}
@@ -286,6 +715,10 @@
                                           </div>
                                           <div class="uk-width-expand">
                                             <h5 class="mb-2"> {{ tag.course_tag }}</h5>
+
+
+
+
                                                 <progress class="course-progressbar-filler"  value="{{ tag.points }}" max="1000" style="width: 87%"></progress>
                                           </div>
                                         </div>
@@ -339,23 +772,51 @@
                 </div>
 
 
-                <div class="">
+                <div class="" >
 
                   {% if cfp_details %}
 
 
-                      <div class="uk-card-default rounded my-4">
-                        <!-- <h6 class="pt-3 pl-4"><span class="uk-label bg-primary rounded" >Career FOCUS PATH</span>  </h6> -->
+                      <div class="uk-card-default  my-4"  style="border-radius:10px;" >
+
+
+
+
+
+                        <div class="uk-card-default  my-4" style="border-radius:10px;" >
+                         <div class=" py-2  px-4 "   style=" border-top-left-radius: 10px; border-top-right-radius: 10px; background:red;">
+                             <h4 class="mb-0 text-center"><strong>{{ cfp_details.role_two }}</strong> </h4>
+
+                         </div>
+                         <hr class="m-0">
+
+
+
                           <div class="uk-flex uk-flex-between uk-flex-middle pt-1 pb-2 px-4">
 
-                              <!-- <h4 class="mb-0">{{ cfp_details.role_two }}</h4> -->
-
                               <div class="uk-width-expand">
-                                <div class="my-3">
-                                  <h3 class="mb-0" ><span class=" badge badge-pill text-white"  style="background:#ff8f70;" >{{ cfp_details.role_two }}</span></h3>
-                                </div>
+
+
+
+
+
+
                                 <div class="uk-container mb-3 px-0">
-                                  <progress class="uk-progress progress" id="pro2" max="1000"></progress>
+
+                                  <!-- Newly Added -->
+                                  <div class="mx-auto px-auto">
+                                    <div id="progress2" class="">
+                                       <span id="value2">{{pro2}}</span>
+                                       <div class="left-half-clipper">
+                                          <div class="first50-bar"></div>
+                                          <div class="value-bar"></div>
+                                       </div>
+                                    </div>
+                                  </div>
+                                  <!-- End -->
+
+
+                                  <progress class="uk-progress progress" id="pro2" max="1000" hidden></progress>
 
                                 </div>
                                 <div class=" mt-4" id="cfp2points300">
@@ -377,10 +838,7 @@
 
 
                           </div>
-                          <!-- <div class="uk-container mb-3 px-4">
-                            <progress class="uk-progress" id="pro2" max="1000"></progress>
 
-                          </div> -->
 
                           <hr class="mt-0">
                           <div class=" pt-0 px-5 py-4">
@@ -389,13 +847,6 @@
                               <div class="" >
 
 
-                                  <!-- <div class="uk-width-auto">
-                                      <button type="button" class="btn btn-danger btn-icon-only">
-                                          <span class="d-flex justify-content-center">
-                                     <i class="icon-brand-angular icon-small"></i>
-                                          </span>
-                                        </button>
-                                  </div> -->
                                    <div class="uk-width-expand my-2 uk-grid-small uk-flex-middle">
                                       {% for tag in tag %}
 
@@ -490,7 +941,7 @@
 
 
       .first {
-        border-right: 2px solid #d86b6b;
+        border-right: 2px solid blue;
         position: relative;
 
       }
@@ -503,8 +954,8 @@
           width: 20px;
           height: 20px;
           border-radius: 50%;
-          border: 2px solid #d86b6b;
-          background: #ffd76b;
+          border: 2px solid black;
+          background: yellow;
       }
  </style>
 
@@ -515,14 +966,17 @@
                           <div class="uk-grid uk-child-width-1-2" uk-grid>
 
                             <div class="text-right first p-4">
-                              <h5 style="font-family:impact;">{{i.start_month}} {{i.start_year}} - {{i.end_month}} {{i.end_year}}</h5>
+                                  <h5 style="font-family:impact;">{{i.start_month}} {{i.start_year}} - {{i.end_month}} {{i.end_year}}</h5>
                             </div>
 
-                            <div class="text-left line p-4 second" id='line' >
-                              <h5  class="my-0" style="font-family:impact;">{{i.degree}} , {{i.specialization}}</h5>
-                              <h5  class="my-0" style="color: #c53131; font-family:impact; font-size:15px"><strong>CGPA : {{i.gpa}}</strong></h5>
-                              <h6  class="my-0"><strong>{{i.institution}}</strong></h6>
-                              <h6  class="my-0"><strong>{{i.state}}</strong></h6>
+                            <div class="text-left line p-4 second " id='line' >
+                              <div class="p-3"  style="background:yellow; border-radius:10px;">
+                                <h5  class="my-0" style="font-family:impact;">{{i.degree}} , {{i.specialization}}</h5>
+                                <h5  class="my-0" style="color: #c53131; font-family:impact; font-size:15px"><strong>CGPA : {{i.gpa}}</strong></h5>
+                                <h6  class="my-0"><strong>{{i.institution}}</strong></h6>
+                                <h6  class="my-0"><strong>{{i.state}}</strong></h6>
+                              </div>
+
                             </div>
 
 
@@ -540,7 +994,7 @@
 
 
 
-                <div class="mt-0">
+                <div class="mt-0 mb-2 ">
                   <div class="uk-card-default rounded mt-0 ">
                       <div class="uk-flex uk-flex-between uk-flex-middle py-3  px-4">
                           <h4 class="mb-0"> Work Experience </h4>
@@ -557,7 +1011,7 @@
 
 
       .first1 {
-        border-right: 2px solid #EA7219;
+        border-right: 2px solid blue;
         position: relative;
 
       }
@@ -570,8 +1024,8 @@
           width: 20px;
           height: 20px;
           border-radius: 50%;
-          border: 2px solid #d86b6b;
-          background: #ffd76b;
+          border: 2px solid black;
+          background: yellow;
       }
  </style>
 
@@ -586,9 +1040,11 @@
                             </div>
 
                             <div class="text-left line p-4 second1" id='line' >
-                              <h5  class="my-0" style="font-family:impact; color: #357cc6;">{{i.job_role}}</h5>
-                              <h6  class="my-0"><strong>{{i.company}}</strong></h6>
-                              <h6  class="my-0"><strong>{{i.state}}</strong></h6>
+                              <div class="p-3"  style="background:yellow; border-radius:10px;">
+                                <h5  class="my-0" style="font-family:impact; color: #357cc6;">{{i.job_role}}</h5>
+                                <h6  class="my-0"><strong>{{i.company}}</strong></h6>
+                                <h6  class="my-0"><strong>{{i.state}}</strong></h6>
+                              </div>
                             </div>
 
 
@@ -610,102 +1066,119 @@
 
 
 
-            <div class="uk-card-default rounded mb-4 mt-4 ">
-              <div class="uk-grid uk-child-width-1-3@s text-center p-3" uk-grid>
 
-                <div class="">
-                  <div class="">
-                      <h4 class="mx-1" style="margin-top: 2rem;"><span class="badge badge-pill px-5" style="background: #ff8745;">  Technical Skills</span></h4>
-                  </div>
-                  <div class="text-justify pl-5 uk-width-2-3 mx-auto ">
-                  {% for i in tech_skills %}
-                    <h5 class="my-1"><strong>&bull; &nbsp; {{i.skill}}</strong></h5>
-                  {% endfor %}
-                  </div>
-                </div>
-
-                <div class="">
-                  <div class="">
-                      <h4 class="mx-1" style="margin-top: 2rem;"><span class="badge badge-pill px-4" style="background:#ff8745;">  Management/Office Skills</span></h4>
-                  </div>
-                  <div class="text-justify pl-5 uk-width-2-3 mx-auto ">
-                    {% for i in man_skills %}
-                      <h5 class="my-1"><strong>&bull; &nbsp; {{i.skill}}</strong></h5>
-                    {% endfor %}
-                  </div>
-                </div>
-
-                <div class="">
-                  <div class="">
-                      <h4 class="mx-1" style="margin-top: 2rem;"><span class="badge badge-pill px-5" style="background:#ff8745;">  Languages</span></h4>
-                  </div>
-                  <div class="text-justify pl-5 uk-width-2-3 mx-auto ">
-                    {% for i in lan_skills %}
-                      <h5 class="my-1"><strong>&bull; &nbsp; {{i.skill}}</strong></h5>
-                    {% endfor %}
-                  </div>
-                </div>
-
-              </div>
-            </div>
+            <div class="user-details my-0 mb-2 mt-2  ">
+              <div class="uk-grid uk-child-width-1-3@m">
 
 
-
-            <div class="user-details my-0 mb-2 ">
-              <div class="uk-grid uk-child-width-1-2@m">
-
-
-
-
-                <div class="mt-0 mb-2">
-                  <div class="uk-card-default rounded mt-0 pb-2">
-                      <div class="uk-flex uk-flex-between uk-flex-middle py-3  px-4">
-                          <h4 class="mb-0 ml-3"> Course Certificates </h4>
+                <div class=" pr-2 my-2 ">
+                  <div class="uk-card-default mt-0 pb-2" style="border-radius : 10px;">
+                      <div class=" py-1  px-4">
+                          <h4 class="mb-0 ml-3 text-center"> Technical Skills</h4>
 
                       </div>
                        <hr class="m-0">
 
-                       <div class="text-justify uk-width-2-3 mx-auto my-2">
-                         {% if certificate %}
-                          {% for i in certificate %}
-                              <h5 class="my-3"><strong>&bull; &nbsp; {{i.certi_topic}} <a class="mx-2" href="{{i.certi_img.url}}" download> <i class="uil-notebooks"></i> </a></strong> </h5>
-                          {% endfor %}
-
-                          {% else %}
-                              <h5 class="my-3"><strong>No Certificate Yet</strong> </h5>
-                          {% endif %}
+                       <div class="text-justify pl-5 uk-width-2-3 mx-auto ">
+                       {% for i in tech_skills %}
+                         <h5 class="my-1"><strong>&bull; &nbsp; {{i.skill}}</strong></h5>
+                       {% endfor %}
+                       </div>
 
 
+                  </div>
+                </div>
+
+
+                <div class=" px-2 my-2" >
+                  <div class="uk-card-default  mt-0 pb-2" style="border-radius : 10px;">
+                      <div class=" py-1 px-4">
+                          <h4 class="mb-0 ml-3 text-center"> Management/Office Skills </h4>
+
+                      </div>
+                       <hr class="m-0">
+
+                       <div class="text-justify pl-5 uk-width-2-3 mx-auto ">
+                         {% for i in man_skills %}
+                           <h5 class="my-1"><strong>&bull; &nbsp; {{i.skill}}</strong></h5>
+                         {% endfor %}
                        </div>
 
                   </div>
                 </div>
 
 
-
-
-                <div class="mt-0">
-                  <div class="uk-card-default rounded mt-0 pb-2">
-                      <div class="uk-flex uk-flex-between uk-flex-middle py-3  px-4">
-                          <h4 class="mb-0 ml-3"> Projects Certificates </h4>
+                <div class=" px-2 my-2">
+                  <div class="uk-card-default  mt-0 pb-2" style="border-radius : 10px;">
+                      <div class=" py-1  px-4">
+                          <h4 class="mb-0 ml-3 text-center"> Languages </h4>
 
                       </div>
                        <hr class="m-0">
 
-                       <div class="text-justify uk-width-2-3 mx-auto my-2">
-                         <h5 class="my-3"><strong>&bull; &nbsp; Virtual Empleado <a class="mx-2"> <i class="uil-notebooks"></i> </a> </strong></h5>
-                         <h5 class="my-3"><strong>&bull; &nbsp; DMAC Project <a class="mx-2"> <i class="uil-notebooks"></i> </a> </strong></h5>
-
+                       <div class="text-justify pl-5 uk-width-2-3 mx-auto ">
+                         {% for i in lan_skills %}
+                           <h5 class="my-1"><strong>&bull; &nbsp; {{i.skill}}</strong></h5>
+                         {% endfor %}
                        </div>
 
                   </div>
                 </div>
 
 
-
-
               </div>
             </div>
+
+
+
+                <div class="user-details my-2 mb-2  ">
+                  <div class="uk-grid uk-child-width-1-3@m">
+
+
+                    <div class=" mb-2 pr-2 my-2">
+                      <div class="uk-card-default mt-0 pb-2" style="border-radius : 10px;">
+                          <div class=" py-1  px-4">
+                              <h4 class="mb-0 ml-3 text-center"> Course Certificates</h4>
+
+                          </div>
+                           <hr class="m-0">
+
+                           <div class="text-justify pl-5 uk-width-2-3 mx-auto ">
+                             {% if certificate %}
+                              {% for i in certificate %}
+                                  <h5 class="my-3"><strong>&bull; &nbsp; {{i.certi_topic}} <a class="mx-2" href="{{i.certi_img.url}}" download> <i class="uil-notebooks"></i> </a></strong> </h5>
+                              {% endfor %}
+
+                              {% else %}
+                                  <h5 class="my-3"><strong>No Certificate Yet</strong> </h5>
+                              {% endif %}
+                           </div>
+
+
+                      </div>
+                    </div>
+
+
+                    <div class=" px-2 my-2" >
+                      <div class="uk-card-default  mt-0 pb-2" style="border-radius : 10px;">
+                          <div class=" py-1 px-4">
+                              <h4 class="mb-0 ml-3 text-center"> Management/Office Skills </h4>
+
+                          </div>
+                           <hr class="m-0">
+
+                           <div class="text-justify pl-5 uk-width-2-3 mx-auto ">
+                             <h5 class="my-3"><strong>&bull; &nbsp; Virtual Empleado <a class="mx-2"> <i class="uil-notebooks"></i> </a> </strong></h5>
+                             <h5 class="my-3"><strong>&bull; &nbsp; DMAC Project <a class="mx-2"> <i class="uil-notebooks"></i> </a> </strong></h5>
+
+                           </div>
+
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
 
 
               </div>
@@ -763,6 +1236,18 @@
         var cfp1 = total + proj;
         var milestone1=cfp1;
 
+        // cfp1=51;
+        if(cfp1<50)
+        {
+            document.getElementById("progress1").className = "mx-auto progress-circle  p"+cfp1;
+        }
+        else{
+          document.getElementById("progress1").className = " mx-auto progress-circle over50 p"+cfp1;
+        }
+
+        document.getElementById("value1").innerHTML=cfp1;
+
+
         {% for claim in claims %}
             {% if claim.user_id == user_data.pk %}
                 {% for list2 in lists2 %}
@@ -777,6 +1262,18 @@
         document.getElementById("pro2").value = tota2 +proj2;
         var cfp2 = tota2 + proj2;
         var milestone2=cfp2;
+
+
+        // cfp2=51;
+        if(cfp2<50)
+        {
+            document.getElementById("progress2").className = "mx-auto progress-circle  p"+cfp2;
+        }
+        else{
+          document.getElementById("progress2").className = "mx-auto progress-circle over50 p"+cfp2;
+        }
+
+        document.getElementById("value2").innerHTML=cfp2;
 
 
         // Testing whether the milestone is displaying or not

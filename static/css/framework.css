@@ -8,7 +8,7 @@
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  * 3. Style
  */
- 
+
 /* Links
  ========================================================================== */
 /*
@@ -21,7 +21,7 @@ a:hover {
 /*
  * Style
  */
- 
+
 /* Text-level semantics
  ========================================================================== */
 /*
@@ -246,13 +246,13 @@ blockquote footer {
   line-height: 1.5;
   color: #666;
 }
- 
+
 /* Preformatted tex
  ========================================================================== */
 /*
  * 1. Contain overflow in all browsers.
  */
- 
+
 /* Selection pseudo-element
  ========================================================================== */
 ::selection {
@@ -1279,7 +1279,7 @@ button.uk-icon:not(:disabled) {
   /* 4 */
   padding: 0px 16px;
   background: #fff;
-  color: #bdcad8; 
+  color: #bdcad8;
   border: 1px solid #eceff5;
   border-radius: 7px;
   transition: 0.2s ease-in-out;
@@ -1764,7 +1764,7 @@ select.uk-form-width-xsmall {
     line-height: 17px;
     font-size: 13px;
     border-radius: 6px;
-  
+
 }
 .uk-button:not(:disabled) {
   cursor: pointer;
@@ -4416,8 +4416,8 @@ ul.uk-nav-sub {
   background-color: rgba(12, 22, 39, 0.1);
   border-color: rgba(12, 22, 39, 0.1);
 }
-.uk-pagination span { 
-  display: inline-flex;  
+.uk-pagination span {
+  display: inline-flex;
 }
 
 /* ========================================================================
@@ -5930,7 +5930,7 @@ ul.uk-nav-sub {
   color: #fff;
   font-size: 13px;
   font-weight:600;
-  border-radius:4px ; 
+  border-radius:4px ;
 }
 /* Show */
 .uk-tooltip.uk-active {
@@ -7070,7 +7070,7 @@ ul.uk-nav-sub {
 }
 @media (max-width:960px){
   .uk-text-lead {
-  font-size: 1.2rem 
+  font-size: 1.2rem
 }
 }
 .uk-text-meta {
@@ -8039,7 +8039,7 @@ iframe.uk-cover {
   text-decoration: none;
 }
 .uk-light .uk-logo{
-  color:white !important  
+  color:white !important
 }
 .uk-logo-inverse {
   display: none;
@@ -8189,7 +8189,7 @@ iframe.uk-cover {
   justify-content: space-around;
 }
 /* Phone landscape and bigger */
-@media (min-width: 640px) { 
+@media (min-width: 640px) {
   .uk-flex-left\@s {
     justify-content: flex-start;
   }
@@ -10093,7 +10093,7 @@ iframe.uk-cover {
   color: rgba(255, 255, 255, 0.7);
   background-clip: padding-box;
   border-color: rgba(255, 255, 255, 0.2);
-  
+
 }
 .uk-light .uk-input:focus,
 .uk-light .uk-select:focus,

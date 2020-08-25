@@ -86,6 +86,9 @@ Project Manager
                       <div class="uk-margin">
                        <input class="uk-input" name="blog_title"  type="text" value="{{data.blog_title}}">
                      </div>
+                     <div class="uk-margin">
+                      <input class="uk-input" name="blog_tagline"  type="text" value="{{data.blog_tagline}}">
+                    </div>
                     </div>
 
                     <div class="uk-card rounded uk-card-default uk-card-body uk-width-expand my-2">
@@ -105,12 +108,12 @@ Project Manager
                                       class="required">*</span></label>
                               <div class=" ">
                                   <select  name="category" required >
-                                    <!-- <option selected disabled>Choose Category</option> -->
+                                    <!-- <option  disabled>Choose Category</option> -->
                                     {% for i in cag_data %}
                                     {% if i.blog_category == data.blog_category %}
-                                      <option value="{{i.category}}" selected> {{i.blog_category}} </option>
+                                      <option value="{{i.blog_category}}" selected> {{i.blog_category}} </option>
                                     {% else %}
-                                      <option value="{{i.category}}"> {{i.blog_category}} </option>
+                                      <option value="{{i.blog_category}}"> {{i.blog_category}} </option>
                                     {% endif %}
                                     {% endfor %}
                                   </select>

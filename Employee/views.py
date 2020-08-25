@@ -30,7 +30,7 @@ from datetime import datetime
 from .forms import (AddUserForm)
 
 
-from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill,Certificate,Reference,BlogManager,BlogCategory,BlogHeight
+from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill,Certificate,Reference,BlogManager,BlogCategory,BlogHeight,MicroCategory
 
 
 # Create your views here.
@@ -574,7 +574,7 @@ def userdashboard(request):
                     'cfp_details':cfp_details,
                     'lists':lists,
                     'lists2':lists2,
-                    'course_data': course_data, 
+                    'course_data': course_data,
                     'progress_course':progress_course,
                     'cfp1_projects':cfp1_projects,
                     'cfp2_projects':cfp2_projects,
@@ -2767,6 +2767,7 @@ def blogManager(request):
         if request.method=='POST':
             if 'blog_submit' in request.POST:
                 blog_title=request.POST["blog_title"]
+                blog_tagline=request.POST["blog_tagline"]
                 blog_body=request.POST["editor1"]
                 blog_thumbnail=request.FILES.get("blog_thumbnail")
                 blog_category=request.POST["category"]
@@ -2777,6 +2778,7 @@ def blogManager(request):
                 blog=BlogManager.objects.create(
                     user_id= user.id,
                     blog_title=blog_title,
+                    blog_tagline=blog_tagline,
                     blog_body=blog_body,
                     blog_thumbnail=blog_thumbnail,
                     blog_category=blog_category,
@@ -2835,11 +2837,14 @@ def blogEditManager(request,id):
         if request.method=='POST':
             if 'blog_edit' in request.POST:
                 blog_title=request.POST["blog_title"]
+                blog_tagline=request.POST["blog_tagline"]
                 blog_body=request.POST["editor1"]
                 blog_thumbnail=request.FILES.get("blog_thumbnail")
                 blog_category=request.POST["category"]
 
+                data=BlogManager.objects.get(id=pid)
                 data.blog_title=blog_title
+                data.blog_tagline=blog_tagline
                 data.blog_body=blog_body
                 data.blog_thumbnail=blog_thumbnail
                 data.blog_category=blog_category
@@ -2970,6 +2975,85 @@ def payment(request):
         'total_amt' :total_amt2
     }
     return render(request,'payment/payment_page.html',context)
+
+
+#  Micro Courses
+def microCategory(request):
+
+    if request.method == 'POST':
+        if 'micro_submit' in request.POST:
+            cag_name = request.POST['microCate']
+            if MicroCategory.objects.filter(category=cag_name).exists():
+                messages.error(request, 'The Category already exists')
+                return redirect('microCategory')
+
+            if MicroCategory.objects.filter(category=cag_name.upper()).exists():
+                messages.error(request, 'The Category already exists')
+                return redirect('microCategory')
+
+            if MicroCategory.objects.filter(category=cag_name.lower()).exists():
+                messages.error(request, 'The Category already exists')
+                return redirect('microCategory')
+
+            if MicroCategory.objects.filter(category=cag_name.capitalize()).exists():
+                messages.error(request, 'The Category already exists')
+                return redirect('microCategory')
+
+            category_id = MicroCategory.objects.all().count() + 1
+            cag_obj = MicroCategory(category_id=category_id, category=cag_name)
+            cag_obj.save()
+
+            return redirect('microCategory')
+
+
+        if 'sortlist' in request.POST:
+            cfp_category = request.POST['sortlist']
+            roles = CFP_role.objects.filter(cfp_category=cfp_category)
+            category_list = CareerCategory.objects.all()
+            context = {
+                'category_list': category_list,
+                'cfp_list': roles,
+            }
+            return render(request, 'Admin_pages/cfp_create.html', context)
+
+    category_list = MicroCategory.objects.all()
+
+
+
+    context = {
+        'category_list': category_list,
+    }
+
+    return render(request, 'Admin_pages/microCourseCategory.html', context)
+
+
+
+def micro_edit(request,id):
+    category_id=id
+    datas=MicroCategory.objects.get(category_id=category_id)
+    name=datas.category
+
+    if request.method=="POST":
+        if 'category_submit' in request.POST:
+            category=request.POST['category_name']
+
+            datas=MicroCategory.objects.get(category_id=category_id)
+
+            datas.category=category
+            datas.save()
+
+            return redirect('microCategory')
+
+    context={
+        'datas':datas,
+    }
+    return render(request,'Admin_pages/microEdit.html',context)
+
+
+
+
+def microDash(request):
+    return render(request,'MicroCourses/microDashboard.html')
 
 
 def error_404_view(request, exception):
