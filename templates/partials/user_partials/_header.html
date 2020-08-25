@@ -2,18 +2,21 @@
 {% load static %}
 {#   Header starts  #}
 
-    <header class="header uk-light" uk-sticky style="background:white">
+    <header class="header uk-light" uk-sticky style="background:rgb(53,78,99)">
 
             <div class="container">
+
                 <nav uk-navbar>
+
 
                     <!-- left Side Content -->
                     <div class="uk-navbar-left">
+ <div class="searchbox uk-visible@s">
 
-                        <span class="btn-mobile" uk-toggle="target: #wrapper ; cls: mobile-active"></span>
+                            <input class="uk-search-input" type="search" placeholder="Search...">
+                            <button class="btn-searchbox"> </button>
 
-
-
+                        </div>
                         <!-- logo -->
                         <a href="{% url 'dashboard' %}" class="logo">
                             <img src="{% static 'images/VES.png' %}" alt="">
@@ -120,6 +123,7 @@
 
 
                 </nav>
+
 
             </div>
             <!-- container  / End -->

@@ -188,6 +188,14 @@ class MicroCategory(models.Model):
     def __str__(self):
         return self.category
 
+class MicroCourse(models.Model):
+    c_id = models.ForeignKey(MicroCategory,on_delete=models.CASCADE)
+    course_name = models.CharField(max_length=100)
+    video = models.CharField(max_length=100,null=True)
+
+    def __str__(self):
+        return self.course_name
+
 
 class CFP_role(models.Model):
     cfp_id=models.IntegerField(default=0)

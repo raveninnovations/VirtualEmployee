@@ -30,7 +30,7 @@ from datetime import datetime
 from .forms import (AddUserForm)
 
 
-from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill,Certificate,Reference,BlogManager,BlogCategory,BlogHeight,MicroCategory
+from .models import UserDetails, RoleDetail, Course, Lesson, Lesson_Topic, CareerCategory, CFP_role,ProjectManager,AdminLicense,UserContact,UserEducation,CreateCourse,CareerChoice,StudentCFP,ProjectCFPStore,ProgressCourse,UsedLicense,EnrolledProject,watched,Claim,CourseTag,ProjectPoint,UserWorkExperience,UserSkill,Certificate,Reference,BlogManager,BlogCategory,BlogHeight,MicroCategory,MicroCourse
 
 
 # Create your views here.
@@ -128,6 +128,8 @@ def adminRolecreation(request):
                     role_user_id="IN"+str(400+(RoleDetail.objects.filter(user_role="Instructor").count()+1))
                 elif user_role == "Blogger":
                     role_user_id  = "Blog"+str(500+(RoleDetail.objects.filter(user_role="Blogger").count()+1))
+                elif user_role == "Micro Course":
+                    role_user_id  = "Micro"+str(500+(RoleDetail.objects.filter(user_role="Micro Course").count()+1))
                 else:
                     role_user_id=000
 
@@ -182,6 +184,9 @@ def adminRolecreation(request):
                         user.is_superuser = False
                     elif user_role == "PCM":
                         user.is_superuser=True
+                        user.is_staff = False
+                    elif user_role == "Micro Course":
+                        user.is_superuser=False
                         user.is_staff = False
                     user.save()
                     u_id = User.objects.get(username=role_user_name)
@@ -3067,6 +3072,24 @@ def micro_edit(request,id):
 
 def microDash(request):
     return render(request,'MicroCourses/microDashboard.html')
+
+def microCreate(request):
+    cag_data=MicroCategory.objects.all()
+    cat_name = None
+    if request.method == 'POST':
+        if 'category' in request.POST:
+            cat_name = request.POST['category']
+        if 'course-submit' in request.POST:
+            c_title = request.POST['title']
+            c_video = request.POST['vlink']
+            data = MicroCourse(c_id = cat_name, video=c_video,course_name=c_title)
+            data.save()
+            messages.success(request,"Course Created succesfuly")
+    context={
+        'cag_data':cag_data,
+        'cat_name':cat_name,
+    }
+    return render(request,'MicroCourses/microCreateCourse.html',context)
 
 
 def error_404_view(request, exception):

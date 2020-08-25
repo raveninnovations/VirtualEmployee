@@ -76,4 +76,5 @@ urlpatterns = [
 
     # Micro
     path('microDash/', views.microDash, name='microDashboard'),
+    path('microCourseCreate/', views.microCreate, name='microCreate'),
     ]
