@@ -1340,6 +1340,19 @@ def userEdit(request):
         messages.error(request,"Wrong URL")
         return redirect('logout')
 
+
+
+@login_required
+def userMicroCourseList(request):
+    if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        user = request.user
+        return render(request,'virtualmain_pages/microcourses.html');
+    else:
+        messages.error(request,"Wrong URL")
+        return redirect('logout')
+
+        
+
 @login_required
 def userProject(request):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
