@@ -2095,13 +2095,13 @@ fieldset {
 }
 
 .side-nav .logo {
-  padding: 18.5px 0;
+  padding: 21px 0;
   position: relative;
   z-index: 2;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f9f9f9;
+  background: #0a223b;
 }
 
 .side-nav .logo i {
