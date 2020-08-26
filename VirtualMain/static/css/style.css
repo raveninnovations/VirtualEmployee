@@ -2782,7 +2782,7 @@ button.mark-as-read:hover {
 }
 
 .uk-light .searchbox {
-  background-color: rgba(255, 255, 255, 0.0784313725490196);
+  background-color: rgb(10, 34, 59);
   border: 2px solid rgba(255, 255, 255, 0.15);
 }
 
