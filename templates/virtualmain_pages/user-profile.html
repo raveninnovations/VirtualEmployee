@@ -139,7 +139,7 @@
                 </nav> -->
 
 
-            <div class="uk-card-default  py-4 mb-4 mx-0" style="border-radius : 10px ;" >
+            <div class="  py-4 mb-4 mx-0" style="border-radius : 10px ;" >
                   {% if user.is_authenticated %}
                   <!-- <div class=" text-right mx-3">
                     <p class="m-0"> Member since {{ user_data.user_date |date   }} </p>
@@ -149,45 +149,33 @@
                       </div> -->
                   <div class="uk-grid px-5 ">
 
-
-                    <div class="uk-width-2-5@m px-4">
-                      <div class="m-auto" >
-                        {% if user_contact.user_pic %}
-                        <div class="user-profile-photo  m-auto " style="height:250px; width:250px;">
-                            <img src="{{ user_contact.user_pic.url }}" alt="">
-                        </div>
-                         {% else %}
-                            <div class="user-profile-photo  m-auto" style="height:250px; width:250px;">
-                            <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
+                    <div class="uk-width-1-3@m">
+                      <div class="uk-card-default text-center py-5 mx-1" style="border-radius:10px;">
+                        <div class="px-4">
+                          <div class="m-auto " >
+                            {% if user_contact.user_pic %}
+                            <div class="user-profile-photo  m-auto " style="border:50%; height:300px; width:300px;">
+                                <img src="{{ user_contact.user_pic.url }}" style="border:50%;" alt="">
+                            </div>
+                             {% else %}
+                                <div class="user-profile-photo  m-auto" style="height:250px; width:250px;">
+                                <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
+                              </div>
+                              {% endif %}
                           </div>
-                          {% endif %}
+                          <h3 class="mb-1" style="font-family:impact;"> {{ user.first_name }} {{ user.last_name }}</h3>
+                          <h5 class="my-0"> Employee ID : {{ user_data.user_unique }} </h5>
+                          <div class="">
+                            {% if cfp_details.role_one %}
+                            <p class="mx-1" style="margin-top: 0.50rem;"><span class="badge badge-pill  " style="background:#ffd76b; color:black;  font-size:20px;" > &bull; {{cfp_details.role_one}}</span></p>
+                            {% endif %}
+                            {% if cfp_details.role_two %}
+                            <p class="mx-1" style="margin-top: 0.50rem;"><span class="badge badge-pill " style="background:#ffd76b; color:black; font-size:20px;"> &bull; {{cfp_details.role_two}}</span></p>
+                            {% endif %}
+                          </div>
+                        </div>
                       </div>
                     </div>
-
-
-                    <div class="uk-width-expand px-4">
-                      <h3 class="mb-1" style="font-family:impact;"> {{ user.first_name }} {{ user.last_name }}</h3>
-                      <h5 class="my-0"> Employee ID : {{ user_data.user_unique }} </h5>
-                      <!-- <p class="m-0"> Member since {{ user_data.user_date }} </p> -->
-                      <div class="uk-flex">
-                        {% if cfp_details.role_one %}
-                        <p class="mx-1" style="margin-top: 0.50rem;"><span class="badge badge-pill  " style="background:#ffd76b; color:black;  font-size:20px;" > &bull; {{cfp_details.role_one}}</span></p>
-                        {% endif %}
-                        {% if cfp_details.role_two %}
-                        <p class="mx-1" style="margin-top: 0.50rem;"><span class="badge badge-pill " style="background:#ffd76b; color:black; font-size:20px;"> &bull; {{cfp_details.role_two}}</span></p>
-                        {% endif %}
-                      </div>
-
-                      <div class="my-2">
-                        <p style=" display : block; overflow-wrap: break-word;">{{user_contact.user_bio}}</p>
-                      </div>
-                    </div>
-
-
-                  </div>
-
-                  {% endif %}
-            </div>
 
 
 <style media="screen">
@@ -271,6 +259,84 @@
       transform: translateY(-50%);
   }
 </style>
+
+
+
+                    <div class="uk-width-2-3@m">
+
+                        <div class="uk-card-default mx-1 px-0" style="border-radius:10px;" >
+                          <div class="uk-width-expand ">
+
+                            <div class="uk-grid uk-child-width-1-4@m pb-3 pt-4  mx-auto" style="background:#2e65bf; border-radius:10px;">
+
+                              <div class="">
+                                <div class="uk-flex mx-auto">
+                                  <span class="icon-line-awesome-list-ul" style="font-size:40px; color:white;"></span>
+                                    <h1 style="color:white;">13</h1>
+                                </div>
+                                <div class="">
+                                  <h5> Project Completed</h5>
+                                </div>
+                              </div>
+
+                              <div class="">
+                                <div class="uk-flex">
+                                  <span class="icon-line-awesome-certificate" style="font-size:40px; color:white; "></span>
+                                    <h1 style="color:white;">13</h1>
+                                </div>
+                                <div class="">
+                                  <h5>Project Certification</h5>
+                                </div>
+                              </div>
+
+                              <div class="">
+                                <div class="uk-flex">
+                                  <span class="icon-line-awesome-trophy" style="font-size:40px; color:white;"></span>
+                                    <h1 style="color:white;">{{ tot_achiev }}</h1>
+                                </div>
+                                <div class="">
+                                  <h5>Total Achievements</h5>
+                                </div>
+                              </div>
+
+                              <div class="">
+                                <div class="uk-flex">
+                                  <span class="icon-line-awesome-list-alt" style="font-size:40px; color:white;"></span>
+                                    <h1 style="color:white;">{{ com_courses }}</h1>
+                                </div>
+                                <div class="">
+                                  <h5>Course Completed</h5>
+                                </div>
+                              </div>
+
+                            </div>
+
+                            <div class="my-2 px-4 mt-3">
+                              <div class="uk-grid">
+                                <div class="uk-width-1-4@m my-2">
+                                  <h1 class="display-2">BIO"</h1>
+                                </div>
+                                <div class="uk-width-3-4@m my-3">
+                                  <p style=" display : block; overflow-wrap: break-word;">{{user_contact.user_bio}}</p>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                  </div>
+
+                  {% endif %}
+            </div>
+
+
+
 
 
            <div class="icon-set-container">
@@ -1153,7 +1219,7 @@
         var milestone2=cfp2;
 
 
-        // cfp2=55;
+        // cfp2=155;
         // var s2=cfp2/10;
         s2=Math.floor(cfp2/10)
         if(s2<50)
@@ -1182,43 +1248,43 @@
         }
 
         // Badge Immplementation in CFP1
-        if(cfp1>=0 && cfp1<100)
+        if(cfp1>=100 && cfp1<200)
         {
           document.getElementById("b1").src = "{% static 'images/badges/class1.png' %}";
         }
-        else if(cfp1>=100 && cfp1<200)
+        else if(cfp1>=200 && cfp1<300)
         {
           document.getElementById("b1").src = "{% static 'images/badges/class2.png' %}";
         }
-        else if(cfp1>=200 && cfp1<300)
+        else if(cfp1>=300 && cfp1<400)
         {
           document.getElementById("b1").src = "{% static 'images/badges/class3.png' %}";
         }
-        else if(cfp1>=300 && cfp1<400)
+        else if(cfp1>=400 && cfp1<500)
         {
           document.getElementById("b1").src = "{% static 'images/badges/class4.png' %}";
         }
-        else if(cfp1>=400 && cfp1<500)
+        else if(cfp1>=500 && cfp1<600)
         {
           document.getElementById("b1").src = "{% static 'images/badges/class5.png' %}";
         }
-        else if(cfp1>=500 && cfp1<600)
+        else if(cfp1>=600 && cfp1<700)
         {
           document.getElementById("b1").src = "{% static 'images/badges/class6.png' %}";
         }
-        else if(cfp1>=600 && cfp1<700)
+        else if(cfp1>=700 && cfp1<800)
         {
           document.getElementById("b1").src = "{% static 'images/badges/class7.png' %}";
         }
-        else if(cfp1>=700 && cfp1<800)
+        else if(cfp1>=800 && cfp1<900)
         {
           document.getElementById("b1").src = "{% static 'images/badges/class8.png' %}";
         }
-        else if(cfp1>=800 && cfp1<900)
+        else if(cfp1>=900 && cfp1<1000)
         {
           document.getElementById("b1").src = "{% static 'images/badges/class9.png' %}";
         }
-        else if(cfp1>=900 && cfp1<=1000)
+        else if(cfp1>=1000)
         {
           document.getElementById("b1").src = "{% static 'images/badges/class10.png' %}";
         }
@@ -1233,43 +1299,43 @@
 
 
         // Badge Immplementation in CFP2
-        if(cfp2>=0 && cfp2<100)
+        if(cfp2>=100 && cfp2<200)
         {
           document.getElementById("b2").src = "{% static 'images/badges/class1.png' %}";
         }
-        else if(cfp2>=100 && cfp2<200)
+        else if(cfp2>=200 && cfp2<300)
         {
           document.getElementById("b2").src = "{% static 'images/badges/class2.png' %}";
         }
-        else if(cfp2>=200 && cfp2<300)
+        else if(cfp2>=300 && cfp2<400)
         {
           document.getElementById("b2").src = "{% static 'images/badges/class3.png' %}";
         }
-        else if(cfp2>=300 && cfp2<400)
+        else if(cfp2>=400 && cfp2<500)
         {
           document.getElementById("b2").src = "{% static 'images/badges/class4.png' %}";
         }
-        else if(cfp2>=400 && cfp2<500)
+        else if(cfp2>=500 && cfp2<600)
         {
           document.getElementById("b2").src = "{% static 'images/badges/class5.png' %}";
         }
-        else if(cfp2>=500 && cfp2<600)
+        else if(cfp2>=600 && cfp2<700)
         {
           document.getElementById("b2").src = "{% static 'images/badges/class6.png' %}";
         }
-        else if(cfp2>=600 && cfp2<700)
+        else if(cfp2>=700 && cfp2<800)
         {
           document.getElementById("b2").src = "{% static 'images/badges/class7.png' %}";
         }
-        else if(cfp2>=700 && cfp2<800)
+        else if(cfp2>=800 && cfp2<900)
         {
           document.getElementById("b2").src = "{% static 'images/badges/class8.png' %}";
         }
-        else if(cfp2>=800 && cfp2<900)
+        else if(cfp2>=900 && cfp2<1000)
         {
           document.getElementById("b2").src = "{% static 'images/badges/class9.png' %}";
         }
-        else if(cfp2>=900 && cfp2<=1000)
+        else if(cfp2>=1000)
         {
           document.getElementById("b2").src = "{% static 'images/badges/class10.png' %}";
         }

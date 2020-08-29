@@ -1356,7 +1356,7 @@ def userMicroCourseList(request):
         messages.error(request,"Wrong URL")
         return redirect('logout')
 
-        
+
 
 @login_required
 def userProject(request):
