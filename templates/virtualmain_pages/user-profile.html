@@ -264,7 +264,7 @@
 
 
 
-                    <div class="uk-width-3-4@m " style="background:#cadff6">
+                    <div class="uk-width-3-4@m " style="background:#cadff6;">
 
                         <div class=" px-0 " style="border-radius:10px;" >
                           <div class="uk-width-expand px-4">
@@ -377,6 +377,412 @@
                   </div>
               </div>
             </div>
+
+
+
+
+            <div class="container">
+              <style>
+              body {font-family: Arial;}
+
+              /* Style the tab */
+              .tab {
+                overflow: hidden;
+                border: 1px solid #ccc;
+                background-color: #2365bf;
+                padding:7px;
+                border-radius:10px ;
+
+              }
+
+              /* Style the buttons inside the tab */
+              .tab button {
+                background-color: inherit;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 14px 16px;
+                margin-right:5px;
+                margin-left:5px;
+                transition: 0.3s;
+                font-size: 17px;
+                color:white;
+              }
+
+              /* Change background color of buttons on hover */
+              .tab button:hover {
+                background-color:  #cadff6;
+                border-radius:8px ;
+                color:black;
+              }
+
+              /* Create an active/current tablink class */
+              .tab button.active {
+                background-color: #cadff6;
+                border-radius:8px ;
+                color:black;
+              }
+
+              /* Style the tab content */
+              .tabcontent {
+                display: none;
+                padding: 6px 12px;
+                /* border: 1px solid #ccc; */
+                border-top: none;
+
+              }
+              </style>
+
+              <h2>Tabs</h2>
+              <p>Click on the buttons inside the tabbed menu:</p>
+
+              <div class="tab">
+                <button class="tablinks active" onclick="openCity(event, 'London')" id="defaultOpen">London</button>
+                <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
+                <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+                <button class="tablinks active" onclick="openCity(event, 'London')" id="defaultOpen">London</button>
+                <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
+                <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+              </div>
+
+              <div id="London" class="tabcontent ">
+
+
+
+                <div class="uk-grid uk-child-width-1-2@m">
+                  <div class="">
+                    {% if cfp_details %}
+
+
+                         <div class="uk-card-default  my-4" style="border-radius:10px; ">
+                          <div class=" py-2  px-4" style="background: #e7eefd; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                              <h4 class="mb-0 text-center" style="color: #235cb3;"><strong>{{ cfp_details.role_one }}</strong> </h4>
+
+                          </div>
+                          <hr class="m-0">
+
+
+
+
+                            <div class="uk-flex uk-flex-between uk-flex-middle pt-1 pb-2 px-4">
+
+                              <div class="uk-width-expand">
+                                <!-- <div class="my-3">
+                                  <h3 class="mb-0" ><span class=" badge badge-pill text-white" style="background:#005c82" >{{ cfp_details.role_one }}</span></h3>
+                                </div> -->
+                                <div class="uk-container mb-3 px-0">
+
+
+                                  <!-- Newly Added -->
+                                  <div class="mx-auto px-auto">
+                                    <div id="progress1" class="">
+                                       <span id="value1">jbbh</span>
+                                       <div class="left-half-clipper ">
+                                          <div class="first50-bar"></div>
+                                          <div class="value-bar"></div>
+                                       </div>
+                                    </div>
+                                  </div>
+
+
+                                  <!-- End -->
+
+
+
+
+                                  <progress class="uk-progress progress " id="pro1" max="1000" hidden ></progress>
+
+                                </div>
+                                <div class=" mt-4" id="cfp1points300">
+                                  {% if certi1 %}
+                                   {% else %}
+                                  <h4>Congratulations!!! You have reached a milestone</h4>
+                                  <form class="cfp1_mile"  method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                      <!-- <input type="file" name="sss"> -->
+                                      <button type="submit" class="btn btn-default" name="cfp1_m1">Check Your Certificate Here</button>
+
+                                  </form>
+                                    {% endif %}
+                                </div>
+                              </div>
+
+
+                              <div class="mx-4 my-2" style="height:50px; width:50px;">
+                                <img src="" id="b1" alt="">
+                              </div>
+
+                            </div>
+
+
+                            <hr class="mt-0">
+                            <div class=" pt-0 px-5 py-4 ">
+                                {% if lists %}
+
+
+                                <div class="" >
+
+
+                                    <div class="uk-width-expand my-2 uk-grid-small uk-flex-middle  ">
+                                        {% for tag in tag %}
+
+                                            {% if tag.course_role == cfp_details.role_one %}
+
+                                          <div class="uk-grid-small uk-flex-middle " uk-grid>
+                                            <div class="uk-width-auto">
+                                                <button type="button" class="btn btn-danger btn-icon-only">
+                                                    <span class="d-flex justify-content-center">
+                                               <i class="icon-brand-angular icon-small"></i>
+                                                    </span>
+                                                  </button>
+                                            </div>
+                                            <div class="uk-width-expand">
+                                              <h5 class="mb-1"> {{ tag.course_tag }}</h5>
+
+
+
+
+                                                  <progress class="uk-progress mt-0"  value="{{ tag.points }}" max="1000" style="width: 87%"></progress>
+                                            </div>
+                                          </div>
+
+                                            {% endif %}
+                                            {% endfor %}
+
+
+
+                                    </div>
+
+                                </div>
+
+                                    <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                    <div class="uk-width-auto">
+                                        <button type="button" class="btn btn-danger btn-icon-only">
+                                            <span class="d-flex justify-content-center">
+                                       <i class="icon-brand-angular icon-small"></i>
+                                            </span>
+                                          </button>
+                                    </div>
+                                     <div class="uk-width-expand">
+                                            {% if proj %}
+
+                                                {% for pro in proj %}
+                                                {% if pro.proj_role == cfp_details.role_one %}
+                                             <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
+
+                                             <progress class="uk-progress mt-0" id="live1" value="{{ pro.proj_points }}" max="1000" style="width: 84%"></progress>
+                                                {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                             <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
+
+                                             <progress class="uk-progress mt-0" id="live1" value="0" max="1000" style="width: 84%"></progress>
+                                            {% endif %}
+
+                                    </div>
+                                    </div>
+
+                            {% else %}
+                                    <p>Currently no courses under this category</p>
+                            {% endif %}
+
+
+
+
+                            </div>
+                        </div>
+                {% endif %}
+                  </div>
+
+
+                  <div class="" >
+
+                    {% if cfp_details %}
+
+
+                        <div class="uk-card-default  my-4"  style="border-radius:10px;" >
+
+
+
+
+
+                          <div class="uk-card-default  my-4" style="border-radius:10px;" >
+                           <div class=" py-2  px-4 "   style=" border-top-left-radius: 10px; border-top-right-radius: 10px; background: #f9e9ec;">
+                               <h4 class="mb-0 text-center" style="color:#fd4044;"> <strong>{{ cfp_details.role_two }}</strong> </h4>
+
+                           </div>
+                           <hr class="m-0">
+
+
+
+                            <div class="uk-flex uk-flex-between uk-flex-middle pt-1 pb-2 px-4">
+
+                                <div class="uk-width-expand">
+
+
+
+
+
+
+                                  <div class="uk-container mb-3 px-0">
+
+                                    <!-- Newly Added -->
+                                    <div class="mx-auto px-auto">
+                                      <div id="progress2" class="">
+                                         <span id="value2">{{pro2}}</span>
+                                         <div class="left-half-clipper">
+                                            <div class="first50-bar"></div>
+                                            <div class="value-bar"></div>
+                                         </div>
+                                      </div>
+                                    </div>
+                                    <!-- End -->
+
+
+                                    <progress class="uk-progress progress" id="pro2" max="1000" hidden></progress>
+
+                                  </div>
+                                  <div class=" mt-4" id="cfp2points300">
+                                  {% if certi2 %}
+
+                                  {% else %}
+                                    <h4>Congratulations!!! You have reached a milestone</h4>
+                                    <form class="cfp2_mile"  method="POST">
+                                      {% csrf_token %}
+                                      <button type="submit" class="btn btn-default" name="cfp2_m1">Check Your Certificate Here</button>
+                                    </form>
+                                   {% endif %}
+                                  </div>
+                                </div>
+
+                                <div class="mx-4 my-2" style="height:50px; width:50px;">
+                                  <img src="" id="b2" alt="">
+                                </div>
+
+
+                            </div>
+
+
+                            <hr class="mt-0">
+                            <div class=" pt-0 px-5 py-4">
+                                {% if lists2 %}
+
+                                <div class="" >
+
+
+                                     <div class="uk-width-expand my-2 uk-grid-small uk-flex-middle">
+                                        {% for tag in tag %}
+
+                                            {% if tag.course_role == cfp_details.role_two %}
+                                            <div class="uk-grid-small uk-flex-middle " uk-grid>
+                                              <div class="uk-width-auto">
+                                                  <button type="button" class="btn btn-danger btn-icon-only">
+                                                      <span class="d-flex justify-content-center">
+                                                 <i class="icon-brand-angular icon-small"></i>
+                                                      </span>
+                                                    </button>
+                                              </div>
+                                              <div class="uk-width-expand">
+                                                <h5 class="mb-2"> {{ tag.course_tag }}</h5>
+                                                    <progress class="uk-progress mt-0" value="{{ tag.points }}" max="1000" style="width: 87%"></progress>
+                                              </div>
+                                            </div>
+
+
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+
+                                </div>
+
+
+                                <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                    <div class="uk-width-auto">
+                                        <button type="button" class="btn btn-danger btn-icon-only">
+                                            <span class="d-flex justify-content-center">
+                                       <i class="icon-brand-angular icon-small"></i>
+                                            </span>
+                                          </button>
+                                    </div>
+                                     <div class="uk-width-expand">
+                                         {% if proj %}
+
+
+                                                {% for pro in proj %}
+
+                                                {% if pro.proj_role == cfp_details.role_two %}
+
+                                             <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
+
+                                             <progress class="uk-progress mt-0" id="live2" value="{{ pro.proj_points }}" max="1000" style="width: 84%"></progress>
+                                                {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+
+                                             <h5 class="mb-2" style="color: darkblue"> Live Projects</h5>
+
+                                             <progress class="uk-progress mt-0" id="live2" value="0" max="1000" style="width: 84%"></progress>
+                                        {% endif %}
+
+                                    </div>
+                                    </div>
+                                {% else %}
+                                    <p>Currently no courses available under this category</p>
+                                 {% endif %}
+
+
+                            </div>
+                        </div>
+                    {% endif %}
+                  </div>
+
+
+                </div>
+              </div>
+
+
+
+              </div>
+
+              <div id="Paris" class="tabcontent">
+                <h3>Paris</h3>
+                <p>Paris is the capital of France.</p>
+              </div>
+
+              <div id="Tokyo" class="tabcontent">
+                <h3>Tokyo</h3>
+                <p>Tokyo is the capital of Japan.</p>
+              </div>
+
+
+
+
+
+              <script>
+                document.getElementById("defaultOpen").click();
+
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+</script>
+
+
+            </div>
+
+
+
 
 
             <style media="screen">
