@@ -118,7 +118,7 @@
                  <div id="cfps" class="tabcontent ">
 
                    <div class="container uk-grid mt-4">
-                     <div class="uk-width-1-2">
+                     <div class="uk-width-3-5">
                      <div class="uk-card-default rounded">
                          <div class="p-3">
                              <h4 class="mb-0"> Basic info </h4>
@@ -161,11 +161,11 @@
                                     {% for user in users %}
                                         {% if user.user_id_id == user_detail.pk %}
                                             {% if user.user_pic %}
-                                                <div class="user-profile-photo  m-auto">
-                                                    <img src="{{ user.user_pic.url }}" alt="">
+                                                <div class="user-profile-photo  m-auto" style="height:220px; width:220px;">
+                                                    <img src="{{ user.user_pic.url }}"  alt="">
                                                 </div>
                                             {% else %}
-                                                <div class="user-profile-photo  m-auto">
+                                                <div class="user-profile-photo  m-auto" style="height:220px; width:220px;>
                                                     <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
                                                 </div>
                                             {% endif %}
@@ -228,75 +228,93 @@
 
                  <div id="edu&exp" class="tabcontent ">
 
-                   <div class="uk-card-default rounded mt-4">
-                       <div class="p-3">
-                           <h4 class="mb-0">Update contact info </h4>
-                       </div>
-                       <hr class="m-0">
-                       <form method="POST" >
-                         {% csrf_token %}
+                   <form method="POST" >
+                     {% csrf_token %}
 
-                         <div class="uk-width-1-1  p-4 pb-0">
-                           {% if users %}
-                         {% for user in users %}
-                         {% if user.user_id_id == user_detail.pk %}
+                     <div class="uk-grid uk-child-width-1-2@s">
 
-                           {% if user.user_bio %}
+                     <div class="">
+                     <div class="uk-card uk-card-default mt-4 p-3" style="border-radius:10px;">
+                       <h2 class=" uk-text-bold" for="form-stacked-text">Write About Yourself</h2>
+                       <div class="uk-width-1-1  ">
+                         {% if users %}
+                       {% for user in users %}
+                       {% if user.user_id_id == user_detail.pk %}
+
+                         {% if user.user_bio %}
+                         <div class="uk-margin">
+
+                                 <div class="uk-form-controls">
+                                     <!-- <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text..."> -->
+                                     <textarea class="uk-textarea" name="bio" rows="10"  required>{{user.user_bio}}</textarea>
+                                 </div>
+                             </div>
+                           {% else %}
                            <div class="uk-margin">
                                <h5 class="uk-form-label uk-text-bold" for="form-stacked-text">Write About Yourself</h5>
                                    <div class="uk-form-controls">
                                        <!-- <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text..."> -->
-                                       <textarea class="uk-textarea" name="bio" rows="4"  required>{{user.user_bio}}</textarea>
+                                       <textarea class="uk-textarea" name="bio" rows="10"  placeholder="Enter Bio Here" required></textarea>
                                    </div>
                                </div>
-                             {% else %}
-                             <div class="uk-margin">
-                                 <h5 class="uk-form-label uk-text-bold" for="form-stacked-text">Write About Yourself</h5>
-                                     <div class="uk-form-controls">
-                                         <!-- <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text..."> -->
-                                         <textarea class="uk-textarea" name="bio" rows="4"  placeholder="Enter Bio Here" required></textarea>
-                                     </div>
-                                 </div>
-                             {% endif %}
-
-
-                               {% else %}
-                               {% endif %}
-                           {% endfor %}
                            {% endif %}
-                         </div>
 
 
-                         <div class="uk-child-width-1-1 uk-grid-small p-4 pt-0" uk-grid>
+                             {% else %}
+                             {% endif %}
+                         {% endfor %}
+                         {% endif %}
+                       </div>
+
+                     </div>
+
+                     </div>
+
+
+
+                    <div class="">
+
+
+
+                   <div class="uk-card-default rounded mt-4 p-3" style="border-radius:10px;">
+                       <div class="">
+                            <h2 class=" uk-text-bold" for="form-stacked-text">Contact Details</h2>
+                        </div>
+                       <hr class="m-0">
+
+
+
+
+                         <div class="uk-child-width-1-1 uk-grid-small p-2" uk-grid>
                              {% if users %}
                            {% for user in users %}
                            {% if user.user_id_id == user_detail.pk %}
 
                            {% if user.address1 %}
-                           <div>
-                               <h5 class="uk-text-bold mb-2"> Address 1 </h5>
+                           <div class="my-2">
+                               <h5 class="uk-text-bold mb-2 text-left"> Address 1 </h5>
                                <input type="text" name='address1' class="uk-input" value="{{ user.address1 }}">
                            </div>
                                {% else %}
-                               <div>
-                               <h5 class="uk-text-bold mb-2"> Address 1 </h5>
+                               <div class="my-2">
+                               <h5 class="uk-text-bold mb-2 text-left"> Address 1 </h5>
                                <input type="text" name='address1' class="uk-input" placeholder="Address Line 1">
                                </div>
                                {% endif %}
                            {% if user.address2 %}
-                               <div>
-                                   <h5 class="uk-text-bold mb-2"> Address 2 </h5>
+                               <div class="my-2">
+                                   <h5 class="uk-text-bold mb-2 text-left"> Address 2 </h5>
                                    <input type="text" name='address2' class="uk-input" value="{{ user.address2 }}">
                                </div>
                            {% else %}
                                <div>
-                                   <h5 class="uk-text-bold mb-2"> Address 2 </h5>
+                                   <h5 class="uk-text-bold mb-2 text-left"> Address 2 </h5>
                                    <input type="text" name='address2' class="uk-input" placeholder="Address Line 2">
                                </div>
                            {% endif %}
                            {% if user.gender %}
                            <div>
-                               <h5 class="uk-text-bold mb-2"> Gender </h5>
+                               <h5 class="uk-text-bold mb-2 text-left"> Gender </h5>
                                <select class="uk-select" name='gender'>
                                    <option value="Male">{{ user.gender }}</option>
                                    {% if user.gender == "Male" %}
@@ -310,7 +328,7 @@
                             {% else %}
 
                                   <div>
-                                   <h5 class="uk-text-bold mb-2"> Gender </h5>
+                                   <h5 class="uk-text-bold mb-2 text-left"> Gender </h5>
                                    <select class="uk-select" name='gender'>
                                        <option value="Male">Male</option>
                                        <option value="Female">Female</option>
@@ -364,8 +382,14 @@
                          </div>
 
 
-                      </form>
+
                    </div>
+
+                   </div>
+
+                   </div>
+
+                </form>
 
                  </div>
 
