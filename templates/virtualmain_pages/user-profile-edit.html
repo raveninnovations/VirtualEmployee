@@ -51,786 +51,890 @@
 
                 <h4>Profile Edit</h4>
 
-                <nav class="responsive-tab mb-4">
-                    <li class="#"><a href="user-profile.html"></a></li>
-                    <li><a  href="user-project.html"></a></li>
-                    <li><a class="uk-active" href="user-profile-edit.html"></a></li>
-                </nav>
-
-                <div uk-grid>
-
-                    <div class="uk-width-2-5@m uk-flex-last@m">
-                        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
-                        <div class="uk-card-default rounded text-center p-4">
-                            <div class="uk-position-relative my-4">
-                                    {% if users %}
-                                        {% for user in users %}
-                                            {% if user.user_id_id == user_detail.pk %}
-                                                {% if user.user_pic %}
-                                                    <div class="user-profile-photo  m-auto">
-                                                        <img src="{{ user.user_pic.url }}" alt="">
-                                                    </div>
-                                                {% else %}
-                                                    <div class="user-profile-photo  m-auto">
-                                                        <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
-                                                    </div>
-                                                {% endif %}
-
-                                            {% endif %}
-
-                                        {% endfor %}
-
-                                    {% endif %}
-
-                                {% if idd %}
-                                    <div class="user-profile-photo  m-auto">
-                                        <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
-                                     </div>
-                                {% endif %}
-
-                                <div class="uk-position-center">
-                                    <div uk-form-custom>
-                                        <input type="file" name="user-profile-photo" id="real-file">
-                                        <span class="uk-link icon-feather-camera icon-medium text-white"> </span>
-
-                                    </div>
-                                    <input type="text" name="certi_create" value="certificate_folder_create" hidden>
-
-                                </div>
-                            </div>
-                        <span id="custom-text">No file choosen</span>
-                            <button class="btn btn-default m-auto mb-3" type="submit" name="photo">Edit/Save photo</button>
-                        </div>
-                        <p>For best results use an image at least 128px*128px in .jpg format </p>
-                                        <script type="text/javascript">
-                                const realFileBtn = document.getElementById("real-file");
-                                const CustomBtn = document.getElementById("real-file");
-                                const customTxt = document.getElementById("custom-text");
-                                                CustomBtn.addEventListener ("click", function() {
-                                                realFileBtn.click()
-
-                                                });
-
-                                                realFileBtn.addEventListener("change", function() {
-                                              if (realFileBtn.value) {
-                                                customTxt.innerHTML = realFileBtn.value.match(
-                                                  /[\/\\]([\w\d\s\.\-\(\)]+)$/
-                                                )[1];
-                                              } else {
-                                                customTxt.innerHTML = "No file chosen, yet.";
-                                              }
-                                            });
-
-                                                </script>
-                        </form>
-
-
-
-                        <div class="uk-card-default rounded " style="margin-top:25px;">
-                          <div class="p-3 uk-flex uk-flex-between">
-                              <h4 class="my-auto"> Skills </h4>
-                              <button class="btn btn-default uk-margin-small-right" type="button" uk-toggle="target: #modal-close-default-skill"> + Add</button>
-                          </div>
-
-                          <div id="modal-close-default-skill" uk-modal>
-                              <div class="uk-modal-dialog uk-modal-body">
-                                  <button class="uk-modal-close-default" type="button" uk-close></button>
-                                  <h2 class="uk-modal-title text-center">Add Your Skills</h2>
-
-                                  <form class="skil"  method="POST">
-                                    {% csrf_token %}
-
-                                   <div class="uk-margin">
-                                       <label class="uk-form-label" for="form-horizontal-select">Skill Type</label>
-                                       <div class="uk-form-controls">
-                                           <select class="uk-select" name="type" required>
-                                             <option selected disabled>Choose From Here</option>
-                                             <option value="Technical">Technical Skills</option>
-                                             <option value="Management">Management/Office Skills</option>
-                                             <option value="Languages">Language Known</option>
-                                           </select>
-                                       </div>
-                                   </div>
-
-
-                                   <div class="uk-margin mt-0">
-                                      <label class="uk-form-label" for="form-horizontal-text">Skill Name</label>
-                                      <div class="uk-form-controls">
-                                          <input class="uk-input" id="form-horizontal-text" type="text" name="skills" placeholder="Type Here (Max Length : 30 characters)" maxlength="30" required>
-                                      </div>
-                                  </div>
-
-
-                                   <div class="text-center mt-2">
-                                     <button type="submit" class="btn btn-default" name="skill">Submit</button>
-                                   </div>
-
-                                  </form>
-                              </div>
-                          </div>
-
-                            <hr class="m-0">
-                            <div class="">
-
-                              <div class="my-2 mb-4">
-                                <h5 class="text-center"><strong>Technical Skills</strong></h5>
-                                <div class="mx-5">
-                                  {% if tech_skills %}
-                                    {% for i in tech_skills %}
-                                    <div class="uk-flex uk-flex-between ">
-                                      <p class="my-1 ">&bull; &nbsp; {{i.skill}}</p>
-                                      <form class="tech" name="tech" method="POST">
-                                        {% csrf_token %}
-                                        <input type="text" name="type" value="{{i.category}}" hidden>
-                                        <input type="text" name="skill1" value="{{i.skill}}" hidden>
-                                        <button class="btn btn-default bg-white text-dark" name="tech_del" uk-tooltip="title:Remove; pos: left"><i class="uil-times-circle"></i></button>
-                                      </form>
-                                    </div>
-                                    {% endfor %}
-                                  {% else %}
-                                    <p class="my-1 ">No Technical Skills Added</p>
-                                  {% endif %}
-                                </div>
-                              </div>
-
-                              <div class="my-2 mb-4">
-                                <h5 class="text-center"><strong>Management/Office Skills</strong></h5>
-                                <div class="mx-5">
-                                  {% if man_skills %}
-                                    {% for i in man_skills %}
-                                    <div class="uk-flex uk-flex-between ">
-                                      <p class="my-1 ">&bull; &nbsp; {{i.skill}}</p>
-                                      <form class="man" name="mang" method="POST">
-                                        {% csrf_token %}
-                                        <input type="text" name="type" value="{{i.category}}" hidden>
-                                        <input type="text" name="skill2" value="{{i.skill}}" hidden>
-                                        <button class="btn btn-default bg-white text-dark" name="man_del" uk-tooltip="title:Remove; pos: left"><i class="uil-times-circle"></i></button>
-                                      </form>
-                                    </div>
-                                    {% endfor %}
-                                  {% else %}
-                                    <p class="my-1 ">No Management Skills Added</p>
-                                  {% endif %}
-                                </div>
-                              </div>
-
-                              <div class="my-2">
-                                <h5 class="text-center"><strong>Languages Known</strong></h5>
-                                <div class="mx-5">
-                                  {% if lan_skills %}
-                                    {% for i in lan_skills %}
-                                    <div  class="uk-flex uk-flex-between ">
-                                      <p class="my-1 ">&bull; &nbsp; {{i.skill}}</p>
-
-                                      <form class="lan" name="lan" method="POST">
-                                        {% csrf_token %}
-                                        <input type="text" name="type" value="{{i.category}}" hidden>
-                                        <input type="text" name="skill3" value="{{i.skill}}" hidden>
-                                        <button class="btn btn-default bg-white text-dark" name="lan_del" uk-tooltip="title:Remove; pos: left"><i class="uil-times-circle"></i></button>
-                                      </form>
-
-                                    </div>
-                                    {% endfor %}
-                                  {% else %}
-                                    <p class="my-1 ">No languages Added</p>
-                                  {% endif %}
-                                </div>
-                              </div>
-
-                            </div>
-
-                           <br>
-                        </div>
-
-
-
-
-
-                    </div>
-                    <div class="uk-width-expand@m">
-                    {% include 'partials/_alerts.html' %}
-
-                        <div class="uk-card-default rounded">
-                            <div class="p-3">
-                                <h4 class="mb-0"> Basic info </h4>
-                            </div>
-                            <hr class="m-0">
-                            <form  action="" method="POST">
-                              {% csrf_token %}
-                              <div class="uk-child-width-1-2@s uk-grid-small p-4" uk-grid>
-                                <div>
-                                    <h5 class="uk-text-bold mb-2"> First Name </h5>
-                                    <input type="text" name='first_name' class="uk-input" value="{{ user.first_name }}" readonly>
-                                </div>
-                                <div>
-                                    <h5 class="uk-text-bold mb-2"> Last Name </h5>
-                                    <input type="text" name='last_name' class="uk-input" value="{{ user.last_name }}" readonly>
-                                </div>
-
-                                <div>
-                                    <h5 class="uk-text-bold mb-2"> Email address </h5>
-                                    <input type="text" name='email' class="uk-input" value="{{ user.email }}" readonly>
-                                </div>
-                                <div>
-                                    <h5 class="uk-text-bold mb-2"> contact no </h5>
-                                    <input type="text" name='contact' class="uk-input" value="{{ user_detail.user_phone }}" readonly>
-                                </div>
-                              </div>
-                              <a class="btn btn-default  mb-3 ml-4" href="/user-change-password/">Change password</a>
-                            </form>
-                           <br>
-                        </div>
-
-                        <div class="uk-card-default rounded mt-4">
-                            <div class="p-3">
-                                <h4 class="mb-0">Update contact info </h4>
-                            </div>
-                            <hr class="m-0">
-                            <form method="POST">
-                              {% csrf_token %}
-
-                              <div class="uk-width-1-1  p-4 pb-0">
-                                {% if users %}
-                              {% for user in users %}
-                              {% if user.user_id_id == user_detail.pk %}
-
-                                {% if user.user_bio %}
-                                <div class="uk-margin">
-                                    <h5 class="uk-form-label uk-text-bold" for="form-stacked-text">Write About Yourself</h5>
-                                        <div class="uk-form-controls">
-                                            <!-- <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text..."> -->
-                                            <textarea class="uk-textarea" name="bio" rows="4"  required>{{user.user_bio}}</textarea>
-                                        </div>
-                                    </div>
-                                  {% else %}
-                                  <div class="uk-margin">
-                                      <h5 class="uk-form-label uk-text-bold" for="form-stacked-text">Write About Yourself</h5>
-                                          <div class="uk-form-controls">
-                                              <!-- <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text..."> -->
-                                              <textarea class="uk-textarea" name="bio" rows="4"  placeholder="Enter Bio Here" required></textarea>
-                                          </div>
-                                      </div>
-                                  {% endif %}
-
-
-                                    {% else %}
-                                    {% endif %}
-                                {% endfor %}
-                                {% endif %}
-                              </div>
-
-
-                              <div class="uk-child-width-1-2@s uk-grid-small p-4 pt-0" uk-grid>
-                                  {% if users %}
-                                {% for user in users %}
-                                {% if user.user_id_id == user_detail.pk %}
-
-                                {% if user.address1 %}
-                                <div>
-                                    <h5 class="uk-text-bold mb-2"> Address 1 </h5>
-                                    <input type="text" name='address1' class="uk-input" value="{{ user.address1 }}">
-                                </div>
-                                    {% else %}
-                                    <div>
-                                    <h5 class="uk-text-bold mb-2"> Address 1 </h5>
-                                    <input type="text" name='address1' class="uk-input" placeholder="Address Line 1">
-                                    </div>
-                                    {% endif %}
-                                {% if user.address2 %}
-                                    <div>
-                                        <h5 class="uk-text-bold mb-2"> Address 2 </h5>
-                                        <input type="text" name='address2' class="uk-input" value="{{ user.address2 }}">
-                                    </div>
-                                {% else %}
-                                    <div>
-                                        <h5 class="uk-text-bold mb-2"> Address 2 </h5>
-                                        <input type="text" name='address2' class="uk-input" placeholder="Address Line 2">
-                                    </div>
-                                {% endif %}
-                                {% if user.gender %}
-                                <div>
-                                    <h5 class="uk-text-bold mb-2"> Gender </h5>
-                                    <select class="uk-select" name='gender'>
-                                        <option value="Male">{{ user.gender }}</option>
-                                        {% if user.gender == "Male" %}
-                                        <option value="Female">Female</option>
-                                          {% else %}
-                                            <option value="Female">Male</option>
-                                            {% endif %}
-                                        <option value="Others">Others</option>
-                                    </select>
-                                </div>
-                                 {% else %}
-
-                                       <div>
-                                        <h5 class="uk-text-bold mb-2"> Gender </h5>
-                                        <select class="uk-select" name='gender'>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                            <option value="Others">Others</option>
-                                        </select>
-                                        </div>
-                                 {% endif %}
-                                <div>
-                                    <h5 class="uk-text-bold mb-2"><br></h5>
-                                    <button type="submit" name="contact" class="btn btn-default grey" style="width: 100%">Save Changes</button>
-                                </div>
-                                {% else %}
-                                {% endif %}
-                            {% endfor %}
-
-
-                            {% endif %}
-
-                              {% if idd %}
-                                  <div class="uk-margin">
-                                    <h5 class="uk-form-label uk-text-bold" for="form-stacked-text">Write About Yourself</h5>
-                                        <div class="uk-form-controls">
-                                            <!-- <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text..."> -->
-                                            <textarea class="uk-textarea" name="bio" rows="4"  required>{{user.user_bio}}</textarea>
-                                        </div>
-                                    </div>
-
-                                  <div>
-
-                                    <h5 class="uk-text-bold mb-2"> Address 1 </h5>
-                                    <input type="text" name='address1' class="uk-input" placeholder="Address Line 1">
-                                    </div>
-                                  <div>
-                                        <h5 class="uk-text-bold mb-2"> Address 2 </h5>
-                                        <input type="text" name='address2' class="uk-input" placeholder="Address Line 2">
-                                    </div>
-
-                                    <div>
-                                        <h5 class="uk-text-bold mb-2"> Gender </h5>
-                                        <select class="uk-select" name='gender'>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                            <option value="Others">Others</option>
-                                        </select>
-                                     </div>
-                                  <div>
-                                    <h5 class="uk-text-bold mb-2"><br></h5>
-                                    <button type="submit" name="contact" class="btn btn-default grey" style="width: 100%">Save Changes</button>
-                                </div>
-                              {% endif %}
-                              </div>
-
-
-                           </form>
-                        </div>
-
-                        <div class="uk-card-default rounded mt-4 pb-3">
-                            <div class="p-3 uk-flex uk-flex-between">
-                                <h4 class="my-auto"> Educational Details </h4>
-                                <button class="btn btn-default uk-margin-small-right" type="button" uk-toggle="target: #modal-close-default"> + Add</button>
-                            </div>
-                            <hr class="m-0">
-
-
-
-                            <!-- This is the modal with the default close button -->
-                            <div id="modal-close-default" uk-modal>
-                                <div class="uk-modal-dialog uk-modal-body">
-                                    <button class="uk-modal-close-default" type="button" uk-close></button>
-                                    <h2 class="uk-modal-title  text-center">Add Educational Details</h2>
-
-                                    <form class="education"  method="POST" name="myEduForm" onsubmit="validateForm()" required>
-                                      {% csrf_token %}
-
-                                      <div class="uk-margin">
-                                         <label class="uk-form-label" for="form-horizontal-text">Institution Name</label>
-                                         <div class="uk-form-controls">
-                                             <input class="uk-input" id="form-horizontal-text" type="text" name="institution" placeholder="Type Here" required>
-                                         </div>
-                                     </div>
-
-                                     <div class="uk-grid uk-child-width-1-2">
-
-                                       <div class="uk-margin">
-                                           <label class="uk-form-label" for="form-horizontal-select">Start Month</label>
-                                           <div class="uk-form-controls">
-                                               <select class="uk-select" name="start-month" required>
-                                                <option disabled selected>Choose Month</option>
-                                                 <option value="Jan">January</option>
-                                                 <option value="Feb">February</option>
-                                                 <option value="Mar">March</option>
-                                                 <option value="Apr">April</option>
-                                                 <option value="May">May</option>
-                                                 <option value="Jun">June</option>
-                                                 <option value="Jul">July</option>
-                                                 <option value="Aug">August</option>
-                                                 <option value="Sept">September</option>
-                                                 <option value="Oct">October</option>
-                                                 <option value="Nov">November</option>
-                                                 <option value="Dec">December</option>
-                                               </select>
-                                           </div>
-                                       </div>
-
-                                       <div class="uk-margin mt-0">
-                                           <label class="uk-form-label" for="form-horizontal-select">Start Year</label>
-                                           <div class="uk-form-controls">
-                                               <select class="uk-select" name="start-year" id="ddlYears" required>
-                                                <option disabled selected>Choose Year</option>
-                                               </select>
-                                           </div>
-                                       </div>
-
-
-                                     </div>
-
-
-                                     <div class="uk-grid uk-child-width-1-2 mt-0">
-
-                                       <div class="uk-margin">
-                                           <label class="uk-form-label" for="form-horizontal-select">End Month</label>
-                                           <div class="uk-form-controls" >
-                                               <select class="uk-select" name="end-month" required>
-                                                 <option value="Jan">January</option>
-                                                 <option value="Feb">February</option>
-                                                 <option value="Mar">March</option>
-                                                 <option value="Apr">April</option>
-                                                 <option value="May">May</option>
-                                                 <option value="Jun">June</option>
-                                                 <option value="Jul">July</option>
-                                                 <option value="Aug">August</option>
-                                                 <option value="Sept">September</option>
-                                                 <option value="Oct">October</option>
-                                                 <option value="Nov">November</option>
-                                                 <option value="Dec">December</option>
-                                               </select>
-                                           </div>
-                                       </div>
-
-                                       <div class="uk-margin mt-0">
-                                           <label class="uk-form-label" for="form-horizontal-select">End Year</label>
-                                           <div class="uk-form-controls">
-                                               <select class="uk-select" name="end-year" id="ddlYears2" required>
-                                               </select>
-                                           </div>
-                                       </div>
-
-                                     </div>
-
-
-                                     <div class="uk-margin mt-0">
-                                         <label class="uk-form-label" for="form-horizontal-select">Degree/Class</label>
-                                         <div class="uk-form-controls">
-                                           <select onchange="print_city('state', this.selectedIndex);" id="sts" name ="degree" class="uk-input" required></select>
-                                             <script language="javascript">print_state("sts");</script>
-                                         </div>
-                                     </div>
-
-                                     <div class="uk-margin mt-0">
-                                         <label class="uk-form-label" for="form-horizontal-select">Specilization</label>
-                                         <div class="uk-form-controls">
-                                           <select id="state" class="uk-input" name="special" required></select>
-                                         </div>
-                                     </div>
-
-                                     <div class="uk-margin mt-0">
-                                         <label class="uk-form-label" for="form-horizontal-select">CGPA</label>
-                                         <div class="uk-form-controls">
-                                             <input class="uk-input" id="form-horizontal-text" type="decimal" name="gpa" placeholder="Type Here" required>
-                                         </div>
-                                     </div>
-
-                                     <div class="uk-margin my-0">
-                                         <div class="uk-form-label">Select State</div>
-                                         <div class="uk-form-controls uk-form-controls-text">
-                                           <select name='state'  class='form-control' required>
-                                             <option disabled selected>Choose</option>
-                                              <option value='Andhra Pradesh'>Andhra Pradesh</option>
-                                              <option value='Andaman and Nicobar Islands'>Andaman and Nicobar Islands</option>
-                                              <option value='Arunachal Pradesh'>Arunachal Pradesh</option>
-                                              <option value='Assam'>Assam</option>
-                                              <option value='Bihar'>Bihar</option>
-                                              <option value='Chandigarh'>Chandigarh</option>
-                                              <option value='Chhattisgarh'>Chhattisgarh</option>
-                                              <option value='Dadar and Nagar Haveli'>Dadar and Nagar Haveli</option>
-                                              <option value='Daman and Diu'>Daman and Diu</option>
-                                              <option value='Delhi'>Delhi</option>
-                                              <option value='Lakshadweep'>Lakshadweep</option>
-                                              <option value='Puducherry'>Puducherry</option>
-                                              <option value='Goa'>Goa</option>
-                                              <option value='Gujarat'>Gujarat</option>
-                                              <option value='Haryana'>Haryana</option>
-                                              <option value='Himachal Pradesh'>Himachal Pradesh</option>
-                                              <option value='Jammu and Kashmir'>Jammu and Kashmir</option>
-                                              <option value='Jharkhand'>Jharkhand</option>
-                                              <option value='Karnataka'>Karnataka</option>
-                                              <option value='Kerala'>Kerala</option>
-                                              <option value='Madhya Pradesh'>Madhya Pradesh</option>
-                                              <option value='Maharashtra'>Maharashtra</option>
-                                              <option value='Manipur'>Manipur</option>
-                                              <option value='Meghalaya'>Meghalaya</option>
-                                              <option value='Mizoram'>Mizoram</option>
-                                              <option value='Nagaland'>Nagaland</option>
-                                              <option value='Odisha'>Odisha</option>
-                                              <option value='Punjab'>Punjab</option>
-                                              <option value='Rajasthan'>Rajasthan</option>
-                                              <option value='Sikkim'>Sikkim</option>
-                                              <option value='Tamil Nadu'>Tamil Nadu</option>
-                                              <option value='Telangana'>Telangana</option>
-                                              <option value='Tripura'>Tripura</option>
-                                              <option value='Uttar Pradesh'>Uttar Pradesh</option>
-                                              <option value='Uttarakhand'>Uttarakhand</option>
-                                              <option value='West Bengal'>West Bengal</option>
-                                              </select>
-                                         </div>
-                                     </div>
-
-                                     <div class="text-center mt-2">
-                                       <button type="submit" class="btn btn-default" name="education">Submit</button>
-                                     </div>
-
-                                    </form>
-                                </div>
-                            </div>
-                            <script>
-                              function validateForm(){
-                                // var a = document.forms["myEduForm"]["institution"].value;
-                                var b = document.forms["myEduForm"]["start-month"].value;
-                                var c = document.forms["myEduForm"]["start-year"].value;
-                                var d = document.forms["myEduForm"]["end-month"].value;
-                                var f = document.forms["myEduForm"]["end-year"].value;
-
-                                if (b == "" || b == null) {
-                                  alert("Choose the start month");
-                                  return false;
-                                }
-                                if (c == "" || c == null) {
-                                  alert("Choose the start year");
-                                  return false;
-                                }
-                              }
-
-                            </script>
-                            <ol class="my-2">
-                              {% for i in education %}
-                              <li class="mx-4">
-                                <div class=" mx-2">
-                                    <div class="uk-flex uk-flex-between px-3">
-                                      <div class="">
-                                        <h4 class="my-0">{{i.degree}} , {{i.specialization}}</h4>
-                                        <p class="my-0">{{i.institution}} , {{i.state}}</p>
-                                        <p class="my-0">{{i.start_month}} {{i.start_year}} - {{i.end_month}} {{i.end_year}}</p>
-                                        <p>CGPA : {{i.gpa}}</p>
-                                      </div>
-
-                                          <div class="">
-                                            <form class="del_edu" method="POST">
-                                              {% csrf_token %}
-                                            <div class="">
-                                              <input type="text" name="deg" value="{{i.degree}}" hidden >
-                                              <input type="text" name="spec" value="{{i.specialization}}" hidden>
-                                              <input type="text" name="ins" value="{{i.institution}}" hidden>
-                                            </div>
-                                          <button type="submit"  class="btn btn-default bg-white text-dark" name="edu_del" uk-tooltip="title:Remove; pos: left"><i class="uil-times-circle"></i></button>
-                                          </form>
-                                          </div>
-
-                                    </div>
-                                </div>
-                              </li>
-                              {% endfor %}
-                            </ol>
-                        </div>
-
-
-
-                        <div class="uk-card-default rounded mt-4 pb-3">
-                            <div class="p-3 uk-flex uk-flex-between">
-                                <h4 class="my-auto"> Work Experience </h4>
-                                <button class="btn btn-default uk-margin-small-right" type="button" uk-toggle="target: #modal-close-outside"> + Add</button>
-                            </div>
-                            <hr class="m-0">
-
-
-
-                            <!-- This is the modal with the default close button -->
-                            <div id="modal-close-outside" uk-modal>
-                                <div class="uk-modal-dialog uk-modal-body">
-                                    <button class="uk-modal-close-default" type="button" uk-close></button>
-                                    <h2 class="uk-modal-title  text-center">Add Work Experience</h2>
-
-                                    <form class="work"  method="POST">
-                                      {% csrf_token %}
-
-                                      <div class="uk-margin">
-                                         <label class="uk-form-label" for="form-horizontal-text">Job Role</label>
-                                         <div class="uk-form-controls">
-                                             <input class="uk-input" id="form-horizontal-text" type="text" name="role" placeholder="Type Here" required>
-                                         </div>
-                                     </div>
-
-                                     <div class="uk-grid uk-child-width-1-2">
-
-                                       <div class="uk-margin">
-                                           <label class="uk-form-label" for="form-horizontal-select">Start Month</label>
-                                           <div class="uk-form-controls">
-                                               <select class="uk-select" name="start-month" required>
-                                                 <option value="Jan">January</option>
-                                                 <option value="Feb">February</option>
-                                                 <option value="Mar">March</option>
-                                                 <option value="Apr">April</option>
-                                                 <option value="May">May</option>
-                                                 <option value="Jun">June</option>
-                                                 <option value="Jul">July</option>
-                                                 <option value="Aug">August</option>
-                                                 <option value="Sept">September</option>
-                                                 <option value="Oct">October</option>
-                                                 <option value="Nov">November</option>
-                                                 <option value="Dec">December</option>
-                                               </select>
-                                           </div>
-                                       </div>
-
-                                       <div class="uk-margin mt-0">
-                                           <label class="uk-form-label" for="form-horizontal-select">Start Year</label>
-                                           <div class="uk-form-controls">
-                                               <select class="uk-select" name="start-year" id="ddlYears3" required>
-                                               </select>
-                                           </div>
-                                       </div>
-
-
-                                     </div>
-
-
-                                     <div class="uk-grid uk-child-width-1-2 mt-0">
-
-                                       <div class="uk-margin">
-                                           <label class="uk-form-label" for="form-horizontal-select">End Month</label>
-                                           <div class="uk-form-controls">
-                                               <select class="uk-select" name="end-month" required>
-                                                 <option value="Jan">January</option>
-                                                 <option value="Feb">February</option>
-                                                 <option value="Mar">March</option>
-                                                 <option value="Apr">April</option>
-                                                 <option value="May">May</option>
-                                                 <option value="Jun">June</option>
-                                                 <option value="Jul">July</option>
-                                                 <option value="Aug">August</option>
-                                                 <option value="Sept">September</option>
-                                                 <option value="Oct">October</option>
-                                                 <option value="Nov">November</option>
-                                                 <option value="Dec">December</option>
-                                               </select>
-                                           </div>
-                                       </div>
-
-                                       <div class="uk-margin mt-0">
-                                           <label class="uk-form-label" for="form-horizontal-select">End Year</label>
-                                           <div class="uk-form-controls">
-                                               <select class="uk-select" name="end-year" id="ddlYears4" required>
-                                               </select>
-                                           </div>
-                                       </div>
-
-                                     </div>
-
-
-                                     <div class="uk-margin mt-0">
-                                        <label class="uk-form-label" for="form-horizontal-text">Company Name</label>
-                                        <div class="uk-form-controls">
-                                            <input class="uk-input" id="form-horizontal-text" type="text" name="company" placeholder="Type Here" required>
-                                        </div>
-                                    </div>
-
-
-                                     <div class="uk-margin my-0">
-                                         <div class="uk-form-label">Select State</div>
-                                         <div class="uk-form-controls uk-form-controls-text">
-                                           <select name='state'  class='form-control' required>
-                                             <option disabled selected>Choose</option>
-                                              <option value='Andhra Pradesh'>Andhra Pradesh</option>
-                                              <option value='Andaman and Nicobar Islands'>Andaman and Nicobar Islands</option>
-                                              <option value='Arunachal Pradesh'>Arunachal Pradesh</option>
-                                              <option value='Assam'>Assam</option>
-                                              <option value='Bihar'>Bihar</option>
-                                              <option value='Chandigarh'>Chandigarh</option>
-                                              <option value='Chhattisgarh'>Chhattisgarh</option>
-                                              <option value='Dadar and Nagar Haveli'>Dadar and Nagar Haveli</option>
-                                              <option value='Daman and Diu'>Daman and Diu</option>
-                                              <option value='Delhi'>Delhi</option>
-                                              <option value='Lakshadweep'>Lakshadweep</option>
-                                              <option value='Puducherry'>Puducherry</option>
-                                              <option value='Goa'>Goa</option>
-                                              <option value='Gujarat'>Gujarat</option>
-                                              <option value='Haryana'>Haryana</option>
-                                              <option value='Himachal Pradesh'>Himachal Pradesh</option>
-                                              <option value='Jammu and Kashmir'>Jammu and Kashmir</option>
-                                              <option value='Jharkhand'>Jharkhand</option>
-                                              <option value='Karnataka'>Karnataka</option>
-                                              <option value='Kerala'>Kerala</option>
-                                              <option value='Madhya Pradesh'>Madhya Pradesh</option>
-                                              <option value='Maharashtra'>Maharashtra</option>
-                                              <option value='Manipur'>Manipur</option>
-                                              <option value='Meghalaya'>Meghalaya</option>
-                                              <option value='Mizoram'>Mizoram</option>
-                                              <option value='Nagaland'>Nagaland</option>
-                                              <option value='Odisha'>Odisha</option>
-                                              <option value='Punjab'>Punjab</option>
-                                              <option value='Rajasthan'>Rajasthan</option>
-                                              <option value='Sikkim'>Sikkim</option>
-                                              <option value='Tamil Nadu'>Tamil Nadu</option>
-                                              <option value='Telangana'>Telangana</option>
-                                              <option value='Tripura'>Tripura</option>
-                                              <option value='Uttar Pradesh'>Uttar Pradesh</option>
-                                              <option value='Uttarakhand'>Uttarakhand</option>
-                                              <option value='West Bengal'>West Bengal</option>
-                                              </select>
-                                         </div>
-                                     </div>
-
-                                     <div class="text-center mt-2">
-                                       <button type="submit" class="btn btn-default" name="work">Submit</button>
-                                     </div>
-
-                                    </form>
-                                </div>
-                            </div>
-
-                            <ol class="my-2">
-                              {% for i in work %}
-                              <li class=" mx-4">
-                                <div class=" mx-2">
-                                  <div class="uk-flex uk-flex-between px-3">
-                                    <div class="">
-                                      <h4 class="my-0">{{i.job_role}}</h4>
-                                      <p class="my-0">{{i.company}}</p>
-                                      <p class="my-0">{{i.start_month}} {{i.start_year}} - {{i.end_month}} {{i.end_year}}</p>
-                                    </div>
-
-                                    <div class="">
-                                      <form class="del_work" method="POST">
-                                        {% csrf_token %}
-                                        <div class="">
-                                          <input type="text" name="role" value="{{i.job_role}}" hidden>
-                                          <input type="text" name="com" value="{{i.company}}" hidden>
-                                          <input type="text" name="sm" value="{{i.start_month}}" hidden>
-                                          <input type="number" name="sy" value="{{i.start_year}}" hidden>
-                                        </div>
-                                          <button type="submit"  class="btn btn-default bg-white text-dark" name="work_del" uk-tooltip="title:Remove; pos: left"><i class="uil-times-circle"></i></button>
-                                      </form>
-                                    </div>
-
-                                  </div>
-                                </div>
-                              </li>
-                              {% endfor %}
-                            </ol>
-                        </div>
-
-
-
-
-
-                    </div>
+                <style>
+
+                .tab {
+                  overflow: hidden;
+                  border: 1px solid #ccc;
+                  background-color: #2365bf;
+                  padding:0px;
+                  border-radius:5px ;
+
+                }
+
+                /* Style the buttons inside the tab */
+                .tab button {
+                  background-color: inherit;
+                  float: left;
+                  border: none;
+                  outline: none;
+                  cursor: pointer;
+                  padding: 14px 16px;
+                  margin-right:0px;
+                  margin-left:0px;
+                  transition: 0.3s;
+                  font-size: 21px;
+                  color:white;
+                  width: 25%;
+                }
+
+                /* Change background color of buttons on hover */
+                .tab button:hover {
+                  background-color:  #cadff6;
+                  border-radius:3px ;
+                  color:black;
+                }
+
+                /* Create an active/current tablink class */
+                .tab button.active {
+                  background-color: #cadff6;
+                  border-radius:3px ;
+                  color:black;
+                }
+
+                /* Style the tab content */
+                .tabcontent {
+                  display: none;
+                  padding: 50 px;
+                  text-align: center;
+                  border-top: none;
+                }
+                </style>
+
+                <div class="container mx-0 px-0">
+                  {% include 'partials/_alerts.html' %}
+
+
+                <div class="tab ">
+                  <button class="tablinks active" onclick="openCity(event, 'cfps')" id="defaultOpen">Personal Details</button>
+                  <button class="tablinks" onclick="openCity(event, 'edu&exp')">Contacts Details</button>
+                  <button class="tablinks" onclick="openCity(event, 'skills')">Resume</button>
+                  <button class="tablinks active" onclick="openCity(event, 'certificates')" >Skills</button>
 
                 </div>
+
+
+
+                 <div id="cfps" class="tabcontent ">
+
+                   <div class="container uk-grid mt-4">
+                     <div class="uk-width-1-2">
+                     <div class="uk-card-default rounded">
+                         <div class="p-3">
+                             <h4 class="mb-0"> Basic info </h4>
+                         </div>
+                         <hr class="m-0">
+                         <form  action="" method="POST">
+                           {% csrf_token %}
+                           <div class="uk-child-width-1-1 uk-grid-small p-4" uk-grid>
+                             <div>
+                                 <h5 class="uk-text-bold mb-2 text-left"> First Name </h5>
+                                 <input type="text" name='first_name' class="uk-input" value="{{ user.first_name }}" readonly>
+                             </div>
+                             <div>
+                                 <h5 class="uk-text-bold mb-2 text-left"> Last Name </h5>
+                                 <input type="text" name='last_name' class="uk-input" value="{{ user.last_name }}" readonly>
+                             </div>
+
+                             <div>
+                                 <h5 class="uk-text-bold mb-2 text-left"> Email address </h5>
+                                 <input type="text" name='email' class="uk-input" value="{{ user.email }}" readonly>
+                             </div>
+                             <div>
+                                 <h5 class="uk-text-bold mb-2 text-left"> contact no </h5>
+                                 <input type="text" name='contact' class="uk-input" value="{{ user_detail.user_phone }}" readonly>
+                             </div>
+                           </div>
+                           <a class="btn btn-default  mb-3 ml-4" href="/user-change-password/">Change password</a>
+                         </form>
+                        <br>
+                     </div>
+
+                    </div>
+
+                    <div class="uk-width-expand">
+
+                    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+                    <div class="uk-card-default rounded text-center p-4">
+                        <div class="uk-position-relative my-4">
+                                {% if users %}
+                                    {% for user in users %}
+                                        {% if user.user_id_id == user_detail.pk %}
+                                            {% if user.user_pic %}
+                                                <div class="user-profile-photo  m-auto">
+                                                    <img src="{{ user.user_pic.url }}" alt="">
+                                                </div>
+                                            {% else %}
+                                                <div class="user-profile-photo  m-auto">
+                                                    <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
+                                                </div>
+                                            {% endif %}
+
+                                        {% endif %}
+
+                                    {% endfor %}
+
+                                {% endif %}
+
+                            {% if idd %}
+                                <div class="user-profile-photo  m-auto">
+                                    <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
+                                 </div>
+                            {% endif %}
+
+                            <div class="uk-position-center">
+                                <div uk-form-custom>
+                                    <input type="file" name="user-profile-photo" id="real-file">
+                                    <span class="uk-link icon-feather-camera icon-medium text-white"> </span>
+
+                                </div>
+                                <input type="text" name="certi_create" value="certificate_folder_create" hidden>
+
+                            </div>
+                        </div>
+                    <span id="custom-text">No file choosen</span>
+                        <button class="btn btn-default m-auto mb-3" type="submit" name="photo">Edit/Save photo</button>
+                    </div>
+                    <p>For best results use an image at least 128px*128px in .jpg format </p>
+                                    <script type="text/javascript">
+                            const realFileBtn = document.getElementById("real-file");
+                            const CustomBtn = document.getElementById("real-file");
+                            const customTxt = document.getElementById("custom-text");
+                                            CustomBtn.addEventListener ("click", function() {
+                                            realFileBtn.click()
+
+                                            });
+
+                                            realFileBtn.addEventListener("change", function() {
+                                          if (realFileBtn.value) {
+                                            customTxt.innerHTML = realFileBtn.value.match(
+                                              /[\/\\]([\w\d\s\.\-\(\)]+)$/
+                                            )[1];
+                                          } else {
+                                            customTxt.innerHTML = "No file chosen, yet.";
+                                          }
+                                        });
+
+                                            </script>
+                        </form>
+                     </div>
+                   </div>
+
+
+                 </div>
+
+
+
+
+                 <div id="edu&exp" class="tabcontent ">
+
+                   <div class="uk-card-default rounded mt-4">
+                       <div class="p-3">
+                           <h4 class="mb-0">Update contact info </h4>
+                       </div>
+                       <hr class="m-0">
+                       <form method="POST" >
+                         {% csrf_token %}
+
+                         <div class="uk-width-1-1  p-4 pb-0">
+                           {% if users %}
+                         {% for user in users %}
+                         {% if user.user_id_id == user_detail.pk %}
+
+                           {% if user.user_bio %}
+                           <div class="uk-margin">
+                               <h5 class="uk-form-label uk-text-bold" for="form-stacked-text">Write About Yourself</h5>
+                                   <div class="uk-form-controls">
+                                       <!-- <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text..."> -->
+                                       <textarea class="uk-textarea" name="bio" rows="4"  required>{{user.user_bio}}</textarea>
+                                   </div>
+                               </div>
+                             {% else %}
+                             <div class="uk-margin">
+                                 <h5 class="uk-form-label uk-text-bold" for="form-stacked-text">Write About Yourself</h5>
+                                     <div class="uk-form-controls">
+                                         <!-- <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text..."> -->
+                                         <textarea class="uk-textarea" name="bio" rows="4"  placeholder="Enter Bio Here" required></textarea>
+                                     </div>
+                                 </div>
+                             {% endif %}
+
+
+                               {% else %}
+                               {% endif %}
+                           {% endfor %}
+                           {% endif %}
+                         </div>
+
+
+                         <div class="uk-child-width-1-1 uk-grid-small p-4 pt-0" uk-grid>
+                             {% if users %}
+                           {% for user in users %}
+                           {% if user.user_id_id == user_detail.pk %}
+
+                           {% if user.address1 %}
+                           <div>
+                               <h5 class="uk-text-bold mb-2"> Address 1 </h5>
+                               <input type="text" name='address1' class="uk-input" value="{{ user.address1 }}">
+                           </div>
+                               {% else %}
+                               <div>
+                               <h5 class="uk-text-bold mb-2"> Address 1 </h5>
+                               <input type="text" name='address1' class="uk-input" placeholder="Address Line 1">
+                               </div>
+                               {% endif %}
+                           {% if user.address2 %}
+                               <div>
+                                   <h5 class="uk-text-bold mb-2"> Address 2 </h5>
+                                   <input type="text" name='address2' class="uk-input" value="{{ user.address2 }}">
+                               </div>
+                           {% else %}
+                               <div>
+                                   <h5 class="uk-text-bold mb-2"> Address 2 </h5>
+                                   <input type="text" name='address2' class="uk-input" placeholder="Address Line 2">
+                               </div>
+                           {% endif %}
+                           {% if user.gender %}
+                           <div>
+                               <h5 class="uk-text-bold mb-2"> Gender </h5>
+                               <select class="uk-select" name='gender'>
+                                   <option value="Male">{{ user.gender }}</option>
+                                   {% if user.gender == "Male" %}
+                                   <option value="Female">Female</option>
+                                     {% else %}
+                                       <option value="Female">Male</option>
+                                       {% endif %}
+                                   <option value="Others">Others</option>
+                               </select>
+                           </div>
+                            {% else %}
+
+                                  <div>
+                                   <h5 class="uk-text-bold mb-2"> Gender </h5>
+                                   <select class="uk-select" name='gender'>
+                                       <option value="Male">Male</option>
+                                       <option value="Female">Female</option>
+                                       <option value="Others">Others</option>
+                                   </select>
+                                   </div>
+                            {% endif %}
+                           <div>
+                               <h5 class="uk-text-bold mb-2"><br></h5>
+                               <button type="submit" name="contact" class="btn btn-default grey" style="width: 100%">Save Changes</button>
+                           </div>
+                           {% else %}
+                           {% endif %}
+                       {% endfor %}
+
+
+                       {% endif %}
+
+                         {% if idd %}
+                             <div class="uk-margin">
+                               <h5 class="uk-form-label uk-text-bold" for="form-stacked-text">Write About Yourself</h5>
+                                   <div class="uk-form-controls">
+                                       <!-- <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text..."> -->
+                                       <textarea class="uk-textarea" name="bio" rows="4"  required>{{user.user_bio}}</textarea>
+                                   </div>
+                               </div>
+
+                             <div>
+
+                               <h5 class="uk-text-bold mb-2"> Address 1 </h5>
+                               <input type="text" name='address1' class="uk-input" placeholder="Address Line 1">
+                               </div>
+                             <div>
+                                   <h5 class="uk-text-bold mb-2"> Address 2 </h5>
+                                   <input type="text" name='address2' class="uk-input" placeholder="Address Line 2">
+                               </div>
+
+                               <div>
+                                   <h5 class="uk-text-bold mb-2"> Gender </h5>
+                                   <select class="uk-select" name='gender'>
+                                       <option value="Male">Male</option>
+                                       <option value="Female">Female</option>
+                                       <option value="Others">Others</option>
+                                   </select>
+                                </div>
+                             <div>
+                               <h5 class="uk-text-bold mb-2"><br></h5>
+                               <button type="submit" name="contact" class="btn btn-default grey" style="width: 100%">Save Changes</button>
+                           </div>
+                         {% endif %}
+                         </div>
+
+
+                      </form>
+                   </div>
+
+                 </div>
+
+
+                 <div id="skills" class="tabcontent ">
+
+                <div class="uk-grid uk-child-width-1-2@s">
+
+                  <div class="">
+
+                   <div class="uk-card-default  my-3 p-2" style="border-radius:10px;">
+                       <div class="p-3 uk-flex uk-flex-between">
+                           <h4 class="my-auto"> Educational Details </h4>
+                           <button class="btn btn-default uk-margin-small-right" type="button" uk-toggle="target: #modal-close-default"> + Add</button>
+                       </div>
+                       <hr class="m-0">
+
+
+
+                       <!-- This is the modal with the default close button -->
+                       <div id="modal-close-default" uk-modal>
+                           <div class="uk-modal-dialog uk-modal-body">
+                               <button class="uk-modal-close-default" type="button" uk-close></button>
+                               <h2 class="uk-modal-title  text-center">Add Educational Details</h2>
+
+                               <form class="education"  method="POST" name="myEduForm" onsubmit="validateForm()" required>
+                                 {% csrf_token %}
+
+                                 <div class="uk-margin">
+                                    <label class="uk-form-label" for="form-horizontal-text">Institution Name</label>
+                                    <div class="uk-form-controls">
+                                        <input class="uk-input" id="form-horizontal-text" type="text" name="institution" placeholder="Type Here" required>
+                                    </div>
+                                </div>
+
+                                <div class="uk-grid uk-child-width-1-2">
+
+                                  <div class="uk-margin">
+                                      <label class="uk-form-label" for="form-horizontal-select">Start Month</label>
+                                      <div class="uk-form-controls">
+                                          <select class="uk-select" name="start-month" required>
+                                           <option disabled selected>Choose Month</option>
+                                            <option value="Jan">January</option>
+                                            <option value="Feb">February</option>
+                                            <option value="Mar">March</option>
+                                            <option value="Apr">April</option>
+                                            <option value="May">May</option>
+                                            <option value="Jun">June</option>
+                                            <option value="Jul">July</option>
+                                            <option value="Aug">August</option>
+                                            <option value="Sept">September</option>
+                                            <option value="Oct">October</option>
+                                            <option value="Nov">November</option>
+                                            <option value="Dec">December</option>
+                                          </select>
+                                      </div>
+                                  </div>
+
+                                  <div class="uk-margin mt-0">
+                                      <label class="uk-form-label" for="form-horizontal-select">Start Year</label>
+                                      <div class="uk-form-controls">
+                                          <select class="uk-select" name="start-year" id="ddlYears" required>
+                                           <option disabled selected>Choose Year</option>
+                                          </select>
+                                      </div>
+                                  </div>
+
+
+                                </div>
+
+
+                                <div class="uk-grid uk-child-width-1-2 mt-0">
+
+                                  <div class="uk-margin">
+                                      <label class="uk-form-label" for="form-horizontal-select">End Month</label>
+                                      <div class="uk-form-controls" >
+                                          <select class="uk-select" name="end-month" required>
+                                            <option value="Jan">January</option>
+                                            <option value="Feb">February</option>
+                                            <option value="Mar">March</option>
+                                            <option value="Apr">April</option>
+                                            <option value="May">May</option>
+                                            <option value="Jun">June</option>
+                                            <option value="Jul">July</option>
+                                            <option value="Aug">August</option>
+                                            <option value="Sept">September</option>
+                                            <option value="Oct">October</option>
+                                            <option value="Nov">November</option>
+                                            <option value="Dec">December</option>
+                                          </select>
+                                      </div>
+                                  </div>
+
+                                  <div class="uk-margin mt-0">
+                                      <label class="uk-form-label" for="form-horizontal-select">End Year</label>
+                                      <div class="uk-form-controls">
+                                          <select class="uk-select" name="end-year" id="ddlYears2" required>
+                                          </select>
+                                      </div>
+                                  </div>
+
+                                </div>
+
+
+                                <div class="uk-margin mt-0">
+                                    <label class="uk-form-label" for="form-horizontal-select">Degree/Class</label>
+                                    <div class="uk-form-controls">
+                                      <select onchange="print_city('state', this.selectedIndex);" id="sts" name ="degree" class="uk-input" required></select>
+                                        <script language="javascript">print_state("sts");</script>
+                                    </div>
+                                </div>
+
+                                <div class="uk-margin mt-0">
+                                    <label class="uk-form-label" for="form-horizontal-select">Specilization</label>
+                                    <div class="uk-form-controls">
+                                      <select id="state" class="uk-input" name="special" required></select>
+                                    </div>
+                                </div>
+
+                                <div class="uk-margin mt-0">
+                                    <label class="uk-form-label" for="form-horizontal-select">CGPA</label>
+                                    <div class="uk-form-controls">
+                                        <input class="uk-input" id="form-horizontal-text" type="decimal" name="gpa" placeholder="Type Here" required>
+                                    </div>
+                                </div>
+
+                                <div class="uk-margin my-0">
+                                    <div class="uk-form-label">Select State</div>
+                                    <div class="uk-form-controls uk-form-controls-text">
+                                      <select name='state'  class='form-control' required>
+                                        <option disabled selected>Choose</option>
+                                         <option value='Andhra Pradesh'>Andhra Pradesh</option>
+                                         <option value='Andaman and Nicobar Islands'>Andaman and Nicobar Islands</option>
+                                         <option value='Arunachal Pradesh'>Arunachal Pradesh</option>
+                                         <option value='Assam'>Assam</option>
+                                         <option value='Bihar'>Bihar</option>
+                                         <option value='Chandigarh'>Chandigarh</option>
+                                         <option value='Chhattisgarh'>Chhattisgarh</option>
+                                         <option value='Dadar and Nagar Haveli'>Dadar and Nagar Haveli</option>
+                                         <option value='Daman and Diu'>Daman and Diu</option>
+                                         <option value='Delhi'>Delhi</option>
+                                         <option value='Lakshadweep'>Lakshadweep</option>
+                                         <option value='Puducherry'>Puducherry</option>
+                                         <option value='Goa'>Goa</option>
+                                         <option value='Gujarat'>Gujarat</option>
+                                         <option value='Haryana'>Haryana</option>
+                                         <option value='Himachal Pradesh'>Himachal Pradesh</option>
+                                         <option value='Jammu and Kashmir'>Jammu and Kashmir</option>
+                                         <option value='Jharkhand'>Jharkhand</option>
+                                         <option value='Karnataka'>Karnataka</option>
+                                         <option value='Kerala'>Kerala</option>
+                                         <option value='Madhya Pradesh'>Madhya Pradesh</option>
+                                         <option value='Maharashtra'>Maharashtra</option>
+                                         <option value='Manipur'>Manipur</option>
+                                         <option value='Meghalaya'>Meghalaya</option>
+                                         <option value='Mizoram'>Mizoram</option>
+                                         <option value='Nagaland'>Nagaland</option>
+                                         <option value='Odisha'>Odisha</option>
+                                         <option value='Punjab'>Punjab</option>
+                                         <option value='Rajasthan'>Rajasthan</option>
+                                         <option value='Sikkim'>Sikkim</option>
+                                         <option value='Tamil Nadu'>Tamil Nadu</option>
+                                         <option value='Telangana'>Telangana</option>
+                                         <option value='Tripura'>Tripura</option>
+                                         <option value='Uttar Pradesh'>Uttar Pradesh</option>
+                                         <option value='Uttarakhand'>Uttarakhand</option>
+                                         <option value='West Bengal'>West Bengal</option>
+                                         </select>
+                                    </div>
+                                </div>
+
+                                <div class="text-center mt-2">
+                                  <button type="submit" class="btn btn-default" name="education">Submit</button>
+                                </div>
+
+                               </form>
+                           </div>
+                       </div>
+                       <script>
+                         function validateForm(){
+                           // var a = document.forms["myEduForm"]["institution"].value;
+                           var b = document.forms["myEduForm"]["start-month"].value;
+                           var c = document.forms["myEduForm"]["start-year"].value;
+                           var d = document.forms["myEduForm"]["end-month"].value;
+                           var f = document.forms["myEduForm"]["end-year"].value;
+
+                           if (b == "" || b == null) {
+                             alert("Choose the start month");
+                             return false;
+                           }
+                           if (c == "" || c == null) {
+                             alert("Choose the start year");
+                             return false;
+                           }
+                         }
+
+                       </script>
+                       <ol class="my-2">
+                         {% for i in education %}
+                         <li class="mx-4">
+                           <div class=" mx-2">
+                               <div class="uk-flex uk-flex-between px-3">
+                                 <div class="">
+                                   <h4 class="my-0">{{i.degree}} , {{i.specialization}}</h4>
+                                   <p class="my-0">{{i.institution}} , {{i.state}}</p>
+                                   <p class="my-0">{{i.start_month}} {{i.start_year}} - {{i.end_month}} {{i.end_year}}</p>
+                                   <p>CGPA : {{i.gpa}}</p>
+                                 </div>
+
+                                     <div class="">
+                                       <form class="del_edu" method="POST">
+                                         {% csrf_token %}
+                                       <div class="">
+                                         <input type="text" name="deg" value="{{i.degree}}" hidden >
+                                         <input type="text" name="spec" value="{{i.specialization}}" hidden>
+                                         <input type="text" name="ins" value="{{i.institution}}" hidden>
+                                       </div>
+                                     <button type="submit"  class="btn btn-default bg-white text-dark" name="edu_del" uk-tooltip="title:Remove; pos: left"><i class="uil-times-circle"></i></button>
+                                     </form>
+                                     </div>
+
+                               </div>
+                           </div>
+                         </li>
+                         {% endfor %}
+                       </ol>
+                   </div>
+
+                   </div>
+
+
+                   <div class="">
+
+                   <div class="uk-card-default  my-3 p-2" style="border-radius:10px;">
+                       <div class="p-3 uk-flex uk-flex-between">
+                           <h4 class="my-auto"> Work Experience </h4>
+                           <button class="btn btn-default uk-margin-small-right" type="button" uk-toggle="target: #modal-close-outside"> + Add</button>
+                       </div>
+                       <hr class="m-0">
+
+
+
+                       <!-- This is the modal with the default close button -->
+                       <div id="modal-close-outside" uk-modal>
+                           <div class="uk-modal-dialog uk-modal-body">
+                               <button class="uk-modal-close-default" type="button" uk-close></button>
+                               <h2 class="uk-modal-title  text-center">Add Work Experience</h2>
+
+                               <form class="work"  method="POST">
+                                 {% csrf_token %}
+
+                                 <div class="uk-margin">
+                                    <label class="uk-form-label" for="form-horizontal-text">Job Role</label>
+                                    <div class="uk-form-controls">
+                                        <input class="uk-input" id="form-horizontal-text" type="text" name="role" placeholder="Type Here" required>
+                                    </div>
+                                </div>
+
+                                <div class="uk-grid uk-child-width-1-2">
+
+                                  <div class="uk-margin">
+                                      <label class="uk-form-label" for="form-horizontal-select">Start Month</label>
+                                      <div class="uk-form-controls">
+                                          <select class="uk-select" name="start-month" required>
+                                            <option value="Jan">January</option>
+                                            <option value="Feb">February</option>
+                                            <option value="Mar">March</option>
+                                            <option value="Apr">April</option>
+                                            <option value="May">May</option>
+                                            <option value="Jun">June</option>
+                                            <option value="Jul">July</option>
+                                            <option value="Aug">August</option>
+                                            <option value="Sept">September</option>
+                                            <option value="Oct">October</option>
+                                            <option value="Nov">November</option>
+                                            <option value="Dec">December</option>
+                                          </select>
+                                      </div>
+                                  </div>
+
+                                  <div class="uk-margin mt-0">
+                                      <label class="uk-form-label" for="form-horizontal-select">Start Year</label>
+                                      <div class="uk-form-controls">
+                                          <select class="uk-select" name="start-year" id="ddlYears3" required>
+                                          </select>
+                                      </div>
+                                  </div>
+
+
+                                </div>
+
+
+                                <div class="uk-grid uk-child-width-1-2 mt-0">
+
+                                  <div class="uk-margin">
+                                      <label class="uk-form-label" for="form-horizontal-select">End Month</label>
+                                      <div class="uk-form-controls">
+                                          <select class="uk-select" name="end-month" required>
+                                            <option value="Jan">January</option>
+                                            <option value="Feb">February</option>
+                                            <option value="Mar">March</option>
+                                            <option value="Apr">April</option>
+                                            <option value="May">May</option>
+                                            <option value="Jun">June</option>
+                                            <option value="Jul">July</option>
+                                            <option value="Aug">August</option>
+                                            <option value="Sept">September</option>
+                                            <option value="Oct">October</option>
+                                            <option value="Nov">November</option>
+                                            <option value="Dec">December</option>
+                                          </select>
+                                      </div>
+                                  </div>
+
+                                  <div class="uk-margin mt-0">
+                                      <label class="uk-form-label" for="form-horizontal-select">End Year</label>
+                                      <div class="uk-form-controls">
+                                          <select class="uk-select" name="end-year" id="ddlYears4" required>
+                                          </select>
+                                      </div>
+                                  </div>
+
+                                </div>
+
+
+                                <div class="uk-margin mt-0">
+                                   <label class="uk-form-label" for="form-horizontal-text">Company Name</label>
+                                   <div class="uk-form-controls">
+                                       <input class="uk-input" id="form-horizontal-text" type="text" name="company" placeholder="Type Here" required>
+                                   </div>
+                               </div>
+
+
+                                <div class="uk-margin my-0">
+                                    <div class="uk-form-label">Select State</div>
+                                    <div class="uk-form-controls uk-form-controls-text">
+                                      <select name='state'  class='form-control' required>
+                                        <option disabled selected>Choose</option>
+                                         <option value='Andhra Pradesh'>Andhra Pradesh</option>
+                                         <option value='Andaman and Nicobar Islands'>Andaman and Nicobar Islands</option>
+                                         <option value='Arunachal Pradesh'>Arunachal Pradesh</option>
+                                         <option value='Assam'>Assam</option>
+                                         <option value='Bihar'>Bihar</option>
+                                         <option value='Chandigarh'>Chandigarh</option>
+                                         <option value='Chhattisgarh'>Chhattisgarh</option>
+                                         <option value='Dadar and Nagar Haveli'>Dadar and Nagar Haveli</option>
+                                         <option value='Daman and Diu'>Daman and Diu</option>
+                                         <option value='Delhi'>Delhi</option>
+                                         <option value='Lakshadweep'>Lakshadweep</option>
+                                         <option value='Puducherry'>Puducherry</option>
+                                         <option value='Goa'>Goa</option>
+                                         <option value='Gujarat'>Gujarat</option>
+                                         <option value='Haryana'>Haryana</option>
+                                         <option value='Himachal Pradesh'>Himachal Pradesh</option>
+                                         <option value='Jammu and Kashmir'>Jammu and Kashmir</option>
+                                         <option value='Jharkhand'>Jharkhand</option>
+                                         <option value='Karnataka'>Karnataka</option>
+                                         <option value='Kerala'>Kerala</option>
+                                         <option value='Madhya Pradesh'>Madhya Pradesh</option>
+                                         <option value='Maharashtra'>Maharashtra</option>
+                                         <option value='Manipur'>Manipur</option>
+                                         <option value='Meghalaya'>Meghalaya</option>
+                                         <option value='Mizoram'>Mizoram</option>
+                                         <option value='Nagaland'>Nagaland</option>
+                                         <option value='Odisha'>Odisha</option>
+                                         <option value='Punjab'>Punjab</option>
+                                         <option value='Rajasthan'>Rajasthan</option>
+                                         <option value='Sikkim'>Sikkim</option>
+                                         <option value='Tamil Nadu'>Tamil Nadu</option>
+                                         <option value='Telangana'>Telangana</option>
+                                         <option value='Tripura'>Tripura</option>
+                                         <option value='Uttar Pradesh'>Uttar Pradesh</option>
+                                         <option value='Uttarakhand'>Uttarakhand</option>
+                                         <option value='West Bengal'>West Bengal</option>
+                                         </select>
+                                    </div>
+                                </div>
+
+                                <div class="text-center mt-2">
+                                  <button type="submit" class="btn btn-default" name="work">Submit</button>
+                                </div>
+
+                               </form>
+                           </div>
+                       </div>
+
+                       <ol class="my-2">
+                         {% for i in work %}
+                         <li class=" mx-4">
+                           <div class=" mx-2">
+                             <div class="uk-flex uk-flex-between px-3">
+                               <div class="">
+                                 <h4 class="my-0">{{i.job_role}}</h4>
+                                 <p class="my-0">{{i.company}}</p>
+                                 <p class="my-0">{{i.start_month}} {{i.start_year}} - {{i.end_month}} {{i.end_year}}</p>
+                               </div>
+
+                               <div class="">
+                                 <form class="del_work" method="POST">
+                                   {% csrf_token %}
+                                   <div class="">
+                                     <input type="text" name="role" value="{{i.job_role}}" hidden>
+                                     <input type="text" name="com" value="{{i.company}}" hidden>
+                                     <input type="text" name="sm" value="{{i.start_month}}" hidden>
+                                     <input type="number" name="sy" value="{{i.start_year}}" hidden>
+                                   </div>
+                                     <button type="submit"  class="btn btn-default bg-white text-dark" name="work_del" uk-tooltip="title:Remove; pos: left"><i class="uil-times-circle"></i></button>
+                                 </form>
+                               </div>
+
+                             </div>
+                           </div>
+                         </li>
+                         {% endfor %}
+                       </ol>
+                   </div>
+
+                   </div>
+
+                </div>
+
+
+
+           </div>
+
+                  <div id="certificates" class="tabcontent ">
+
+                    <div class="uk-card-default p-3 " style="margin-top:25px; border-radius:10px;">
+                      <div class=" uk-flex uk-flex-between">
+                          <h4 class="my-auto"> Skills </h4>
+                          <button class="btn btn-default uk-margin-small-right" type="button" uk-toggle="target: #modal-close-default-skill"> + Add</button>
+                      </div>
+
+                      <div id="modal-close-default-skill" uk-modal>
+                          <div class="uk-modal-dialog uk-modal-body">
+                              <button class="uk-modal-close-default" type="button" uk-close></button>
+                              <h2 class="uk-modal-title text-center">Add Your Skills</h2>
+
+                              <form class="skil"  method="POST">
+                                {% csrf_token %}
+
+                               <div class="uk-margin">
+                                   <label class="uk-form-label" for="form-horizontal-select">Skill Type</label>
+                                   <div class="uk-form-controls">
+                                       <select class="uk-select" name="type" required>
+                                         <option selected disabled>Choose From Here</option>
+                                         <option value="Technical">Technical Skills</option>
+                                         <option value="Management">Management/Office Skills</option>
+                                         <option value="Languages">Language Known</option>
+                                       </select>
+                                   </div>
+                               </div>
+
+
+                               <div class="uk-margin mt-0">
+                                  <label class="uk-form-label" for="form-horizontal-text">Skill Name</label>
+                                  <div class="uk-form-controls">
+                                      <input class="uk-input" id="form-horizontal-text" type="text" name="skills" placeholder="Type Here (Max Length : 30 characters)" maxlength="30" required>
+                                  </div>
+                              </div>
+
+
+                               <div class="text-center mt-2">
+                                 <button type="submit" class="btn btn-default" name="skill">Submit</button>
+                               </div>
+
+                              </form>
+                          </div>
+                      </div>
+
+                  </div>
+
+
+                        <div class="">
+
+                          <div class="uk-grid uk-child-width-1-3@s">
+
+                            <div class="">
+
+                            <div class="uk-card uk-card-default my-3 p-3" style="border-radius:10px;">
+                              <h5 class="text-center"><strong>Technical Skills</strong></h5>
+                              <div class="">
+                                {% if tech_skills %}
+                                  {% for i in tech_skills %}
+                                  <div class="uk-flex uk-flex-between ">
+                                    <p class="my-1 ">&bull; &nbsp; {{i.skill}}</p>
+                                    <form class="tech" name="tech" method="POST">
+                                      {% csrf_token %}
+                                      <input type="text" name="type" value="{{i.category}}" hidden>
+                                      <input type="text" name="skill1" value="{{i.skill}}" hidden>
+                                      <button class="btn btn-default bg-white text-dark" name="tech_del" uk-tooltip="title:Remove; pos: left"><i class="uil-times-circle"></i></button>
+                                    </form>
+                                  </div>
+                                  {% endfor %}
+                                {% else %}
+                                  <p class="my-1 ">No Technical Skills Added</p>
+                                {% endif %}
+                              </div>
+                            </div>
+
+                          </div>
+
+                          <div class="">
+
+
+                            <div class=" uk-card uk-card-default my-3 p-3" style="border-radius:10px;">
+                              <h5 class="text-center"><strong>Management/Office Skills</strong></h5>
+                              <div class="">
+                                {% if man_skills %}
+                                  {% for i in man_skills %}
+                                  <div class="uk-flex uk-flex-between ">
+                                    <p class="my-1 ">&bull; &nbsp; {{i.skill}}</p>
+                                    <form class="man" name="mang" method="POST">
+                                      {% csrf_token %}
+                                      <input type="text" name="type" value="{{i.category}}" hidden>
+                                      <input type="text" name="skill2" value="{{i.skill}}" hidden>
+                                      <button class="btn btn-default bg-white text-dark" name="man_del" uk-tooltip="title:Remove; pos: left"><i class="uil-times-circle"></i></button>
+                                    </form>
+                                  </div>
+                                  {% endfor %}
+                                {% else %}
+                                  <p class="my-1 ">No Management Skills Added</p>
+                                {% endif %}
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <div class="">
+
+
+
+                            <div class="uk-card uk-card-default my-3 p-3" style="border-radius:10px;">
+                              <h5 class="text-center"><strong>Languages Known</strong></h5>
+                              <div class="">
+                                {% if lan_skills %}
+                                  {% for i in lan_skills %}
+                                  <div  class="uk-flex uk-flex-between ">
+                                    <p class="my-1 ">&bull; &nbsp; {{i.skill}}</p>
+
+                                    <form class="lan" name="lan" method="POST">
+                                      {% csrf_token %}
+                                      <input type="text" name="type" value="{{i.category}}" hidden>
+                                      <input type="text" name="skill3" value="{{i.skill}}" hidden>
+                                      <button class="btn btn-default bg-white text-dark" name="lan_del" uk-tooltip="title:Remove; pos: left"><i class="uil-times-circle"></i></button>
+                                    </form>
+
+                                  </div>
+                                  {% endfor %}
+                                {% else %}
+                                  <p class="my-1 ">No languages Added</p>
+                                {% endif %}
+                              </div>
+                            </div>
+
+                          </div>
+
+                          </div>
+
+
+                        </div>
+
+                       <br>
+
+
+
+                 </div>
+
+                  </div>
 
 
 
@@ -846,6 +950,27 @@
 
     <!-- For Night mode -->
     <script>
+
+
+      document.getElementById("defaultOpen").click();
+
+      function openCity(evt, cityName) {
+     var i, tabcontent, tablinks;
+     tabcontent = document.getElementsByClassName("tabcontent");
+     for (i = 0; i < tabcontent.length; i++) {
+     tabcontent[i].style.display = "none";
+     }
+     tablinks = document.getElementsByClassName("tablinks");
+     for (i = 0; i < tablinks.length; i++) {
+     tablinks[i].className = tablinks[i].className.replace(" active", "");
+     }
+     document.getElementById(cityName).style.display = "block";
+     evt.currentTarget.className += " active";
+     }
+
+
+
+
         (function (window, document, undefined) {
             'use strict';
             if (!('localStorage' in window)) return;
