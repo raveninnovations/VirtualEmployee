@@ -55,7 +55,7 @@
 
                 .tab {
                   overflow: hidden;
-                  
+
                   background-color: #0466c8;
                   padding:0px;
                   border-radius:5px ;
@@ -81,14 +81,14 @@
                 /* Change background color of buttons on hover */
                 .tab button:hover {
                   background-color:  #0353a4;
-                  
+
                   color:white;
                 }
 
                 /* Create an active/current tablink class */
                 .tab button.active {
                   background-color: #0353a4;
-                  
+
                   color:white;
                 }
 
@@ -161,11 +161,11 @@
                                     {% for user in users %}
                                         {% if user.user_id_id == user_detail.pk %}
                                             {% if user.user_pic %}
-                                                <div class="user-profile-photo  m-auto" style="height:220px; width:220px;">
+                                                <div class="user-profile-photo-edit  m-auto" style="height:220px; width:220px;">
                                                     <img src="{{ user.user_pic.url }}"  alt="">
                                                 </div>
                                             {% else %}
-                                                <div class="user-profile-photo  m-auto" style="height:220px; width:220px;>
+                                                <div class="user-profile-photo-edit  m-auto" style="height:220px; width:220px;>
                                                     <img src="{% static 'images/avatars/home-profile.jpg' %}" alt="">
                                                 </div>
                                             {% endif %}
