@@ -264,50 +264,56 @@
 
 
 
-                    <div class="uk-width-3-4@m " style="background:#002855; border-radius:10px;" style="">
+                    <div class="uk-width-3-4@m " style="background: #ffffff; border-radius:10px;">
 
                         <div class=" px-0 " style="border-radius:10px;" style="border-radius:10px;">
                           <div class="uk-width-expand px-4">
 
-                            <div class="uk-grid uk-child-width-1-4@m py-4 mt-4" style="background:#0466c8; border-radius:10px;">
+                            <div class="uk-grid uk-child-width-1-4@m py-4 mt-4" style="background:#004e86;
+                            border-radius:10px;
+                            /* border-radius: 50px; */
+                            background: linear-gradient(145deg, #335dbd, #418cea);
+                            box-shadow:  20px 20px 60px #d9d9d9, 
+                            -20px -20px 60px #ffffff;
+                            ">
 
                               <div class="">
                                 <div class="uk-flex mx-auto">
-                                  <span class="icon-line-awesome-list-ul mt-2" style="font-size:50px; color:white;"></span>
+                                  <span class="icon-line-awesome-cubes mt-2" style="font-size:40px; color:#10346b;"></span>
                                     <h1 class="display-4 mt-0" style="color:white;">13</h1>
                                 </div>
                                 <div class="">
-                                  <h5 style="color:white;"> Project Completed</h5>
+                                  <h5 style="color:#9ac8f3;"> Project Completed</h5>
                                 </div>
                               </div>
 
                               <div class="">
                                 <div class="uk-flex">
-                                  <span class="icon-line-awesome-certificate mt-2" style="font-size:50px; color:white; "></span>
+                                  <span class="icon-material-outline-book mt-2" style="font-size:35px; color:#10346b; "></span>
                                     <h1 class="display-4 mt-0" style="color:white;">13</h1>
                                 </div>
                                 <div class="">
-                                  <h5 style="color:white;">Project Certification</h5>
+                                  <h5 style="color:#9ac8f3;">Project Certification</h5>
                                 </div>
                               </div>
 
                               <div class="">
                                 <div class="uk-flex">
-                                  <span class="icon-line-awesome-trophy mt-2" style="font-size:50px; color:white;"></span>
+                                  <span class="icon-feather-award mt-2" style="font-size:35px; color:#10346b;"></span>
                                     <h1 class="display-4 mt-0" style="color:white;">{{ tot_achiev }}</h1>
                                 </div>
                                 <div class="">
-                                  <h5 style="color:white;">Total Achievements</h5>
+                                  <h5 style="color:#9ac8f3;">Total Achievements</h5>
                                 </div>
                               </div>
 
                               <div class="">
                                 <div class="uk-flex">
-                                  <span class="icon-line-awesome-list-alt mt-2" style="font-size:50px; color:white;"></span>
+                                  <span class="icon-material-outline-school mt-2" style="font-size:35px; color:#10346b;"></span>
                                     <h1 class="display-4 mt-0" style="color:white;">{{ com_courses }}</h1>
                                 </div>
                                 <div class="">
-                                  <h5 style="color:white;">Course Completed</h5>
+                                  <h5 style="color:#9ac8f3;">Course Completed</h5>
                                 </div>
                               </div>
 
@@ -316,10 +322,10 @@
                             <div class="my-2 px-4 mt-3">
                               <div class="uk-grid">
                                 <div class="uk-width-1-4@m my-2">
-                                  <h1 class="display-2">BIO"</h1>
+                                  <h1 class="display-1" style="color: #d0e1f1; position: relative; right: 35px; top: 15px;">BIO"</h1>
                                 </div>
                                 <div class="uk-width-3-4@m my-3">
-                                  <p style=" display : block; overflow-wrap: break-word;" style="color:black;"><em>{{user_contact.user_bio}}</em></p>
+                                  <p style=" display : block; overflow-wrap: break-word;" style="color:black;"><em style="font-weight: 400;">{{user_contact.user_bio}}</em></p>
                                 </div>
                               </div>
 
@@ -348,11 +354,18 @@
 
               /* Style the tab */
               .tab {
+
+    border-radius: 50px;
+    background: linear-gradient(145deg, #ffffff, #dcdddf);
+    box-shadow: border-radius: 50px;
+    background: linear-gradient(145deg, #dcdddf, #ffffff);
+    box-shadow:  20px 20px 60px #cfd1d3, -20px -20px 60px #ffffff;
+
                 overflow: hidden;
                 
-                background-color: #0466c8;
+                
                 padding:0px;
-                border-radius:5px ;
+                
 
               }
 
@@ -368,22 +381,22 @@
                 margin-left:0px;
                 transition: 0.3s;
                 font-size: 21px;
-                color:white;
+                color:black;
                 width: 25%;
               }
 
               /* Change background color of buttons on hover */
               .tab button:hover {
-                background-color:  #0353a4;
+                background-color:  white;
                 
-                color:white;
+                color:black;
               }
 
               /* Create an active/current tablink class */
               .tab button.active {
-                background-color: #0353a4;
+                background-color: White;
                 
-                color:white;
+                color:black;
               }
 
               /* Style the tab content */
