@@ -355,19 +355,14 @@
               /* Style the tab */
               .tab {
 
-    border-radius: 50px;
-    background: linear-gradient(145deg, #ffffff, #dcdddf);
-    box-shadow: border-radius: 50px;
-    background: linear-gradient(145deg, #dcdddf, #ffffff);
-    box-shadow:  20px 20px 60px #cfd1d3, -20px -20px 60px #ffffff;
-
-                overflow: hidden;
-                
-                
-                padding:0px;
-                
-
-              }
+               border-radius: 50px;
+               background: linear-gradient(145deg, #ffffff, #dcdddf);
+               box-shadow: border-radius: 50px;
+               background: linear-gradient(145deg, #dcdddf, #ffffff);
+               box-shadow:  20px 20px 60px #cfd1d3, -20px -20px 60px #ffffff;
+               overflow: hidden;
+               padding: 0px;
+                  }
 
               /* Style the buttons inside the tab */
               .tab button {
@@ -426,8 +421,8 @@
 
 
                          <div class="uk-card-default  my-4" style="border-radius:10px; ">
-                          <div class=" py-2  px-4" style="background: #e7eefd; border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                              <h4 class="mb-0 text-center" style="color: #235cb3;"><strong>{{ cfp_details.role_one }}</strong> </h4>
+                          <div class=" py-2  px-4" style="background: #003554; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                              <h4 class="mb-0 text-center" style="color: #ffffff;"><strong>{{ cfp_details.role_one }}</strong> </h4>
 
                           </div>
                           <hr class="m-0">
@@ -578,8 +573,8 @@
 
 
                           <div class="uk-card-default  my-4" style="border-radius:10px;" >
-                           <div class=" py-2  px-4 "   style=" border-top-left-radius: 10px; border-top-right-radius: 10px; background: #f9e9ec;">
-                               <h4 class="mb-0 text-center" style="color:#fd4044;"> <strong>{{ cfp_details.role_two }}</strong> </h4>
+                           <div class=" py-2  px-4 "   style=" border-top-left-radius: 10px; border-top-right-radius: 10px; background: #f9c74f;">
+                               <h4 class="mb-0 text-center" style="color:#07192b;"> <strong>{{ cfp_details.role_two }}</strong> </h4>
 
                            </div>
                            <hr class="m-0">
@@ -725,9 +720,9 @@
 
                     <div class="mt-0 mb-2">
                       <div class="uk-card-default  mt-0 " style="border-radius:10px;">
-                          <div class="uk-flex uk-flex-between uk-flex-middle py-3  px-4" style="background:#ffeced; border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                              <h4 class="mb-0" style="color:#fb4046;"><strong> Educational Details</strong> </h4>
-                              <a href="{% url 'userprofileEdit' %}" uk-tooltip="title:Edit Educational Details; pos: left"> <i
+                          <div class="uk-flex uk-flex-between uk-flex-middle py-3  px-4" style="background:#ec5e5e; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                              <h4 class="mb-0" style="color:#07192b;"><strong> Educational Details</strong> </h4>
+                              <a href="{% url 'userprofileEdit' %}" uk-tooltip="title:Edit Educational Details; pos: left" style="color:aliceblue"> <i
                                       class="icon-feather-settings"></i> </a>
                           </div>
                            <hr class="m-0">
@@ -740,7 +735,7 @@
 
 
           .first {
-            border-right: 2px solid blue;
+            border-right: 2px solid #eb5e5e;
             position: relative;
 
           }
@@ -753,8 +748,8 @@
               width: 20px;
               height: 20px;
               border-radius: 50%;
-              border: 2px solid #e7eefd;
-              background: #235cb3;
+              border: 4px solid #eb5e5e;
+              background: #eb5e5e;
           }
      </style>
 
@@ -771,9 +766,9 @@
                                 </div>
 
                                 <div class="text-left line p-4 second " id='line' >
-                                  <div class="p-3"  style="background:#235cb3;  border-radius:10px;">
-                                    <h5  class="my-0" style="color:white;">{{i.degree}} , {{i.specialization}}</h5>
-                                    <h5  class="my-0" style="color:white; font-size:15px">CGPA : {{i.gpa}}</h5>
+                                  <div class="p-3"  style="background:#c15252;  border-radius:10px;">
+                                    <h5  class="my-0" style="color:white;"><b>{{i.degree}} , {{i.specialization}}</b></h5>
+                                    <h6  class="my-0" style="color:#07192b; font-size:15px; font-weight: 700;">CGPA : {{i.gpa}}</h6>
                                     <h6  class="my-0" style="color:white;">{{i.institution}}</h6>
                                     <h6  class="my-0" style="color:white;">{{i.state}}</h6>
                                   </div>
@@ -797,9 +792,9 @@
 
                     <div class="mt-0 mb-2 ">
                       <div class="uk-card-default mt-0 " style="border-radius:10px;">
-                          <div class="uk-flex uk-flex-between uk-flex-middle py-3  px-4" style="background:#ffeced; border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                              <h4 class="mb-0 text-center" style="color:#fb4046;"><strong>Work Experience</strong>  </h4>
-                              <a href="{% url 'userprofileEdit' %}" uk-tooltip="title:Edit Experience Details; pos: left"> <i
+                          <div class="uk-flex uk-flex-between uk-flex-middle py-3  px-4" style="background:#5ea4ec; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                              <h4 class="mb-0 text-center" style="color:#07192b;"><strong>Work Experience</strong>  </h4>
+                              <a href="{% url 'userprofileEdit' %}" uk-tooltip="title:Edit Experience Details; pos: left" style="color:aliceblue"> <i
                                       class="icon-feather-settings"></i> </a>
                           </div>
                            <hr class="m-0">
@@ -825,7 +820,7 @@
               width: 20px;
               height: 20px;
               border-radius: 50%;
-              border: 2px solid #e7eefd;
+              border: 2px solid #235cb3;
               background:#235cb3;
           }
      </style>
@@ -844,7 +839,7 @@
 
                                 <div class="text-left line p-4 second1" id='line' >
                                   <div class="p-3"  style="background:#235cb3; border-radius:10px;">
-                                    <h5  class="my-0" style=" color: white;">{{i.job_role}}</h5>
+                                    <h5  class="my-0" style=" color: white;"><b>{{i.job_role}}</b></h5>
                                     <h6  class="my-0" style=" color: white;">{{i.company}}</h6>
                                     <h6  class="my-0" style=" color: white;">{{i.state}}</h6>
                                   </div>
@@ -1014,7 +1009,7 @@
                padding: 0;
                width: 5em;
                height: 5em;
-               background-color: #e7eefd;
+               background-color: #f4f5f7;
                border-radius: 50%;
                line-height: 5em;
             }
