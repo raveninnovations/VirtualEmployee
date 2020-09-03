@@ -718,7 +718,7 @@
 
 
 
-                    <div class="mt-0 mb-2">
+                    <div class="mt-2 mb-2">
                       <div class="uk-card-default  mt-0 " style="border-radius:10px;">
                         <div class=" py-2  px-4 uk-flex "  style="background:#ec5e5e; border-top-left-radius: 10px; border-top-right-radius: 10px;">
                           <div class="mx-auto">
@@ -796,7 +796,7 @@
 
 
 
-                    <div class="mt-0 mb-2 ">
+                    <div class="mt-2 mb-2 ">
                       <div class="uk-card-default mt-0 " style="border-radius:10px;">
                         <div class="uk-flex py-2  px-4" style="background:#5ea4ec; border-top-left-radius: 10px; border-top-right-radius: 10px;">
                           <div class="mx-auto">
@@ -894,7 +894,10 @@
 
                            <div class="text-justify pl-5 uk-width-2-3 mx-auto" >
                            {% for i in tech_skills %}
-                             <h5 class="my-1"><strong>&bull; &nbsp; {{i.skill}}</strong></h5>
+                             <h5 class="my-3"><strong><svg height="18" width="18">
+                                <circle cx="9" cy="9" r="7" stroke="black" stroke-width="3" fill="black" />
+                                Sorry, your browser does not support inline SVG.
+                              </svg>  &nbsp; {{i.skill}}</strong></h5>
                            {% endfor %}
                            </div>
 
@@ -913,7 +916,10 @@
 
                            <div class="text-justify pl-5 uk-width-2-3 mx-auto ">
                              {% for i in man_skills %}
-                               <h5 class="my-1"><strong>&bull; &nbsp; {{i.skill}}</strong></h5>
+                               <h5 class="my-3"><strong><svg height="18" width="18">
+                                  <circle cx="9" cy="9" r="7" stroke="black" stroke-width="3" fill="black" />
+                                  Sorry, your browser does not support inline SVG.
+                                </svg> &nbsp; {{i.skill}}</strong></h5>
                              {% endfor %}
                            </div>
 
@@ -931,7 +937,10 @@
 
                            <div class="text-justify pl-5 uk-width-2-3 mx-auto ">
                              {% for i in lan_skills %}
-                               <h5 class="my-1"><strong>&bull; &nbsp; {{i.skill}}</strong></h5>
+                               <h5 class="my-3"><strong><svg height="18" width="18">
+                                  <circle cx="9" cy="9" r="7" stroke="black" stroke-width="3" fill="black" />
+                                  Sorry, your browser does not support inline SVG.
+                                </svg> &nbsp; {{i.skill}}</strong></h5>
                              {% endfor %}
                            </div>
 
@@ -964,7 +973,10 @@
                                <div class="text-justify pl-5 uk-width-2-3 mx-auto ">
                                  {% if certificate %}
                                   {% for i in certificate %}
-                                      <h5 class="my-3"><strong>&bull; &nbsp; {{i.certi_topic}} <a class="mx-2" href="{{i.certi_img.url}}" download> <i class="uil-notebooks"></i> </a></strong> </h5>
+                                      <h5 class="my-3"><strong><svg height="18" width="18">
+                                         <circle cx="9" cy="9" r="7" stroke="black" stroke-width="3" fill="black" />
+                                         Sorry, your browser does not support inline SVG.
+                                       </svg> &nbsp; {{i.certi_topic}} <a class="mx-2" href="{{i.certi_img.url}}" download> <i class="uil-notebooks"></i> </a></strong> </h5>
                                   {% endfor %}
 
                                   {% else %}
@@ -986,8 +998,14 @@
                                 <hr class="m-0">
 
                                 <div class="text-justify pl-5 uk-width-2-3 mx-auto ">
-                                  <h5 class="my-3"><strong>&bull; &nbsp; Virtual Empleado <a class="mx-2"> <i class="uil-notebooks"></i> </a> </strong></h5>
-                                  <h5 class="my-3"><strong>&bull; &nbsp; DMAC Project <a class="mx-2"> <i class="uil-notebooks"></i> </a> </strong></h5>
+                                  <h5 class="my-3"><strong><svg height="18" width="18">
+                                     <circle cx="9" cy="9" r="7" stroke="black" stroke-width="3" fill="black" />
+                                     Sorry, your browser does not support inline SVG.
+                                   </svg> &nbsp; Virtual Empleado <a class="mx-2"> <i class="uil-notebooks"></i> </a> </strong></h5>
+                                  <h5 class="my-3"><strong><svg height="18" width="18">
+                                     <circle cx="9" cy="9" r="7" stroke="black" stroke-width="3" fill="black" />
+                                     Sorry, your browser does not support inline SVG.
+                                   </svg> &nbsp; DMAC Project <a class="mx-2"> <i class="uil-notebooks"></i> </a> </strong></h5>
 
                                 </div>
 
