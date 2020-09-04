@@ -159,7 +159,7 @@
 
                 <!-- course sidebar -->
 
-                <div class="container p-4 uk-width-2-3 mx-auto bg-dark" style="border-radius:10px;">
+                <div class="container p-4 uk-width-1-2  " style="border-radius:10px; float:left;">
                     <div class="course-sidebar-title " style="background:#3e416d;">
                         <h3 class="text-white"> <strong>Table of Contents </strong></h3>
                         {% if check == 0 %}
@@ -189,7 +189,7 @@
                                             {% if topic.topic_id_id == curriculam.pk %}
                                                 <form method="post">{% csrf_token %}
 
-                                                 <li><input type="submit" name="video" class="vid my-0 py-0" value="{{ topic.topic_caption }}" style="border:0px solid #c7d3eb;width: 90%">
+                                                 <li><input type="submit" name="video" class="vid my-0 py-0 text-left" value="{{ topic.topic_caption }}" style="border:0px solid #c7d3eb;width: 90%">
 
                                                      {% for watch in watch %}
                                                          {% if watch.user_id == user_details.pk %}
@@ -214,7 +214,7 @@
 
                         {% if progress %}
                             <form method="post">{% csrf_token %}
-                                <p>COMPLETED<button id="bb" type="submit" value="{{ progress }}" name="claim">Claim rewards</button></p>
+                                <p><button id="bb" type="submit" value="{{ progress }}" name="claim">Claim rewards</button></p>
                             </form>
                         {% endif %}
                         </ul>
