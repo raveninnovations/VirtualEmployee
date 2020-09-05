@@ -39,7 +39,9 @@ Create Course
         ================================================== -->
         {% include 'partials/csm-tl-project_partials/_csm_header.html' %}
 
+
         <!-- content -->
+    {% include 'partials/_alerts.html' %}
         <div class="page-content">
             <div class="page-content-inner">
 
@@ -120,6 +122,7 @@ Create Course
                                           <fieldset class="uk-fieldset">
                                          {% if cat_name %}
                                               Category : <h4>{{ cat_name }}</h4>
+                                             <input type="hidden" name="category_d" value="{{ cat_name }}">
                                              <input type="submit" value="change">
                                          {% endif %}
 
