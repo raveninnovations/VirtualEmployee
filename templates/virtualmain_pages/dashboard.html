@@ -217,7 +217,7 @@
                         {% endif %}
                         <div class="uk-position-bottom uk-position-medium uk-text-center uk-light">
                             <h3 class="uk-margin-remove">{{i.blog_title}}</h3>
-                            <p class="uk-margin-remove">{{i.blog_tagline | truncatewords:12}</p>
+                            <p class="uk-margin-remove">{{i.blog_tagline | truncatewords:12}}</p>
                         </div>
                       </li>
                       {% endfor %}
@@ -228,7 +228,7 @@
              </div>
 
              <div class=" mx-4 text-right my-1">
-             <form method="post">{% csrf_token %}
+             <form method="post" enctype="multipart/form-data">{% csrf_token %}
                <div class="uk-inline">
                 <style>
                   .plus {
@@ -244,8 +244,6 @@
                 <button type="button" class="plus btn btn-default btn-sm text-white p-2 " uk-tooltip="title: Choose What to Display; pos: left" style="border-radius: 50%; height:47px;" name="button"><h3 class="text-light"><i class="uil uil-plus"></i></h3></button>
 
 
-
-     <!-- <button class="uk-button uk-button-default" type="button">Click</button> -->
                   <div uk-dropdown="mode: click" class="pb-0 px-2" style="border-radius:10px;">
 
                     <div class="uk-margin text-left uk-child-width-auto">
@@ -383,13 +381,14 @@
 
                 </div>
 
+
                 <div class="section-small pt-0">
 
                     <div class="course-grid-slider" uk-slider="finite: true">
 
                         <div class="grid-slider-header">
                             <div>
-                                <h4 class="uk-text-truncate"> Courses by CFP</h4>
+                                <h4 class="uk-text-truncate"> Courses by : {{cfp_details.category_one}}</h4>
 
                             </div>
                             <div class="grid-slider-header-link">
@@ -402,6 +401,7 @@
                         </div>
 
                             <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-3@s uk-grid">
+
                         {% if cfp_details %}
                             {% if lists %}
                           {% for list in lists %}
@@ -440,6 +440,31 @@
                             {% endfor %}
                                 {% endif %}
                         {% endif %}
+                        </ul>
+
+                    </div>
+
+                </div>
+                <div class="section-small pt-0">
+
+                    <div class="course-grid-slider" uk-slider="finite: true">
+
+                        <div class="grid-slider-header">
+                            <div>
+                                <h4 class="uk-text-truncate"> Courses by CFP: {{cfp_details.category_two}}</h4>
+
+                            </div>
+                            <div class="grid-slider-header-link">
+
+                                <a href="courses.html" class="button transparent uk-visible@m"> View all </a>
+                                <a href="#" class="slide-nav-prev" uk-slider-item="previous"></a>
+                                <a href="#" class="slide-nav-next" uk-slider-item="next"></a>
+
+                            </div>
+                        </div>
+
+                            <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-3@s uk-grid">
+
                         {% if cfp_details %}
                             {% if lists2 %}
                           {% for list in lists2 %}

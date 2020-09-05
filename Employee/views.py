@@ -544,11 +544,9 @@ def userdashboard(request):
             if StudentCFP.objects.filter(user_id_id=user_details.pk).exists():
 
                 cfp_details = StudentCFP.objects.get(user_id_id=user_details.pk)
-
-                # CFP  COURSES
+                # CFP COURSES
                 lists = Course.objects.filter(category=cfp_details.category_one, role=cfp_details.role_one)
                 lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
-
                 #Displaying Projects
                 projects1=ProjectManager.objects.filter(project_category=cfp_details.category_one)
                 projects2=ProjectManager.objects.filter(project_category=cfp_details.category_two)
@@ -570,13 +568,14 @@ def userdashboard(request):
                     progress_course = None
 
                 blog_cag=BlogCategory.objects.all()
-                print(user.pk)
+
                 blogs = BlogManager.objects.all()
                 if not blogs:
                     blogs=BlogHeight.objects.all()
                 if request.method == 'POST':
-                    category = request.POST['d_blog']
-                    blogs = BlogManager.objects.filter(blog_category=category)
+                    if 'button1' in request.POST:
+                        category = request.POST['d_blog']
+                        blogs = BlogManager.objects.filter(blog_category=category)
                 context = {
                     'cfp_details':cfp_details,
                     'lists':lists,
