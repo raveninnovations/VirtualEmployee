@@ -547,15 +547,15 @@ def userdashboard(request):
         user_details = UserDetails.objects.get(user_id_id=user.pk)
         course_data = Course.objects.all()
 
+        micro = MicroCategory.objects.all()
+
         try:
             if StudentCFP.objects.filter(user_id_id=user_details.pk).exists():
 
                 cfp_details = StudentCFP.objects.get(user_id_id=user_details.pk)
-
-                # CFP  COURSES
+                # CFP COURSES
                 lists = Course.objects.filter(category=cfp_details.category_one, role=cfp_details.role_one)
                 lists2 = Course.objects.filter(category=cfp_details.category_two, role=cfp_details.role_two)
-
                 #Displaying Projects
                 projects1=ProjectManager.objects.filter(project_category=cfp_details.category_one)
                 projects2=ProjectManager.objects.filter(project_category=cfp_details.category_two)
@@ -577,13 +577,14 @@ def userdashboard(request):
                     progress_course = None
 
                 blog_cag=BlogCategory.objects.all()
-                print(user.pk)
+
                 blogs = BlogManager.objects.all()
                 if not blogs:
                     blogs=BlogHeight.objects.all()
                 if request.method == 'POST':
-                    category = request.POST['d_blog']
-                    blogs = BlogManager.objects.filter(blog_category=category)
+                    if 'button1' in request.POST:
+                        category = request.POST['d_blog']
+                        blogs = BlogManager.objects.filter(blog_category=category)
                 context = {
                     'cfp_details':cfp_details,
                     'lists':lists,
@@ -593,7 +594,8 @@ def userdashboard(request):
                     'cfp1_projects':cfp1_projects,
                     'cfp2_projects':cfp2_projects,
                     'blog_cag':blog_cag,
-                    'blogs':blogs
+                    'blogs':blogs,
+                    'micro':micro
 
                 }
                 return render(request, 'virtualmain_pages/dashboard.html', context)
@@ -1476,9 +1478,17 @@ def userEdit(request):
 
 
 @login_required
-def userMicroCourseList(request):
+def userMicroCourseList(request,id):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
+        print(id)
+        datas = MicroCourse.objects.filter(c_id_id=id)
+
+
         user = request.user
+        context ={
+            'datas':datas
+        }
+
         return render(request,'virtualmain_pages/microcourses.html');
     else:
         messages.error(request,"Wrong URL")
@@ -3207,13 +3217,17 @@ def microDash(request):
 def microCreate(request):
     cag_data=MicroCategory.objects.all()
     cat_name = None
+    cate_data = None
     if request.method == 'POST':
         if 'category' in request.POST:
             cat_name = request.POST['category']
+
         if 'course-submit' in request.POST:
+            cat_name = request.POST['category_d']
             c_title = request.POST['title']
             c_video = request.POST['vlink']
-            data = MicroCourse(c_id = cat_name, video=c_video,course_name=c_title)
+            cate_data = MicroCategory.objects.get(category=cat_name)
+            data = MicroCourse(c_id_id = cate_data.pk, video=c_video,course_name=c_title)
             data.save()
             messages.success(request,"Course Created succesfuly")
     context={
