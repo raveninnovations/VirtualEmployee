@@ -21,6 +21,8 @@ urlpatterns = [
     path('admindashboard/student_info/', views.adminStudents, name='adminStudents'),
     path('admindashboard/microCourseCategory/', views.microCategory, name='microCategory'),
     path('micro_edit/<int:id>', views.micro_edit, name='microEdit'),
+    path('feature_list/', views.featurelist, name='featurelist'),
+
     # path('delete_student/<int:student_id>/', views.delete_student,name='delete_student'),
     # User Section
     path('userdashboard/',views.userdashboard,name='dashboard'),

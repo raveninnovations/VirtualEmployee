@@ -316,6 +316,15 @@ def adminStudents(request):
     }
     return render(request,'Admin_pages/admin_students.html',context)
 
+@login_required
+def featurelist(request):
+    data=BlogManager.objects.filter(featured=True)
+    context={
+        'data':data
+    }
+    return render(request,'Admin_pages/admin_feature_list.html',context)
+
+
 # def delete_student(request, student_id):
 # 	student_instance = UserDetails.objects.get(pk=student_id)
 # 	student_instance.delete()
@@ -1205,7 +1214,65 @@ def userEdit(request):
                 gpa=request.POST['gpa']
                 state=request.POST['state']
 
-                edu=UserEducation(user_id_id=user_detail.pk,institution=institution,start_month=start_month,start_year=start_year,end_month=end_month,end_year=end_year,state=state,degree=degree,specialization=special,gpa=gpa)
+
+                if(start_month== 'Jan'):
+                    x=1;
+                elif(start_month== 'Feb'):
+                    x=2;
+                elif(start_month== 'Mar'):
+                    x=3;
+                elif(start_month== 'Apr'):
+                    x=4;
+                elif(start_month== 'May'):
+                    x=5;
+                elif(start_month== 'Jun'):
+                    x=6;
+                elif(start_month== 'Jul'):
+                    x=7;
+                elif(start_month== 'Aug'):
+                    x=8;
+                elif(start_month== 'Sept'):
+                    x=9;
+                elif(start_month== 'Oct'):
+                    x=10;
+                elif(start_month== 'Nov'):
+                    x=11;
+                elif(start_month== 'Dec'):
+                    x=12;
+
+
+                if(end_month== 'Jan'):
+                    y=1;
+                elif(end_month== 'Feb'):
+                    y=2;
+                elif(end_month== 'Mar'):
+                    y=3;
+                elif(end_month== 'Apr'):
+                    y=4;
+                elif(end_month== 'May'):
+                    y=5;
+                elif(end_month== 'Jun'):
+                    y=6;
+                elif(end_month== 'Jul'):
+                    y=7;
+                elif(end_month== 'Aug'):
+                    y=8;
+                elif(end_month== 'Sept'):
+                    y=9;
+                elif(end_month== 'Oct'):
+                    y=10;
+                elif(end_month== 'Nov'):
+                    y=11;
+                elif(end_month== 'Dec'):
+                    y=12;
+
+
+                num_months = (int(end_year) - int(start_year)) * 12 + (y - x)
+
+                num_years=int(num_months/12)
+                num_months=num_months%12
+                durr=str(num_years)+ "y " + str(num_months) + "m"
+                edu=UserEducation(user_id_id=user_detail.pk,institution=institution,start_month=start_month,start_year=start_year,end_month=end_month,end_year=end_year,duration=durr,state=state,degree=degree,specialization=special,gpa=gpa)
                 edu.save()
                 messages.success(request, "Updated Education Info")
                 return redirect(request.path_info)
@@ -1220,7 +1287,68 @@ def userEdit(request):
                 company=request.POST['company']
                 state=request.POST['state']
 
-                work=UserWorkExperience(user_id_id=user_detail.pk,job_role=role,start_month=start_month,start_year=start_year,end_month=end_month,end_year=end_year,state=state,company=company)
+
+
+                if(start_month== 'Jan'):
+                    x=1;
+                elif(start_month== 'Feb'):
+                    x=2;
+                elif(start_month== 'Mar'):
+                    x=3;
+                elif(start_month== 'Apr'):
+                    x=4;
+                elif(start_month== 'May'):
+                    x=5;
+                elif(start_month== 'Jun'):
+                    x=6;
+                elif(start_month== 'Jul'):
+                    x=7;
+                elif(start_month== 'Aug'):
+                    x=8;
+                elif(start_month== 'Sept'):
+                    x=9;
+                elif(start_month== 'Oct'):
+                    x=10;
+                elif(start_month== 'Nov'):
+                    x=11;
+                elif(start_month== 'Dec'):
+                    x=12;
+
+
+                if(end_month== 'Jan'):
+                    y=1;
+                elif(end_month== 'Feb'):
+                    y=2;
+                elif(end_month== 'Mar'):
+                    y=3;
+                elif(end_month== 'Apr'):
+                    y=4;
+                elif(end_month== 'May'):
+                    y=5;
+                elif(end_month== 'Jun'):
+                    y=6;
+                elif(end_month== 'Jul'):
+                    y=7;
+                elif(end_month== 'Aug'):
+                    y=8;
+                elif(end_month== 'Sept'):
+                    y=9;
+                elif(end_month== 'Oct'):
+                    y=10;
+                elif(end_month== 'Nov'):
+                    y=11;
+                elif(end_month== 'Dec'):
+                    y=12;
+
+
+                num_months = (int(end_year) - int(start_year)) * 12 + (y - x)
+
+                num_years=int(num_months/12)
+                num_months=num_months%12
+                durr=str(num_years)+ "y " + str(num_months) + "m"
+
+
+                work=UserWorkExperience(user_id_id=user_detail.pk,job_role=role,start_month=start_month,start_year=start_year,end_month=end_month,end_year=end_year,duration=durr,state=state,company=company)
                 work.save()
 
                 messages.success(request, "Work Experience Added")
@@ -2789,6 +2917,8 @@ def blogManager(request):
                 blog_body=request.POST["editor1"]
                 blog_thumbnail=request.FILES.get("blog_thumbnail")
                 blog_category=request.POST["category"]
+                feature=request.POST.get("feature")
+                feature = True if feature else False
                 if not blog_category:
                     print("no category")
 
@@ -2800,6 +2930,7 @@ def blogManager(request):
                     blog_body=blog_body,
                     blog_thumbnail=blog_thumbnail,
                     blog_category=blog_category,
+                    featured=feature
                 )
                 # proj.project_cfp.set(cfp_list)
                 blog.save()
