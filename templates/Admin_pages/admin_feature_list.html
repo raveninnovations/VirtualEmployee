@@ -1,0 +1,116 @@
+{% extends 'base1.html' %}
+{% block title %}
+All Courses
+{% endblock %}
+{% block content %}{% load static %}
+    <div id="wrapper" class="admin-panel">
+
+       {% include 'partials/admin_partials/_header.html' %}
+
+        <!-- content -->
+        <div class="page-content">
+            <div class="page-content-inner">
+
+
+                <nav id="breadcrumbs" class="mb-3">
+                    <ul>
+                        <li><a href="{% url 'admindashboard' %}"> <i class="uil-home-alt">Dashboard</i> </a></li>
+                        <li> Feature List </li>
+
+                    </ul>
+                </nav>
+
+                <div class="d-flex justify-content-between mb-3">
+                    <h3> Feature List </h3>
+
+
+                    </div>
+
+                <div class="uk-child-width-1-3@m" uk-grid
+                    uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div ; delay: 200">
+                    {% for i in data %}
+                    <div>
+                        <a href="#">
+                            <div class="card animate-this uk-inline-clip">
+                                {% if i.blog_thumbnail %}
+                                <img src="{{i.blog_thumbnail.url}}" alt="">
+                                {% else %}
+                                {% endif %}
+
+                                <div class="card-body text-center pb-3">
+                                    <h3 class=" mb-0"> {{i.blog_title}}</h3>
+                                    <h6 class=" mb-0 ">{{i.blog_tagline }}</h6>
+                                    <div class="mt-2">
+                                        <table class="uk-table uk-table-small m-0">
+                                          <tbody>
+                                              <tr class="my-0">
+                                                  <td class="p-1"><h6>Total Enrolled</h6></td>
+                                                  <td class="p-1"><h6>-</h6></td>
+                                                  <td class="p-1"><h6>223</h6> </td>
+                                              </tr>
+                                              <tr class="my-0">
+                                                <td class="p-1"><h6> Total Completed</h6></td>
+                                                <td class="p-1"><h6>-</h6> </td>
+                                                <td class="p-1"><h6>245</h6> </td>
+                                              </tr>
+                                              <tr class="my-0">
+                                                <td class="p-1"><h6> Instructor Name</h6></td>
+                                                <td class="p-1"><h6>-</h6> </td>
+                                                <td class="p-1"><h6> {{ course.instructor }}</h6></td>
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                      </div>
+
+                                </div>
+
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+
+                </div>
+                {% include 'partials/_footer.html' %}
+            </div>
+
+        </div>
+
+        <!-- For Night mode -->
+        <script>
+            (function (window, document, undefined) {
+                'use strict';
+                if (!('localStorage' in window)) return;
+                var nightMode = localStorage.getItem('gmtNightMode');
+                if (nightMode) {
+                    document.documentElement.className += ' night-mode';
+                }
+            })(window, document);
+
+
+            (function (window, document, undefined) {
+
+                'use strict';
+
+                // Feature test
+                if (!('localStorage' in window)) return;
+
+                // Get our newly insert toggle
+                var nightMode = document.querySelector('#night-mode');
+                if (!nightMode) return;
+
+                // When clicked, toggle night mode on or off
+                nightMode.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    document.documentElement.classList.toggle('night-mode');
+                    if (document.documentElement.classList.contains('night-mode')) {
+                        localStorage.setItem('gmtNightMode', true);
+                        return;
+                    }
+                    localStorage.removeItem('gmtNightMode');
+                }, false);
+
+            })(window, document);
+        </script>
+
+    </div>
+{% endblock %}
