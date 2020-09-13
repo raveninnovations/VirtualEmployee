@@ -1798,8 +1798,6 @@ def csmAddCurriculam(request,id):
                 topic_video = request.POST['topic_video']
                 lesson = request.POST['les_id']
 
-
-
                 try:
                     lesson_private = Lesson.objects.get(lesson_private=lesson)
                     if lesson_private:
