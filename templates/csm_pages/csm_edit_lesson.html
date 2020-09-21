@@ -128,11 +128,13 @@ Edit lesson
 
                                           <td>{% if topic.topic_video != "NULL" %}
 
-                                              <iframe src="{{ topic.topic_video }}" frameborder="0"
-                                        style="width: 92%" autostart="false"></iframe>
+                                              <video width="320" height="240" controls>
+                                                     <source src="{{ topic.topic_video.url }}"
+                                        >
+                                              </video>
 
                                               {% endif %}
-                                          <input type="text" name="topic_video" class="alert-dark" style="width: 92%;margin-top: 5px" placeholder="Change video">
+                                          <input type="file" name="topic_video" class="alert-dark" style="width: 92%;margin-top: 5px" placeholder="Change video">
                                            </td>
 
 

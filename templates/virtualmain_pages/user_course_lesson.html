@@ -146,7 +146,8 @@
                                             <li>
                                      <div class="video-responsive">
                                          {% if t_video %}
-                                         <iframe src="{{ t_video.topic_video }}" width="" height=""></iframe>
+                                         <video id="myVideo" controls>
+                                             <source src="{{ t_video.topic_video.url }}"></video>
                                          {% endif %}
                                         </div>
                                 </li>
@@ -169,10 +170,9 @@
                         </form>
                         {% else %}
 
-
-
                         {% endif %}
                     </div>
+
                     <div class="course-sidebar-container" data-simplebar>
 
                         <ul class="course-video-list-section" uk-accordion>
@@ -188,15 +188,12 @@
                                         {% for topic in topics %}
                                             {% if topic.topic_id_id == curriculam.pk %}
                                                 <form method="post">{% csrf_token %}
-
-                                                 <li><input type="submit" name="video" class="vid my-0 py-0 text-left" value="{{ topic.topic_caption }}" style="border:0px solid #c7d3eb;width: 90%">
-
+                                                 <li><input type="submit" onclick="myFunction()" name="video" class="vid my-0 py-0 text-left" value="{{ topic.topic_caption }}"  style="border:0px solid #c7d3eb;width: 90%">
                                                      {% for watch in watch %}
                                                          {% if watch.user_id == user_details.pk %}
                                                      {% if topic.pk == watch.video_id %}
                                                      <span class="round"><i class="icon-feather-check " style="color: darkgreen"></i></span>
                                                          {% else %}
-
                                                          {% endif %}
                                                          {% endif %}
                                                  {% endfor %}
@@ -230,6 +227,12 @@
 
          </div>
 
+    <script>
+    function myFunction() {
+       console.log("heo")
+
+    }
+    </script>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
         <script>
             function make_button_active(tab) {

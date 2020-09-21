@@ -499,8 +499,6 @@ def user_logout(request):
     print("hai")
     return render(request,'Admin_pages/logout.html')
 
-
-
 def activatecode(request):
     user_id = request.user.pk
     license = AdminLicense.objects.all()
@@ -527,7 +525,6 @@ def activatecode(request):
                     key.delete()
                     messages.success(request,"License Key applied !")
                     return redirect('usercfp')
-
             else:
                 messages.error(request,'License Key Not Valid')
                 return redirect('activatecode')
@@ -543,15 +540,11 @@ def activatecode(request):
 def userdashboard(request):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
         user = request.user
-
         user_details = UserDetails.objects.get(user_id_id=user.pk)
         course_data = Course.objects.all()
-
         micro = MicroCategory.objects.all()
-
         try:
             if StudentCFP.objects.filter(user_id_id=user_details.pk).exists():
-
                 cfp_details = StudentCFP.objects.get(user_id_id=user_details.pk)
                 # CFP COURSES
                 lists = Course.objects.filter(category=cfp_details.category_one, role=cfp_details.role_one)
@@ -565,19 +558,15 @@ def userdashboard(request):
                     res=i.project_cfp.find(cfp_details.role_one)
                     if res != -1:
                         cfp1_projects.append(i)
-
                 for j in projects2:
                     res=j.project_cfp.find(cfp_details.role_two)
                     if res != -1:
                         cfp2_projects.append(j)
                 if ProgressCourse.objects.filter(user_id=user.pk).exists():
-
                     progress_course = ProgressCourse.objects.filter(user=user)
                 else:
                     progress_course = None
-
                 blog_cag=BlogCategory.objects.all()
-
                 blogs = BlogManager.objects.all()
                 if not blogs:
                     blogs=BlogHeight.objects.all()
@@ -596,15 +585,12 @@ def userdashboard(request):
                     'blog_cag':blog_cag,
                     'blogs':blogs,
                     'micro':micro
-
                 }
                 return render(request, 'virtualmain_pages/dashboard.html', context)
             else:
                 return render(request,'virtualmain_pages/dashboard.html')
-
         except:
             print("Error in dashboard")
-
         context={
             'course_data':course_data,
 
@@ -613,7 +599,6 @@ def userdashboard(request):
     else:
         messages.error(request,"Wrong URL")
         return redirect('logout')
-
 @login_required
 def userCourse(request,id):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
@@ -622,10 +607,8 @@ def userCourse(request,id):
         print(course_details.pk)
         lessons = Lesson.objects.filter(lesson_id_id=course_details.pk)
         topics = Lesson_Topic.objects.all()
-
         req_str=course_details.requirements
         req_list=req_str.split('_')
-
         learn_str=course_details.learnings
         learn_list=learn_str.split('_')
         context ={
@@ -635,12 +618,10 @@ def userCourse(request,id):
             'req_list':req_list,
             'learn_list':learn_list
         }
-
         return render(request,"virtualmain_pages/user_course_intro.html",context)
     else:
         messages.error(request,"Wrong url")
         return redirect('login')
-
 
 def userLesson(request,id):
     if request.user.is_active and not request.user.is_staff and not request.user.is_superuser:
@@ -674,13 +655,10 @@ def userLesson(request,id):
                 if not watched.objects.filter(video=t_video.pk,user_id=user_details.pk).exists():
                     save = watched(status="watched",video_id=t_video.pk,course_id=course_details.pk,user_id=user_details.pk)
                     save.save()
-
             if 'claim' in request.POST:
                 print("claim rewards")
                 try:
-
                     if not Claim.objects.filter(claim_id_id = course_details.pk,user_id=user_details.pk).exists():
-
                         claim = Claim(claim_id_id=course_details.pk,category=course_details.category,course_tag=course_details.course,points=course_details.course_points,user_id=user_details.pk)
                         claim.save()
                         points = Claim.objects.filter(course_tag=course_details.course, user_id=user_details.pk)
@@ -695,12 +673,9 @@ def userLesson(request,id):
                                 course_del.delete()
                                 messages.error(request,"Rewards reached maximum")
                                 return redirect('userlesson',id)
-
                         if CourseTag.objects.filter(user_id_id=user_details.pk,
                                                     course_tag=course_details.course).exists():
-
                             points = CourseTag.objects.get(user_id_id=user_details.pk,course_tag=course_details.course)
-
                             c_points = course_details.course_points
                             new_points = int(points.points) + int(c_points)
 
@@ -1923,7 +1898,7 @@ def csmAddCurriculam(request,id):
 
             if 'addTopic' in request.POST:
                 topic_caption = request.POST['topic_descrip']
-                topic_video = request.POST['topic_video']
+                topic_video = request.FILES.get('topic_video')
                 lesson = request.POST['les_id']
 
                 try:
@@ -1978,7 +1953,7 @@ def csmEditLesson(request,id):
             if 'topicEdit' in request.POST:
                 topic_id = request.POST['unique_topic']
                 caption = request.POST['topic_descrip']
-                video = request.POST['topic_video']
+                video = request.FILES.get('topic_video')
                 print(topic_id)
                 topic = Lesson_Topic.objects.get(id = topic_id)
                 topic.topic_caption =caption

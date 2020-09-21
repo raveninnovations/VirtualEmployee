@@ -62,7 +62,6 @@ class UserEducation(models.Model):
     start_year=models.IntegerField(blank=True,default=0)
     end_month=models.CharField(max_length=100,blank=True)
     end_year=models.IntegerField( blank=True,default=0)
-    duration=models.CharField(max_length=100,blank=True)
     institution = models.CharField(max_length=100)
     state = models.CharField(max_length=200)
     degree = models.CharField(max_length=100)
@@ -79,7 +78,6 @@ class UserWorkExperience(models.Model):
     start_year=models.IntegerField(blank=True,default=0)
     end_month=models.CharField(max_length=100,blank=True)
     end_year=models.IntegerField( blank=True,default=0)
-    duration=models.CharField(max_length=100,blank=True)
     job_role = models.CharField(max_length=100)
     company = models.CharField(max_length=100)
     state = models.CharField(max_length=200)
@@ -170,8 +168,8 @@ class Lesson(models.Model):
 class Lesson_Topic(models.Model):
     topic_id = models.ForeignKey(Lesson,on_delete=models.CASCADE)
     topic_caption = models.CharField(max_length=500)
-    topic_video = models.CharField(max_length=500, null=True,blank=True)
-
+    # topic_video = models.CharField(max_length=500, null=True,blank=True)
+    topic_video = models.FileField(upload_to="Course_Videos/",null=True)
     def __str__(self):
         return self.topic_caption
 
@@ -356,7 +354,6 @@ class BlogManager(models.Model):
     blog_thumbnail=models.ImageField(upload_to='blog_images/',null=True,blank=True)
     blog_category=models.CharField(max_length=200,null=True, blank=True)
     blog_date = models.DateTimeField(default=datetime.now,blank=True)
-    featured=models.BooleanField(default=False)
 
     def __str__(self):
         return self.blog_title
