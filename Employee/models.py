@@ -156,22 +156,23 @@ class Course(models.Model):
     def __str__(self):
         return self.title
 
-class Lesson(models.Model):
-    lesson_id = models.ForeignKey(Course,on_delete=models.CASCADE)
-    lesson_private = models.CharField(max_length=100,null=True)
-    lesson_name = models.CharField(max_length=100)
-    lesson_date = models.DateTimeField(default=datetime.now,blank=True)
+class Week(models.Model):
+    week_id = models.ForeignKey(Course,on_delete=models.CASCADE)
+    week_private = models.CharField(max_length=100,null=True)
+    week_name = models.CharField(max_length=100)
+    week_date = models.DateTimeField(default=datetime.now,blank=True)
 
     def __str__(self):
-        return  self.lesson_name
+        return  self.week_name
 
-class Lesson_Topic(models.Model):
-    topic_id = models.ForeignKey(Lesson,on_delete=models.CASCADE)
-    topic_caption = models.CharField(max_length=500)
-    # topic_video = models.CharField(max_length=500, null=True,blank=True)
-    topic_video = models.FileField(upload_to="Course_Videos/",null=True)
+class Week_Unit(models.Model):
+    unit_id = models.ForeignKey(Week,on_delete=models.CASCADE)
+    unit_caption = models.CharField(max_length=500)
+    unit_video1 = models.FileField(upload_to="Week_Videos/",null=True)
+    unit_video2 = models.FileField(upload_to="Week_Videos/",null=True)
+    unit_video3 = models.FileField(upload_to="Week_Videos/",null=True)
     def __str__(self):
-        return self.topic_caption
+        return self.unit_caption
 
 
 class CareerCategory(models.Model):
@@ -180,6 +181,7 @@ class CareerCategory(models.Model):
 
     def __str__(self):
         return self.category
+
 
 class MicroCategory(models.Model):
     category_id=models.IntegerField(default=0)
@@ -294,7 +296,7 @@ class EnrolledProject(models.Model):
 
 # Watched videos
 class watched(models.Model):
-    video = models.ForeignKey(Lesson_Topic,models.CASCADE)
+    video = models.ForeignKey(Week_Unit,models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(UserDetails,on_delete=models.CASCADE,null=True)
     status = models.CharField(max_length=50)
@@ -376,3 +378,22 @@ class BlogCategory(models.Model):
 
     def __str__(self):
         return self.blog_category
+
+
+# Quizz
+class Quizz(models.Model):
+    course_id = models.ForeignKey(Course,on_delete=models.CASCADE)
+    ques_no = models.IntegerField(null=True)
+    question = models.CharField(max_length=250)
+    option1 = models.CharField(max_length=100)
+    option2 = models.CharField(max_length=100)
+    option3 = models.CharField(max_length=100)
+    option4 = models.CharField(max_length=100)
+    answer = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.question
+
+
+
+

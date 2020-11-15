@@ -1,8 +1,15 @@
+
+
+
 /* ----------------- Start Document ----------------- */
 (function ($) {
 	"use strict";
 
 	$(document).ready(function () {
+
+
+$('.loader_box').remove();
+
 
 
 
@@ -102,7 +109,7 @@
 		/*--------------------------------------------------*/
 		/*  NProgress
 		/*-------------------------------------------------- */
-		NProgress.start(); // start    
+		NProgress.start(); // start
 		NProgress.set(0.4); // To set a progress percentage, call .set(n), where n is a number between 0..1
 		NProgress.inc(); // To increment the progress bar, just use .inc(). This increments it with a random amount. This will never get to 100%: use it for every image load (or similar).If you want to increment by a specific value, you can pass that as a parameter
 		NProgress.configure({
@@ -118,40 +125,69 @@
 		NProgress.configure({
 			parent: '#wrapper'
 		}); //specify this to change the parent container. (default: body)
-		NProgress.done(); // end 
+		NProgress.done(); // end
 
 
 		// ------------------ End Document ------------------ //
 	});
-	
-	
+
+
 	/* add course start hari */
-	
-	
-	
-	
+
+
+
+
 		$('.add_lesson_btn').on('click', function () {
 			var clone_lesson_div_html	=	$('.clone_lesson_div').html();
-			$('.lesson_block .c-curriculum').first().after(clone_lesson_div_html);			
+			$('.lesson_block .c-curriculum').first().after(clone_lesson_div_html);
 			return false;
 		});
-		
+
 		$(document).on('click', '.add_topic_btn', function () {
 			add_topic_func($(this));
 			return false;
-		});	
-		
+		});
+
 		function add_topic_func(this_div){
 			var clone_topic_div_html	=	$('.clone_topic_div').html();
 			var current_inc	=	this_div.parents('.c-curriculum').find('.sec-list li');
 			current_inc.last().after(clone_topic_div_html);
 			return false;
 		}
-	
+
 	/* clone_lesson_div */
 	/* add course end hari */
-	
-	
+
+		$('.question_block_add').on('click',function(){
+
+
+	        var add_quiz_block_clone = $('.add_quiz_block_clone');
+
+	        $('.add_quiz_block_list').append(add_quiz_block_clone.html());
+
+	        $('.add_quiz_block_list .add_quiz_block').each(function(index){
+	        	$('.question_text', this).text('Question '+( index + 1));
+	        })
+	    });
+
+
+	    $(document).on('click', '.question_delete_btn', function () {
+	    	question_delete_func($(this));
+	    	$('.add_quiz_block_list .add_quiz_block').each(function(index){
+	        	$('.question_text', this).text('Question '+( index + 1));
+	        })
+			return false;
+		});
+
+		function question_delete_func(this_div){
+			this_div.parents('.add_quiz_block').remove();
+			return false;
+		}
+
+
+
+
+
 
 })(this.jQuery);
 
@@ -353,8 +389,8 @@
 
 		return $el;
 	};
-	
-	
+
+
 
 	/**
 	 * Removes the element. Opposite of render().
@@ -446,5 +482,9 @@
 		return barCSS;
 	}
 
+
+
+
 	return NProgress;
+
 });

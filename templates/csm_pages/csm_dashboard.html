@@ -26,6 +26,7 @@ CSM Page
                 <ul class="mt-0">
                     <li><a href="{% url 'csmDashboard' %}"><i class="uil-home-alt"></i> <span> Dashboard</span></a> </li>
                     <li><a href="{% url 'createcourse' %}"><i class="uil-youtube-alt"></i> <span>Add Course</span></a> </li>
+                    <li><a href="{% url 'createcourse' %}"><i class="uil-youtube-alt"></i> <span>Add Course</span></a> </li>
                     <li><a href="#"><i class="uil-envelope-alt"></i> <span> Message</span></a> </li>
 
                 </ul>
@@ -84,7 +85,7 @@ CSM Page
                                         <th>Course Id </th>
                                         <th>Course Name</th>
                                         <th>Category</th>
-                                        <th>Course Created</th>
+{#                                        <th>Course Created</th>#}
                                         <th></th>
                                         <th></th>
                                         <th></th>
@@ -99,12 +100,12 @@ CSM Page
                                         <td>C_ID{{course.id}}</td>
                                         <td>{{course.title}}</td>
                                         <td>{{course.category}}</td>
-                                        <td>{{course.created}}</td>
+{#                                        <td>{{course.created}}</td>#}
                                         <td><a class="uk-button-dark btn btn-dark" href="{% url 'csmEditCourse' course.id %}" type="button" name="Remove">Edit</a></td>
 
                                         <td><a class="uk-button-success btn btn-success" href="{% url 'csmAddCurriculam' course.pk %}">Add Curriculum</a></td>
 {#                                        <td><button class="uk-button-red btn btn-alert" type="button" name="Remove">Add Quiz</button></td>#}
-
+{#                                         <td><a class="uk-button-success btn btn-success" href="{% url 'csmAddQuiz' course.pk %}">Add Quizz</a></td>#}
                                         <td><button class="uk-button-danger btn btn-alert" type="button"  uk-toggle="target: #modal-example">Delete</button></td>
                                             <!-- <i class="icon-feather-delete"></i> -->
                                             <i class="icon-line-awesome-close" style="color: white"></i></a></td>

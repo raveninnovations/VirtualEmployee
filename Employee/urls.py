@@ -39,9 +39,11 @@ urlpatterns = [
     # CSM Section
     path('csmdashboard/',views.csmDashboard,name='csmDashboard'),
     path('csmaddcourse/',views.csmAddCourse,name='csmAddCourse'),
+    path('csmaddquiz/<int:id>',views.csmAddQuiz,name='csmAddQuiz'),
+    path('csmdeletequestion/<int:del_id>/<int:quizz_id>',views.csmDeleteQuizz,name='deleteQuestion'),
     path('csmeditcourse/<int:id>',views.csmEditCourse,name='csmEditCourse'),
     path('csm-addcurriculam/<int:id>',views.csmAddCurriculam,name='csmAddCurriculam'),
-    path('csm-editlesson/<int:id>', views.csmEditLesson,name='csmEditLesson'),
+    path('csm-editweek/<int:id>', views.csmEditWeek,name='csmEditweek'),
     path('csmsettings/',views.csmSettings,name='csmSettings'),
     # TL Section
     path('tldashboard/',views.tlDashboard,name='tlDashboard'),

@@ -63,18 +63,18 @@ Add curriculum
                     </ul>
                     <form method="POST"  enctype="multipart/form-data">{% csrf_token %}
                     <div class="card-body">
-                        <h2 >Create Lesson</h2>
+                        <h2 >Create Week (Title)</h2>
                         <ul class="uk-switcher uk-margin" id="course-edit-tab">
 
 
                                   <div class="uk-margin">
                                         <div class="uk-inline d-flex">
                                         <div id="mt-1" style="width: 600px">
-                                            <input class="uk-input bg-secondary" name="lesson" type="text" placeholder="Enter lesson" required>
+                                            <input class="uk-input bg-secondary" name="week" type="text" placeholder="Enter week" required>
                                         </div>
                                              &nbsp;&nbsp;&nbsp;
                                         <div id="mt-1">
-                                            <button class="btn btn-default"  style="width: 267px;height: 44px;" name="create">Add Lesson</button>
+                                            <button class="btn btn-default"  style="width: 267px;height: 44px;" name="create">Create Week</button>
                                         </div>
                                         </div>
 
@@ -97,7 +97,7 @@ Add curriculum
 
 
                                   <div class="col-md-8 my-suto">
-                                      <legend class="uk-legend">List of Lessons</legend>
+                                      <legend class="uk-legend">Syllabus</legend>
                                   </div>
 
                                 <hr style="width:70% mx-auto mt-0">
@@ -105,29 +105,30 @@ Add curriculum
                                 <table class="uk-table uk-table-divider" >
                                   <thead>
                                       <tr>
-                                          <th>Lesson Id </th>
-                                          <th>Lesson Name</th>
-                                          <th>Course Name</th>
+                                          <th>week Id </th>
+                                          <th>Weeks</th>
+                                          <th>Unit Name</th>
                                           <th></th>
                                       </tr>
                                   </thead>
                                   <tbody>
-                                    {% if lessons %}
+                                    {% if weeks %}
 
-                                      {% for lesson in lessons %}
-                                          {% if course_title == lesson.lesson_id.title %}
+                                      {% for week in weeks %}
+                                          {% if course_title == week.week_id.title %}
                                       <tr>
-                                          <td>{{lesson.lesson_private}}</td>
-                                          <td>{{lesson.lesson_name}}</td>
-                                          <td>{{lesson.lesson_id.title}}</td>
+                                          <td>{{week.week_private}}</td>
+                                          <td>{{week.week_name}}</td>
+                                          <td>{{week.week_id.title}}</td>
 
                                           <!-- <td><button class="uk-button-danger btn btn-alert" type="button" name="Remove" >Remove</button></td> -->
 
-                                          <td><button class="uk-button-success btn btn-success" type="submit" uk-toggle="target: #modal-example" name="remove">Add Topic</button></td>
-                                          <td><a class="uk-button-dark btn btn-dark" href="{% url 'csmEditLesson' lesson.pk %}" >View/Edit</a></td>
+                                          <td><button class="uk-button-success btn btn-success" type="submit" uk-toggle="target: #modal-example" name="remove">Add Unit</button></td>
+                                            <td><a class="uk-button-primary btn btn-primary" type="submit" name="addquiz" href="{% url 'csmAddQuiz' c_id %}">Quiz</a></td>
+                                          <td><a class="uk-button-dark btn btn-dark" href="{% url 'csmEditweek' week.pk %}" >View/Edit</a></td>
 
-                                          <form method="post" onSubmit="return confirm('Delete lesson will delete all topics ! Continue ?') ">{% csrf_token %}
-                                              <input type="hidden" value="{{ lesson.pk }}" name="l_id">
+                                          <form method="post" onSubmit="return confirm('Delete week will delete all topics ! Continue ?') ">{% csrf_token %}
+                                              <input type="hidden" value="{{ week.pk }}" name="l_id">
                                           <td><button class="uk-button-danger btn btn-alert" type="submit" name="del">
                                               <!--     <i class="icon-feather-delete"></i> -->
                                             <i class="icon-line-awesome-close" style="color: white"></i></button></td>
@@ -138,25 +139,30 @@ Add curriculum
                                               <form name="removeentry" method="POST" enctype="multipart/form-data">
                                                 {% csrf_token %}
 
-                                                <h2 class="uk-modal-title">Add Topic to Lesson</h2>
+                                                <h2 class="uk-modal-title">Week Unit</h2>
 
                                                 <p class="uk-text-right">
                                                   <!-- The below hidden input tag is to pass the particular role_user_id that i want to delete -->
-                                                  <p>Upload video</p>
+                                                  <p>Upload videos</p>
 {#                                                    <input type="file" name="topic_video" class="alert-dark" required>#}
-                                                  <input type="file" name="topic_video" class="alert-dark" required>
+                                                  <input type="file" name="unit_video1" class="alert-dark" required>
+                                                  <input type="file" name="unit_video2" class="alert-dark" >
+                                                  <input type="file" name="unit_video3" class="alert-dark" >
                                                   <p>Add description</p>
                                                     <div id="mt-1" style="width: 762px">
-                                                     <input class="uk-input bg-secondary" name="topic_descrip" type="text" placeholder="Enter Description" required>
+                                                     <input class="uk-input bg-secondary" name="unit_caption" type="text" placeholder="Enter Caption" required>
                                                     </div>
-                                                  <p>Confirm your unique lesson id</p>
-                                                    <input type="text" name="les_id" required>
+                                                  <p>Confirm your unique week id</p>
+                                                    <input type="text" name="wek_id" required>
                                                     <button class="uk-button uk-button-default uk-modal-close" type="button" >Cancel</button>
-                                                    <button class="uk-button uk-button-primary" name="addTopic" type="Submit">Submit</button>
+                                                    <button class="uk-button uk-button-primary" name="addWeekUnit" type="Submit">Submit</button>
                                                 </p>
                                               </form>
                                             </div>
                                         </div>
+
+
+
 
 
                                       </tr>

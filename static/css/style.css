@@ -842,9 +842,9 @@ input[type="email"],
 input[type="number"],
 textarea,
 select {
-  height: 46px;
-  line-height: 45px;
-  padding: 0px 17px;
+   height: 46px;
+  line-height: 21px;
+  padding: 8px 17px;
   outline: none;
   font-size: 14px;
   color: #808080;
@@ -4786,12 +4786,12 @@ ul.course-curriculum-list {
 }
 
 .course-sidebar-title {
-  background: #f8fbff;
-  width: 100%;
-  padding: 0px 15px;
-  display: flex;
-  align-items: center;
-  height: 65px;
+  background: #07192b;
+    width: 100%;
+    padding: 0px 9px;
+    display: flex;
+    align-items: center;
+    height: 39px;
 }
 
 .course-sidebar-title h3 {
@@ -4925,11 +4925,12 @@ ul.course-video-list {
 }
 
 .course-video-list-section .uk-accordion-title {
-  padding: 17px 20px;
-  font-size: 15px;
-  font-weight: 600;
-  color: rgba(0, 0, 0, 0.54);
-  border-bottom: 1px solid #efefef;
+    padding: 8px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.54);
+    border-bottom: 1px solid #efefef;
+        background: #1f56a5;
 }
 
 .course-video-list-section .uk-open .uk-accordion-title {
@@ -4942,7 +4943,7 @@ ul.course-video-list {
   font-family: "Feather-Icons";
   content: "\e92e";
   background-image: none !important;
-  color: rgba(0, 0, 0, 0.54);
+  color: #fff;
   margin-left: 0;
 }
 
@@ -11343,3 +11344,74 @@ transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !import
   border-radius: 0.25rem !important;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
   }
+
+.question_text{
+  color: #6e00ff;
+    font-weight: bold;
+}
+
+.question_delete_btn{
+    float: right;
+    margin-bottom: 6px !important;
+}
+.question_block .answer_radio{
+  display: inline;
+}
+.question_block .answer_text{
+  display: inline;
+  width: 96%;
+  margin-bottom: 0;
+}
+.question_block .list-group-item {
+
+    padding: 12px 11px;
+}
+.quiz_heading_block{
+  float: left;
+}
+.quiz_save_btn_block{
+  position: fixed;
+    right: 21px;
+    z-index: 99;
+    top: 89px;
+}
+.display_none{
+  display: none;
+  display: none !important;
+}
+
+.lesson_checkbox{
+     height: 20px;
+    width: auto;
+    margin: 0;
+
+    vertical-align: middle;
+}
+.lesson_video_submit{
+  padding: 0 !important;
+  margin: 0;
+  height: 30px;
+}
+
+
+.course-video-list-section .locked_course  .uk-accordion-title::before {
+    content: '\e987';
+}
+
+.course_tab_button {
+    float: right;
+    /* text-align: revert; */
+    margin-left: auto;
+    margin-right: 10px;
+    padding: 0 10px;
+    /* margin: 0; */
+    color: #fff !important;
+    border-radius: 0 !important;
+    line-height: 20px !important;
+}
+.course_tab_text {
+    float: right;
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 10px;
+}
