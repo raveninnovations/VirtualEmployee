@@ -7,14 +7,14 @@
 
         <!-- overlay seach on mobile-->
         <div class="nav-overlay uk-navbar-left uk-position-relative uk-flex-1 bg-grey uk-light p-2" hidden
-            style="z-index: 10000;">
+             style="z-index: 10000;">
             <div class="uk-navbar-item uk-width-expand" style="min-height: 60px;">
                 <form class="uk-search uk-search-navbar uk-width-1-1">
                     <input class="uk-search-input" type="search" placeholder="Search..." autofocus>
                 </form>
             </div>
             <a class="uk-navbar-toggle" uk-close uk-toggle="target: .nav-overlay; animation: uk-animation-fade"
-                href="#"></a>
+               href="#"></a>
         </div>
 
         <!-- search overlay-->
@@ -26,7 +26,7 @@
                 <div class="search-input-container">
                     <div class="search-input-control">
                         <span class="icon-feather-x btn-close uk-animation-scale-up"
-                            uk-toggle="target: #searchbox; cls: is-active"></span>
+                              uk-toggle="target: #searchbox; cls: is-active"></span>
                         <div class=" uk-animation-slide-bottom">
                             <input type="text" name="search" autofocus required>
                             <p class="search-help">Type the name of the Course and book you are looking for</p>
@@ -43,122 +43,74 @@
         <!-- content -->
         <div class="page-content">
 
-             <!-- Header Container
-        ================================================== -->
-        {% include 'partials/user_partials/_header.html' %}
-        <br>
+            <!-- Header Container
+       ================================================== -->
+            {% include 'partials/user_partials/_header.html' %}
+            <br>
             <div class="page-content-inner">
 
                 <h3 class="mb-0 mt-5 ">Choose Your Carrer Path</h3>
-
-
                 <div uk-grid>
-
                     <div class="uk-width-2-5@m uk-flex-first uk-width-expand">
                         {% include 'partials/_alerts.html' %}
-                       <div class="uk-card-default rounded  mt-4">
-                         <div class="p-3">
-                             <h4 class="mb-0"> Basic info </h4>
-                         </div>
-                         <hr class="m-0">
+                        <div class="uk-card-default rounded  mt-4">
+                            <div class="p-3">
+                                <h4 class="mb-0"> Basic info </h4>
+                            </div>
+                            <hr class="m-0">
 
-
-                          <!-- <h3 class="text-center">Choose Your Career Path</h3> -->
-
+                            <!-- <h3 class="text-center">Choose Your Career Path</h3> -->
                             <div class="uk-position-relative px-4 my-4">
 
+                                <div class="uk-child-width-1-2@s uk-grid-small mb-4" uk-grid>
+                                    <form name="first-category" method="POST">{% csrf_token %}
+                                        <div>
+                                            <select class="px-auto py-1" name="first-category" required
+                                                    onchange="submit()">
+                                                <option selected disabled> Choose Category</option>
+                                                {% for i in career_list %}
 
+                                                    <option value="{{ i.pk }}">{{ i.category }}</option>
 
-
-                              <h6>First Choice</h6>
-                              <div class="uk-child-width-1-2@s uk-grid-small mb-4" uk-grid>
-                                  <form name="first-category" method="POST">{% csrf_token %}
-                                      <div>
-                                        <select class="px-auto py-1"name="first-category" required onchange="submit()">
-                                            <option selected disabled> Choose Category</option>
-                                                {% for i in cag_list %}
-                                                  {% if i.category == obj.first_choice_category %}
-                                                  <option value="{{i.category}}" selected> {{i.category}} </option>
-                                                  {% else %}
-                                                  <option value="{{i.category}}"> {{i.category}} </option>
-                                                  {% endif %}
                                                 {% endfor %}
-                                        </select>
-                                      </div>
-                                  </form>
+                                            </select>
+                                        </div>
+                                    </form>
                                     <form name="first-cfp-role" method="POST">{% csrf_token %}
-                                    <input type="text" name="con_cag" value="{{obj.first_choice_category}}" readonly required hidden>
-                                      <div>
-                                        <select name="first-role" onchange="submit()" required>
-                                            <option value="" selected disabled>Select role</option>
-                                                {% for i in role_list_one %}
-                                                  {% if i.cfp_role == obj.first_choice_role %}
-                                                  <option value="{{i.cfp_role}}" selected>{{i.cfp_role}}</option>
-                                                  {% else %}
-                                                  <option value="{{i.cfp_role}}">{{i.cfp_role}}</option>
-                                                  {% endif %}
+                                        <input type="text" name="con_cag" value="{{ obj.first_choice_category }}"
+                                               readonly required hidden>
+                                        <div>
+                                            <select name="first-sub" onchange="submit()" required>
+                                                <option value="" selected disabled>Sub category</option>
+                                                {% for i in sub_cats %}
+                                                        <option value="{{ i.sub_category }}">{{ i.sub_category }}</option>
                                                 {% endfor %}
-                                        </select>
-                                      </div>
+                                            </select>
+                                        </div>
                                     </form>
                                 </div>
-
-
-                                <hr class="uk-divider-icon">
-
-                                <h6>Second Choice</h6>
-                                <div class="uk-child-width-1-2@s uk-grid-small mb-4" uk-grid>
-                                <form name="second-course-cag" method="POST">
-                                        {% csrf_token %}
-                                    <div>
-
-
-                                      <select class="px-auto py-1" name="second-category" required onchange="submit()" >
-                                          <option selected disabled> Choose </option>
-                                                  {% for i in cag_list %}
-                                                    {% if i.category == obj.second_choice_category %}
-                                                    <option value="{{i.category}}" selected> {{i.category}} </option>
-                                                    {% else %}
-                                                    <option value="{{i.category}}"> {{i.category}} </option>
-                                                    {% endif %}
-                                                  {% endfor %}
-                                      </select>
-                                    </div>
-
-                                </form>
-
-                                <form name="second-cfp-role" method="POST">{% csrf_token %}
-                                    <input type="text" name="con_cag" value="{{obj.second_choice_category}}" readonly required hidden >
-                                    <div>
-                                      <select name="second-role" onchange="submit()" required>
-                                          <option value="" selected disabled>Select role</option>
-                                                  {% for i in role_list_two %}
-                                                    {% if i.cfp_role == obj.second_choice_role %}
-                                                    <option value="{{i.cfp_role}}" selected>{{i.cfp_role}}</option>
-                                                    {% else %}
-                                                    <option value="{{i.cfp_role}}">{{i.cfp_role}}</option>
-                                                    {% endif %}
-                                                  {% endfor %}
-                                      </select>
-                                    </div>
+                                <div class="container">
+                                <form method="post">{% csrf_token %}
+                                    <select name="course" onchange="submit()" required>
+                                        <option value="" selected disabled>Select course</option>
+                                        {% for i in s_courses %}
+                                                <option value="{{ i.cfp }}">{{ i.cfp }}</option>
+                                        {% endfor %}
+                                    </select>
                                 </form>
                                 </div>
-
                                 <hr class="uk-divider-icon">
+                            <a class=" btn btn-default text-white text-center"
+                               type="button" uk-toggle="target: #modal-close-default"  style="width: 100px;margin-left: 363px">Submit</a>
                             </div>
+
 
                         </div>
 
-
-
-
-
                     </div>
 
-                      <!-- SECOND CHOICE  ENDS-->
                     <div class="uk-width-expand@m">
-
-                        <legend class="uk-legend my-4 text-center">Confirm Your Choice </legend>
+                        <legend class="uk-legend my-4 text-center">Confirm Your Choice</legend>
                         <div class=" container pt-3 px-5  uk-width-expand">
                             <h5>First Choice</h5>
                             <div class="form-group row mb-3">
@@ -166,124 +118,82 @@
                                         class="required">*</span></label>
 
                                 <div class="col-md-9">
-                                    <input type="text" name="confirm_first_category" value="{{obj.first_choice_category}}" required readonly>
+                                    <input type="text" name="confirm_first_category"
+                                           value="{{ obj.first_choice_category }}" required readonly>
                                 </div>
                             </div>
-
-                            <div class="form-group row mb-3">
-                                <label class="col-md-3 col-form-label">  Role<span
-                                        class="required">*</span></label>
-
-                                <div class="col-md-9">
-                                    <input type="text" name="confirm_first_role" value="{{obj.first_choice_role}}" required readonly>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class=" container pt-3 px-5  uk-width-expand">
-                            <h5>Second Choice</h5>
-                            <div class="form-group row mb-3">
-                                <label class="col-md-3 col-form-label"> Category<span
-                                        class="required">*</span></label>
-
-                                <div class="col-md-9">
-                                    <input type="text" name="confirm_second_category" value="{{obj.second_choice_category}}" required readonly>
-                                </div>
-                            </div>
-
                             <div class="form-group row mb-3">
                                 <label class="col-md-3 col-form-label"> Role<span
                                         class="required">*</span></label>
 
                                 <div class="col-md-9">
-                                    <input type="text" name="confirm_second_role" value="{{obj.second_choice_role}}" required readonly>
+                                    <input type="text" name="confirm_first_role" value="{{ obj.first_choice_role }}"
+                                           required readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+
+
+
+                            <!-- This is the modal with the default close button -->
+                            <div id="modal-close-default" uk-modal>
+                                <div class="uk-modal-dialog uk-modal-body pb-2 pt-3 rounded">
+                                    <button class="uk-modal-close-default" type="button" uk-close></button>
+                                    <h2 class="uk-modal-title">Are you sure you want to submit this?</h2>
+                                    <form name="confirm-course" method="POST">
+                                        {% csrf_token %}
+                                        <div class=" container pt-0 px-4  uk-width-expand">
+
+                                            <h4 class="text-center">First Choice</h4>
+                                            <div class="form-group row mb-0">
+                                                <label class="col-md-3 col-form-label">Category<span
+                                                        class="required">*</span></label>
+
+                                                <div class="col-md-9">
+                                                    <input type="text" name="confirm_first_category"
+                                                           value="{{ c_data.cat_id.category }}" required readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row mb-0">
+                                                <label class="col-md-3 col-form-label"> Subcategory<span
+                                                        class="required">*</span></label>
+
+                                                <div class="col-md-9">
+                                                    <input type="text" name="confirm_first_role"
+                                                           value="{{ c_data.sub_id.sub_category }}" required readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-0">
+                                                <label class="col-md-3 col-form-label"> CFP<span
+                                                        class="required">*</span></label>
+
+                                                <div class="col-md-9">
+                                                    <input type="text" name="confirm_first_cfp"
+                                                           value="{{ c_data.cfp}}" required readonly>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="text-center">
+                                            <button type="submit" class=" form-group px-5 btn btn-default"
+                                                    name="confirm_submit">Confirm
+                                            </button>
+                                        </div>
+
+                                    </form>
                                 </div>
                             </div>
 
                         </div>
 
-<!--
-                        <div class="text-center">
-                            <button type="submit" class=" form-group px-5 btn btn-default" name="confirm_submit">Confirm</button>
-                        </div> -->
-
-
-
-
-                    <div class="text-center">
-
-                        <a class="uk-button btn btn-default uk-margin-small-right text-white text-center" type="button" uk-toggle="target: #modal-close-default">Submit</a>
-
-                          <!-- This is the modal with the default close button -->
-                          <div id="modal-close-default" uk-modal>
-                              <div class="uk-modal-dialog uk-modal-body pb-2 pt-3 rounded">
-                                  <button class="uk-modal-close-default" type="button" uk-close></button>
-                                  <h2 class="uk-modal-title">Are you sure you want to submit this?</h2>
-                                  <form name="confirm-course" method="POST">
-                                       {% csrf_token %}
-                                  <div class=" container pt-0 px-4  uk-width-expand">
-
-                                      <h4 class="text-center">First Choice</h4>
-                                      <div class="form-group row mb-0">
-                                          <label class="col-md-3 col-form-label">Category<span
-                                                  class="required">*</span></label>
-
-                                          <div class="col-md-9">
-                                              <input type="text" name="confirm_first_category" value="{{obj.first_choice_category}}" required readonly>
-                                          </div>
-                                      </div>
-
-                                      <div class="form-group row mb-0">
-                                          <label class="col-md-3 col-form-label">  Role<span
-                                                  class="required">*</span></label>
-
-                                          <div class="col-md-9">
-                                              <input type="text" name="confirm_first_role" value="{{obj.first_choice_role}}" required readonly>
-                                          </div>
-                                      </div>
-
-                                  </div>
-
-                                  <div class=" container pt-0 px-4  uk-width-expand">
-                                      <h4 class="text-center">Second Choice</h4>
-                                      <div class="form-group row mb-0">
-                                          <label class="col-md-3 col-form-label"> Category<span
-                                                  class="required">*</span></label>
-
-                                          <div class="col-md-9">
-                                              <input type="text" name="confirm_second_category" value="{{obj.second_choice_category}}" required readonly>
-                                          </div>
-                                      </div>
-
-                                      <div class="form-group row mb-0">
-                                          <label class="col-md-3 col-form-label"> Role<span
-                                                  class="required">*</span></label>
-
-                                          <div class="col-md-9">
-                                              <input type="text" name="confirm_second_role" value="{{obj.second_choice_role}}" required readonly>
-                                          </div>
-                                      </div>
-
-                                  </div>
-                                  <div class="text-center">
-                                      <button type="submit" class=" form-group px-5 btn btn-default" name="confirm_submit">Confirm</button>
-                                  </div>
-
-                                </form>
-                              </div>
-                          </div>
-
-                        </div>
-
-
-
-
 
                     </div>
 
                 </div>
-
 
 
                 <!-- footer

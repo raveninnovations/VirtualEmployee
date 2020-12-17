@@ -57,10 +57,11 @@ CFP Creation
                     </div>
 
 
-                    <div class="uk-width-expand my-5">
+                    {% if not i %}
+                  <div class="uk-width-expand my-5">
                         <div class="card rounded">
                           <div class=" py-2 px-4">
-                              <h4 class="mb-0"> Create CFP </h4>
+                              <h4 class="mb-0"> Create Sub category </h4>
 
                           </div>
                           <hr class="m-0">
@@ -82,50 +83,76 @@ CFP Creation
                                     </div>
 
                                     <div class="uk-margin">
-                                        <input class="uk-input bg-secondary" name="cfp_role" type="text" placeholder="CFP Role Here" required>
+                                        <input  name="sub" type="text" class="uk-input bg-secondary" placeholder="CFP sub category" required>
                                     </div>
 
 
-                                        <div class="uk-width-expand my-3">
 
-                                                <a class="btn btn-default text-white  mb-3" type="button" id="addSkillRow" onclick="addSkillRow()"><i
-                                                        class='uil-plus'></i>Add </a>
-                                                <a class="btn btn-default text-white  mb-3" type="button" id="delSkillRow" onclick="delSkillRow()"><i
-                                                        class='uil-times'></i>Delete </a>
+                                    <div class="text-center">
+                                      <button class="btn btn-default" name="sub_category" onclick="Skillsubmit()">Create</button>
+                                    </div>
 
+                                </fieldset>
+                            </form>
+                            </div>
+                        </div>
 
+                    </div>
+                  {% endif %}
 
-                                                <table id="SkillsTable" class="uk-width-expand">
-                                                  <thead>
-                                                    <tr>
-                                                      <td><input type='text' class='uk-input1'
-                                                          placeholder="Add Course Tag"></td>
-                                                    </tr>
-                                                  </thead>
-                                                </table>
+                   <div class="uk-width-expand my-5">
+                        <div class="card rounded">
+                          <div class=" py-2 px-4">
+                              <h4 class="mb-0"> Create CFP </h4>
 
-                                                <input type="hidden" name="cfp_course" id="sout"  value='Output:'>
+                          </div>
+                          <hr class="m-0">
+                          <div class=" container mt-2 py-3 px-5 uk-width-expand">
+                            <form name="cfpcreate" method="POST">
+                              {% csrf_token %}
+                                <fieldset class="uk-fieldset">
 
-                                        </div>
+                                    <!-- <legend class="uk-legend mt-4 text-center">Create CFP</legend> -->
 
+                                {% if not i %}
+                                    <div class="uk-margin uk-width-1-2">
+                                        <select name="career_cat" class="uk-select" required onchange="this.form.submit()">
+                                            <option disabled selected value>Choose Career Category</option>
+                                            {% for cag in category_list %}
+                                            <option value="{{cag.category}}">{{cag.category}}</option>
+                                            {% endfor %}
+                                        </select>
 
+                                    </div>
+                                {% else %}
+                                <p>Category : {{ category }}</p>
+                                    <input type="text" name="category" value="{{ category }}" hidden>
+                                {% endif %}
+
+                                <div class="uk-margin uk-width-1-2">
+                                        <select name="cfp_cat" class="uk-select" required>
+                                            <option disabled selected value>Choose Sub category</option>
+                                            {% for data in sub %}
+
+                                            <option value="{{data.sub_category}}">{{data.sub_category}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <input class="uk-input bg-secondary" name="cfp_role" type="text" placeholder="Create CFP" required>
+                                    </div>
                                     <div class="text-center">
                                       <button class="btn btn-default" name="cfp_submit" onclick="Skillsubmit()">Create</button>
                                     </div>
 
                                 </fieldset>
                             </form>
-                            <div class="my-2">
-                              <h4>Note:</h4>
-                              <ul>
-                                <li>If you want to delete the last course tag or cells click on "Delete" button</li>
-                                <li>If you want to delete the course tag that is placed in between other course tag leave that cell empty</li>
-                              </ul>
-                            </div>
-
                             </div>
                         </div>
+
                     </div>
+
                   </div>
 
 
@@ -227,7 +254,7 @@ CFP Creation
                                       <tr>
                                         <td>{{item.cfp_id}}</td>
                                         <td>{{item.cfp_role}}</td>
-                                        <td><a href="{% url 'cfpEdit' item.cfp_id %}" class="btn btn-default">View/Edit</a></td>
+                                        <td><a href="{% url 'cfpEdit' 2 %}" class="btn btn-default">View/Edit</a></td>
                                       </tr>
 
                                       {% endfor %}

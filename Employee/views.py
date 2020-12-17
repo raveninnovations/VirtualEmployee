@@ -29,10 +29,10 @@ from django.core.mail import send_mail, EmailMessage
 from datetime import datetime
 from .forms import (AddUserForm)
 
-from .models import UserDetails, RoleDetail, Course, Week, Week_Unit, CareerCategory, CFP_role, ProjectManager, \
+from .models import UserDetails, RoleDetail, Course, Week, Week_Unit, CareerCategory, SubCategory, ProjectManager, \
     AdminLicense, UserContact, UserEducation, CreateCourse, CareerChoice, StudentCFP, ProjectCFPStore, ProgressCourse, \
     UsedLicense, EnrolledProject, watched, Claim, CourseTag, ProjectPoint, UserWorkExperience, UserSkill, Certificate, \
-    Reference, BlogManager, BlogCategory, BlogHeight, MicroCategory, MicroCourse, Quizz
+    Reference, BlogManager, BlogCategory, BlogHeight, MicroCategory, MicroCourse, Quizz, CategoryCourse
 
 
 # Create your views here.
@@ -615,8 +615,8 @@ def userCourse(request, id):
         user = request.user
         course_details = Course.objects.get(id=id)
         print(course_details.pk)
-        lessons = Lesson.objects.filter(lesson_id_id=course_details.pk)
-        topics = Lesson_Topic.objects.all()
+        lessons = Week.objects.filter(week_id_id=course_details.pk)
+        topics = Week_Unit.objects.all()
         req_str = course_details.requirements
         req_list = req_str.split('_')
         learn_str = course_details.learnings
@@ -640,15 +640,15 @@ def userLesson(request, id):
         user = request.user
         user_details = UserDetails.objects.get(user_id_id=user.pk)
         course_details = Course.objects.get(id=id)
-        lessons = Lesson.objects.filter(lesson_id_id=course_details.pk)
-        topics = Lesson_Topic.objects.all()
+        lessons = Week.objects.filter(week_id_id=course_details.pk)
+        topics = Week_Unit.objects.all()
         saves = watched.objects.all()
         t_video = None
         if request.method == 'POST':
             if 'add' in request.POST:
                 total_topics = []
                 for i in lessons:
-                    topic = Lesson_Topic.objects.filter(topic_id_id=i.id)
+                    topic = Week_Unit.objects.filter(unit_id_id=i.id)
                     for j in topic:
                         print(j.id)
                         total_topics.append(j.id)
@@ -662,7 +662,7 @@ def userLesson(request, id):
 
             if 'video' in request.POST:
                 name = request.POST['video']
-                t_video = Lesson_Topic.objects.get(topic_caption=name)
+                t_video = Week_Unit.objects.get(unit_caption=name)
                 if not watched.objects.filter(video=t_video.pk, user_id=user_details.pk).exists():
                     save = watched(status="watched", video_id=t_video.pk, course_id=course_details.pk,
                                    user_id=user_details.pk)
@@ -1636,7 +1636,6 @@ def userchangepassword(request):
 @login_required
 def csmDashboard(request):
     if request.user.is_active and request.user.is_staff and not request.user.is_superuser:
-
         if request.method == 'POST':
             if 'courseDelete' in request.POST:
                 print("Delete Course")
@@ -1871,7 +1870,7 @@ def testEdit(request, id):
             confirm_role = request.POST['confirm_role']
             confirm_course = request.POST['confirm_course']
 
-            # check=CFP_role.objects.get(cfp_role=confirm_role)
+            # check=SubCategory.objects.get(SubCategory=confirm_role)
             # if check.cfp_category != confirm_cag:
             #     messages.error(request, 'The Category do not match with CFP Role')
             #     return redirect('/testEdit/')
@@ -1894,14 +1893,14 @@ def testEdit(request, id):
     cag_data = CareerCategory.objects.all()
     if CreateCourse.objects.count() != 0:
         obj = CreateCourse.objects.get(create_id=0)
-        role_list = CFP_role.objects.filter(cfp_category=obj.create_category)
+        role_list = SubCategory.objects.filter(cfp_category=obj.create_category)
         try:
             abc = CreateCourse.objects.get(create_id=0)
             role_text = abc.create_role
             role_split = role_text.split('+')
             abc = []
             for i in role_split:
-                course_text = CFP_role.objects.get(cfp_role=i)
+                course_text = SubCategory.objects.get(SubCategory=i)
                 course = course_text.cfp_course.split('_')
                 abc.append(course)
 
@@ -2207,7 +2206,7 @@ def tlSettings(request):
 def projectManager(request):
     if request.user.is_active and request.user.is_superuser and not request.user.is_staff:
 
-        cfp_list = CFP_role.objects.all()
+        cfp_list = SubCategory.objects.all()
         user = request.user
         if request.method == 'POST':
             if 'category' in request.POST:
@@ -2272,7 +2271,7 @@ def projectManager(request):
         cag_data = CareerCategory.objects.all()
         if ProjectCFPStore.objects.count() != 0:
             obj = ProjectCFPStore.objects.get(create_id=0)
-            role_list = CFP_role.objects.filter(cfp_category=obj.create_category)
+            role_list = SubCategory.objects.filter(cfp_category=obj.create_category)
             ch = obj.create_role
             if ch == None:
                 cfp_list = []
@@ -2303,7 +2302,7 @@ def projectEditManager(request, id):
         pid = id
         project = ProjectManager.objects.get(id=pid)
         check = ProjectCFPStore.objects.all().count
-        cfp_list = CFP_role.objects.all()
+        cfp_list = SubCategory.objects.all()
         tls = RoleDetail.objects.filter(user_role="TL")
         if request.method == 'POST':
             if 'tl' in request.POST:
@@ -2377,7 +2376,7 @@ def projectEditManager(request, id):
         cag_data = CareerCategory.objects.all()
         if ProjectCFPStore.objects.count() != 0:
             obj = ProjectCFPStore.objects.get(create_id=0)
-            role_list = CFP_role.objects.filter(cfp_category=obj.create_category)
+            role_list = SubCategory.objects.filter(cfp_category=obj.create_category)
             ch = obj.create_role
             if ch == None:
                 cfp_list = []
@@ -2489,7 +2488,11 @@ def insCourseInfo(request, id):
 
 @login_required
 def cfp_create(request):
+    i=None
+    sub = None
+    category = None
     if request.method == 'POST':
+
         if 'category_submit' in request.POST:
             cag_name = request.POST['cagname']
 
@@ -2512,22 +2515,39 @@ def cfp_create(request):
             category_id = CareerCategory.objects.all().count() + 1
             cag_obj = CareerCategory(category_id=category_id, category=cag_name)
             cag_obj.save()
+            messages.success(request,'Category created')
 
             return redirect('cfp_create')
+
+        if 'sub_category' in request.POST:
+            category = request.POST['cfp_cag']
+            sub_category = request.POST['sub']
+            data = CareerCategory.objects.get(category=category)
+            print(sub_category)
+            cfp_obj = SubCategory(cat_id_id=data.pk, sub_category=sub_category)
+            cfp_obj.save()
+            messages.success(request, "Sub category created")
+            return redirect('cfp_create')
+        if 'career_cat' in request.POST:
+            category = request.POST['career_cat']
+            i = 1
+            career = CareerCategory.objects.get(category=category)
+            sub = SubCategory.objects.filter(cat_id_id=career.pk)
 
         if 'cfp_submit' in request.POST:
-            cfp_category = request.POST['cfp_cag']
+            cat = request.POST['category']
+            sub_cat = request.POST['cfp_cat']
             cfp_role = request.POST['cfp_role']
-            cfp_course = request.POST['cfp_course']
+            data1 = CareerCategory.objects.get(category=cat)
+            data = SubCategory.objects.get(sub_category=sub_cat)
+            cfp = CategoryCourse(cat_id_id=data1.pk,sub_id_id=data.pk,cfp=cfp_role)
+            cfp.save()
+            messages.success(request,
+                             'Course cfp created')
 
-            cfp_id = CFP_role.objects.all().count() + 1
-            cfp_obj = CFP_role(cfp_id=cfp_id, cfp_category=cfp_category, cfp_role=cfp_role, cfp_course=cfp_course)
-            cfp_obj.save()
-            messages.success(request, "Added to CFP")
-            return redirect('cfp_create')
         if 'sortlist' in request.POST:
             cfp_category = request.POST['sortlist']
-            roles = CFP_role.objects.filter(cfp_category=cfp_category)
+            roles = SubCategory.objects.filter(sub_category=cfp_category)
             category_list = CareerCategory.objects.all()
             context = {
                 'category_list': category_list,
@@ -2537,11 +2557,15 @@ def cfp_create(request):
 
     category_list = CareerCategory.objects.all()
 
-    cfp_list = CFP_role.objects.order_by("-cfp_create_date")
+    cfp_list =SubCategory.objects.all()
+
 
     context = {
         'category_list': category_list,
         'cfp_list': cfp_list,
+        'i':i,
+        'sub':sub,
+        'category':category,
     }
 
     return render(request, 'Admin_pages/cfp_create.html', context)
@@ -2551,17 +2575,17 @@ def cfp_create(request):
 def cfp_edit(request, id):
     cfp_id = id
 
-    datas = CFP_role.objects.get(cfp_id=cfp_id)
+    datas = SubCategory.objects.get(cfp_id=cfp_id)
 
     if request.method == "POST":
         if 'cfp_submit' in request.POST:
             cfp_category = request.POST['cfp_cag']
-            cfp_role = request.POST['cfp_role']
+            SubCategory = request.POST['SubCategory']
             cfp_course = request.POST['cfp_course']
 
-            datas = CFP_role.objects.get(cfp_id=cfp_id)
+            datas = SubCategory.objects.get(cfp_id=cfp_id)
             datas.cfp_category = cfp_category
-            datas.cfp_role = cfp_role
+            datas.SubCategory = SubCategory
             datas.cfp_course = cfp_course
             datas.save()
 
@@ -2569,7 +2593,7 @@ def cfp_edit(request, id):
 
         if 'cfp_delete' in request.POST:
             delete_id = request.POST['delete_id']
-            obj = CFP_role.objects.filter(cfp_id=delete_id)
+            obj = SubCategory.objects.filter(cfp_id=delete_id)
             obj.delete()
 
             return redirect('cfp_create')
@@ -2602,7 +2626,7 @@ def category_edit(request, id):
             datas.category = category
             datas.save()
 
-            CFP_role.objects.filter(cfp_category=name).update(cfp_category=category)
+            SubCategory.objects.filter(cfp_category=name).update(cfp_category=category)
             return redirect('cfp_create')
 
     context = {
@@ -2651,7 +2675,7 @@ def createcourse(request):
             confirm_role = request.POST['confirm_role']
             confirm_course = request.POST['confirm_course']
 
-            # check=CFP_role.objects.get(cfp_role=confirm_role)
+            # check=SubCategory.objects.get(SubCategory=confirm_role)
             # if check.cfp_category != confirm_cag:
             #     messages.error(request, 'The Category do not match with CFP Role')
             #     return redirect('/test/')
@@ -2665,14 +2689,14 @@ def createcourse(request):
     cag_data = CareerCategory.objects.all()
     if CreateCourse.objects.count() != 0:
         obj = CreateCourse.objects.get(create_id=0)
-        role_list = CFP_role.objects.filter(cfp_category=obj.create_category)
+        role_list = SubCategory.objects.filter(cfp_category=obj.create_category)
         try:
             abc = CreateCourse.objects.get(create_id=0)
             role_text = abc.create_role
             role_split = role_text.split('+')
             abc = []
             for i in role_split:
-                course_text = CFP_role.objects.get(cfp_role=i)
+                course_text = SubCategory.objects.get(SubCategory=i)
                 course = course_text.cfp_course.split('_')
                 abc.append(course)
 
@@ -2727,7 +2751,7 @@ def createcourse(request):
 #         if 'first-role' in request.POST:
 #             con_cag=request.POST['con_cag']
 #             role=request.POST['first-role']
-#             compare=CFP_role.objects.get(cfp_role=role)
+#             compare=SubCategory.objects.get(SubCategory=role)
 #             if compare.cfp_category == con_cag:
 #                 data=CareerChoice.objects.get(career_id=1)
 #                 data.first_choice_role=role
@@ -2760,7 +2784,7 @@ def createcourse(request):
 #         if 'second-role' in request.POST:
 #             con_cag=request.POST['con_cag']
 #             role=request.POST['second-role']
-#             compare=CFP_role.objects.get(cfp_role=role)
+#             compare=SubCategory.objects.get(SubCategory=role)
 #             if compare.cfp_category == con_cag:
 #                 data=CareerChoice.objects.get(second_choice_category=con_cag)
 #                 data.second_choice_role=role
@@ -2785,8 +2809,8 @@ def createcourse(request):
 #     cag_list=CareerCategory.objects.all()
 #     if CareerChoice.objects.count()!=0:
 #         obj=CareerChoice.objects.get(career_id=1)
-#         role_list_one=CFP_role.objects.filter(cfp_category=obj.first_choice_category)
-#         role_list_two=CFP_role.objects.filter(cfp_category=obj.second_choice_category)
+#         role_list_one=SubCategory.objects.filter(cfp_category=obj.first_choice_category)
+#         role_list_two=SubCategory.objects.filter(cfp_category=obj.second_choice_category)
 #
 #     else:
 #         obj="Choose"
@@ -2804,109 +2828,48 @@ def createcourse(request):
 def UserCfp(request):
     user = request.user
     details = UserDetails.objects.get(user_id_id=user.pk)
-
+    sub_cats = None
+    s_courses =None
+    data=None
+    s_data=None
+    c_data=None
     if request.method == 'POST':
         if 'first-category' in request.POST:
-            count = CareerChoice.objects.all().count()
-            if count == 0:
-                category = request.POST['first-category']
-                data = CareerChoice(career_id=1, first_choice_category=category)
-                data.save()
-                return redirect('usercfp')
-
-            else:
-                cag = request.POST['first-category']
-                data = CareerChoice.objects.get(career_id=1)
-                data.first_choice_category = cag
-                data.first_choice_role = None
-                data.save()
-                return redirect('usercfp')
-
-        if 'first-role' in request.POST:
-            con_cag = request.POST['con_cag']
-            role = request.POST['first-role']
-            compare = CFP_role.objects.get(cfp_role=role)
-            if compare.cfp_category == con_cag:
-                data = CareerChoice.objects.get(career_id=1)
-                data.first_choice_role = role
-                data.save()
-                messages.success(request, "First Choice submitted")
-                return redirect('usercfp')
-            else:
-                messages.error(request, "Role and Category Do not Match")
-                return redirect('usercfp')
-
-        if 'second-category' in request.POST:
-            count = CareerChoice.objects.all().count()
-            if count == 0:
-                category = request.POST['second-category']
-                data = CareerChoice(career_id=1, second_choice_category=category)
-                data.save()
-                return redirect('usercfp')
-
-            else:
-                cag = request.POST['second-category']
-                data = CareerChoice.objects.get(career_id=1)
-                data.second_choice_category = cag
-                data.second_choice_role = None
-                data.save()
-                return redirect('usercfp')
-
-        if 'second-role' in request.POST:
-
-            con_cag = request.POST['con_cag']
-            role = request.POST['second-role']
-            compare = CFP_role.objects.get(cfp_role=role)
-            if compare.cfp_category == con_cag:
-                data = CareerChoice.objects.get(second_choice_category=con_cag)
-                data.second_choice_role = role
-                data.save()
-
-                return redirect('usercfp')
-            else:
-                # messages.error(request,"Role and Category Do not Match")
-                return redirect('usercfp')
-
+            category_id = request.POST['first-category']
+            data = CareerCategory.objects.get(id=category_id)
+            sub_cats = SubCategory.objects.filter(cat_id_id=data.pk)
+        if 'first-sub' in request.POST:
+            sub = request.POST['first-sub']
+            s_data = SubCategory.objects.get(sub_category=sub)
+            s_courses = CategoryCourse.objects.filter(sub_id_id=s_data.pk)
+        if 'course' in request.POST:
+            c_course = request.POST['course']
+            c_data = CategoryCourse.objects.get(cfp=c_course)
         if 'confirm_submit' in request.POST:
-            try:
-                if StudentCFP.objects.filter(user_id_id=details.pk).exists():
-                    messages.error(request, "CFP Choosed already")
-                    return redirect('usercfp')
-                compare_role = CareerChoice.objects.get()
-                print(compare_role.first_choice_role)
-                if compare_role.first_choice_role == compare_role.second_choice_role:
-                    print("same")
-                    messages.error(request, "First choice and Second choice are same")
-                    return redirect('usercfp')
-            except:
-                messages.error(request, "Some Error Occured")
-                return redirect('usercfp')
-            confirm_first_category = request.POST['confirm_first_category']
-            confirm_first_role = request.POST['confirm_first_role']
-            confirm_second_category = request.POST['confirm_second_category']
-            confirm_second_role = request.POST['confirm_second_role']
-            data = StudentCFP(category_one=confirm_first_category, role_one=confirm_first_role,
-                              category_two=confirm_second_category, role_two=confirm_second_role, user_id_id=details.pk)
-            data.save()
-            find = CareerChoice.objects.all().delete()
-            messages.success(request, "CFP Created")
-            return redirect('userprofileEdit')
-    cag_list = CareerCategory.objects.all()
-    if CareerChoice.objects.count() != 0:
-        obj = CareerChoice.objects.get(career_id=1)
-        role_list_one = CFP_role.objects.filter(cfp_category=obj.first_choice_category)
-        role_list_two = CFP_role.objects.filter(cfp_category=obj.second_choice_category)
+            m_cat = request.POST['confirm_first_category']
+            m_sub = request.POST['confirm_first_role']
+            m_cfp = request.POST['confirm_first_cfp']
+            print(m_cat)
+            print(m_sub)
+            print(m_cfp)
 
-    else:
-        obj = "Choose"
-        role_list_one = []
-        role_list_two = []
+            data1 = CareerCategory.objects.get(category=m_cat)
+            data2 = SubCategory.objects.get(sub_category=m_sub)
+            data3 = CategoryCourse.objects.get(cfp=m_cfp)
+            data = CareerChoice(cat_id_id=data1.pk,sub_id_id=data2.pk,cfp_id_id=data3.pk,user_id_id=user.pk)
+            data.save()
+            messages.success(request,"CFP choosed")
+
+
+    career_list = CareerCategory.objects.all()
 
     context = {
-        'cag_list': cag_list,
-        'obj': obj,
-        'role_list_one': role_list_one,
-        'role_list_two': role_list_two
+        'career_list': career_list,
+        'sub_cats':sub_cats,
+        's_courses':s_courses,
+        'data':data,
+        's_data':s_data,
+        'c_data':c_data
     }
     return render(request, 'virtualmain_pages/user-cfp.html', context)
 
@@ -3158,7 +3121,7 @@ def microCategory(request):
 
         if 'sortlist' in request.POST:
             cfp_category = request.POST['sortlist']
-            roles = CFP_role.objects.filter(cfp_category=cfp_category)
+            roles = SubCategory.objects.filter(cfp_category=cfp_category)
             category_list = CareerCategory.objects.all()
             context = {
                 'category_list': category_list,

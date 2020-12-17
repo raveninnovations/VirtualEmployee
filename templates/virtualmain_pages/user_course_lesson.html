@@ -24,7 +24,7 @@
 
 }
 
- input:hover {background: #CFCDCC}
+
 
 </style>
 
@@ -124,6 +124,7 @@
                 <div class="course-content bg-dark my-2 mx-auto" style="border-radius:10px;">
 
 
+
                     <!-- <div class="course-header">
 
                             {% include 'partials/_alerts.html' %}
@@ -160,9 +161,25 @@
 
                 <!-- course sidebar -->
 
-                <div class="container p-4 uk-width-1-2  " style="border-radius:10px; float:left;">
+
+
+<div class="uk-child-width-expand@s uk-text-center " uk-grid>
+
+    <div>
+       <button class="uk-button uk-button-primary">Previous</button>
+        <button class="uk-button uk-button-danger">Mark as completed</button>
+        <button class="uk-button uk-button-primary">Next</button>
+    </div>
+
+</div>
+
+
+
+
+<div uk-grid>
+                <div class="uk-margin-large-left p-2 uk-width-1-2  " style="border-radius:10px; ">
                     <div class="course-sidebar-title " style="background:#3e416d;">
-                        <h3 class="text-white"> <strong>Table of Contents </strong></h3>
+                        <h3 class="text-white"> <strong>Syllabus</strong></h3>
                         {% if check == 0 %}
                         <form method=POST>
                           {% csrf_token %}
@@ -180,7 +197,9 @@
                             {% if lessons %}
                                 {% for curriculam in lessons %}
                              <li class="uk-open">
-                                <a class="uk-accordion-title text-white" href="#" style="background:#7296db;"> {{ curriculam.lesson_name }} </a>
+                                <a class="uk-accordion-title text-white" href="#"> {{ curriculam.lesson_name }}
+                                    <span class="course_tab_text" >5 Days 20 Hrs</span>
+                                </a>
                                 <div class="uk-accordion-content">
                                     <!-- course-video-list -->
                                     <ul class="course-video-list highlight-watched"
@@ -188,26 +207,49 @@
                                         {% for topic in topics %}
                                             {% if topic.topic_id_id == curriculam.pk %}
                                                 <form method="post">{% csrf_token %}
-                                                 <li><input type="submit" onclick="myFunction()" name="video" class="vid my-0 py-0 text-left" value="{{ topic.topic_caption }}"  style="border:0px solid #c7d3eb;width: 90%">
+                                                 <li>
+                                                  <input class="lesson_checkbox" type="checkbox" checked="checked">
+                                                  <input type="submit" onclick="myFunction()" name="video" class="vid my-0 py-0 text-left lesson_video_submit" value="{{ topic.topic_caption }}"  style="border:0px solid #c7d3eb;width: 90%">
                                                      {% for watch in watch %}
                                                          {% if watch.user_id == user_details.pk %}
                                                      {% if topic.pk == watch.video_id %}
-                                                     <span class="round"><i class="icon-feather-check " style="color: darkgreen"></i></span>
+
                                                          {% else %}
                                                          {% endif %}
                                                          {% endif %}
                                                  {% endfor %}
+
+
                                                  </li>
+
+
                                                 </form>
 
                                             {% endif %}
                                       {% endfor %}
+                                      <li>
+                                                  <input class="lesson_checkbox" type="checkbox" checked="checked"> <b>Progressive Test</b>
 
+                                      </li>
                                     </ul>
+
                                 </div>
                             </li>
                                 {% endfor %}
                             {% endif %}
+
+                             <li class="locked_course">
+                                <a class="uk-accordion-title text-white" href="#"> Locked Course <button class="uk-button uk-button-default uk-button-small course_tab_button">Start</button></a>
+                                <div class="uk-accordion-content">
+                                  <ul class="course-video-list highlight-watched"
+                                          uk-switcher="">
+                                            <li>
+                                                    <input class="lesson_checkbox" type="checkbox"> <b>Progressive Test</b>
+
+                                        </li>
+                                  </ul>
+                                </div>
+                             </li>
 
                         {% if progress %}
                             <form method="post">{% csrf_token %}
@@ -215,15 +257,28 @@
                             </form>
                         {% endif %}
                         </ul>
-
-
                     </div>
 
                 </div>
+                <div class="p-2 uk-width-expand  " style="border-radius:10px; ">
+                  <div class="uk-card uk-card-default uk-card-body uk-width-1-1@m">
+                    <div class="uk-card-badge uk-label">NOTE</div>
+                    <h3 class="uk-card-title p-0 m-0">Download HTML Command Files</h3>
+                    <a href="http://virtualempleado.com/">http://virtualempleado.com/files/downloads/file3443</a>
+                  </div>
 
+                 <div>
+                    <div class="uk-card uk-card-primary uk-card-body">
+                        <h3 class="uk-card-title p-0 m-0">Some FAQ</h3>
+                        <p>Ans given by faculty</p>
+                        <button class="uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom">Got Doubts</button>
+
+                    </div>
+                </div>
+
+                </div>
+              </div>
             </div>
-
-
 
          </div>
 
@@ -261,6 +316,10 @@
                         localStorage['tab'] = $(this).index();
                     }
                     make_button_active($(this));
+                });
+
+                $('.locked_course').on('click',function(){
+                    return false;
                 });
 
             });

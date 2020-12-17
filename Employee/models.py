@@ -199,15 +199,21 @@ class MicroCourse(models.Model):
         return self.course_name
 
 
-class CFP_role(models.Model):
-    cfp_id=models.IntegerField(default=0)
-    cfp_category=models.CharField(max_length=255)
-    cfp_role=models.CharField(max_length=255)
-    cfp_course=models.TextField(blank=True)
-    cfp_create_date=models.DateTimeField(default=datetime.now,blank=True)
+class SubCategory(models.Model):
+    cat_id=models.ForeignKey(CareerCategory,on_delete=models.CASCADE,null=True)
+    sub_category=models.CharField(max_length=255,null=True)
+    create_date=models.DateTimeField(default=datetime.now,null=True)
 
     def __str__(self):
-        return self.cfp_role
+        return self.sub_category
+class CategoryCourse(models.Model):
+    cat_id = models.ForeignKey(CareerCategory,on_delete=models.CASCADE)
+    sub_id = models.ForeignKey(SubCategory,on_delete=models.CASCADE)
+    cfp = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.cfp
+
 
 class ProjectManager(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
@@ -240,18 +246,10 @@ class CreateCourse(models.Model):
 
 
 class CareerChoice(models.Model):
-    career_id=models.IntegerField(default=0)
-    choice_name=models.CharField(max_length=50,default="Student Choices")
-    first_choice_category=models.CharField(max_length=50,blank=True)
-    first_choice_role=models.CharField(max_length=50,blank=True,null=True)
-
-    second_choice_category=models.CharField(max_length=50,blank=True)
-    second_choice_role=models.CharField(max_length=50,blank=True,null=True)
-
-
-    def __str__(self):
-        return self.choice_name
-
+    user_id = models.ForeignKey(User,models.CASCADE,null=True)
+    cat_id = models.ForeignKey(CareerCategory,models.CASCADE,null=True)
+    sub_id = models.ForeignKey(SubCategory,models.CASCADE,null=True)
+    cfp_id = models.ForeignKey(CategoryCourse,models.CASCADE,null=True)
 
 class StudentCFP(models.Model):
     user_id = models.ForeignKey(UserDetails,on_delete=models.CASCADE,null=True)
@@ -296,7 +294,7 @@ class EnrolledProject(models.Model):
 
 # Watched videos
 class watched(models.Model):
-    video = models.ForeignKey(Week_Unit,models.CASCADE)
+    video = models.ForeignKey(Week_Unit,models.CASCADE,null=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(UserDetails,on_delete=models.CASCADE,null=True)
     status = models.CharField(max_length=50)
