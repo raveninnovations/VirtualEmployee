@@ -2,7 +2,7 @@ django-phonenumber-field
 phonenumbers
 email_validator
 django-crispy-forms==1.8.1
-Pillow==7.1.0
+Pillow==9.0.1
 moviepy
 opencv-python
 source
